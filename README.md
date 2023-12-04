@@ -2,9 +2,11 @@
 
 ![截图](https://github.com/yeraph-plus/aiya-theme-core/blob/master/screenshot/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-12-03%20112645.png)
 
+---
 
 一个用于为 WordPress 主题创建设置页面、分类 Meta 字段和文章 MetaBox 组件的选项框架，是 AIYA-CMS 主题的其中一部分。
 
+---
 
 TIPS：这个项目目前尚未完工，表单功能中的“设置组”组件完全不可用，并且也不支持创建多重表单，因为这类表单通常是为主题的轮播/Banner/广告功能提供的，目前我写主题的进度距离这一块还有那么亿点点距离，所以暂时搁置了。
 
@@ -33,3 +35,9 @@ TIPS：这个项目目前尚未完工，表单功能中的“设置组”组件�
 3、理论上这个框架可以当作插件加载，但不建议，因为写的时候完全没考虑过插件兼容。
 
 如果一定要用作插件的话请修改常量定义中的 `get_template_directory()` 和 `get_template_directory_uri()` 为 `plugin_dir_path()` 和 `plugins_url()` 。
+
+#### 还没完成的功能：
+
+- 表单设置组创建、嵌套以及多重创建
+- 设置列表生成目录树，或者做 tab 分页
+- 多语言兼容
