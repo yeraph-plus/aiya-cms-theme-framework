@@ -2,7 +2,7 @@
 /*
 Plugin Name: AIYA-CMS Options Framework
 Plugin URI: https://www.yeraph.com/
-Description: 为AIYA-CMS提供的选项框架，用于创建设置页面、分类MetaBox、文章MetaBox，并提供一些快速启动功能。
+Description: 为AIYA-CMS提供的选项框架，用于创建设置页面、分类Meta字段和文章MetaBox组件，并提供一些快速启动功能。
 Version: 0.3
 Author: Yeraph Studio
 Author URI: https://www.yeraph.com/
