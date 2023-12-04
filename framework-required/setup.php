@@ -11,10 +11,6 @@ License: GPLv3 or later
 
 if (!defined('ABSPATH')) exit;
 
-define('AYA_PATH', get_template_directory() . '/');
-define('AYA_CORE_PATH', get_template_directory() . '/framework-required');
-define('AYA_CORE_URI', get_template_directory_uri() . '/framework-required');
-
 if (!class_exists('AYA_Framework_Setup')) {
     class AYA_Framework_Setup
     {
@@ -41,18 +37,18 @@ if (!class_exists('AYA_Framework_Setup')) {
             //根目录
             $root_dir = AYA_CORE_PATH . '/inc';
             //引入框架
-            require_once $root_dir . '/option-field-action.php';
-            require_once $root_dir . '/option-framework-page.php';
-            require_once $root_dir . '/option-metabox-post.php';
-            require_once $root_dir . '/option-metabox-term.php';
+            include_once $root_dir . '/option-field-action.php';
+            include_once $root_dir . '/option-framework-page.php';
+            include_once $root_dir . '/option-metabox-post.php';
+            include_once $root_dir . '/option-metabox-term.php';
             //功能组件
-            require_once $root_dir . '/action-env-check.php';
-            require_once $root_dir . '/action-dashboard.php';
-            require_once $root_dir . '/action-register.php';
-            require_once $root_dir . '/action-optimize.php';
-            require_once $root_dir . '/action-request.php';
-            require_once $root_dir . '/action-security.php';
-            require_once $root_dir . '/action-template-page.php';
+            include_once $root_dir . '/action-env-check.php';
+            include_once $root_dir . '/action-dashboard.php';
+            include_once $root_dir . '/action-register.php';
+            include_once $root_dir . '/action-optimize.php';
+            include_once $root_dir . '/action-request.php';
+            include_once $root_dir . '/action-security.php';
+            include_once $root_dir . '/action-template-page.php';
         }
         //设置框架组件
         private function include_framework_field()
@@ -79,7 +75,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             foreach ($fields as $field) {
                 if (!class_exists('AYA_Option_Fired_' . $field) && class_exists('AYA_Field_Action')) {
-                    require_once  $root_dir . '/' . $field . '.php';
+                    include_once  $root_dir . '/' . $field . '.php';
                 }
             }
         }
@@ -118,6 +114,11 @@ if (!class_exists('AYA_Framework_Setup')) {
 if (!class_exists('AYA_Theme_Setup')) {
     class AYA_Theme_Setup extends AYA_Framework_Setup
     {
+        public function __construct()
+        {
+            parent::__construct();
+        }
+
         //路由伪静态开关
         public static $tag_html = true;
 
@@ -132,13 +133,14 @@ if (!class_exists('AYA_Theme_Setup')) {
 
                 //如果类未定义且参数不为null，则实例化
                 if (class_exists($class) && $args != null) {
-                    //如果参数为布尔型，则不添加参数
+
                     if (is_bool($args) && $args != false) {
-
+                        //如果参数为布尔型，则不添加参数
                         new $class();
+                    } else {
+                        //否则直接将参数传入
+                        new $class($args);
                     }
-
-                    new $class($args);
                 }
             }
         }
@@ -180,14 +182,24 @@ if (!class_exists('AYF')) {
     {
         private static $self_inst = 'aya_option';
 
+        private static $instance;
+
         public function __construct()
         {
             parent::__construct();
+        }
+        //初始化
+        public static function init()
+        {
+            if (is_null(self::$instance)) new self();
         }
         //简化调用
         public static function new_opt($conf = array())
         {
             if ($conf == array()) return;
+
+            self::init();
+
             //创建设置页面参数
             $inst = array(
                 'title' => $conf['title'],
@@ -203,17 +215,22 @@ if (!class_exists('AYF')) {
         {
             if ($conf == array()) return;
 
+            self::init();
+
             new AYA_Framework_Term_Meta($conf, $inst);
         }
         public static function new_box($conf = array())
         {
             if ($conf == array()) return;
 
+            self::init();
+
             new AYA_Framework_Post_Meta($conf, $inst);
         }
         public static function new_act($conf)
         {
             self::init();
+
             $Setup = new AYA_Theme_Setup();
 
             $Setup->action($conf);

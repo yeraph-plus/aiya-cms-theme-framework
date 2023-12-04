@@ -1,8 +1,16 @@
 <?php
-
 if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
+
+class AYA_Plugin_Widget_Cache_Mode extends AYA_Theme_Setup
+{
+    public function __construct()
+    {
+        //单例模式执行
+        AYA_Cache_Widget_Output::instance();
+    }
+}
 
 class AYA_Cache_Widget_Output
 {

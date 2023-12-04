@@ -270,14 +270,14 @@ $meta_info = array(
 );
 $info_meta = array(
     array(
-        'name' => 'Input Example',
+        'title' => 'Input Example',
         'desc' => 'A text input example, Default content:"Hello ashuwp."',
         'id'   => 'text_example',
         'type' => 'text',
         'default'  => 'Hello ashuwp.',
     ),
     array(
-        'name' => 'Textarea Example',
+        'title' => 'Textarea Example',
         'desc' => 'A textarea example, Default content:"Default content."',
         'id'   => 'textarea_example',
         'type' => 'textarea',

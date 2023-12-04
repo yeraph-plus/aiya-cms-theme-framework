@@ -1,6 +1,7 @@
 <?php
-
 if (!defined('ABSPATH')) exit;
+
+if (!class_exists('AYA_Theme_Setup')) exit;
 
 class AYA_Plugin_Rewrite_Category
 {

@@ -9,7 +9,7 @@ $AYF = new AYF();
 //定义一些全局变量
 global $aya_post_type, $aya_tax_type;
 
-//创建父级设置页面内容
+//创建父级设置页面和内容
 $opt_self = array(
     'title' => 'AIYA-CMS',
     'slug' => '',
@@ -507,6 +507,7 @@ $plugin_seo_field = array(
         ),
     )
 );
+
 $plugin_stmp_field = array(
     'title' => '邮件设置',
     'slug' => 'stmpmail',
@@ -600,65 +601,65 @@ $plugin_stmp_field = array(
     )
 );
 
-$AYF->new_opt($opt_self);
-$AYF->new_opt($plugin_stmp_field);
-$AYF->new_opt($plugin_seo_field);
-$AYF->new_opt($opt_field);
+AYF::new_opt($opt_self);
+AYF::new_opt($plugin_stmp_field);
+AYF::new_opt($plugin_seo_field);
+AYF::new_opt($opt_field);
 
 //创建功能
 $opt_action = array(
     'Optimize' => array(
-        'default_cravatar' => $AYF->get_checked('default_cravatar', 'optimize'),
-        'default_gravatar' => $AYF->get_checked('default_gravatar', 'optimize'),
+        'default_cravatar' => AYF::get_checked('default_cravatar', 'optimize'),
+        'default_gravatar' => AYF::get_checked('default_gravatar', 'optimize'),
         'grvatar_speed' => array(
-            'avatar_cdn_type' => $AYF->get_opt('avatar_cdn_type', 'optimize'),
-            'avatar_cdn_custom' => $AYF->get_opt('avatar_cdn_custom', 'optimize'),
-            'avatar_ssl' => $AYF->get_checked('avatar_ssl', 'optimize'),
+            'avatar_cdn_type' => AYF::get_opt('avatar_cdn_type', 'optimize'),
+            'avatar_cdn_custom' => AYF::get_opt('avatar_cdn_custom', 'optimize'),
+            'avatar_ssl' => AYF::get_checked('avatar_ssl', 'optimize'),
         ),
-        'no_category_base' => $AYF->get_checked('no_category_base', 'optimize'),
-        'remove_head_redundant' => $AYF->get_checked('remove_head_redundant', ''),
-        'remove_head_title' => $AYF->get_checked('remove_head_title', 'optimize'),
-        'remove_open_sans' => $AYF->get_checked('remove_open_sans', 'optimize'),
-        'remove_gutenberg_styles' => $AYF->get_checked('remove_gutenberg_styles', 'optimize'),
-        'remove_head_oembed' => $AYF->get_checked('remove_head_oembed', 'optimize'),
-        'remove_autoembed' => $AYF->get_checked('remove_autoembed', 'optimize'),
-        'remove_wp_emojicons' => $AYF->get_checked('remove_wp_emojicons', 'optimize'),
-        'remove_sworg' => $AYF->get_checked('remove_sworg', 'optimize'),
-        'remove_wp_thumbnails' => $AYF->get_checked('remove_wp_thumbnails', 'optimize'),
-        'remove_image_threshold' => $AYF->get_checked('remove_image_threshold', 'optimize'),
-        'remove_css_js_ver' => $AYF->get_checked('remove_css_js_ver', 'optimize'),
-        'remove_revisions' => $AYF->get_checked('remove_revisions', 'optimize'),
-        'remove_editor_autosave' => $AYF->get_checked('remove_editor_autosave', 'optimize'),
-        'add_link_manager' => $AYF->get_checked('add_link_manager', 'optimize'),
-        'add_upload_webp' => $AYF->get_checked('add_upload_webp', 'optimize'),
+        'no_category_base' => AYF::get_checked('no_category_base', 'optimize'),
+        'remove_head_redundant' => AYF::get_checked('remove_head_redundant', 'optimize'),
+        'remove_head_title' => AYF::get_checked('remove_head_title', 'optimize'),
+        'remove_open_sans' => AYF::get_checked('remove_open_sans', 'optimize'),
+        'remove_gutenberg_styles' => AYF::get_checked('remove_gutenberg_styles', 'optimize'),
+        'remove_head_oembed' => AYF::get_checked('remove_head_oembed', 'optimize'),
+        'remove_autoembed' => AYF::get_checked('remove_autoembed', 'optimize'),
+        'remove_wp_emojicons' => AYF::get_checked('remove_wp_emojicons', 'optimize'),
+        'remove_sworg' => AYF::get_checked('remove_sworg', 'optimize'),
+        'remove_wp_thumbnails' => AYF::get_checked('remove_wp_thumbnails', 'optimize'),
+        'remove_image_threshold' => AYF::get_checked('remove_image_threshold', 'optimize'),
+        'remove_css_js_ver' => AYF::get_checked('remove_css_js_ver', 'optimize'),
+        'remove_revisions' => AYF::get_checked('remove_revisions', 'optimize'),
+        'remove_editor_autosave' => AYF::get_checked('remove_editor_autosave', 'optimize'),
+        'add_link_manager' => AYF::get_checked('add_link_manager', 'optimize'),
+        'add_upload_webp' => AYF::get_checked('add_upload_webp', 'optimize'),
     ),
     'Security' => array(
-        'disable_xmlrpc' => $AYF->get_checked('disable_xmlrpc', 'optimize'),
-        'disable_pingback' => $AYF->get_checked('disable_pingback', 'optimize'),
-        'disable_rest_api' => $AYF->get_checked('disable_rest_api', 'optimize'),
-        'add_rest_api_logged_verify' => $AYF->get_checked('add_rest_api_logged_verify', 'optimize'),
-        'disable_feed' => $AYF->get_checked('disable_feed', 'optimize'),
-        'add_access_reject' => $AYF->get_checked('add_access_reject', 'optimize'),
-        'access_reject_list' => $AYF->get_opt('access_reject_list', 'optimize'),
-        'add_admin_login_protection' => $AYF->get_checked('add_admin_login_protection', 'optimize'),
-        'admin_login_args' => $AYF->get_opt('admin_login_args', 'optimize'),
-        'admin_login_args_val' => $AYF->get_opt('admin_login_args_val', 'optimize'),
-        'add_admin_logged_verify' => $AYF->get_checked('add_admin_logged_verify', 'optimize'),
-        'disable_login_errors' => $AYF->get_checked('disable_login_errors', 'optimize'),
-        'disable_allow_password_reset' => $AYF->get_checked('disable_allow_password_reset', 'optimize'),
-        'disable_admin_email_check' => $AYF->get_checked('disable_admin_email_check', 'optimize'),
+        'disable_xmlrpc' => AYF::get_checked('disable_xmlrpc', 'optimize'),
+        'disable_pingback' => AYF::get_checked('disable_pingback', 'optimize'),
+        'disable_rest_api' => AYF::get_checked('disable_rest_api', 'optimize'),
+        'add_rest_api_logged_verify' => AYF::get_checked('add_rest_api_logged_verify', 'optimize'),
+        'disable_feed' => AYF::get_checked('disable_feed', 'optimize'),
+        'add_access_reject' => AYF::get_checked('add_access_reject', 'optimize'),
+        'access_reject_list' => AYF::get_opt('access_reject_list', 'optimize'),
+        'add_admin_login_protection' => AYF::get_checked('add_admin_login_protection', 'optimize'),
+        'admin_login_args' => AYF::get_opt('admin_login_args', 'optimize'),
+        'admin_login_args_val' => AYF::get_opt('admin_login_args_val', 'optimize'),
+        'add_admin_logged_verify' => AYF::get_checked('add_admin_logged_verify', 'optimize'),
+        'disable_login_errors' => AYF::get_checked('disable_login_errors', 'optimize'),
+        'disable_allow_password_reset' => AYF::get_checked('disable_allow_password_reset', 'optimize'),
+        'disable_admin_email_check' => AYF::get_checked('disable_admin_email_check', 'optimize'),
     ),
     'Request' => array(
-        'query_post_type_var' => $AYF->get_checked('query_post_type_var', 'optimize'),
-        'query_ignore_sticky' => $AYF->get_checked('query_ignore_sticky', 'optimize'),
-        'query_ignore_category' => $AYF->get_opt('query_ignore_category', 'optimize'),
-        'query_ignore_post' => $AYF->get_opt('query_ignore_post', 'optimize'),
-        'search_redirect_intend' => $AYF->get_checked('search_redirect_intend', 'optimize'),
-        'search_redirect_request' => $AYF->get_checked('search_redirect_request', 'optimize'),
-        'search_page_type' => $AYF->get_checked('search_page_type', 'optimize'),
-        'serach_ignore_category' => $AYF->get_opt('serach_ignore_category', 'optimize'),
-        'serach_ignore_post' => $AYF->get_opt('serach_ignore_post', 'optimize'),
-        'query_author_current' => $AYF->get_checked('query_author_current', 'optimize'),
+        'query_post_type_var' => AYF::get_checked('query_post_type_var', 'optimize'),
+        'query_ignore_sticky' => AYF::get_checked('query_ignore_sticky', 'optimize'),
+        'query_ignore_category' => AYF::get_opt('query_ignore_category', 'optimize'),
+        'query_ignore_post' => AYF::get_opt('query_ignore_post', 'optimize'),
+        'search_redirect_intend' => AYF::get_checked('search_redirect_intend', 'optimize'),
+        'search_redirect_request' => AYF::get_checked('search_redirect_request', 'optimize'),
+        'search_page_type' => AYF::get_checked('search_page_type', 'optimize'),
+        'serach_ignore_category' => AYF::get_opt('serach_ignore_category', 'optimize'),
+        'serach_ignore_post' => AYF::get_opt('serach_ignore_post', 'optimize'),
+        'query_author_current' => AYF::get_checked('query_author_current', 'optimize'),
     ),
 );
 /*
@@ -774,35 +775,34 @@ $opt_action_backup = array(
 //插件功能
 $plugin_action = array(
     'Mail_Sender' => array(
-        'disable_new_user_email_admin' => $AYF->get_checked('disable_new_user_email_admin', 'stmpmail'),
-        'disable_new_user_email_user' => $AYF->get_checked('disable_new_user_email_user', 'stmpmail'),
-        'stmp_action' => $AYF->get_checked('stmp_action', 'stmpmail'),
-        'smtp_from' => $AYF->get_opt('smtp_from', 'stmpmail'),
-        'smtp_from_name' => $AYF->get_opt('smtp_from_name', 'stmpmail'),
-        'smtp_host' => $AYF->get_opt('smtp_host', 'stmpmail'),
-        'smtp_port' => $AYF->get_opt('smtp_port', 'stmpmail'),
-        'smtp_ssl' => $AYF->get_checked('smtp_ssl', 'stmpmail'),
-        'smtp_user' => $AYF->get_opt('smtp_user', 'stmpmail'),
-        'smtp_pass' => $AYF->get_opt('smtp_pass', 'stmpmail'),
-        'smtp_auth' => $AYF->get_checked('smtp_auth', 'stmpmail'),
+        'disable_new_user_email_admin' => AYF::get_checked('disable_new_user_email_admin', 'stmpmail'),
+        'disable_new_user_email_user' => AYF::get_checked('disable_new_user_email_user', 'stmpmail'),
+        'stmp_action' => AYF::get_checked('stmp_action', 'stmpmail'),
+        'smtp_from' => AYF::get_opt('smtp_from', 'stmpmail'),
+        'smtp_from_name' => AYF::get_opt('smtp_from_name', 'stmpmail'),
+        'smtp_host' => AYF::get_opt('smtp_host', 'stmpmail'),
+        'smtp_port' => AYF::get_opt('smtp_port', 'stmpmail'),
+        'smtp_ssl' => AYF::get_checked('smtp_ssl', 'stmpmail'),
+        'smtp_user' => AYF::get_opt('smtp_user', 'stmpmail'),
+        'smtp_pass' => AYF::get_opt('smtp_pass', 'stmpmail'),
+        'smtp_auth' => AYF::get_checked('smtp_auth', 'stmpmail'),
     ),
     'Head_Label_Action' => array(
-        'site_favicon_url' => $AYF->get_opt('avatar_cdn_custom', 'head'),
-        'site_analytics_script' => $AYF->get_opt('site_analytics_script', 'head'),
-        'site_extra_css' => $AYF->get_opt('site_extra_css', 'head'),
-        'site_title' => $AYF->get_opt('site_title', 'head'),
-        'site_subtitle' => $AYF->get_opt('site_subtitle', 'head'),
-        'subtitle_true' => $AYF->get_checked('subtitle_true', 'head'),
-        'title_sep' => $AYF->get_opt('title_sep', 'head'),
-        'title_sep_space' => $AYF->get_checked('title_sep_space', 'head'),
-        'seo_action' => $AYF->get_checked('seo_action', 'head'),
-        'home_seo_keywords' => $AYF->get_opt('home_seo_keywords', 'head'),
-        'home_seo_description' => $AYF->get_opt('home_seo_description', 'head'),
-        'custom_robots_true' => $AYF->get_checked('custom_robots_true', 'head'),
-        'custom_robots_txt' => $AYF->get_opt('custom_robots_txt', 'head'),
+        'site_favicon_url' => AYF::get_opt('avatar_cdn_custom', 'head'),
+        'site_analytics_script' => AYF::get_opt('site_analytics_script', 'head'),
+        'site_extra_css' => AYF::get_opt('site_extra_css', 'head'),
+        'site_title' => AYF::get_opt('site_title', 'head'),
+        'site_subtitle' => AYF::get_opt('site_subtitle', 'head'),
+        'subtitle_true' => AYF::get_checked('subtitle_true', 'head'),
+        'title_sep' => AYF::get_opt('title_sep', 'head'),
+        'title_sep_space' => AYF::get_checked('title_sep_space', 'head'),
+        'seo_action' => AYF::get_checked('seo_action', 'head'),
+        'home_seo_keywords' => AYF::get_opt('home_seo_keywords', 'head'),
+        'home_seo_description' => AYF::get_opt('home_seo_description', 'head'),
+        'custom_robots_true' => AYF::get_checked('custom_robots_true', 'head'),
+        'custom_robots_txt' => AYF::get_opt('custom_robots_txt', 'head'),
     ),
 );
-
 //创建主题功能
 $theme_action = array(
     //运行环境检查
@@ -911,8 +911,8 @@ $theme_action = array(
     'Widget_Cache_Mode' => true,
 );
 
-//$AYF->new_act($theme_action);
-$AYF->new_act($opt_action);
-$AYF->new_act($plugin_action);
+AYF::new_act($theme_action);
+AYF::new_act($plugin_action);
+AYF::new_act($opt_action);
 
 require_once AYA_CORE_PATH . '/fix.php';

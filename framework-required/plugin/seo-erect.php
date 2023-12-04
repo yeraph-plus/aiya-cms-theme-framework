@@ -1,27 +1,35 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
-if (!defined('ABSPATH') && !class_exists('AYA_Theme_Setup')) exit;
+if (!class_exists('AYA_Theme_Setup')) exit;
 
-class AYA_Theme_Head_Label_Action
+class AYA_Plugin_Head_Label_Action
 {
     var $seo_action;
 
     public function __construct($args)
     {
         $this->seo_action = $args;
+    }
 
-        if ($args['seo_action'] == true) {
+    public function __destruct()
+    {
+        $action = $this->seo_action;
+
+        add_action('wp_head', array($this, 'aya_theme_head_action'));
+
+        if ($action['seo_action'] == true) {
             //分类MetaBox
             $term_feild = array(
                 array(
-                    'name' => 'SEO关键词',
-                    'desc' => '多个关键词之间使用<code>, <code>分隔，默认显示该分类名称。',
+                    'title' => 'SEO关键词',
+                    'desc' => '多个关键词之间使用<code>, </code>分隔，默认显示该分类名称。',
                     'id'   => 'seo_cat_keywords',
                     'type' => 'text',
                     'default'  => '',
                 ),
                 array(
-                    'name' => 'SEO描述',
+                    'title' => 'SEO描述',
                     'desc' => '默认显示该分类名称。',
                     'id'   => 'seo_cat_desc',
                     'type' => 'textarea',
@@ -39,14 +47,14 @@ class AYA_Theme_Head_Label_Action
             );
             $post_meta = array(
                 array(
-                    'name' => 'SEO关键词',
-                    'desc' => '多个关键词之间使用<code>, <code>分隔，留空则默认设置为文章的标签。',
+                    'title' => 'SEO关键词',
+                    'desc' => '多个关键词之间使用<code>, </code>分隔，留空则默认设置为文章的标签。',
                     'id'   => 'seo_keywords',
                     'type' => 'text',
                     'default'  => '',
                 ),
                 array(
-                    'name' => 'SEO描述',
+                    'title' => 'SEO描述',
                     'desc' => '默认为文章前150个字符（推荐不超过150个字符）。',
                     'id'   => 'seo_desc',
                     'type' => 'textarea',
@@ -54,15 +62,7 @@ class AYA_Theme_Head_Label_Action
                 ),
             );
             new AYA_Framework_Post_Meta($post_meta, $meta_info);
-        }
-    }
 
-    public function __destruct()
-    {
-        $action = $this->seo_action;
-
-        add_action('wp_head', array($this, 'aya_theme_head_action'));
-        if ($action['seo_action'] == true) {
             add_action('wp_head', array($this, 'aya_theme_head_seo_action'));
             add_filter('robots_txt', array($this, 'aya_theme_filter_robots_txt'), 10, 2);
         }

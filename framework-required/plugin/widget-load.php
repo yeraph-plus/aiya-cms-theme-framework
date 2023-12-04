@@ -1,10 +1,9 @@
 <?php
-
 if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
-class AYA_Theme_Widget_Load extends AYA_Theme_Setup
+class AYA_Plugin_Widget_Load extends AYA_Theme_Setup
 {
     var $register_widgets;
 
@@ -31,7 +30,7 @@ class AYA_Theme_Widget_Load extends AYA_Theme_Setup
     }
 }
 
-class AYA_Theme_Widget_Unload extends AYA_Theme_Setup
+class AYA_Plugin_Widget_Unload extends AYA_Theme_Setup
 {
     var $unload_widgets;
 
@@ -55,14 +54,5 @@ class AYA_Theme_Widget_Unload extends AYA_Theme_Setup
         foreach ($widgets as $widget) {
             unregister_widget($widget);
         }
-    }
-}
-
-class AYA_Theme_Widget_Cache_Mode extends AYA_Theme_Setup
-{
-    public function __construct()
-    {
-        //单例模式执行
-        AYA_Cache_Widget_Output::instance();
     }
 }
