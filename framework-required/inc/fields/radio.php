@@ -26,10 +26,12 @@ class AYA_Option_Fired_radio extends AYA_Field_Action
         $html = '';
         //循环
         foreach ($entries as $ent_id => $ent_title) {
+            /*
             $checked = '';
             if ($field['default'] == $ent_id) {
                 $checked = 'checked="checked"';
             }
+            */
 
             $html .= sprintf(
                 $format,
@@ -37,7 +39,7 @@ class AYA_Option_Fired_radio extends AYA_Field_Action
                 $field['id'] . '-' . $ent_id,
                 $field['id'],
                 $ent_id,
-                $checked,
+                checked($ent_id, $field['default'], false),
                 $ent_title,
                 $ent_title
             );

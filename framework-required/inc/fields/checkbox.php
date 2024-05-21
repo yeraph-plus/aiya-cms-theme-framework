@@ -27,7 +27,7 @@ class AYA_Option_Fired_checkbox extends AYA_Field_Action
         $html = '';
         //循环
         foreach ($entries as $ent_id => $ent_title) {
-            $checked = (in_array($ent_id, $default)) ? 'checked="checked"' : '';
+            $field_checked = in_array($ent_id, $default);
 
             $html .= sprintf(
                 $format,
@@ -35,7 +35,7 @@ class AYA_Option_Fired_checkbox extends AYA_Field_Action
                 $field['id'] . '-' . $ent_id,
                 $field['id'] . '[]',
                 $ent_id,
-                $checked,
+                checked($field_checked, true, false),
                 $ent_title,
                 $ent_title
             );

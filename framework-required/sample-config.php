@@ -1,19 +1,13 @@
 <?php
 
-AYA_Framework_Setup::init();
-
-function framework_doc_about_page()
-{
-    $document_file = fopen(AYF_PATH . '/document.html', 'r') or die('Unable to open file!');
-    echo fread($document_file, filesize(AYF_PATH . '/document.html'));
-    fclose($document_file);
-}
+AYA_Framework_Setup::instance();
 
 //----- about page -----
 
 $about_info = array(
-    'title' => 'About',
+    'title' => 'AIYA-Framework',
     'slug' => 'sample',
+    'icon' => 'dashicons-admin-generic',
     'desc' => 'AIYA-CMS Theme Options Framework.',
 );
 $about_options = array(
@@ -38,11 +32,11 @@ $page_info = array(
 $page_options = array(
     array(
         'desc' => 'H2 Title desc',
-        'type' => 'title_h2',
+        'type' => 'title_1',
     ),
     array(
         'desc' => 'H3 Title desc',
-        'type' => 'title_h3',
+        'type' => 'title_2',
     ),
     array(
         'desc' => 'Text desc',
@@ -51,28 +45,28 @@ $page_options = array(
     array(
         'title' => 'Input Example',
         'desc' => 'This field is input box',
-        'id'   => 'sample_input',
+        'id' => 'sample_input',
         'type' => 'text',
         'default' => '',
     ),
     array(
         'title' => 'Textarea Example',
         'desc' => 'Description or Notice',
-        'id'   => 'sample_textarea',
+        'id' => 'sample_textarea',
         'type' => 'textarea',
         'default'  => 'Default content',
     ),
     array(
         'title' => 'Color Example',
         'desc' => 'Set type as color picker worked.',
-        'id'   => 'sample_color_picker',
+        'id' => 'sample_color_picker',
         'type' => 'color',
         'default'  => '',
     ),
     array(
         'title' => 'Radio Example',
         'desc' => 'Set type as select.',
-        'id'   => 'sample_radio',
+        'id' => 'sample_radio',
         'type' => 'radio',
         'sub'  => array(
             'custom_radio_1' => 'Radio 1',
@@ -84,14 +78,14 @@ $page_options = array(
     array(
         'title' => 'Switch Example',
         'desc' => 'Set type as select.',
-        'id'   => 'sample_switch',
+        'id' => 'sample_switch',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => 'Checkbox Example',
         'desc' => 'Set type as select.',
-        'id'   => 'sample_checkbox',
+        'id' => 'sample_checkbox',
         'type' => 'checkbox',
         'sub'  => array(
             'custom_check_1' => 'Checkbox 1',
@@ -103,7 +97,7 @@ $page_options = array(
     array(
         'title' => 'Checkbox Example 2',
         'desc' => 'Set type as menus.',
-        'id'   => 'sample_checkbox_2',
+        'id' => 'sample_checkbox_2',
         'type' => 'checkbox',
         'sub_mode' => 'nav_menu',
         'default' => '',
@@ -111,7 +105,7 @@ $page_options = array(
     array(
         'title' => 'Checkbox Example 3',
         'desc' => 'Set type as categories.',
-        'id'   => 'sample_checkbox_3',
+        'id' => 'sample_checkbox_3',
         'type' => 'checkbox',
         'sub_mode' => 'category',
         'default' => '',
@@ -119,7 +113,7 @@ $page_options = array(
     array(
         'title' => 'Select Example',
         'desc' => 'Set type as select.',
-        'id'   => 'sample_select',
+        'id' => 'sample_select',
         'type' => 'select',
         'sub'  => array(
             'select_1' => 'Select 1',
@@ -131,7 +125,7 @@ $page_options = array(
     array(
         'title' => 'Select Example 2',
         'desc' => 'Set type as pages.',
-        'id'   => 'sample_select_2',
+        'id' => 'sample_select_2',
         'type'    => 'select',
         'sub_mode' => 'page',
         'default' => '',
@@ -139,14 +133,14 @@ $page_options = array(
     array(
         'title' => 'Select Example 3',
         'desc' => 'Set type as users.',
-        'id'   => 'sample_select_3',
+        'id' => 'sample_select_3',
         'type' => 'select',
         'sub_mode' => 'user',
         'default' => '',
     ),
     array(
         'title' => 'Select Example 4',
-        'id'   => 'sample_select_4',
+        'id' => 'sample_select_4',
         'desc' => 'Set type as sidebars.',
         'type'    => 'select',
         'sub_mode' => 'sidebar',
@@ -155,7 +149,7 @@ $page_options = array(
     array(
         'title' => 'File Upload Example',
         'desc' => 'Upload a file or fill the blank with file uri.',
-        'id'   => 'sample_upload',
+        'id' => 'sample_upload',
         'type' => 'upload',
         'button_text' => 'New Upload',
         'default'  => '',
@@ -176,30 +170,30 @@ $child_options = array(
     array(
         'title' => 'Group Options Example',
         'desc' => 'Set the type as group.',
-        'id'   => 'sample_group',
+        'id' => 'sample_group',
         'type' => 'group',
         'sub_type' => array(
             array(
                 'title' => 'Title',
-                'id'   => 'group_title',
+                'id' => 'group_title',
                 'type' => 'text',
                 'default'  => 'Title for image',
             ),
             array(
                 'title' => 'Link',
-                'id'   => 'group_link',
+                'id' => 'group_link',
                 'type' => 'text',
                 'default'  => 'https://',
             ),
             array(
                 'title' => 'Color',
-                'id'   => 'group_color',
+                'id' => 'group_color',
                 'type' => 'color',
                 'default'  => '',
             ),
             array(
                 'title' => 'Image',
-                'id'   => 'group_image',
+                'id' => 'group_image',
                 'type' => 'upload',
                 'button_text' => 'Upload',
                 'default'  => '',
@@ -209,18 +203,18 @@ $child_options = array(
     array(
         'title' => 'Group Options Mult Mode',
         'desc' => 'Set the type as group mult mode.',
-        'id'   => 'sample_group_multiple',
+        'id' => 'sample_group_multiple',
         'type' => 'group_mult',
         'sub_type' => array(
             array(
                 'title' => 'Title',
-                'id'   => 'group_title',
+                'id' => 'group_title',
                 'type' => 'text',
                 'default'  => 'Title for image',
             ),
             array(
                 'title' => 'Link',
-                'id'   => 'group_link',
+                'id' => 'group_link',
                 'type' => 'text',
                 'default'  => 'https://',
             ),
@@ -229,18 +223,18 @@ $child_options = array(
     array(
         'title' => 'Group Options Mult Mode',
         'desc' => 'Set the type as group mult mode.',
-        'id'   => 'sample_group_multiple_2',
+        'id' => 'sample_group_multiple_2',
         'type' => 'group_mult',
         'sub_type' => array(
             array(
                 'title' => 'Color',
-                'id'   => 'group_color',
+                'id' => 'group_color',
                 'type' => 'color',
                 'default'  => '',
             ),
             array(
                 'title' => 'Image',
-                'id'   => 'group_image',
+                'id' => 'group_image',
                 'type' => 'upload',
                 'button_text' => 'Upload',
                 'default'  => '',
@@ -291,21 +285,21 @@ $term_feild = array(
     array(
         'title' => 'Input Example',
         'desc' => 'This field is input box',
-        'id'   => 'sample_input',
+        'id' => 'sample_input',
         'type' => 'text',
         'default' => '',
     ),
     array(
         'title' => 'Textarea Example',
         'desc' => 'Description or Notice',
-        'id'   => 'sample_textarea',
+        'id' => 'sample_textarea',
         'type' => 'textarea',
         'default'  => '',
     ),
     array(
         'title' => 'File Upload Example',
         'desc' => 'Upload a file or fill the blank with file uri.',
-        'id'   => 'sample_upload_2',
+        'id' => 'sample_upload_2',
         'type' => 'upload',
         'button_text' => 'Upload',
         'default'  => '',
@@ -330,28 +324,28 @@ $info_meta = array(
     array(
         'title' => 'Input Example',
         'desc' => 'A text input example, Default content:"Say Hello."',
-        'id'   => 'text_example',
+        'id' => 'text_example',
         'type' => 'text',
         'default'  => 'Say Hello.',
     ),
     array(
         'title' => 'Textarea Example',
         'desc' => 'A textarea example, Default content:"Default content."',
-        'id'   => 'textarea_example',
+        'id' => 'textarea_example',
         'type' => 'textarea',
         'default'  => 'Default content.',
     ),
     array(
         'title' => 'Switch Example',
         'desc' => 'Set type as select.',
-        'id'   => 'sample_switch',
+        'id' => 'sample_switch',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => 'File Upload Example',
         'desc' => 'Upload a file or fill the blank with file uri.',
-        'id'   => 'sample_upload_2',
+        'id' => 'sample_upload_2',
         'type' => 'upload',
         'button_text' => 'Upload',
         'default'  => '',

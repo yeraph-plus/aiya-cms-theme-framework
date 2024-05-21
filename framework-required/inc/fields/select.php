@@ -26,9 +26,9 @@ class AYA_Option_Fired_select extends AYA_Field_Action
 
         foreach ($entries as $id => $title) {
 
-            $selected = ($field['default'] == $id) ? 'selected="selected"' : '';
+            //$selected = ($field['default'] == $id) ? 'selected="selected"' : '';
 
-            $html .= '<option ' . $selected . ' value="' . $id . '">' . $title . '</option>';
+            $html .= '<option ' . selected($id, $field['default'], false) . ' value="' . $id . '">' . $title . '</option>';
         }
         $html .= '</select>';
 

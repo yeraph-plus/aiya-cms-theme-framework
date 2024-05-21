@@ -1,782 +1,785 @@
 <h5>WP Settings Framework Function Document</h5>
 <hr />
 <p>building up framework：</p>
-<p><code>AYF::new_opt(array(<br />&nbsp; &nbsp; 'title' =&gt; 'AIYA-CMS',<br />&nbsp; &nbsp; 'slug' =&gt; 'options',<br />&nbsp; &nbsp; 'desc' =&gt; 'AIYA-CMS Theme',<br />&nbsp; &nbsp; 'fields' =&gt; array(<br />&nbsp; &nbsp; &nbsp; &nbsp; array( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'title' =&gt; 'field name',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'desc' =&gt; 'this is a field demo',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'id' &nbsp; =&gt; 'field_demo',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'type' =&gt; 'switch',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'default' =&gt; false,<br />&nbsp; &nbsp; &nbsp; &nbsp; ), &nbsp; &nbsp; &nbsp; &nbsp;array( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'type' =&gt; 'content',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'desc' =&gt; 'this is a field demo',<br />&nbsp; &nbsp; &nbsp; &nbsp; ),<br />&nbsp; &nbsp; )<br />));</code></p>
-<div><hr />
-<p>get settings:</p>
-<p><code>AYF::get_checked('field_demo', 'options');</code></p>
-<p>or</p>
-<p><code>AYF::get_opt('field_demo', 'options');</code></p>
-<hr />
-<p>&nbsp;the fields type and args:</p>
-<table style="border-collapse: collapse; width: 100%; height: 1000px;" width="750">
-<tbody>
-<tr>
-<td width="151">
-<p style="text-align: center;">组件名称/参数：</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>type*</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>Id*</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>title</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>desc</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>default</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>sub</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>sub_mode</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>sub_type</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>button_text</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>settings</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">输入框</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>text</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">文本框</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>textarea</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td width="88">&nbsp;</td>
-<td width="88">&nbsp;</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">颜色选择器</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>color</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">复选框</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>checkbox</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">单选框</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>radio</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">单选抽屉</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>select</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">上传文件</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>upload</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">数组模式</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>array</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">回调钩子</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>callback</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">开关</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>switch</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">TinyMCE编辑器</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>tinymce</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">Codemirror编辑器</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>code-editor</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">设置组</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>group</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">设置组（自增）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>group-mult</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">插入文本</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>content</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">插入消息框（蓝色）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>message</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">插入消息框（绿色）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>success</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">插入消息框（红色）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>error</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">插入标题（H1）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>title_h1</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td width="151">
-<p style="text-align: center;">插入标题（H2）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>title_h2</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&radic;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p>&nbsp;</p>
-</td>
-</tr>
-<tr>
-<td style="text-align: center;" width="151">
-<p>插入标题（H3）</p>
-</td>
-<td style="text-align: center;" width="113">
-<p>title_h3</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&radic;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td style="text-align: center;" width="88">
-<p>&nbsp;</p>
-</td>
-<td width="88">
-<p style="text-align: center;">&nbsp;</p>
-</td>
-</tr>
-</tbody>
-</table>
+<p
+    ><code>AYF::new_opt(array(<br />&nbsp; &nbsp; 'title' =&gt; 'AIYA-CMS',<br />&nbsp; &nbsp; 'slug' =&gt; 'options',<br />&nbsp; &nbsp; 'desc' =&gt; 'AIYA-CMS Theme',<br />&nbsp; &nbsp; 'fields' =&gt; array(<br />&nbsp; &nbsp; &nbsp; &nbsp; array( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'title' =&gt; 'field name',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'desc' =&gt; 'this is a field demo',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'id' &nbsp; =&gt; 'field_demo',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'type' =&gt; 'switch',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'default' =&gt; false,<br />&nbsp; &nbsp; &nbsp; &nbsp; ), &nbsp; &nbsp; &nbsp; &nbsp;array( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'type' =&gt; 'content',<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'desc' =&gt; 'this is a field demo',<br />&nbsp; &nbsp; &nbsp; &nbsp; ),<br />&nbsp; &nbsp; )<br />));</code></p
+>
+<div
+    ><hr />
+    <p>get settings:</p>
+    <p><code>AYF::get_checked('field_demo', 'options');</code></p>
+    <p>or</p>
+    <p><code>AYF::get_opt('field_demo', 'options');</code></p>
+    <hr />
+    <p>&nbsp;the fields type and args:</p>
+    <table style="border-collapse: collapse; width: 100%; height: 1000px" width="750">
+        <tbody>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">组件名称/参数：</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>type*</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>Id*</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>title</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>desc</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>default</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>sub</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>sub_mode</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>sub_type</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>button_text</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>settings</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">输入框</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>text</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">文本框</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>textarea</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td width="88">&nbsp;</td>
+                <td width="88">&nbsp;</td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">颜色选择器</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>color</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">复选框</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>checkbox</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">单选框</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>radio</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">单选抽屉</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>select</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">上传文件</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>upload</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">数组模式</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>array</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">回调钩子</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>callback</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">开关</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>switch</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">TinyMCE编辑器</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>tinymce</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">Codemirror编辑器</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>code-editor</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">设置组</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>group</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">设置组（自增）</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>group-mult</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">插入文本</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>content</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">插入消息框（蓝色）</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>message</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">插入消息框（绿色）</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>success</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">插入消息框（红色）</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>error</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">插入标题（H1）</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>title_1</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="151">
+                    <p style="text-align: center">插入标题（H2）</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>title_2</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&radic;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center" width="151">
+                    <p>插入文本</p>
+                </td>
+                <td style="text-align: center" width="113">
+                    <p>content</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&radic;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td style="text-align: center" width="88">
+                    <p>&nbsp;</p>
+                </td>
+                <td width="88">
+                    <p style="text-align: center">&nbsp;</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
