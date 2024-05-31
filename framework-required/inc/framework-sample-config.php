@@ -43,6 +43,10 @@ $page_options = array(
         'type' => 'content',
     ),
     array(
+        'desc' => 'Text desc',
+        'type' => 'message',
+    ),
+    array(
         'title' => 'Input Example',
         'desc' => 'This field is input box',
         'id' => 'sample_input',

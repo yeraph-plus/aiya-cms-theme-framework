@@ -40,6 +40,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             include_once $framework_dir . '/framework-option-page.php';
             include_once $framework_dir . '/framework-metabox-post.php';
             include_once $framework_dir . '/framework-metabox-term.php';
+            include_once $framework_dir . '/framework-quick-editor.php';
             include_once $framework_dir . '/framework-widget-bulider.php';
             include_once $framework_dir . '/framework-shortcode-manager.php';
         }
