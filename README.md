@@ -2,7 +2,7 @@
 
 ![截图](https://github.com/yeraph-plus/AIYA-CMS-THEME-CORE/blob/main/screenshot/2024-06-01%20001416.png?raw=true)
 
----
+ 
 
 这个项目是为了将 AIYA-CMS 主题的开发工作分支出来而专门设计的，你可以认为这是一个不包含前台页面组件的 AIYA-CMS 主题。
 
@@ -14,7 +14,7 @@
 
 ---
 
-## 如何使用：
+## 如何使用
 
 需要PHP版本7及以上，WprdPress版本5.4及以上，建议能上最新上最新。
 
@@ -54,12 +54,16 @@
 
 框架用作插件的话请修改常量定义中的 `get_template_directory()` 和 `get_template_directory_uri()` 为 `plugin_dir_path()` 和 `plugins_url()` 。
 
-## 计划/待办：
+---
+
+## 计划/待办
 
 - 补全功能文档
 - 重写一下回调，写成ajax的
 
-## 项目备注：
+---
+
+## 项目备注
 
 1、这个框架兼容多站点模式，但不是很确定是不是真的兼容，WP 官方的文档对于一些钩子的说明也不是很明确，或者也有可能是我太菜了没看懂。
 
