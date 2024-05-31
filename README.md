@@ -14,7 +14,7 @@
 
 ---
 
-#### 如何使用：
+## 如何使用：
 
 需要PHP版本7及以上，WprdPress版本5.4及以上，建议能上最新上最新。
 
@@ -22,15 +22,13 @@
 
 `require_once(get_template_directory() . '/framework-required/setup.php');`
 
-
-示例文件：
+#### 示例文件：
 
 `require_once(get_template_directory() . '/framework-required/inc/sample-config.php');`
 
 此 DEMO 包含了本框架支持的所有组件，调用方法未做封装，项目额外提供了封装好的函数可供使用。
 
-
-加载预置功能组件：
+#### 加载预置功能组件：
 
 `require_once(get_template_directory() . '/framework-required/plugin-config.php');`
 
@@ -40,8 +38,7 @@
 
 ~~详细的功能列表请见 wiki 中的说明~~（还没写）。
 
-
-一些使用和增加功能的参考：
+#### 一些使用和增加功能的参考：
 
 和CSF框架一样，本框架最终也是通过WP的 `get_option()` 方法保存设置内容的。
 
@@ -49,8 +46,7 @@
 
 项目的文件加载结构，位于 `inc/framework-steup-action.php` ，包含了框架的零件（fileds）和预置功能插件的加载方式，请见内部注释有详细说明。
 
-
-注意事项：
+#### 注意事项：
 
 所有的功能目前还没有完全测试，有问题请 issues 或者到我的博客留言。
 
@@ -58,12 +54,12 @@
 
 框架用作插件的话请修改常量定义中的 `get_template_directory()` 和 `get_template_directory_uri()` 为 `plugin_dir_path()` 和 `plugins_url()` 。
 
-#### 计划/待办：
+## 计划/待办：
 
 - 补全功能文档
 - 重写一下回调，写成ajax的
 
-#### 项目备注：
+## 项目备注：
 
 1、这个框架兼容多站点模式，但不是很确定是不是真的兼容，WP 官方的文档对于一些钩子的说明也不是很明确，或者也有可能是我太菜了没看懂。
 
