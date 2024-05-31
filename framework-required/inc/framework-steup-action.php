@@ -77,16 +77,19 @@ if (!class_exists('AYA_Framework_Setup')) {
         {
             //根目录
             $plugin_dir = AYF_PATH . '/plugins';
-            //定位其他组件
-            $plugin_inc_dir = scandir($plugin_dir);
-
-            sort($plugin_inc_dir);
-            //执行循环
-            foreach ($plugin_inc_dir as $file) {
-                //检查文件
-                if (substr($file, -4) == '.php') {
-                    //执行include
-                    include_once $plugin_dir . '/' . $file;
+            //验证目录存在
+            if (is_dir($plugin_dir)) {
+                //定位其他组件
+                $plugin_inc_dir = scandir($plugin_dir);
+                //列出文件
+                sort($plugin_inc_dir);
+                //遍历
+                foreach ($plugin_inc_dir as $file) {
+                    //检查文件
+                    if (substr($file, -4) == '.php') {
+                        //执行include
+                        include_once $plugin_dir . '/' . $file;
+                    }
                 }
             }
         }

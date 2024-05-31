@@ -1,5 +1,7 @@
 <?php
 
+include_once AYF_PATH . '/inc/sample-config-fix.php';
+
 AYA_Framework_Setup::instance();
 
 //----- about page -----
