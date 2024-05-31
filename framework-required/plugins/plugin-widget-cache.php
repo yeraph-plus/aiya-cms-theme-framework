@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 if (!class_exists('AYA_Theme_Setup')) exit;
 
 /*
- * 侧边栏小工具缓存插件
+ * Name: 侧边栏小工具缓存插件
  * Version: 0.5.2
  * GitHub URI: https://github.com/kasparsd/widget-output-cache
  * Author: Kaspars Dambis

@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: DEBUG功能
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Debug_Mode extends AYA_Theme_Setup
 {
 

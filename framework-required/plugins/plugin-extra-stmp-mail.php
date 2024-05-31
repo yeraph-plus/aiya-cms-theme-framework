@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: WP STMP送信功能
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Mail_Sender extends AYA_Theme_Setup
 {
     public $phpmailer_options;
@@ -14,12 +21,6 @@ class AYA_Plugin_Mail_Sender extends AYA_Theme_Setup
 
     public function __destruct()
     {
-        add_action('init', array($this, 'aya_theme_wp_mail_init'));
-        add_action('phpmailer_init', array($this, 'aya_theme_mail_smtp_option'));
-    }
-
-    public function aya_theme_wp_mail_init()
-    {
         $options = $this->phpmailer_options;
         //关闭新用户注册通知站长的邮件
         if ($options['disable_new_user_email_admin'] == false) {
@@ -29,6 +30,8 @@ class AYA_Plugin_Mail_Sender extends AYA_Theme_Setup
         if ($options['disable_new_user_email_user'] == false) {
             add_filter('wp_new_user_notification_email', '__return_false');
         }
+
+        parent::add_action('phpmailer_init', 'aya_theme_mail_smtp_option');
     }
 
     public function aya_theme_mail_smtp_option($phpmailer)

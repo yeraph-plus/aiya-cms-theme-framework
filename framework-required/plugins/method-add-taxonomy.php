@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: 创建自定义分类法
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
 {
     public $register_taxonomy;

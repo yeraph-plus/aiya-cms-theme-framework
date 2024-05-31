@@ -1,5 +1,21 @@
 <?php
 
+/*
+
+//$local_avatars = new AYA_Plugin_Local_Avatars;
+function get_simple_local_avatar($id_or_email, $size = '96', $default = '', $alt = false)
+{
+    global $local_avatars;
+
+    $avatar = $local_avatars->get_avatar('', $id_or_email, $size, $default, $alt);
+
+    if (empty($avatar))
+        $avatar = get_avatar($id_or_email, $size, $default, $alt);
+
+    return $avatar;
+}
+*/
+
 /**
  * add field to user profiles
  */

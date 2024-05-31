@@ -1,33 +1,28 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-/*
-
-//$local_avatars = new AYA_Plugin_Local_Avatars;
-function get_simple_local_avatar($id_or_email, $size = '96', $default = '', $alt = false)
-{
-    global $local_avatars;
-
-    $avatar = $local_avatars->get_avatar('', $id_or_email, $size, $default, $alt);
-
-    if (empty($avatar))
-        $avatar = get_avatar($id_or_email, $size, $default, $alt);
-
-    return $avatar;
-}
-*/
-
 /**
  * 用于生成设置项内容的一些方法
  */
 
+//引入文档页
 function framework_doc_about_page()
 {
     $document_file = fopen(AYF_PATH . '/document.html', 'r') or die('Unable to open file!');
     echo fread($document_file, filesize(AYF_PATH . '/document.html'));
     fclose($document_file);
 }
-
+//验证文件MD5的方法
+function get_md5_file_source($filenamesource, $filenamedest)
+{
+    $sourcefile = md5_file($filenamesource);
+    $destfile   = md5_file($filenamedest);
+    if ($sourcefile == $destfile) {
+        return  true;
+    } else {
+        return  false;
+    }
+}
 //生成robots.txt内容
 function get_default_robots_text()
 {
@@ -35,26 +30,25 @@ function get_default_robots_text()
     $site_url = parse_url(site_url());
     $path = !empty($site_url['path']) ? $site_url['path'] : '';
     //生成
-    return '
-User-agent: *
-Disallow: /wp-admin/
-Allow: /wp-admin/admin-ajax.php
-Disallow: /wp-includes/
-Disallow: /cgi-bin/
+    $output = "User-agent: *\n";
+    $output .= "Disallow: *?*\n";
+    $output .= "Disallow: $path/wp-admin/\n";
+    $output .= "Disallow: $path/wp-includes/\n";
+    $output .= "Disallow: $path/wp-content/themes/*\n";
+    $output .= "Disallow: $path/wp-content/plugins/*\n";
+    $output .= "Disallow: $path/wp-content/cache\n";
+    $output .= "Disallow: $path/trackback\n";
+    $output .= "Disallow: $path/feed\n";
+    $output .= "Disallow: $path/comments\n";
+    $output .= "Disallow: $path/search\n";
+    $output .= "Disallow: $path/go/\n";
+    $output .= "Disallow: $path/link/\n";
+    $output .= "\n";
+    $output .= "Allow: /wp-admin/admin-ajax.php\n";
+    $output .= "\n";
+    $output .= "Sitemap: $site_url/wp-sitemap.xml";
 
-Disallow: ' . $path . '/wp-content/plugins/
-Disallow: ' . $path . '/wp-content/themes/
-Disallow: ' . $path . '/wp-content/cache/
-Disallow: ' . $path . '/trackback/
-Disallow: ' . $path . '/feed/
-Disallow: ' . $path . '/comments/
-Disallow: ' . $path . '/search/
-Disallow: ' . $path . '/?s=
-Disallow: ' . $path . '/go/
-Disallow: ' . $path . '/link/
-
-Sitemap: ' . site_url() . '/wp-sitemap.xml
-';
+    return $output;
 }
 //所有短代码
 function query_shortcode_items()

@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: WP 添加百度统计或谷歌统计
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Head_Extra extends AYA_Theme_Setup
 {
     public $extra_action;
@@ -32,10 +39,10 @@ class AYA_Plugin_Head_Extra extends AYA_Theme_Setup
             $head .= self::add_baidu_tongji($action['site_baidu_tongji']) . "\n";
         }
         if ($action['site_extra_script'] != '') {
-            $head .= $action['site_extra_script'] . "\n";
+            $head .= '<script>' . $action['site_extra_script'] . '</script>' . "\n";
         }
         if ($action['site_extra_css'] != '') {
-            $head .= '<style>' . $action['site_extra_css'] . '</style>' . "\n";
+            $head .= '<style type="text/css">' . $action['site_extra_css'] . '</style>' . "\n";
         }
         echo $head;
     }

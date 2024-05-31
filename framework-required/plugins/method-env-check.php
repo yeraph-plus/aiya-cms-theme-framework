@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: 主题PHP版本检测/拓展检测小功能
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_EnvCheck extends AYA_Theme_Setup
 {
     public $env_check;

@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: Gravatar头像 谷歌字体 替换CDN加速
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_CDN_Speed extends AYA_Theme_Setup
 {
     public $speed_options;
@@ -16,7 +23,17 @@ class AYA_Plugin_CDN_Speed extends AYA_Theme_Setup
     public function __destruct()
     {
         $options = $this->speed_options;
-
+        //$options['site_default_avatar']
+        if ($options['site_default_avatar'] != '') {
+            parent::add_filter('avatar_defaults', 'aya_theme_default_avatar');
+        }
+        if ($options['use_speed_gravatar'] == true && $options['use_speed_weavatar'] == false) {
+            parent::add_filter('get_avatar', 'aya_theme_replace_gravatar_cdn');
+            parent::add_filter('get_avatar_url', 'aya_theme_replace_gravatar_cdn');
+        }
+        if ($options['use_speed_google_fonts'] == true) {
+            parent::add_filter('style_loader_tag', 'aya_theme_replace_google_fonts_cdn', 999, 4);
+        }
         if ($options['use_speed_weavatar'] == true) {
             parent::add_filter('um_user_avatar_url_filter', 'get_weavatar_url', 1);
             parent::add_filter('bp_gravatar_url', 'get_weavatar_url', 1);
@@ -27,13 +44,17 @@ class AYA_Plugin_CDN_Speed extends AYA_Theme_Setup
             parent::add_filter('avatar_defaults', 'set_defaults_for_weavatar', 1);
             parent::add_filter('user_profile_picture_description', 'set_user_profile_picture_for_weavatar', 1);
         }
-        if ($options['use_speed_gravatar'] == true && $options['use_speed_weavatar'] == false) {
-            parent::add_filter('get_avatar', 'aya_theme_replace_gravatar_cdn');
-            parent::add_filter('get_avatar_url', 'aya_theme_replace_gravatar_cdn');
-        }
-        if ($options['use_speed_google_fonts'] == true) {
-            parent::add_filter('style_loader_tag', 'aya_theme_replace_google_fonts_cdn', 999, 4);
-        }
+    }
+    //创建一个自定义的头像标志
+    public function aya_theme_default_avatar($avatar_defaults)
+    {
+        $options = $this->speed_options;
+        //图文url路径
+        $myavatar = $options['site_default_avatar'];
+        //图片的描述名称
+        $avatar_defaults[$myavatar] = __('默认头像');
+
+        return $avatar_defaults;
     }
     //替换GravatarCDN源
     public function aya_theme_replace_gravatar_cdn($avatar)

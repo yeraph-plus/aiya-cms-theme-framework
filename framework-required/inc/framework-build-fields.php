@@ -18,8 +18,11 @@ abstract class AYA_Field_Action
     public static function field($field)
     {
         //过滤组件
-        if (in_array($field['type'], array('content', 'message', 'success', 'error', 'title_1', 'title_2'))) {
+        if (in_array($field['type'], array('title_1', 'title_2'))) {
             return self::title_tags($field);
+        }
+        if (in_array($field['type'], array('content', 'message', 'success', 'error'))) {
+            return self::content_tags($field);
         }
         //回调组件
         if (in_array($field['type'], array('callback'))) {
@@ -80,7 +83,34 @@ abstract class AYA_Field_Action
         if (empty($field['desc'])) {
             return;
         }
-        echo '<div class="section-title-field"><p class="field-' . $field['type'] . '">' . $field['desc'] . '</p></div>';
+        //输出
+        $html = '<div class="section-title-field"><h3 class="' . $field['type'] . '">' . $field['desc'] . '</h3></div>';
+        echo $html;
+    }
+    //输出提示内容
+    public static function content_tags($field)
+    {
+        if (empty($field['desc'])) {
+            return;
+        }
+        //切换标记
+        switch ($field['type']) {
+            case 'content':
+                $sign = '';
+                break;
+            case 'message':
+                $sign = '<span class="dashicons dashicons-info"></span>';
+                break;
+            case 'success':
+                $sign = '<span class="dashicons dashicons-info"></span>';
+                break;
+            case 'error':
+                $sign = '<span class="dashicons dashicons-info"></span>';
+                break;
+        }
+        //输出
+        $html = '<div class="form-field section-content-field"><p class="' . $field['type'] . '">' . $sign . "  " . $field['desc'] . '</p></div>';
+        echo $html;
     }
     //Before结构
     public static function before_tags($field)

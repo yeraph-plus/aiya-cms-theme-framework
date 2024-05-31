@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: WP 后台精简自定义
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Admin_Custom extends AYA_Theme_Setup
 {
     public $admin_options;
@@ -30,7 +37,15 @@ class AYA_Plugin_Admin_Custom extends AYA_Theme_Setup
             add_filter('login_title', array($this, 'aya_theme_custom_admin_title'), 10, 2);
         }
         if ($options['remove_bar_wpnews'] == true) {
+            //左
             add_filter('admin_footer_text', array($this, 'aya_theme_custom_admin_footer'));
+            //右
+            add_filter('update_footer', '__return_false', 11);
+            //移除后台右上角帮助
+            add_action('in_admin_header', function(){
+                global $current_screen;
+                $current_screen->remove_help_tabs();
+            });
         }
         if ($options['admin_add_dashboard_widgets'] == true) {
             parent::add_action('wp_dashboard_setup', 'add_server_status_dashboard_widgets', 0);

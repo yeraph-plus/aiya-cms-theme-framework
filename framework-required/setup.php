@@ -24,10 +24,6 @@ define('AYF_URI', get_template_directory_uri() . '/framework-required/assects');
 
 //载入框架文件
 include_once AYF_PATH . '/inc/framework-steup.php';
-//预置方法
-include_once AYF_PATH . '/fix.php';
-//预置方法
-include_once AYF_PATH . '/method.php';
 
 /**
  * 封装好的Framework创建方法

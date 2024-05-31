@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: TinyMCE编辑器 按钮重排+功能拓展
+ * Version: 1.0.5
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Modify_TinyMCE extends AYA_Theme_Setup
 {
     public $tinymce_options;

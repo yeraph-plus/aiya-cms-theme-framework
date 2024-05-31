@@ -150,10 +150,10 @@ if (!class_exists('AYA_Theme_Setup')) {
 
                 //修饰类名
                 $class = 'AYA_Plugin_' . $seting;
-                //验证参数为false直接跳过
-                if ($args == false) continue;
-                //如果类未定义且参数不为null，则实例化
-                if (class_exists($class) && $args != null) {
+                //验证参数为null直接跳过
+                if ($args == null) continue;
+                //如果类未定义且参数不为false，则实例化
+                if (class_exists($class) && $args != false) {
 
                     //如果参数为布尔型，则不添加参数
                     if (is_bool($args)) {

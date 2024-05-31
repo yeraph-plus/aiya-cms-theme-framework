@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Theme_Setup')) exit;
 
+/*
+ * Name: 自定义主题模板路由
+ * Version: 1.0.0
+ * Author: AIYA-CMS
+ * Author URI: https://www.yeraph.com
+ */
+
 class AYA_Plugin_Template_Redefine extends AYA_Theme_Setup
 {
     public $template_path;
@@ -15,7 +22,7 @@ class AYA_Plugin_Template_Redefine extends AYA_Theme_Setup
 
     public function __destruct()
     {
-        //添加重写的过滤器
+        //添加自定义的路径过滤器
         parent::add_filter('404_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('archive_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('attachment_template_hierarchy', 'aya_theme_rc_template_hierarchy');
@@ -34,7 +41,7 @@ class AYA_Plugin_Template_Redefine extends AYA_Theme_Setup
         parent::add_filter('singular_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('tag_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('taxonomy_template_hierarchy', 'aya_theme_rc_template_hierarchy');
-        //模板引擎入口
+        //添加重写的过滤器
         //parent::add_action('template_include', 'aya_template_reload');
     }
     //重写查询位置

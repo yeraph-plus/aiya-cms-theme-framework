@@ -6,7 +6,7 @@
 }
 #framework-page p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 400;
 }
 #framework-page .container {
@@ -89,48 +89,6 @@
 #framework-page .framework-content .clearfix {
   zoom: 1;
 }
-#framework-page .framework-content .field-content,
-#framework-page .framework-content .field-success,
-#framework-page .framework-content .field-message,
-#framework-page .framework-content .field-error {
-  width: auto;
-  margin: 0;
-  padding: 10px 10px;
-}
-#framework-page .framework-content .field-success {
-  border-left: 5px solid #209b3f;
-  background-color: #ccffe2;
-}
-#framework-page .framework-content .field-message {
-  border-left: 5px solid #2196f3;
-  background-color: #ddffff;
-}
-#framework-page .framework-content .field-error {
-  border-left: 5px solid #f32160;
-  background-color: #f3ddeb;
-}
-#framework-page .framework-content .field-title_1,
-#framework-page .framework-content .field-title_2 {
-  font-size: 1.2rem;
-  line-height: 1.2rem;
-  margin: 20px 0 20px 20px;
-  font-weight: 600;
-}
-#framework-page .framework-content .field-title_1:before {
-  content: " ";
-  background: #1d2327;
-  height: 15px;
-  width: 5px;
-  display: inline-block;
-  border-radius: 15px;
-  margin-right: 15px;
-}
-#framework-page .framework-content .field-title_2:before {
-  content: " # ";
-  display: inline-block;
-  font-weight: 900;
-  margin-right: 5px;
-}
 #framework-page .framework-saved {
   margin: 20px 0 0 0;
   padding: 10px 0 10px 0;
@@ -147,6 +105,48 @@
 }
 .framework-wrap .section-title-field {
   border-bottom: 2px solid #eee;
+}
+.framework-wrap .section-title-field .title_1,
+.framework-wrap .section-title-field .title_2 {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  margin: 20px 0 20px 20px;
+  font-weight: 600;
+}
+.framework-wrap .section-title-field .title_1:before {
+  content: " ";
+  background: #1d2327;
+  height: 15px;
+  width: 5px;
+  display: inline-block;
+  border-radius: 15px;
+  margin-right: 15px;
+}
+.framework-wrap .section-title-field .title_2:before {
+  content: " # ";
+  display: inline-block;
+  font-weight: 900;
+  margin-right: 5px;
+}
+.framework-wrap .section-content-field .content,
+.framework-wrap .section-content-field .success,
+.framework-wrap .section-content-field .message,
+.framework-wrap .section-content-field .error {
+  width: auto;
+  margin: 0;
+  padding: 10px 10px;
+}
+.framework-wrap .section-content-field .success {
+  border-left: 5px solid #209b3f;
+  background-color: #ccffe2;
+}
+.framework-wrap .section-content-field .message {
+  border-left: 5px solid #2196f3;
+  background-color: #ddffff;
+}
+.framework-wrap .section-content-field .error {
+  border-left: 5px solid #f32160;
+  background-color: #f3ddeb;
 }
 .framework-wrap .section-text .quick-input {
   width: 100%;

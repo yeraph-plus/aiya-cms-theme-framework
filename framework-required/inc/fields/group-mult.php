@@ -19,7 +19,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
         //检查设置值数组
         if (empty($field['default']) || !is_array($field['default'])) {
             $field['default'] = array();
-            $n = 1;
+            $n = 0;
         } else {
             $n = count($field['default'], 0);
         }
