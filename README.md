@@ -2,7 +2,7 @@
 
 ![截图](https://github.com/yeraph-plus/AIYA-CMS-THEME-CORE/blob/main/screenshot/2024-06-01%20001416.png?raw=true)
 
- 
+---
 
 这个项目是为了将 AIYA-CMS 主题的开发工作分支出来而专门设计的，你可以认为这是一个不包含前台页面组件的 AIYA-CMS 主题。
 
@@ -11,8 +11,6 @@
 框架的设计和提供的功能类似于Codestar-Framework，但轻（jian）量（lou）的多。目前已支持为 WordPress 主题创建设置页面、创建分类 Meta 字段、创建文章 Meta 字段，另外对 WprdPress 小工具提供了一个用于简化创建的构造器。
 
 预置功能分两部分，一部分是用于制作主题时添加功能的简化函数（注册主题页面路由、菜单、自定义文章类型等），另一部分是一套完整的“WordPress 优化插件”，包含大部分常见的优化功能（WP功能禁用、WP主查询修改、WP安全性设置、以及SEO拓展、头像加速、STMP等）。
-
----
 
 ## 如何使用
 
@@ -54,14 +52,10 @@
 
 框架用作插件的话请修改常量定义中的 `get_template_directory()` 和 `get_template_directory_uri()` 为 `plugin_dir_path()` 和 `plugins_url()` 。
 
----
-
 ## 计划/待办
 
 - 补全功能文档
 - 重写一下回调，写成ajax的
-
----
 
 ## 项目备注
 
