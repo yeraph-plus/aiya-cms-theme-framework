@@ -279,13 +279,13 @@ class AYA_Plugin_Optimize extends AYA_Theme_Setup
         }
         //禁用修订版本功能
         if ($options['remove_revisions'] == true) {
-            define('WP_POST_REVISIONS', false);
             /*
+            define('WP_POST_REVISIONS', false);
+            */
             //设置修订版本保存个数0
             add_filter('wp_revisions_to_keep', function ($num, $post) {
                 return 0;
             }, 10, 2);
-            */
         }
         //Sitemap中跳过输出users列表
         if ($options['remove_sitemaps_users_provider']) {
@@ -320,7 +320,7 @@ class AYA_Plugin_Optimize extends AYA_Theme_Setup
             });
         }
         //设置原生缩略图尺寸为空
-        if ($options['remove_wp_thumbnails'] == true) {
+        if ($options['remove_image_thumbnails'] == true) {
             add_filter('pre_option_thumbnail_size_w', '__return_zero');
             add_filter('pre_option_thumbnail_size_h', '__return_zero');
             add_filter('pre_option_medium_size_w', '__return_zero');

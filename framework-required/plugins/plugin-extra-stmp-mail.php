@@ -45,10 +45,10 @@ class AYA_Plugin_Mail_Sender extends AYA_Theme_Setup
         $phpmailer->FromName = $options['smtp_from_name'];
         $phpmailer->Host = $options['smtp_host'];
         $phpmailer->Port = $options['smtp_port'];
-        $phpmailer->SMTPSecure = $options['smtp_ssl'] ? 'ssl' : '';
+        $phpmailer->SMTPSecure = ($options['smtp_ssl'] === 'yes') ? 'ssl' : '';
         $phpmailer->Username = $options['smtp_username'];
         $phpmailer->Password = $options['smtp_password'];
-        $phpmailer->SMTPAuth = $options['smtp_auth'] ? true : false;
+        $phpmailer->SMTPAuth = ($options['smtp_auth'] === 'yes') ? true : false;
     }
 
     public function send_callback($data)

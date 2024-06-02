@@ -4,6 +4,16 @@ include_once AYF_PATH . '/inc/sample-config-fix.php';
 
 AYA_Framework_Setup::instance();
 
+//open document.html
+function framework_doc_about_page()
+{
+    $document_file = fopen(AYF_PATH . '/document.html', 'r') or die('Unable to open file!');
+
+    echo fread($document_file, filesize(AYF_PATH . '/document.html'));
+    
+    fclose($document_file);
+}
+
 //----- about page -----
 
 $about_info = array(
