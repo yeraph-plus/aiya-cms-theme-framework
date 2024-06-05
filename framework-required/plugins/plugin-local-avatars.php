@@ -3,7 +3,7 @@
 /*
 
 //$local_avatars = new AYA_Plugin_Local_Avatars;
-function get_simple_local_avatar($id_or_email, $size = '96', $default = '', $alt = false)
+function get_local_avatar($id_or_email, $size = '96', $default = '', $alt = false)
 {
     global $local_avatars;
 

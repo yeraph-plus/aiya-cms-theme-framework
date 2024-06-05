@@ -114,26 +114,8 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
     array(
-        'desc' => 'Memcached 拓展',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => 'Memcached 缓存',
-        'desc' => '使WordPress支持利用Memcached缓存加速性能<br/>*',
-        'id' => 'memcached_object_cache',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
         'desc' => '插件',
         'type' => 'title_2',
-    ),
-    array(
-        'title' => '正文格式化过滤器',
-        'desc' => '在文章发布前清理无用HTML代码并运行中文排版纠正，<br/>*此功能依赖 <code>jxlwqq/Chinese-Typesetting</code> 中文格式化实例',
-        'id' => 'plugin_post_chinese_format',
-        'type' => 'switch',
-        'default' => false,
     ),
     array(
         'title' => '外部功能加速',
@@ -164,13 +146,45 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
     array(
+        'desc' => '此功能完全重建了分类的页面的路由方法，请自行测试你的主题 / 插件是否兼容',
+        'type' => 'message',
+    ),
+    array(
+        'title' => '分类 URL 重建',
+        'desc' => '移除分类URL中 <code>/category/</code> 层级，启用此项功能后，需要在 <a href="options-permalink.php">固定链接</a> 设置中重新保存一次',
+        'id' => 'plugin_no_category_url',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
         'desc' => '开发者功能',
         'type' => 'title_2',
+    ),
+    array(
+        'title' => '服务器状态信息',
+        'desc' => '在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）',
+        'id' => 'dashboard_server_monitor',
+        'type' => 'switch',
+        'default' => false,
     ),
     array(
         'title' => 'DEBUG模式',
         'desc' => '在wp_footer中输出SQL和include等调试信息',
         'id' => 'debug_mode',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
+        'title' => '简码列表',
+        'desc' => '列出WP当前的全部固定链接（ Rewrite 规则）和查询方法',
+        'id' => 'debug_shortcode_items',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
+        'title' => '路由列表',
+        'desc' => '列出WP当前的全部简码功能（ Shortcode 字段），并列出回调函数',
+        'id' => 'debug_rules_items',
         'type' => 'switch',
         'default' => false,
     ),
@@ -480,10 +494,6 @@ $AYF_REQUEST_FIELDS = array(
         'type' => 'title_2',
     ),
     array(
-        'desc' => '<h3>首页</h3>',
-        'type' => 'content',
-    ),
-    array(
         'title' => '取消文章置顶',
         'desc' => '禁用文章置顶，按默认的文章排序输出',
         'id' => 'query_ignore_sticky',
@@ -512,10 +522,6 @@ $AYF_REQUEST_FIELDS = array(
         'default' => '',
     ),
     array(
-        'desc' => '<h3>搜索页</h3>',
-        'type' => 'content',
-    ),
-    array(
         'title' => '搜索结果包含页面',
         'desc' => '搜索时同时搜索页面和文章添加到搜索结果',
         'id' => 'search_ignore_page_type',
@@ -542,10 +548,6 @@ $AYF_REQUEST_FIELDS = array(
         'id' => 'serach_ignore_post',
         'type' => 'text',
         'default' => '',
-    ),
-    array(
-        'desc' => '<h3>用户页</h3>',
-        'type' => 'content',
     ),
     array(
         'title' => '登录用户显示全部文章',
@@ -758,21 +760,21 @@ $AYF_SECURITY_FIELDS = array(
         'default' => 'wd,str',
     ),
     array(
-        'title' => '启用 USER_AGENT 验证',
+        'title' => '启用 UA 验证',
         'desc' => '屏蔽一些无用的搜索引擎蜘蛛对网站的页面爬取和防御采集器，节约服务器CPU、内存、带宽的开销',
         'id' => 'waf_reject_useragent_switch',
         'type' => 'switch',
         'default' => false,
     ),
     array(
-        'title' => '禁止空 USER_AGENT',
-        'desc' => '接续上一项设置，禁止空 USER_AGENT 访问，大部分采集程序都是空UA，部分sql注入工具也是空UA',
+        'title' => '验证 UA 是否为空',
+        'desc' => '禁止空 USER AGENT 访问，大部分采集程序都是空 UA ，部分SQL注入工具也是空 UA ',
         'id' => 'waf_reject_useragent_empty',
         'type' => 'switch',
         'default' => true,
     ),
     array(
-        'title' => '屏蔽 USER_AGENT 列表',
+        'title' => '屏蔽 UA 列表',
         'desc' => '接续上一项设置，填写需要屏蔽的 UA 列表，通过<code>,</code>分隔，不区分大小写',
         'id' => 'waf_reject_useragent_list',
         'type' => 'textarea',
@@ -824,10 +826,6 @@ $PLUGIN_SETUP->action(
  * ------------------------------------------------------------------------------
  */
 
-//过滤器组件
-if (AYF::get_checked('plugin_post_chinese_format', 'plugin')) {
-    $PLUGIN_SETUP->action(array());
-}
 //加速组件
 if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
     //设置项
@@ -1042,7 +1040,7 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
         ),
         array(
             'title' => '关键词列表',
-            'desc' => '添加文本替换列表，一行一个，不需要时留空<br/>*格式举例： <code> 站点首页|&lt;a&gt; href="' . home_url() . '"&gt;站点首页&lt;/a&gt;</code> ',
+            'desc' => '添加文本替换列表，一行一个，不需要时留空<br/>*格式举例： <code> 站点首页|&lt;a href="' . home_url() . '"&gt;站点首页&lt;/a&gt;</code> ',
             'id' => 'site_replace_text_wps',
             'type' => 'textarea',
             'default' => '',
@@ -1302,18 +1300,12 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
         )
     );
 }
-
-/*
- * ------------------------------------------------------------------------------
- * Memcached
- * ------------------------------------------------------------------------------
- */
-
-//运行Memcached插件
-if (AYF::get_checked('memcached_object_cache', 'plugin')) {
+//分类URL重建组件，移除分类URL中Category
+if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
+    //无需设置
     $PLUGIN_SETUP->action(
         array(
-            'Debug_Mode' => true,
+            'No_Category_URL' => true,
         )
     );
 }
@@ -1350,7 +1342,7 @@ function query_shortcode_items()
     //return $items;
 
     //将获得的数组转换为html表格
-    echo '<table>';
+    echo '<table class="section-table-list">';
     echo '<thead><tr><th>简码</th><th>回调函数</th></tr></thead>';
     echo '<tbody>';
     foreach ($items as $item) {
@@ -1376,7 +1368,7 @@ function query_rewrite_rules_items($args)
     //return $items;
 
     //将获得的数组转换为html表格
-    echo '<table>';
+    echo '<table class="section-table-list">';
     echo '<thead><tr><th>ID</th><th>正则</th><th>查询方法</th></tr></thead>';
     echo '<tbody>';
     foreach ($items as $item) {
@@ -1385,7 +1377,14 @@ function query_rewrite_rules_items($args)
     echo '</tbody>';
     echo '</table>';
 }
-
+//服务器状态小组件
+if (AYF::get_checked('dashboard_server_monitor', 'plugin')) {
+    $PLUGIN_SETUP->action(
+        array(
+            'Dashboard_Server_Status' => true,
+        )
+    );
+}
 //运行DEBUG查询
 if (AYF::get_checked('debug_mode', 'plugin')) {
     $PLUGIN_SETUP->action(
@@ -1394,31 +1393,31 @@ if (AYF::get_checked('debug_mode', 'plugin')) {
         )
     );
 }
-
 //简码列表
-AYF::new_opt(array(
-    'title' => '简码列表',
-    'slug' => 'shortcode_items',
-    'parent' => 'plugin',
-    'desc' => '列出当前主题支持的全部简码功能（ Shortcode 字段），并列出回调函数',
-    'fields' => array(
-        array(
-            'function' => 'query_shortcode_items',
-            'type' => 'callback',
-        ),
-    )
-));
-
+if (AYF::get_checked('debug_shortcode_items', 'plugin')) {
+    AYF::new_opt(array(
+        'title' => '简码列表',
+        'slug' => 'shortcode_items',
+        'desc' => '列出当前主题支持的全部简码功能（ Shortcode 字段），并列出回调函数',
+        'fields' => array(
+            array(
+                'function' => 'query_shortcode_items',
+                'type' => 'callback',
+            ),
+        )
+    ));
+}
 //路由列表
-AYF::new_opt(array(
-    'title' => '路由列表',
-    'slug' => 'rules_items',
-    'parent' => 'plugin',
-    'desc' => '列出当前主题支持的全部固定链接（ Rewrite 规则）和查询方法',
-    'fields' => array(
-        array(
-            'function' => 'query_rewrite_rules_items',
-            'type' => 'callback',
-        ),
-    )
-));
+if (AYF::get_checked('debug_rules_items', 'plugin')) {
+    AYF::new_opt(array(
+        'title' => '路由列表',
+        'slug' => 'rules_items',
+        'desc' => '列出当前主题支持的全部固定链接（ Rewrite 规则）和查询方法',
+        'fields' => array(
+            array(
+                'function' => 'query_rewrite_rules_items',
+                'type' => 'callback',
+            ),
+        )
+    ));
+}

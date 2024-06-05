@@ -58,6 +58,7 @@ class AYA_Framework_Options_Page
             //加载
             add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
         }
+
     }
     //创建页面
     public function add_admin_menu_page()
@@ -182,7 +183,7 @@ class AYA_Framework_Options_Page
                     delete_option($this->saved_value);
                 }
                 //提示
-                $this->saved_message = __('Options reseted.', 'AIYA');
+                $this->saved_message = __('Options reseted.');
             }
             //存入新数据
             if (!empty($_POST['aya_option_submit'])) {
@@ -264,6 +265,13 @@ class AYA_Framework_Options_Page
         }
         $before_html .= '</div>';
 
+        //保存提示
+        if (!empty($this->saved_message)) {
+            $before_html .= '<div class="container framework-content framework-saved-success">';
+            $before_html .= '<p>' . esc_html($this->saved_message) . '</p>';
+            $before_html .= '</div>';
+        }
+
         $before_html .= '<div class="container framework-content framework-wrap">';
 
         //表单结构
@@ -271,6 +279,7 @@ class AYA_Framework_Options_Page
 
         echo $before_html;
 
+        //保存按钮
         $saved_button = false;
         //循环
         foreach ($this->options as $option) {
@@ -286,17 +295,9 @@ class AYA_Framework_Options_Page
                 $saved_button = true;
             }
         }
-        //保存提示
-        if (!empty($this->saved_message)) {
-            $message_html = '<div class="field-success">';
-            $message_html .= '<p>' . esc_html($this->saved_message) . '</p>';
-            $message_html .= '</div>';
-
-            echo $message_html;
-        }
         //保存按钮
         if ($saved_button) {
-            $button_html = '<div class="framework-saved">';
+            $button_html = '<div class="field-saved-button">';
             //Fix：检索表单的nonce隐藏字段
             wp_nonce_field('aya_option_action', 'aya_option_field');
 
@@ -310,9 +311,6 @@ class AYA_Framework_Options_Page
 
         $after_html = '</form>';
 
-        $after_html .= '</div>';
-        $after_html .= '<div class="float-right d-md-block"></div>';
-        $after_html .= '';
         $after_html .= '</div>';
 
         echo $after_html;

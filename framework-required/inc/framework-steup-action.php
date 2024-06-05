@@ -195,3 +195,6 @@ if (!class_exists('AYA_Theme_Setup')) {
         }
     }
 }
+
+//页脚放置提示
+add_filter('admin_footer_text', function ($footer_text) {echo $footer_text . '<span id="footer-thankyou"> / ' . __('页面由 <b>AIYA-CMS-CORE</b> 构建。') . ' </span>';});

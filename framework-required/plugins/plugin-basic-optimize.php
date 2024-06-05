@@ -448,31 +448,26 @@ class AYA_Plugin_Optimize extends AYA_Theme_Setup
     // Rest-API 返回报错
     public function aya_theme_error_rest_api_is_off()
     {
+        $id = 'rest_api_is_disabled';
         $message = __('Rest-API has disabled. Please ask the site administrator or check this site option settings.');
-        $title = __('Rest-API is disabled.');
-        $args = array(
-            'response' => 403,
-            'link_url' => home_url('/'),
-            'link_text' => __('Return Homepage'),
-            'back_link' => false,
-        );
+        $args = array('status' => 403);
 
-        wp_die($message, $title, $args);
-
-        //返回请求状态
-        return true;
+        //返回403错误
+        return new WP_Error($id, $message, $args);
     }
     // Rest-API 验证 HTTP_REFERER 
     public function aya_theme_captcha_rest_api_in_referer()
     {
-        $referer = $_SERVER['HTTP_REFERER'];
+        $referer = (empty($_SERVER['HTTP_REFERER'])) ? '' : $_SERVER['HTTP_REFERER'];
+
+        $id = 'rest_api_referer_error';
+        $message = __('Rest-API requests must include the source.');
+        $args = array('status' => 403);
 
         //验证来源是否为host
-        if (empty($referer) && parse_url($referer)['host'] != parse_url(home_url())['host']) {
+        if ($referer == '' || parse_url($referer)['host'] != parse_url(home_url())['host']) {
             //返回403错误
-            return new WP_Error('rest_api_referer_verification_error', __('Rest-API requests must include the source.'), array('status' => 403));
+            return new WP_Error($id, $message, $args);
         }
-        //返回请求状态
-        return true;
     }
 }

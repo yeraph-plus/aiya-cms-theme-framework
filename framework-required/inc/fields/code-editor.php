@@ -17,11 +17,11 @@ class AYA_Option_Fired_code_editor extends AYA_Field_Action
         }
 
         //调用codemirror
-        wp_enqueue_style('codemirror', 'https://cdn.staticfile.net/codemirror/5.65.16/codemirror.min.css');
-        wp_enqueue_script('codemirror', 'https://cdn.staticfile.net/codemirror/5.65.16/codemirror.min.js', '', '', false);
+        wp_enqueue_style('codemirror', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css');
+        wp_enqueue_script('codemirror', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js', '', '', false);
 
-        wp_enqueue_script('codemirror-mode', 'https://cdn.staticfile.net/codemirror/6.65.7/mode/' . $field['settings']['mode'] . '/' . $field['settings']['mode'] . '.min.js');
-        wp_enqueue_style('codemirror-theme', 'https://cdn.staticfile.net/codemirror/6.65.7/theme/' . $field['settings']['theme'] . '.min.css');
+        wp_enqueue_script('codemirror-mode', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/' . $field['settings']['mode'] . '/' . $field['settings']['mode'] . '.min.js');
+        wp_enqueue_style('codemirror-theme', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/' . $field['settings']['theme'] . '.min.css');
 
         $field['class'] = 'codemirror-editor';
 

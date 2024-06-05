@@ -1,17 +1,17 @@
 <?php
 
-include_once AYF_PATH . '/inc/sample-config-fix.php';
-
 AYA_Framework_Setup::instance();
 
 //open document.html
 function framework_doc_about_page()
 {
-    $document_file = fopen(AYF_PATH . '/document.html', 'r') or die('Unable to open file!');
+    $document_file = AYF_PATH . '/assects/document.html';
 
-    echo fread($document_file, filesize(AYF_PATH . '/document.html'));
-    
-    fclose($document_file);
+    $open_file = fopen($document_file, 'r') or die('Unable to open file!');
+
+    echo fread($open_file, filesize($document_file));
+
+    fclose($open_file);
 }
 
 //----- about page -----

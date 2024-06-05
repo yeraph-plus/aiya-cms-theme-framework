@@ -16,7 +16,7 @@ if (!class_exists('AYA_Theme_Setup')) exit;
  * 调整了菜单生成和一些Callback方法，但是主要缓存逻辑没有改动，之后可能需要重写成Memcached的
  */
 
-class AYA_Plugin_Widget_Cache extends AYA_Theme_Setup
+class AYA_Plugin_Widget_Cache
 {
     public function __construct()
     {

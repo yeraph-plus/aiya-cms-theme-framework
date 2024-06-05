@@ -1,16 +1,7 @@
 #framework-page {
-  h1 {
-    color: #1d2327;
-    font-size: 1.8rem;
-    margin: 15px 0;
-    font-weight: 600;
-  }
-
-  p {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, Microsoft YaHei, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
 
   //container
   .container {
@@ -37,19 +28,29 @@
 
   //title
   .framework-title {
+    h1 {
+      color: #1d2327;
+      font-size: 30px;
+      font-weight: 600;
+      margin: 15px 0;
+      letter-spacing: 2px;
+    }
+
     p {
-      font-size: 1rem;
+      font-size: 15px;
       line-height: 1.5;
+      font-weight: 400;
       margin: 10px 0;
-      font-weight: 300;
-      padding: 0 0 10px 0;
     }
   }
 
   //conctent
   .framework-content {
-    background: #fff;
-    padding: 10px 10px;
+    width: auto;
+    background-color: #fff;
+    border: 1px solid #eee;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 8px;
 
     .form-field {
       display: flex;
@@ -59,24 +60,33 @@
       padding: 30px 15px;
 
       .field-label {
-        min-width: 200px;
-        margin: 5px 0 10px 0;
-        font-size: 1rem;
+        width: 100%;
+        font-size: 16px;
         font-weight: 600;
+        margin: 5px 0 10px 0;
+
+        @media (min-width: 992px) {
+          width: 24%;
+        }
       }
 
       .field-area {
-        min-width: 450px;
+        width: 100%;
+
+        @media (min-width: 992px) {
+          width: 72%;
+        }
       }
 
       .desc {
+        font-size: 13px;
+        font-weight: 300;
+        margin: 0;
+        padding-top: 10px;
+
         @media (min-width: 992px) {
           white-space: nowrap;
         }
-
-        padding-top: 10px;
-        font-size: 0.8rem;
-        font-weight: 300;
       }
     }
 
@@ -89,6 +99,17 @@
         padding-bottom: 40px;
       }
     }
+
+    //button
+    .field-saved-button {
+      padding: 10px 15px;
+      margin-top: 20px;
+
+      .button-primary {
+        margin-right: 10px;
+      }
+    }
+
 
     //clearfix
     .clearfix:before,
@@ -107,12 +128,51 @@
 
   }
 
-  .framework-saved {
-    margin: 20px 0 0 0;
-    padding: 10px 0 10px 0;
+  .framework-saved-success {
+    border-left-width: 4px;
+    border-left-color: #00a32a;
+    padding: 15px 6px;
+    margin-bottom: 10px;
 
-    .button-primary {
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+      -webkit-animation: bounce 5s infinite;
+    }
+
+    p::before {
+      content: "\f15e";
+      font-family: dashicons;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+      line-height: 1;
+      font-size: 20px;
+      font-weight: 700;
+      margin-left: 10px;
       margin-right: 10px;
+    }
+
+    @-webkit-keyframes bounce {
+
+      /*创建动画*/
+      0%,
+      100%,
+      20%,
+      50%,
+      80% {
+        -webkit-transform: translateX(0);
+      }
+
+      40% {
+        -webkit-transform: translateX(30px);
+      }
+
+      60% {
+        -webkit-transform: translateX(15px);
+      }
     }
   }
 
@@ -132,10 +192,10 @@
 
     .title_1,
     .title_2 {
-      font-size: 1.2rem;
-      line-height: 1.2rem;
+      font-size: 18px;
+      line-height: 1;
       margin: 20px 0 20px 20px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .title_1 {
@@ -189,15 +249,23 @@
 
   .section-text {
     .quick-input {
-      width: 100%;
+      width: 95%;
+
+      @media (min-width: 992px) {
+        width: 450px;
+      }
     }
   }
 
   .section-textarea {
     .quick-textarea {
-      width: 100%;
-      height: auto;
-      min-height: 100px;
+      width: 95%;
+      height: 200px;
+
+      @media (min-width: 992px) {
+        height: 150px;
+      }
+
     }
   }
 
@@ -252,9 +320,6 @@
 
       .active {
         background-color: #2271b1;
-      }
-
-      .active {
         box-shadow: 0 0 1px #2271b1;
       }
 
@@ -283,15 +348,25 @@
     .quick-upload-button {}
   }
 
+  .section-tinymce {
+    .field-area {
+      margin-top: 10px;
+      width: 100% !important;
+    }
+  }
+
   .section-code_editor {
     .field-area {
-      width: 700px;
+      margin-top: 10px;
+      width: 100% !important;
     }
   }
 
   .section-group_mult,
   .section-group {
     .field-group-warp {
+      position: relative;
+
       .form-field {
         padding: 10px 10px !important;
       }
@@ -299,8 +374,6 @@
       .field-label {
         margin: 0 !important;
       }
-
-      position: relative;
     }
   }
 
@@ -313,5 +386,38 @@
     .add-item {
       margin: 10px;
     }
+  }
+
+  .section-table-list {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      th {
+        background-color: #00418c;
+        color: #fff;
+      }
+    }
+
+    p {
+      text-align: center;
+    }
+
+    th,
+    td {
+      border: 1px solid #eee;
+      padding: 5px 0;
+    }
+
+    tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    tr td:first-child {
+      color: #f40;
+      white-space: nowrap;
+      text-align: center;
+    }
+
   }
 }

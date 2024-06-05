@@ -32,7 +32,7 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
         add_filter('authenticate', array($this, 'aya_theme_logged_scope_limit_verify'), 10, 3);
 
         add_action('wp_login_failed', array($this, 'aya_theme_limit_login_attempts'), 10, 1);
-        add_action('wp_login', array($this, 'aya_theme_reset_login_attempts'), 10, 1);
+        //add_action('wp_login', array($this, 'aya_theme_reset_login_attempts'), 10, 1);
 
         add_filter('shake_error_codes', array($this, 'aya_theme_logged_shake_error_codes'));
 
