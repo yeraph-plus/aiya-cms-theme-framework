@@ -23,7 +23,6 @@ if (!class_exists('AYA_Framework_Setup')) {
         {
             self::include_self();
             self::include_framework_field();
-            self::include_plugin();
             self::register_textdomain();
         }
         //注册翻译文件
@@ -69,27 +68,6 @@ if (!class_exists('AYA_Framework_Setup')) {
             foreach ($fields as $field) {
                 if (!class_exists('AYA_Option_Fired_' . $field) && class_exists('AYA_Field_Action')) {
                     include_once  $framework_field_dir . '/' . $field . '.php';
-                }
-            }
-        }
-        //加载组件
-        public static function include_plugin()
-        {
-            //根目录
-            $plugin_dir = AYF_PATH . '/plugins';
-            //验证目录存在
-            if (is_dir($plugin_dir)) {
-                //定位其他组件
-                $plugin_inc_dir = scandir($plugin_dir);
-                //列出文件
-                sort($plugin_inc_dir);
-                //遍历
-                foreach ($plugin_inc_dir as $file) {
-                    //检查文件
-                    if (substr($file, -4) == '.php') {
-                        //执行include
-                        include_once $plugin_dir . '/' . $file;
-                    }
                 }
             }
         }
@@ -146,6 +124,32 @@ if (!class_exists('AYA_Theme_Setup')) {
         {
             if (is_null(self::$instance)) new self();
         }
+
+        function __construct()
+        {
+            self::include_plugin();
+        }
+        //加载组件
+        public static function include_plugin()
+        {
+            //根目录
+            $plugin_dir = AYF_PATH . '/plugins';
+            //验证目录存在
+            if (is_dir($plugin_dir)) {
+                //定位其他组件
+                $plugin_inc_dir = scandir($plugin_dir);
+                //列出文件
+                sort($plugin_inc_dir);
+                //遍历
+                foreach ($plugin_inc_dir as $file) {
+                    //检查文件
+                    if (substr($file, -4) == '.php') {
+                        //执行include
+                        include_once $plugin_dir . '/' . $file;
+                    }
+                }
+            }
+        }
         //实例化方法
         public function action($setings)
         {
@@ -197,4 +201,6 @@ if (!class_exists('AYA_Theme_Setup')) {
 }
 
 //页脚放置提示
-add_filter('admin_footer_text', function ($footer_text) {echo $footer_text . '<span id="footer-thankyou"> / ' . __('页面由 <b>AIYA-CMS-CORE</b> 构建。') . ' </span>';});
+add_filter('admin_footer_text', function ($footer_text) {
+    echo $footer_text . '<span id="footer-thankyou"> / ' . __('页面由 <b>AIYA-CMS-CORE</b> 构建。') . ' </span>';
+});
