@@ -4,9 +4,9 @@
 
 ---
 
-This a WordPress theme framework, used to create settings pages, category Meta fields, and article MetaBox components, also provides some quick launch features.
+A WordPress theme framework, can be use to create settings option pages, category Meta fields, and article MetaBox components, also provides some quick launch features.
 
-This framework is built into AIYA-CMS theme. Next, explain to how to use it to your own theme:
+There is a short tutorial of building the framework into your self theme:
 
 Copy the entire `framework-required` directory to the theme folder, and require following to the theme's `functions.php`:
 
