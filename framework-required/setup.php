@@ -13,6 +13,9 @@
 
 if (!defined('ABSPATH')) exit;
 
+//引入设置框架
+require_once AYF_PATH . '/framework-setup.php';
+
 /**
  * 封装好的Framework创建方法
  * 

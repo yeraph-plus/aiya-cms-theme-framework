@@ -19,8 +19,6 @@ There is a short demo of building this framework:
 
   `//Require framework file`
 
-  `require_once AYF_PATH . '/framework-setup.php';`
-
   `require_once AYF_PATH . '/setup.php';`
 
   `//The sample-config`
