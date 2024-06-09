@@ -1,7 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Theme_Setup')) exit;
+if (!defined('ABSPATH')) exit;
 
 /*
  * Name: 注册主题菜单位置

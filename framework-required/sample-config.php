@@ -47,7 +47,7 @@ $page_options = array(
         'type' => 'title_1',
     ),
     array(
-        'desc' => 'H3 Title desc',
+        'desc' => 'H2 Title desc',
         'type' => 'title_2',
     ),
     array(

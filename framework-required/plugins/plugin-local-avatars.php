@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('ABSPATH')) exit;
+
 /*
 
 //$local_avatars = new AYA_Plugin_Local_Avatars;

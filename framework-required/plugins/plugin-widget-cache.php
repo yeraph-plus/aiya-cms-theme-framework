@@ -1,7 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Theme_Setup')) exit;
+if (!defined('ABSPATH')) exit;
 
 /*
  * Name: 侧边栏小工具缓存插件

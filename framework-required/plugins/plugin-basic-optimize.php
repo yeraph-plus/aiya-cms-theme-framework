@@ -1,7 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Theme_Setup')) exit;
+if (!defined('ABSPATH')) exit;
 
 /*
  * Name: WP 功能精简/优化插件

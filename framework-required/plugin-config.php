@@ -56,6 +56,24 @@ function ayf_get_default_robots_text()
 $AYF = new AYF();
 $PLUGIN_SETUP = new AYA_Theme_Setup();
 
+//运行环境检查
+$PLUGIN_SETUP->action(
+    array(
+        'EnvCheck' => array(
+            //PHP最低版本
+            'php_last' => '7.4',
+            //PHP扩展
+            'php_ext' => array('gd', 'session', 'curl'),
+            //WP最低版本
+            'wp_last' => '6.1',
+            //经典编辑器插件
+            'check_classic_editor' => false,
+            //经典小工具插件
+            'check_classic_widgets' => false,
+        )
+    )
+);
+
 //插件功能转换参数
 function ayf_plugin_action($field_array, $plugin_sulg)
 {
@@ -81,24 +99,6 @@ function ayf_plugin_action($field_array, $plugin_sulg)
     //返回
     return $action_array;
 }
-
-//运行环境检查
-$PLUGIN_SETUP->action(
-    array(
-        'EnvCheck' => array(
-            //PHP最低版本
-            'php_last' => '7.4',
-            //PHP扩展
-            'php_ext' => array('gd', 'session', 'curl'),
-            //WP最低版本
-            'wp_last' => '6.1',
-            //经典编辑器插件
-            'check_classic_editor' => false,
-            //经典小工具插件
-            'check_classic_widgets' => false,
-        )
-    )
-);
 
 //创建父级设置页面和内容
 $AYF_PARENT_FIELDS = array(
@@ -207,7 +207,7 @@ $AYF_ALL_OFF_FIELDS = array(
 if (AYF::get_checked('all_plugin_off', 'plugin')) {
     AYF::new_opt(
         array(
-            'title' => '后台功能',
+            'title' => 'AIYA-Optimize',
             'slug' => 'plugin',
             'desc' => 'AIYA-CMS 主题，全局功能组件',
             'fields' => $AYF_ALL_OFF_FIELDS,
@@ -219,7 +219,7 @@ if (AYF::get_checked('all_plugin_off', 'plugin')) {
 } else {
     AYF::new_opt(
         array(
-            'title' => '后台功能',
+            'title' => 'AIYA-Optimize',
             'slug' => 'plugin',
             'desc' => 'AIYA-CMS 主题，全局功能组件',
             'fields' => $AYF_PARENT_FIELDS,
@@ -655,7 +655,7 @@ $AYF_REQUEST_FIELDS = array(
 //安全性
 $AYF_SECURITY_FIELDS = array(
     array(
-        'desc' => '后台功能权限设置',
+        'desc' => '后台入口权限设置',
         'type' => 'title_2',
     ),
     array(

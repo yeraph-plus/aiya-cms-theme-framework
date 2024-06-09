@@ -1,7 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Theme_Setup')) exit;
+if (!defined('ABSPATH')) exit;
 
 /*
  * Name: WP 简易SEO功能插件
@@ -23,10 +22,7 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
     {
         $action = $this->seo_action;
 
-        //移除原生页面标题输出
-        remove_action('wp_head', '_wp_render_title_tag', 1);
-
-        parent::add_action('wp_head', 'aya_theme_site_title');
+        parent::add_action('pre_get_document_title', 'aya_theme_site_title');
 
         if ($action['site_seo_action'] == true) {
             //移除本页链接
@@ -45,8 +41,10 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         }
     }
     //站点标题选择器
-    public function aya_theme_site_title()
+    public function aya_theme_site_title($title)
     {
+        //弃用原本的Title格式
+
         $action = $this->seo_action;
         //配置Title
         $site_title = ($action['site_title'] !== '') ? $action['site_title'] : get_bloginfo('name');
@@ -54,7 +52,7 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         $sub_title = ($action['site_title_sub'] !== '') ? $action['site_title_sub'] : get_bloginfo('description');
         $sub_title = ($action['site_title_sub_true'] == true) ? $sub_title : '';
         //配置分隔符
-        $sep_title = ($action['site_title_sep'] !== '') ? $action['site_title_sep'] : 'nbsp';
+        $sep_title = $action['site_title_sep'];
 
         //标题分隔符
         switch ($sep_title) {
@@ -69,6 +67,9 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
                 break;
             case 'u-line':
                 $sep = '_';
+                break;
+            default:
+                $sep = ' - ';
                 break;
         }
 
@@ -135,9 +136,9 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         else {
             $head_title = $site_title . ((!empty($sub_title)) ? $sep . $sub_title : '');
         }
-
+        return $head_title;
         //输出
-        echo '<title>' . $head_title . '</title>' . "\n";
+        //echo '<title>' . $head_title . '</title>' . "\n";
     }
     //SEO功能
     public function aya_theme_site_seo_action()

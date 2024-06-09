@@ -1,7 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Theme_Setup')) exit;
+if (!defined('ABSPATH')) exit;
 
 /*
  * Name: 浏览量计数器
@@ -10,11 +9,11 @@ if (!class_exists('AYA_Theme_Setup')) exit;
  * Author URI: https://www.yeraph.com
  */
 
-class AYA_Plugin_Record_Visitors extends AYA_Theme_Setup
+class AYA_Plugin_Record_Visitors
 {
     public function __destruct()
     {
-        parent::add_action('wp_head', 'record_visitors');
+        add_action('wp_head', array($this, 'record_visitors'));
     }
     //浏览量计数器
     public function record_visitors()

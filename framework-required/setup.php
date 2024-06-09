@@ -13,19 +13,6 @@
 
 if (!defined('ABSPATH')) exit;
 
-//定义了一些全局变量
-global $aya_post_type, $aya_tax_type, $aya_option_part;
-//路径
-define('AYF_PATH', get_template_directory() . '/framework-required');
-define('AYF_URI', get_template_directory_uri() . '/framework-required/assects');
-
-//IF：作为插件加载时
-//define('AYF_PATH', plugin_dir_path(__DIR__ . '/framework-required'));
-//define('AYF_URI', plugins_url() . '/framework-required/assects');
-
-//载入框架文件
-include_once AYF_PATH . '/inc/framework-steup-action.php';
-
 /**
  * 封装好的Framework创建方法
  * 
@@ -37,6 +24,7 @@ include_once AYF_PATH . '/inc/framework-steup-action.php';
  * 方法 out_opt($name, $inst) 直接输出get_opt方法返回的内容
  * 方法 out_checked($name, $inst, $output) 先判断get_opt方法，然后输出$output（用于直接输出内容）
  */
+
 if (!class_exists('AYF')) {
     class AYF extends AYA_Framework_Setup
     {

@@ -1,7 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Theme_Setup')) exit;
+if (!defined('ABSPATH')) exit;
 
 /*
  * Name: 移除分类URL中Category
@@ -10,7 +9,7 @@ if (!class_exists('AYA_Theme_Setup')) exit;
  * Author URI: https://www.yeraph.com
  */
 
-class AYA_Plugin_No_Category_URL extends AYA_Theme_Setup
+class AYA_Plugin_No_Category_URL
 {
     public function __destruct()
     {
