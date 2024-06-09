@@ -29,10 +29,14 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
         add_filter('pre_user_login', array($this, 'aya_theme_prevent_clean_admin_user'));
 
         add_filter('authenticate', array($this, 'aya_theme_logged_disable_admin_user'), 30, 3);
-        add_filter('authenticate', array($this, 'aya_theme_logged_scope_limit_verify'), 10, 3);
 
-        add_action('wp_login_failed', array($this, 'aya_theme_limit_login_attempts'), 10, 1);
+        //add_action('wp_login_failed', array($this, 'aya_theme_limit_login_attempts'), 10, 1);
         //add_action('wp_login', array($this, 'aya_theme_reset_login_attempts'), 10, 1);
+        //add_filter('authenticate', array($this, 'aya_theme_logged_scope_limit_verify'), 10, 3);
+
+        add_action('login_form', array($this, 'aya_theme_page_modify_login_form'));
+        add_action('login_form_login', array($this, 'aya_theme_page_modify_login_action'));
+        add_filter('login_form_bottom', array($this, 'aya_theme_page_modify_login_form_bottom'), 10, 2);
 
         add_filter('shake_error_codes', array($this, 'aya_theme_logged_shake_error_codes'));
 
@@ -170,6 +174,7 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
         }
         return $user;
     }
+    /*
     //设置允许的最大登录尝试次数
     public function aya_theme_limit_login_attempts($username)
     {
@@ -222,6 +227,119 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
             }
         }
         return $user;
+    }
+    */
+
+    //登录页功能
+
+    //替换登陆页面表单为防守消息
+    public function aya_theme_page_modify_login_form()
+    {
+        $options = $this->security_options;
+
+        if ($options['login_page_param_verify'] == false) return;
+        //获取参数设置
+        $auth_param = $options['login_page_param_args'];
+        //等待时间设置
+        $wait_time = 5;
+        //验证访问
+        if (!isset($_GET['auth']) || $_GET['auth'] != $auth_param) {
+            //发送404回执
+            http_response_code(404);
+            //输出消息
+            $html = '';
+            $html .= '<div id="secure-login-wrapper" style="position: relative;">';
+
+            if ($options['login_page_auto_jump_times'] == true) {
+                $html .= '<img src="' . esc_url(get_admin_url() . 'images/spinner.gif') . '" style="position: absolute;" />';
+                $html .= '<div id="wait-for-secure-login" style="padding-left: 30px;">';
+                $html .= '<p>' . __('Securing log-in to') . ' ';
+                $html .= '<span id="wait-time-seconds">' . $wait_time . '</span>';
+                $html .= ' ' . __('seconds left.') . '</p>';
+                $html .= '<div id="redirect-to-secure-login" style="padding-left: 30px;">' . __('Redirect to secure login.') . '</div>';
+                $html .= '</div>';
+            } else {
+                $html .= '<p>' . __('Unable to log-in for you, please ask the site administrator.') . '</p>';
+            }
+
+            $html .= '</div>';
+
+            echo $html;
+
+            //自动的跳转JS
+            if ($options['login_page_auto_jump_times'] == true) :
+?>
+                <script>
+                    const waitForSeconds = 5;
+                    let waited = 0;
+
+                    const waitElement = document.getElementById("wait-for-secure-login");
+                    const secondsElement = document.getElementById("wait-time-seconds");
+                    const redirectElement = document.getElementById("redirect-to-secure-login");
+
+                    redirectElement.style.display = "none";
+
+                    document.getElementById("user_login").closest("p").remove();
+                    document.getElementById("user_pass").closest(".user-pass-wrap").remove();
+
+                    const uiInterval = setInterval(function() {
+                        waited++;
+                        const remaining = waitForSeconds - waited;
+                        secondsElement.innerText = remaining >= 0 ? remaining + "" : "0";
+                        if (remaining <= 0) clearInterval(uiInterval);
+                    }, 1000);
+                    setTimeout(function() {
+                        waitElement.style.display = "none";
+                        redirectElement.style.display = "inherit";
+                        const href = window.location.href;
+                        const hashParts = href.split("#");
+                        const connector = hashParts[0].indexOf("?") > 0 ? "&" : "?";
+                        window.location.href = hashParts[0] + connector + "auth=<?= $auth_param; ?>" + (hashParts.length > 1 ? "#" + hashParts[1] : "");
+                    }, waitForSeconds * 1000);
+                </script>
+                </form>
+            <?php
+            else :
+            ?>
+                <script>
+                    document.getElementById("user_login").closest("p").remove();
+                    document.getElementById("user_pass").closest(".user-pass-wrap").remove();
+                </script>
+                </form>
+<?php
+            endif;
+            //加载原结构
+            login_footer();
+            //退出
+            exit;
+        }
+        //验证正常
+        else {
+            //添加一个随机数隐藏段用于验证表单
+            wp_nonce_field('secure-login-nonce-action', 'secure-login-nonce');
+        }
+    }
+    //验证登录页面的表单
+    public function aya_theme_page_modify_login_action()
+    {
+        //不是POST且未验证表单隐藏段
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['secure-login-nonce']) || !wp_verify_nonce($_POST['secure-login-nonce'], 'secure-login-nonce-action'))) {
+            return self::aya_theme_error_login_action();
+        }
+    }
+    //DEBUG：其他表单兼容性
+    public function aya_theme_page_modify_login_form_bottom($content, $args)
+    {
+        //添加缓冲区忽略不是当前插件添加的表单
+        ob_start();
+
+        wp_nonce_field('secure-login-nonce-action', 'secure-login-nonce');
+
+        $field = ob_get_contents();
+
+        ob_end_clean();
+
+        return $content . $field;
     }
     //创建登录框动态
     public function aya_theme_logged_shake_error_codes($error_codes)
@@ -308,6 +426,23 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
                 }
             }
         }
+    }
+
+
+    //返回登录报错
+    public function aya_theme_error_login_action()
+    {
+        $message = __('Sorry, this feels not very secure.');
+        $title = __('Access was denied.');
+        $args = array(
+            'response' => 403,
+            "link_text" => __("Login form"),
+            "link_url" => wp_login_url(),
+        );
+
+        wp_die($message, $title, $args);
+
+        exit;
     }
     //返回参数非法报错
     public function aya_theme_error_rewind_url_reject()

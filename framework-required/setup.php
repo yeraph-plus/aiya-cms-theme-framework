@@ -1,16 +1,17 @@
 <?php
-/*
-Plugin Name: AIYA-CMS Options Framework
-Plugin URI: https://www.yeraph.com/
-Description: A framework of options provided for AIYA-CMS themes, used to create settings pages, category Meta fields, and article MetaBox components, and provides some quick launch features.
-Version: 0.3
-Author: Yeraph Studio
-Author URI: https://www.yeraph.com/
-License: GPLv3 or later
-*/
+
+/**
+ * Plugin Name: AIYA-Framework
+ * Plugin URI: https://www.yeraph.com/
+ * Description: A framework of options provided for AIYA-CMS theme.
+ * Version: 1.1
+ * Author: Yeraph Studio
+ * Author URI: https://www.yeraph.com/
+ * License: GPLv3 or later
+ * Domain Path: /languages
+ */
 
 if (!defined('ABSPATH')) exit;
-
 
 //定义了一些全局变量
 global $aya_post_type, $aya_tax_type, $aya_option_part;

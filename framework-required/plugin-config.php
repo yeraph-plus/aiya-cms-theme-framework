@@ -674,6 +674,35 @@ $AYF_SECURITY_FIELDS = array(
         'default' => 'false',
     ),
     array(
+        'desc' => '登录页防护',
+        'type' => 'title_2',
+    ),
+    array(
+        'title' => '简单登录页防护',
+        'desc' => '为登录页面附加访问参数，隐藏登录表单防止脚本暴力破解',
+        'id' => 'login_page_param_verify',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
+        'title' => '登录页自动跳转',
+        'desc' => '通过JavaScript方式，等待5秒后自动跳转到带有访问参数的地址<br/>*如果禁用自动跳转，请牢记设置的认证参数',
+        'id' => 'login_page_auto_jump_times',
+        'type' => 'switch',
+        'default' => true,
+    ),
+    array(
+        'title' => '登录页认证参数',
+        'desc' => '接续上一项设置，登录页面的URL格式为 <code>/wp-login.php?auth=path_login</code>',
+        'id' => 'login_page_param_args',
+        'type' => 'text',
+        'default' => 'path_login',
+    ),
+    array(
+        'desc' => '用户验证',
+        'type' => 'title_2',
+    ),
+    array(
         'desc' => '*注意！开启此选项后如果忘记密码将只能通过SSH等其他方式删除或禁用此插件来解除限制',
         'type' => 'message',
     ),
@@ -683,10 +712,6 @@ $AYF_SECURITY_FIELDS = array(
         'id' => 'admin_disallow_password_reset',
         'type' => 'switch',
         'default' => false,
-    ),
-    array(
-        'desc' => '登录页防护',
-        'type' => 'title_2',
     ),
     array(
         'title' => '用户名验证',
@@ -708,20 +733,6 @@ $AYF_SECURITY_FIELDS = array(
         'id' => 'logged_register_user_name',
         'type' => 'text',
         'default' => 'admin,root',
-    ),
-    array(
-        'title' => '登录次数限制',
-        'desc' => '根据IP限制最大尝试登录次数为5次，防止暴力破解',
-        'id' => 'logged_scope_limit_enable',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '登录防守时间（分钟）',
-        'desc' => '接续上一项设置，登录尝试超过最大次数后的屏蔽时间',
-        'id' => 'logged_scope_limit_times',
-        'type' => 'text',
-        'default' => '15',
     ),
     array(
         'desc' => ' robots.txt 规则设置',
