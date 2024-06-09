@@ -6,15 +6,24 @@
 
 A WordPress theme framework, can be use to create settings option pages, category Meta fields, and article MetaBox components, also provides some quick launch features.
 
-There is a short tutorial of building the framework into your self theme:
+There is a short demo of building this framework:
 
-Copy the entire `framework-required` directory to the theme folder, and require following to the theme's `functions.php`:
+1. Copy the entire `framework-required` directory in the theme's folder.
+2. Add require following to your theme `functions.php`:
 
-  `require_once(get_template_directory() . '/framework-required/setup.php');`
+  `//These two constants must be defined`
 
-  `require_once(get_template_directory() . '/framework-required/sample-config.php');`
+  `define('AYF_PATH', get_template_directory() . '/framework-required');`
+  `define('AYF_URI', get_template_directory_uri() . '/framework-required/assects');`
 
-Tips: The `sample-config.php` already contains a `document.html` for using this framework.
+  `//Require framework file`
+
+  `require_once AYF_PATH . '/framework-setup.php';`
+  `require_once AYF_PATH . '/setup.php';`
+
+  `//The sample-config`
+  
+  `require_once AYF_PATH . '/sample-config.php';`
 
 ---
 
