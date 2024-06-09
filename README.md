@@ -14,7 +14,7 @@ There is a short demo of building this framework:
   `//These two constants must be defined`
 
   `define('AYF_PATH', get_template_directory() . '/framework-required');`
-  
+
   `define('AYF_URI', get_template_directory_uri() . '/framework-required/assects');`
 
   `//Require framework file`
@@ -37,7 +37,7 @@ There is a short demo of building this framework:
 
 预置功能分两部分，一部分是用于制作主题时添加功能的简化函数（注册主题页面路由、菜单、自定义文章类型等），另一部分是一套完整的“WordPress 优化插件”，包含大部分常见的优化功能（WP功能禁用、WP主查询修改、WP安全性设置、以及SEO拓展、头像加速、STMP等）。
 
-
+---
 
 关于此项目更详细的说明和教程，我更新在博客上：
 
