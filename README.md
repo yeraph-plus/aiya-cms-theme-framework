@@ -14,11 +14,13 @@ There is a short demo of building this framework:
   `//These two constants must be defined`
 
   `define('AYF_PATH', get_template_directory() . '/framework-required');`
+  
   `define('AYF_URI', get_template_directory_uri() . '/framework-required/assects');`
 
   `//Require framework file`
 
   `require_once AYF_PATH . '/framework-setup.php';`
+
   `require_once AYF_PATH . '/setup.php';`
 
   `//The sample-config`
