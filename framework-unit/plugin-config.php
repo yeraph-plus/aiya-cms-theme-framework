@@ -1,22 +1,20 @@
 <?php
 if (!defined('ABSPATH')) exit;
+
 /*
  * ------------------------------------------------------------------------------
  * 预置方法
  * ------------------------------------------------------------------------------
  */
 
-//验证文件MD5的方法
-function ayf_get_md5_file_source($filenamesource, $filenamedest)
-{
-    $sourcefile = md5_file($filenamesource);
-    $destfile   = md5_file($filenamedest);
-    if ($sourcefile == $destfile) {
-        return  true;
-    } else {
-        return  false;
-    }
+$AYF = new AYF();
+
+if (AYF::get_checked('all_plugin_off', 'plugin')) {
+    //退出当前脚本
+    return;
 }
+
+$PLUGIN_SETUP = new AYA_Theme_Setup();
 
 //生成robots.txt内容
 function ayf_get_default_robots_text()
@@ -44,187 +42,6 @@ function ayf_get_default_robots_text()
     //$output .= "Sitemap: $site_url/wp-sitemap.xml";
 
     return $output;
-}
-
-/*
- * ------------------------------------------------------------------------------
- * 初始化
- * ------------------------------------------------------------------------------
- */
-
-//启动框架
-$AYF = new AYF();
-$PLUGIN_SETUP = new AYA_Theme_Setup();
-
-//运行环境检查
-$PLUGIN_SETUP->action(
-    array(
-        'EnvCheck' => array(
-            //PHP最低版本
-            'php_last' => '7.4',
-            //PHP扩展
-            'php_ext' => array('gd', 'session', 'curl'),
-            //WP最低版本
-            'wp_last' => '6.1',
-            //经典编辑器插件
-            'check_classic_editor' => false,
-            //经典小工具插件
-            'check_classic_widgets' => false,
-        )
-    )
-);
-
-//插件功能转换参数
-function ayf_plugin_action($field_array, $plugin_sulg)
-{
-    if (!is_array($field_array)) {
-        return;
-    }
-
-    $action_array = array();
-
-    //遍历
-    foreach ($field_array as $field) {
-        //跳过
-        if (empty($field['id'])) {
-            continue;
-        }
-        //验证选项布尔型
-        if ($field['type'] === 'switch') {
-            $action_array[$field['id']] = AYF::get_checked($field['id'], $plugin_sulg);
-        } else {
-            $action_array[$field['id']] = AYF::get_opt($field['id'], $plugin_sulg);
-        }
-    }
-    //返回
-    return $action_array;
-}
-
-//创建父级设置页面和内容
-$AYF_PARENT_FIELDS = array(
-    array(
-        'desc' => '禁用拓展',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '全局禁用',
-        'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
-        'id' => 'all_plugin_off',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'desc' => '插件',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '外部功能加速',
-        'desc' => '将Gravatar头像服务、谷歌字体服务 替换为国内CDN',
-        'id' => 'plugin_add_avatar_speed',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '简单SEO组件',
-        'desc' => '替代页面标题配置器并支持一些基础的SEO功能',
-        'id' => 'plugin_add_seo_stk',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '额外代码',
-        'desc' => '为站点增加额外JS/CSS代码，支持最小化添加百度统计和谷歌统计',
-        'id' => 'plugin_add_site_statistics',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => ' STMP 送信',
-        'desc' => '通过 STMP 发送站点通知',
-        'id' => 'plugin_add_stmp_mail',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'desc' => '此功能完全重建了分类的页面的路由方法，请自行测试你的主题 / 插件是否兼容',
-        'type' => 'message',
-    ),
-    array(
-        'title' => '分类 URL 重建',
-        'desc' => '移除分类URL中 <code>/category/</code> 层级，启用此项功能后，需要在 <a href="options-permalink.php">固定链接</a> 设置中重新保存一次',
-        'id' => 'plugin_no_category_url',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'desc' => '开发者功能',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '服务器状态信息',
-        'desc' => '在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）',
-        'id' => 'dashboard_server_monitor',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => 'DEBUG模式',
-        'desc' => '在wp_footer中输出SQL和include等调试信息',
-        'id' => 'debug_mode',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '简码列表',
-        'desc' => '列出WP当前的全部固定链接（ Rewrite 规则）和查询方法',
-        'id' => 'debug_shortcode_items',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '路由列表',
-        'desc' => '列出WP当前的全部简码功能（ Shortcode 字段），并列出回调函数',
-        'id' => 'debug_rules_items',
-        'type' => 'switch',
-        'default' => false,
-    ),
-);
-$AYF_ALL_OFF_FIELDS = array(
-    array(
-        'desc' => '禁用拓展',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '全局禁用',
-        'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
-        'id' => 'all_plugin_off',
-        'type' => 'switch',
-        'default' => false,
-    ),
-);
-
-//创建父级设置页面和内容
-if (AYF::get_checked('all_plugin_off', 'plugin')) {
-    AYF::new_opt(
-        array(
-            'title' => 'AIYA-Optimize',
-            'slug' => 'plugin',
-            'desc' => 'AIYA-CMS 主题，全局功能组件',
-            'fields' => $AYF_ALL_OFF_FIELDS,
-        )
-    );
-
-    //退出当前脚本
-    return;
-} else {
-    AYF::new_opt(
-        array(
-            'title' => 'AIYA-Optimize',
-            'slug' => 'plugin',
-            'desc' => 'AIYA-CMS 主题，全局功能组件',
-            'fields' => $AYF_PARENT_FIELDS,
-        )
-    );
 }
 
 /*
@@ -659,14 +476,14 @@ $AYF_SECURITY_FIELDS = array(
         'type' => 'title_2',
     ),
     array(
-        'title' => '禁止后台访问',
+        'title' => '验证权限级别',
         'desc' => '根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页',
         'id' => 'admin_backend_verify',
         'type' => 'radio',
         'sub'  => array(
             'false' => '无限制',
             //'administrator' => '管理员',
-            'editor' => '编辑',
+            //'editor' => '编辑',
             'author' => '作者',
             'contributor' => '贡献者',
             'subscriber' => '订阅者',
@@ -1311,6 +1128,20 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
         )
     );
 }
+//TinyMCE增强组件，移除分类URL中Category
+if (AYF::get_checked('plugin_tinymce_add_modify', 'plugin')) {
+    //无需设置
+    $PLUGIN_SETUP->action(
+        array(
+            'Modify_TinyMCE' => array(
+                //按钮重排
+                'tinymce_filter_buttons' => true,
+                //本地粘贴图片自动上传（用户在编辑器中粘贴的图片自动上传媒体库）
+                'tinymce_upload_image' => false,
+            ),
+        )
+    );
+}
 //分类URL重建组件，移除分类URL中Category
 if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
     //无需设置
@@ -1327,67 +1158,6 @@ if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
  * ------------------------------------------------------------------------------
  */
 
-//所有短代码
-function query_shortcode_items()
-{
-    $items = [];
-
-    //循环获取所有短代码和回调函数
-    foreach ($GLOBALS['shortcode_tags'] as $tag => $callback) {
-        if (is_array($callback)) {
-            if (is_object($callback[0])) {
-                $callback = '<p>' . get_class($callback[0]) . '->' . (string)$callback[1] . '</p>';
-            } else {
-                $callback = '<p>' . $callback[0] . '->' . (string)$callback[1] . '</p>';
-            }
-        } elseif (is_object($callback)) {
-            $callback = '<pre>' . print_r($callback, true) . '</pre>';
-        } else {
-            $callback    = wpautop($callback);
-        }
-        //简码+回调函数
-        $items[] = ['tag' => wpautop($tag), 'callback' => $callback];
-    }
-
-    //print_r($items);
-    //return $items;
-
-    //将获得的数组转换为html表格
-    echo '<table class="section-table-list">';
-    echo '<thead><tr><th>简码</th><th>回调函数</th></tr></thead>';
-    echo '<tbody>';
-    foreach ($items as $item) {
-        echo '<tr><td>' . $item['tag'] . '</td><td>' . $item['callback'] . '</td></tr>';
-    }
-    echo '</tbody>';
-    echo '</table>';
-}
-//所有路由
-function query_rewrite_rules_items($args)
-{
-    $items = [];
-    $rewrite_id = 0;
-    //获取WP设置
-    $rewrite_rules = get_option('rewrite_rules') ?: [];
-    //循环设置
-    foreach ($rewrite_rules as $regex => $query) {
-        $rewrite_id++;
-        $items[] = compact('rewrite_id', 'regex', 'query');
-    }
-
-    //print_r($items);
-    //return $items;
-
-    //将获得的数组转换为html表格
-    echo '<table class="section-table-list">';
-    echo '<thead><tr><th>ID</th><th>正则</th><th>查询方法</th></tr></thead>';
-    echo '<tbody>';
-    foreach ($items as $item) {
-        echo '<tr><td>' . $item['rewrite_id'] . '</td><td>' . $item['regex'] . '</td><td>' . $item['query'] . '</td></tr>';
-    }
-    echo '</tbody>';
-    echo '</table>';
-}
 //服务器状态小组件
 if (AYF::get_checked('dashboard_server_monitor', 'plugin')) {
     $PLUGIN_SETUP->action(

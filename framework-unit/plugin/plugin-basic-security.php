@@ -55,31 +55,31 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
 
         $options = $this->security_options;
 
-        if (empty($options['admin_backend_verify'])) $verify = true;
+        if (empty($options['admin_backend_verify'])) return;
 
         //检查登录用户权限
         switch ($options['admin_backend_verify']) {
-                //case 'administrator':
-                //$verify = current_user_can('manage_options');
-                //break;
+            case 'administrator':
+                $verify = current_user_can('manage_options');
+                break;
             case 'editor':
-                $verify = (current_user_can('publish_pages')  && !current_user_can('manage_options'));
+                $verify = current_user_can('publish_pages');
                 break;
             case 'author':
-                $verify = (current_user_can('publish_posts')  &&  !current_user_can('publish_pages'));
+                $verify = current_user_can('publish_posts');
                 break;
             case 'contributor':
-                $verify = (current_user_can('edit_posts')  &&  !current_user_can('publish_posts'));
+                $verify = current_user_can('edit_posts');
                 break;
             case 'subscriber':
-                $verify = (current_user_can('read')  && !current_user_can('edit_posts'));
+                $verify = current_user_can('read');
                 break;
             default:
                 $verify = true;
                 break;
         }
         //重定向
-        if ($verify == false) {
+        if ($verify === false) {
             wp_redirect('/');
         }
     }
@@ -236,7 +236,12 @@ class AYA_Plugin_Security extends AYA_Theme_Setup
     {
         $options = $this->security_options;
 
-        if ($options['login_page_param_verify'] == false) return;
+        if ($options['login_page_param_verify'] == false) {
+
+            //添加一个随机数隐藏段用于验证表单
+            wp_nonce_field('secure-login-nonce-action', 'secure-login-nonce');
+            return;
+        }
         //获取参数设置
         $auth_param = $options['login_page_param_args'];
         //等待时间设置

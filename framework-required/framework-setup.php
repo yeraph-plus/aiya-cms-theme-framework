@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * AIYA-CMS Theme Options Framework 加载框架文件
  * 
- * @version 1.0
+ * @version 1.3
  **/
 
 if (!class_exists('AYA_Framework_Setup')) {
@@ -25,15 +25,27 @@ if (!class_exists('AYA_Framework_Setup')) {
             self::include_framework_field();
             self::register_textdomain();
         }
+
+        function __destruct()
+        {
+            add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
+        }
         //注册翻译文件
         public static function register_textdomain()
         {
-            load_plugin_textdomain('aya-framework', false, AYF_PATH . '/languages');
+            load_plugin_textdomain('aya-framework', false, plugin_dir_path(__FILE__) . '/languages');
+        }
+        //加载样式
+        public function enqueue_script()
+        {
+            //加载JS文件
+            wp_enqueue_style('aya-framework', plugins_url('', __FILE__) . '/assects/css/framework-style.css');
+            wp_enqueue_script('aya-framework', plugins_url('', __FILE__) . '/assects/js/framework-main.js', '', '', true);
         }
         //Include
         public static function include_self()
         {
-            $framework_dir = AYF_PATH . '/inc';
+            $framework_dir = plugin_dir_path(__FILE__) . '/inc';
             //引入框架
             require_once $framework_dir . '/framework-build-fields.php';
             require_once $framework_dir . '/framework-option-page.php';
@@ -46,7 +58,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         //设置框架组件
         public static function include_framework_field()
         {
-            $framework_field_dir = AYF_PATH . '/inc/fields';
+            $framework_field_dir = plugin_dir_path(__FILE__) . '/inc/fields';
 
             $fields = array(
                 'text',
@@ -77,7 +89,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             $path = '';
 
             $file = ltrim($file, '/');
-            $dir = AYF_PATH . '/';
+            $dir = plugin_dir_path(__FILE__);
 
             //验证父主题位置
             if (file_exists(get_parent_theme_file_path($file))) {

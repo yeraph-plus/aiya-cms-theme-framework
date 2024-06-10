@@ -42,7 +42,7 @@ class AYA_Plugin_Modify_TinyMCE extends AYA_Theme_Setup
     {
         $plugins = (empty($this->tinymce_options['tinymce_add_plugins'])) ? array() : $this->tinymce_options['tinymce_add_plugins'];
 
-        $plugin_add['table'] = AYF_URI . '/js/mce-table-plugin.min.js';
+        $plugin_add['table'] = plugins_url('..', __FILE__) . '/assects/js/mce-table-plugin.min.js';
 
         //增加列表中的插件
         if ($plugins != '' && is_array($plugins)) {

@@ -29,14 +29,6 @@ class AYA_Framework_Post_Meta
         add_action('post_updated', array(&$this, 'save_podefaultata'), 9);
         add_action('save_post', array(&$this, 'save_podefaultata'));
 
-        add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
-    }
-    //加载样式
-    public function enqueue_script()
-    {
-        //加载JS文件
-        wp_enqueue_style('aya-framework', AYF_URI . '/css/framework-style.css');
-        wp_enqueue_script('aya-framework', AYF_URI . '/js/framework-main.js', '', '', true);
     }
     public function init_metaboxes()
     {

@@ -5,7 +5,7 @@ AYA_Framework_Setup::instance();
 //open document.html
 function framework_doc_about_page()
 {
-    $document_file = AYF_PATH . '/assects/document.html';
+    $document_file = plugin_dir_path(__FILE__) . '/assects/document.html';
 
     $open_file = fopen($document_file, 'r') or die('Unable to open file!');
 

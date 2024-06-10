@@ -11,19 +11,13 @@ There is a short demo of building this framework:
 1. Copy the entire `framework-required` directory in the theme's folder.
 2. Add require following to your theme `functions.php`:
 
-  `//These two constants must be defined`
-
-  `define('AYF_PATH', get_template_directory() . '/framework-required');`
-
-  `define('AYF_URI', get_template_directory_uri() . '/framework-required/assects');`
-
   `//Require framework file`
 
-  `require_once AYF_PATH . '/setup.php';`
+  `require_once get_template_directory() . '/framework-required/setup.php';`
 
   `//The sample-config`
   
-  `require_once AYF_PATH . '/sample-config.php';`
+  `require_once get_template_directory() . '/framework-required/sample-config.php';`
 
 ---
 

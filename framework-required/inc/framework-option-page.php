@@ -56,9 +56,8 @@ class AYA_Framework_Options_Page
         //定位页面
         if (isset($_GET['page']) && ($_GET['page'] == $this->menu_slug)) {
             //加载
-            add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
+            add_action('admin_enqueue_scripts', array(&$this, 'enqueue_ajax_script'));
         }
-
     }
     //创建页面
     public function add_admin_menu_page()
@@ -93,14 +92,8 @@ class AYA_Framework_Options_Page
         }
     }
     //加载样式
-    public function enqueue_script()
+    public function enqueue_ajax_script()
     {
-        //加载JS文件
-        wp_register_style('aya-framework', AYF_URI . '/css/framework-style.css');
-        wp_register_script('aya-framework', AYF_URI . '/js/framework-main.js', '', '', true);
-        //
-        wp_enqueue_style('aya-framework');
-        wp_enqueue_script('aya-framework');
         //Ajax
         wp_localize_script('aya-framework-ajax', 'aya_framework', array(
             'ajax_url' => admin_url('admin-ajax.php'),

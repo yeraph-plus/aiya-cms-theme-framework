@@ -43,14 +43,6 @@ class AYA_Framework_Term_Meta
             add_action('edited_' . $option_array, array(&$this, 'save_taxonomy_field'), 10, 1);
             add_action('delete_' . $option_array, array(&$this, 'delete_taxonomy_field'), 10, 1);
         }
-        add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
-    }
-    //加载样式
-    public function enqueue_script()
-    {
-        //加载JS文件
-        wp_enqueue_style('aya-framework', AYF_URI . '/css/framework-style.css');
-        wp_enqueue_script('aya-framework', AYF_URI . '/js/framework-main.js', '', '', true);
     }
     //创建字段
     function add_taxonomy_field()
