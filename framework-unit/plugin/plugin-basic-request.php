@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) exit;
  * Author URI: https://www.yeraph.com
  */
 
-class AYA_Plugin_Request extends AYA_Theme_Setup
+class AYA_Plugin_Request
 {
     public $query_options;
 

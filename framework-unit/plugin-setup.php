@@ -25,11 +25,6 @@ if (!class_exists('AYA_Theme_Setup')) {
             if (is_null(self::$instance)) new self();
         }
 
-        function __construct()
-        {
-            //self::include_plugins('inc');
-            self::include_plugins('plugin');
-        }
         //实例化方法
         public function action($setings)
         {
@@ -59,7 +54,7 @@ if (!class_exists('AYA_Theme_Setup')) {
             }
         }
         //加载组件
-        public static function include_plugins($dir)
+        public function include_plugins($dir)
         {
             //根目录
             $plugin_dir = plugin_dir_path(__FILE__) . $dir;

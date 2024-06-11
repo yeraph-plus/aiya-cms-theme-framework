@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
  * @version 1.0
  */
 
-if (!class_exists('AYA_Field_Action')) exit;
+if (!class_exists('AYA_Framework_Setup')) exit;
 
 abstract class AYA_Field_Action
 {

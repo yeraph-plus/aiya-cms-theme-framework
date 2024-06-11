@@ -1,13 +1,14 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Framework_Options_Page')) exit;
 
 /**
  * AIYA-CMS Theme Options Framework 创建设置页面
  * 
  * @version 1.0
  **/
+
+if (!class_exists('AYA_Framework_Setup')) exit;
 
 class AYA_Framework_Options_Page
 {

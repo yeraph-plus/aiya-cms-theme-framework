@@ -8,7 +8,9 @@ if (!defined('ABSPATH')) exit;
  */
 
 $AYF = new AYF();
+
 $PLUGIN_SETUP = new AYA_Theme_Setup();
+$PLUGIN_SETUP->include_plugins('plugin');
 
 //设置页面和内容
 $AYF_PARENT_FIELDS = array(

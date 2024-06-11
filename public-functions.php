@@ -8,6 +8,9 @@
  * Author: Yeraph Studio
  * Author URI: https://www.yeraph.com/
  * License: GPLv3 or later
+ * Requires at least: 6.1
+ * Tested up to: 6.5
+ * Requires PHP: 7.4
  */
 
 

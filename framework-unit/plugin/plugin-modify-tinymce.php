@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) exit;
  * Author URI: https://www.yeraph.com
  */
 
-class AYA_Plugin_Modify_TinyMCE extends AYA_Theme_Setup
+class AYA_Plugin_Modify_TinyMCE
 {
     public $tinymce_options;
 
