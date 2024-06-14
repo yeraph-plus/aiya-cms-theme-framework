@@ -331,6 +331,10 @@ class AYA_Plugin_Optimize
         if ($options['remove_image_threshold'] == true) {
             add_filter('big_image_size_threshold', '__return_false');
         }
+        //禁用 PDF 自动生成预览图
+        if ($options['remove_pdf_preview'] == true) {
+            add_filter('fallback_intermediate_image_sizes', '__return_empty_array');
+        }
 
         //地区调整
 

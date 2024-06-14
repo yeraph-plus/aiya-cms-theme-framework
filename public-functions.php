@@ -4,7 +4,7 @@
  * Plugin Name: AIYA-Optimize 优化插件
  * Plugin URI: https://www.yeraph.com/
  * Description: 又一款WordPress优化插件
- * Version: 1.1
+ * Version: 1.1.3
  * Author: Yeraph Studio
  * Author URI: https://www.yeraph.com/
  * License: GPLv3 or later
@@ -32,6 +32,7 @@ require_once plugin_dir_path(__FILE__) . 'framework-unit/plugin-config.php';
 
 //运行环境检查
 $PLUGIN_SETUP = new AYA_Theme_Setup();
+$PLUGIN_SETUP->include_plugins('plugin');
 
 $PLUGIN_SETUP->action(
     array(

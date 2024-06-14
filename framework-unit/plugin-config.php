@@ -260,8 +260,15 @@ $AYF_OPTIMIZE_FIELDS = array(
     ),
     array(
         'title' => '禁用超大图片自动缩放',
-        'desc' => '禁止 WP 对大于5000px*7000px的图像自动缩放',
+        'desc' => '禁止 WP 对大于 5000px*7000px 的图像自动缩放',
         'id' => 'remove_image_threshold',
+        'type' => 'switch',
+        'default' => true,
+    ),
+    array(
+        'title' => '禁用 PDF 文件自动生成预览',
+        'desc' => '禁止 WP 自动生成 PDF 文件的缩略图，可以解决一些文件管理类插件的冲突',
+        'id' => 'remove_pdf_preview',
         'type' => 'switch',
         'default' => true,
     ),
