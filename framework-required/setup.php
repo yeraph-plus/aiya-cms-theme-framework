@@ -1,20 +1,9 @@
 <?php
 
-/**
- * Plugin Name: AIYA-Framework
- * Plugin URI: https://www.yeraph.com/
- * Description: A framework of options provided for AIYA-CMS theme.
- * Version: 1.1
- * Author: Yeraph Studio
- * Author URI: https://www.yeraph.com/
- * License: GPLv3 or later
- * Domain Path: /languages
- */
-
 if (!defined('ABSPATH')) exit;
 
 //引入设置框架
-require_once plugin_dir_path(__FILE__) . '/framework-setup.php';
+require_once (__DIR__) . '/framework-setup.php';
 
 /**
  * 封装好的Framework创建方法
@@ -31,18 +20,24 @@ require_once plugin_dir_path(__FILE__) . '/framework-setup.php';
 if (!class_exists('AYF')) {
     class AYF extends AYA_Framework_Setup
     {
+        private static $instance;
+
         private static $def_inst = 'aya_option';
 
+        //实例化
+        public static function instance()
+        {
+            if (is_null(self::$instance)) new self();
+        }
+        //初始父类方法
         public function __construct()
         {
-            parent::instance();
-
             parent::__construct();
         }
-        //简化调用
+        //设置页简化调用
         public static function new_opt($conf = array())
         {
-            if ($conf == array()) return;
+            if ($conf === array()) return;
 
             //创建设置页面参数
             $inst = array(
@@ -56,15 +51,17 @@ if (!class_exists('AYF')) {
 
             new AYA_Framework_Options_Page($field_conf, $inst);
         }
+        //分类Metabox键简化调用
         public static function new_tex($conf = array(), $inst = array())
         {
-            if ($conf == array()) return;
+            if ($conf === array()) return;
 
             new AYA_Framework_Term_Meta($conf, $inst);
         }
+        //文章Metabox键简化调用
         public static function new_box($conf = array(), $inst = array())
         {
-            if ($conf == array()) return;
+            if ($conf === array()) return;
 
             new AYA_Framework_Post_Meta($conf, $inst);
         }
@@ -112,3 +109,6 @@ if (!class_exists('AYF')) {
         }
     }
 }
+
+//启动
+AYF::instance();

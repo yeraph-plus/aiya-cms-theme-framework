@@ -1,8 +1,6 @@
 <?php
 
-AYA_Framework_Setup::instance();
-
-//open document.html
+//document.html
 function framework_doc_about_page()
 {
     $document_file = plugin_dir_path(__FILE__) . '/assects/document.html';
@@ -13,6 +11,8 @@ function framework_doc_about_page()
 
     fclose($open_file);
 }
+
+new AYA_Framework_Setup();
 
 //----- about page -----
 

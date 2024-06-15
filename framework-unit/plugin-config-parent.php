@@ -3,13 +3,158 @@ if (!defined('ABSPATH')) exit;
 
 /*
  * ------------------------------------------------------------------------------
- * 父级设置页面
+ * 预置方法
  * ------------------------------------------------------------------------------
  */
 
-$AYF = new AYF();
+//插件功能转换参数
+function ayf_plugin_action($field_array, $plugin_sulg)
+{
+    if (!is_array($field_array)) return;
 
-$PLUGIN_SETUP = new AYA_Theme_Setup();
+    $action_array = array();
+
+    //遍历
+    foreach ($field_array as $field) {
+        //跳过
+        if (empty($field['id'])) continue;
+
+        //验证选项布尔型
+        if ($field['type'] === 'switch') {
+            $action_array[$field['id']] = AYF::get_checked($field['id'], $plugin_sulg);
+        } else {
+            $action_array[$field['id']] = AYF::get_opt($field['id'], $plugin_sulg);
+        }
+    }
+
+    //print_r($action_array);
+    //ayf_plugin_action_print($field_array);
+    //返回
+    return $action_array;
+}
+//打印当前设置表单
+function ayf_plugin_action_print($field_array)
+{
+    if (!is_array($field_array)) return;
+
+    $setting_array = array();
+    $i = 0;
+    foreach ($field_array as $field) {
+        $i++;
+        if (empty($field['id'])) {
+            continue;
+        }
+        $setting_array[$i] = $field['id'] . '/' . $field['title'] . '/' . $field['desc'];
+    }
+
+    print_r($setting_array);
+}
+//验证MD5的方法
+function ayf_md5_file_source($filenamesource, $filenamedest)
+{
+    $sourcefile = md5_file($filenamesource);
+    $destfile   = md5_file($filenamedest);
+    if ($sourcefile == $destfile) {
+        return  true;
+    } else {
+        return  false;
+    }
+}
+//查询所有短代码
+function query_shortcode_items()
+{
+    $items = [];
+
+    //循环获取所有短代码和回调函数
+    foreach ($GLOBALS['shortcode_tags'] as $tag => $callback) {
+        if (is_array($callback)) {
+            if (is_object($callback[0])) {
+                $callback = '<p>' . get_class($callback[0]) . '->' . (string)$callback[1] . '</p>';
+            } else {
+                $callback = '<p>' . $callback[0] . '->' . (string)$callback[1] . '</p>';
+            }
+        } elseif (is_object($callback)) {
+            $callback = '<pre>' . print_r($callback, true) . '</pre>';
+        } else {
+            $callback    = wpautop($callback);
+        }
+        //简码+回调函数
+        $items[] = ['tag' => wpautop($tag), 'callback' => $callback];
+    }
+
+    //print_r($items);
+    //return $items;
+
+    //将获得的数组转换为html表格
+    echo '<table class="section-table-list">';
+    echo '<thead><tr><th>简码</th><th>回调函数</th></tr></thead>';
+    echo '<tbody>';
+    foreach ($items as $item) {
+        echo '<tr><td>' . $item['tag'] . '</td><td>' . $item['callback'] . '</td></tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+}
+//查询所有路由
+function query_rewrite_rules_items($args)
+{
+    $items = [];
+    $rewrite_id = 0;
+    //获取WP设置
+    $rewrite_rules = get_option('rewrite_rules') ?: [];
+    //循环设置
+    foreach ($rewrite_rules as $regex => $query) {
+        $rewrite_id++;
+        $items[] = compact('rewrite_id', 'regex', 'query');
+    }
+
+    //print_r($items);
+    //return $items;
+
+    //将获得的数组转换为html表格
+    echo '<table class="section-table-list">';
+    echo '<thead><tr><th>ID</th><th>正则</th><th>查询方法</th></tr></thead>';
+    echo '<tbody>';
+    foreach ($items as $item) {
+        echo '<tr><td>' . $item['rewrite_id'] . '</td><td>' . $item['regex'] . '</td><td>' . $item['query'] . '</td></tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+}
+//生成robots.txt内容
+function ayf_get_default_robots_text()
+{
+    //兼容站点地址设置
+    $site_url = parse_url(site_url());
+    $path = !empty($site_url['path']) ? $site_url['path'] : '';
+    //生成
+    $output = "User-agent: *\n";
+    $output .= "Disallow: *?*\n";
+    $output .= "Disallow: $path/wp-admin/\n";
+    $output .= "Disallow: $path/wp-includes/\n";
+    $output .= "Disallow: $path/wp-content/themes/*\n";
+    $output .= "Disallow: $path/wp-content/plugins/*\n";
+    $output .= "Disallow: $path/wp-content/cache\n";
+    $output .= "Disallow: $path/trackback\n";
+    $output .= "Disallow: $path/feed\n";
+    $output .= "Disallow: $path/comments\n";
+    $output .= "Disallow: $path/search\n";
+    $output .= "Disallow: $path/go/\n";
+    $output .= "Disallow: $path/link/\n";
+    $output .= "\n";
+    $output .= "Allow: /wp-admin/admin-ajax.php\n";
+    $output .= "\n";
+    //$output .= "Sitemap: $site_url/wp-sitemap.xml";
+
+    return $output;
+}
+
+
+/*
+ * ------------------------------------------------------------------------------
+ * 父级设置页面
+ * ------------------------------------------------------------------------------
+ */
 
 //设置页面和内容
 $AYF_PARENT_FIELDS = array(

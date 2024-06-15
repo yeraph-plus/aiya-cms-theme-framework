@@ -28,9 +28,9 @@ class AYA_Plugin_Modify_TinyMCE
             add_filter('mce_buttons', array($this, 'try_mce_buttons_1'));
             add_filter('mce_buttons_2', array($this, 'try_mce_buttons_2'));
             add_filter('mce_buttons_3', array($this, 'enable_more_buttons'));
-            add_filter('mce_external_plugins', array($this, 'add_more_buttons_plugin'));
         }
 
+        add_filter('mce_external_plugins', array($this, 'add_more_buttons_plugin'));
         add_filter('gettext_with_context', array($this, 'remove_gutenberg_styles'), 10, 4);
 
         if ($options['tinymce_upload_image']) {
@@ -42,9 +42,9 @@ class AYA_Plugin_Modify_TinyMCE
     {
         $plugins = (empty($this->tinymce_options['tinymce_add_plugins'])) ? array() : $this->tinymce_options['tinymce_add_plugins'];
 
-        $plugin_add['table'] = plugins_url('..', __FILE__) . '/assects/js/mce-table-plugin.min.js';
-
         //增加列表中的插件
+        $plugin_add = array();
+
         if ($plugins != '' && is_array($plugins)) {
             foreach ($plugins as $name => $url) {
                 $plugin_add[$name] = $url;

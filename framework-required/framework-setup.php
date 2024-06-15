@@ -11,55 +11,44 @@ if (!defined('ABSPATH')) exit;
 if (!class_exists('AYA_Framework_Setup')) {
     class AYA_Framework_Setup
     {
-        private static $instance;
+        private static $include_once;
 
-        //初始化
-        public static function instance()
-        {
-            if (is_null(self::$instance)) new self();
-        }
+        public static $inc_dir = (__DIR__) . '/inc';
+        public static $class_name = 'AYA_Option_Fired_';
 
         function __construct()
         {
-            self::include_self();
-            self::include_framework_field();
-            self::register_textdomain();
+            if (is_null(self::$include_once)) {
+                //注册翻译文件
+                load_plugin_textdomain('aiya-cms-framework', false, (__DIR__) . '/languages');
+                //加载样式
+                add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
+
+                self::include();
+                self::include_field();
+                self::$include_once = true;
+            }
         }
 
-        function __destruct()
-        {
-            add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
-        }
-        //注册翻译文件
-        public static function register_textdomain()
-        {
-            load_plugin_textdomain('aya-framework', false, plugin_dir_path(__FILE__) . '/languages');
-        }
-        //加载样式
         public function enqueue_script()
         {
-            //加载JS文件
-            wp_enqueue_style('aya-framework', plugins_url('', __FILE__) . '/assects/css/framework-style.css');
-            wp_enqueue_script('aya-framework', plugins_url('', __FILE__) . '/assects/js/framework-main.js', '', '', true);
+            wp_enqueue_style('aiya-cms-framework', AYF_URL . 'framework-required/assects/css/framework-style.css');
+            wp_enqueue_script('aiya-cms-framework', AYF_URL . 'framework-required/assects/js/framework-main.js');
         }
-        //Include
-        public static function include_self()
+        //引入框架
+        public static function include()
         {
-            $framework_dir = plugin_dir_path(__FILE__) . '/inc';
-            //引入框架
-            require_once $framework_dir . '/framework-build-fields.php';
-            require_once $framework_dir . '/framework-option-page.php';
-            require_once $framework_dir . '/framework-metabox-post.php';
-            require_once $framework_dir . '/framework-metabox-term.php';
-            require_once $framework_dir . '/framework-quick-editor.php';
-            require_once $framework_dir . '/framework-widget-bulider.php';
-            require_once $framework_dir . '/framework-shortcode-manager.php';
+            require_once self::$inc_dir . '/framework-build-fields.php';
+            require_once self::$inc_dir . '/framework-option-page.php';
+            require_once self::$inc_dir . '/framework-metabox-post.php';
+            require_once self::$inc_dir . '/framework-metabox-term.php';
+            require_once self::$inc_dir . '/framework-quick-editor.php';
+            require_once self::$inc_dir . '/framework-widget-bulider.php';
+            require_once self::$inc_dir . '/framework-shortcode-manager.php';
         }
         //设置框架组件
-        public static function include_framework_field()
+        public static function include_field()
         {
-            $framework_field_dir = plugin_dir_path(__FILE__) . '/inc/fields';
-
             $fields = array(
                 'text',
                 'textarea',
@@ -78,37 +67,9 @@ if (!class_exists('AYA_Framework_Setup')) {
             );
 
             foreach ($fields as $field) {
-                if (!class_exists('AYA_Option_Fired_' . $field) && class_exists('AYA_Field_Action')) {
-                    include_once  $framework_field_dir . '/' . $field . '.php';
+                if (!class_exists(self::$class_name . $field) && class_exists('AYA_Field_Action')) {
+                    include_once self::$inc_dir . '/fields/' . $field . '.php';
                 }
-            }
-        }
-        //验证文件
-        public static function include_file_helper($file, $load = true)
-        {
-            $path = '';
-
-            $file = ltrim($file, '/');
-            $dir = plugin_dir_path(__FILE__);
-
-            //验证父主题位置
-            if (file_exists(get_parent_theme_file_path($file))) {
-                $path = get_parent_theme_file_path($file);
-            }
-            //验证主题位置
-            elseif (file_exists(get_theme_file_path($file))) {
-                $path = get_theme_file_path($file);
-            }
-            //直接验证当前文件
-            elseif (file_exists($dir . $file)) {
-                $path = $dir . $file;
-            }
-
-            if (!empty($path) && !empty($file) && $load) {
-                //执行include
-                require_once($path);
-            } else {
-                return $file;
             }
         }
     }

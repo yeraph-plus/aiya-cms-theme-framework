@@ -1,47 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-/*
- * ------------------------------------------------------------------------------
- * 预置方法
- * ------------------------------------------------------------------------------
- */
-
-$AYF = new AYF();
-
 if (AYF::get_checked('all_plugin_off', 'plugin')) {
     //退出当前脚本
     return;
-}
-
-$PLUGIN_SETUP = new AYA_Theme_Setup();
-
-//生成robots.txt内容
-function ayf_get_default_robots_text()
-{
-    //兼容站点地址设置
-    $site_url = parse_url(site_url());
-    $path = !empty($site_url['path']) ? $site_url['path'] : '';
-    //生成
-    $output = "User-agent: *\n";
-    $output .= "Disallow: *?*\n";
-    $output .= "Disallow: $path/wp-admin/\n";
-    $output .= "Disallow: $path/wp-includes/\n";
-    $output .= "Disallow: $path/wp-content/themes/*\n";
-    $output .= "Disallow: $path/wp-content/plugins/*\n";
-    $output .= "Disallow: $path/wp-content/cache\n";
-    $output .= "Disallow: $path/trackback\n";
-    $output .= "Disallow: $path/feed\n";
-    $output .= "Disallow: $path/comments\n";
-    $output .= "Disallow: $path/search\n";
-    $output .= "Disallow: $path/go/\n";
-    $output .= "Disallow: $path/link/\n";
-    $output .= "\n";
-    $output .= "Allow: /wp-admin/admin-ajax.php\n";
-    $output .= "\n";
-    //$output .= "Sitemap: $site_url/wp-sitemap.xml";
-
-    return $output;
 }
 
 /*
@@ -627,6 +589,8 @@ AYF::new_opt(
     )
 );
 
+AYP::action('Optimize', ayf_plugin_action($AYF_OPTIMIZE_FIELDS, 'optimize'));
+
 AYF::new_opt(
     array(
         'title' => '查询设置',
@@ -636,6 +600,8 @@ AYF::new_opt(
         'fields' => $AYF_REQUEST_FIELDS,
     )
 );
+
+AYP::action('Request', ayf_plugin_action($AYF_REQUEST_FIELDS, 'request'));
 
 AYF::new_opt(
     array(
@@ -647,13 +613,7 @@ AYF::new_opt(
     )
 );
 
-$PLUGIN_SETUP->action(
-    array(
-        'Optimize' => ayf_plugin_action($AYF_OPTIMIZE_FIELDS, 'optimize'),
-        'Request' => ayf_plugin_action($AYF_REQUEST_FIELDS, 'request'),
-        'Security' => ayf_plugin_action($AYF_SECURITY_FIELDS, 'security'),
-    )
-);
+AYP::action('Security', ayf_plugin_action($AYF_SECURITY_FIELDS, 'security'));
 
 /*
  * ------------------------------------------------------------------------------
@@ -784,19 +744,17 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
         ),
     );
 
-    AYF::new_opt(array(
-        'title' => '头像&字体加速',
-        'slug' => 'avatar',
-        'parent' => 'plugin',
-        'desc' => '配置头像、字体通过第三方CDN加速',
-        'fields' => $AYF_AVATAR_SPEED_FIELDS,
-    ));
-
-    $PLUGIN_SETUP->action(
+    AYF::new_opt(
         array(
-            'CDN_Speed' => ayf_plugin_action($AYF_AVATAR_SPEED_FIELDS, 'avatar'),
+            'title' => '头像&字体加速',
+            'slug' => 'avatar',
+            'parent' => 'plugin',
+            'desc' => '配置头像、字体通过第三方CDN加速',
+            'fields' => $AYF_AVATAR_SPEED_FIELDS,
         )
     );
+
+    AYP::action('CDN_Speed', ayf_plugin_action($AYF_AVATAR_SPEED_FIELDS, 'avatar'));
 }
 //SEO组件
 if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
@@ -904,13 +862,15 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
         ),
     );
 
-    AYF::new_opt(array(
-        'title' => 'SEO-TDK',
-        'slug' => 'seo',
-        'parent' => 'plugin',
-        'desc' => '简单SEO组件，用于自定义页面标题、内链功能、关键词和描述',
-        'fields' => $AYF_SEO_TDK_FIELDS,
-    ));
+    AYF::new_opt(
+        array(
+            'title' => 'SEO-TDK',
+            'slug' => 'seo',
+            'parent' => 'plugin',
+            'desc' => '简单SEO组件，用于自定义页面标题、内链功能、关键词和描述',
+            'fields' => $AYF_SEO_TDK_FIELDS,
+        )
+    );
     AYF::new_tex(
         array(
             array(
@@ -956,11 +916,7 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
         )
     );
 
-    $PLUGIN_SETUP->action(
-        array(
-            'Head_SEO' => ayf_plugin_action($AYF_SEO_TDK_FIELDS, 'seo'),
-        )
-    );
+    AYP::action('Head_SEO', ayf_plugin_action($AYF_SEO_TDK_FIELDS, 'seo'));
 }
 //外部统计组件
 if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
@@ -1008,19 +964,17 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
         ),
     );
 
-    AYF::new_opt(array(
-        'title' => '额外代码',
-        'slug' => 'extra',
-        'parent' => 'plugin',
-        'desc' => '为网站前台添加图标，额外样式和统计代码',
-        'fields' => $AYF_ADD_EXTRA_FIELDS,
-    ));
-
-    $PLUGIN_SETUP->action(
+    AYF::new_opt(
         array(
-            'Head_Extra' => ayf_plugin_action($AYF_ADD_EXTRA_FIELDS, 'extra'),
+            'title' => '额外代码',
+            'slug' => 'extra',
+            'parent' => 'plugin',
+            'desc' => '为网站前台添加图标，额外样式和统计代码',
+            'fields' => $AYF_ADD_EXTRA_FIELDS,
         )
     );
+
+    AYP::action('Head_Extra', ayf_plugin_action($AYF_ADD_EXTRA_FIELDS, 'extra'));
 }
 //STMP组件
 if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
@@ -1121,42 +1075,36 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
         ),
     );
 
-    AYF::new_opt(array(
-        'title' => 'SMTP发信',
-        'slug' => 'stmpmail',
-        'parent' => 'plugin',
-        'desc' => '使用SMTP发送邮件',
-        'fields' => $AYF_STMP_MAIL_FIELDS,
-    ));
-
-    $PLUGIN_SETUP->action(
+    AYF::new_opt(
         array(
-            'Mail_Sender' => ayf_plugin_action($AYF_STMP_MAIL_FIELDS, 'stmpmail'),
+            'title' => 'SMTP发信',
+            'slug' => 'stmpmail',
+            'parent' => 'plugin',
+            'desc' => '使用SMTP发送邮件',
+            'fields' => $AYF_STMP_MAIL_FIELDS,
         )
     );
+
+    AYP::action('Mail_Sender', ayf_plugin_action($AYF_STMP_MAIL_FIELDS, 'stmpmail'));
 }
-//TinyMCE增强组件，移除分类URL中Category
+//TinyMCE增强组件
 if (AYF::get_checked('plugin_tinymce_add_modify', 'plugin')) {
     //无需设置
-    $PLUGIN_SETUP->action(
-        array(
-            'Modify_TinyMCE' => array(
-                //按钮重排
-                'tinymce_filter_buttons' => true,
-                //本地粘贴图片自动上传（用户在编辑器中粘贴的图片自动上传媒体库）
-                'tinymce_upload_image' => false,
-            ),
-        )
-    );
+    AYP::action('Modify_TinyMCE', array(
+        //按钮重排
+        'tinymce_filter_buttons' => true,
+        //本地粘贴图片自动上传（用户在编辑器中粘贴的图片自动上传媒体库）
+        'tinymce_upload_image' => false,
+        //向编辑器中注册新的插件（允许添加多个插件，格式'new' => 'plugin.js','new2' => 'plugin.js'）
+        'tinymce_add_plugins' => array('table' => AYF_URL . 'framework-unit/assects/mce-table-plugin.min.js'),
+        //向编辑器中注册插件按钮
+        //'tinymce_add_buttons' => array('btnCode', 'btnPanel', 'btnPost', 'btnVideo', 'btnMusic',),
+    ));
 }
 //分类URL重建组件，移除分类URL中Category
 if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
     //无需设置
-    $PLUGIN_SETUP->action(
-        array(
-            'No_Category_URL' => true,
-        )
-    );
+    AYP::action('No_Category_URL', true);
 }
 
 /*
@@ -1167,45 +1115,43 @@ if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
 
 //服务器状态小组件
 if (AYF::get_checked('dashboard_server_monitor', 'plugin')) {
-    $PLUGIN_SETUP->action(
-        array(
-            'Dashboard_Server_Status' => true,
-        )
-    );
+    //无需设置
+    AYP::action('Dashboard_Server_Status', true);
 }
 //运行DEBUG查询
 if (AYF::get_checked('debug_mode', 'plugin')) {
-    $PLUGIN_SETUP->action(
-        array(
-            'Debug_Mode' => true,
-        )
-    );
+    //无需设置
+    AYP::action('Debug_Mode', true);
 }
 //简码列表
 if (AYF::get_checked('debug_shortcode_items', 'plugin')) {
-    AYF::new_opt(array(
-        'title' => '简码列表',
-        'slug' => 'shortcode_items',
-        'desc' => '列出当前主题支持的全部简码功能（ Shortcode 字段），并列出回调函数',
-        'fields' => array(
-            array(
-                'function' => 'query_shortcode_items',
-                'type' => 'callback',
-            ),
+    AYF::new_opt(
+        array(
+            'title' => '简码列表',
+            'slug' => 'shortcode_items',
+            'desc' => '列出当前主题支持的全部简码功能（ Shortcode 字段），并列出回调函数',
+            'fields' => array(
+                array(
+                    'function' => 'query_shortcode_items',
+                    'type' => 'callback',
+                ),
+            )
         )
-    ));
+    );
 }
 //路由列表
 if (AYF::get_checked('debug_rules_items', 'plugin')) {
-    AYF::new_opt(array(
-        'title' => '路由列表',
-        'slug' => 'rules_items',
-        'desc' => '列出当前主题支持的全部固定链接（ Rewrite 规则）和查询方法',
-        'fields' => array(
-            array(
-                'function' => 'query_rewrite_rules_items',
-                'type' => 'callback',
-            ),
+    AYF::new_opt(
+        array(
+            'title' => '路由列表',
+            'slug' => 'rules_items',
+            'desc' => '列出当前主题支持的全部固定链接（ Rewrite 规则）和查询方法',
+            'fields' => array(
+                array(
+                    'function' => 'query_rewrite_rules_items',
+                    'type' => 'callback',
+                ),
+            )
         )
-    ));
+    );
 }
