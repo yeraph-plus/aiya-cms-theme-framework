@@ -35,7 +35,8 @@ if (!class_exists('AYA_Theme_Setup')) {
                     new $class($args);
                 }
                 //参数为布尔型，则不添加参数
-                else if (is_bool($args) && $args !== false) {
+                else if (is_bool($args)) {
+                    if ($args === false) return;
                     new $class();
                 }
                 //返回错误提示
