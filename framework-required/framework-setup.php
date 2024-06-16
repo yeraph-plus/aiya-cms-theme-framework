@@ -19,9 +19,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         function __construct()
         {
             if (is_null(self::$include_once)) {
-                //注册翻译文件
-                load_plugin_textdomain('aiya-cms-framework', false, (__DIR__) . '/languages');
-                //加载样式
+                add_action('plugins_loaded', array(&$this, 'load_textdomain'));
                 add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
 
                 self::include();
@@ -29,7 +27,12 @@ if (!class_exists('AYA_Framework_Setup')) {
                 self::$include_once = true;
             }
         }
-
+        //注册翻译文件
+        public function load_textdomain()
+        {
+            load_plugin_textdomain('aiya-cms-framework', false, (__DIR__) . '/languages');
+        }
+        //加载样式
         public function enqueue_script()
         {
             wp_enqueue_style('aiya-cms-framework', AYF_URL . 'framework-required/assects/css/framework-style.css');

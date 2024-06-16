@@ -128,7 +128,7 @@ if (!class_exists('AYA_Widget')) {
                 $title_type = isset($instance['title']) ? $instance['title'] : '';
 
                 echo '<p>';
-                echo '<label for="' . $this->get_field_id('title') . '">' . __('标题', 'AIYA-CMS') . '</label>';
+                echo '<label for="' . $this->get_field_id('title') . '">' . __('Title:', 'AIYA-CMS') . '</label>';
                 echo '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title_type) . '" />';
                 echo '</p>';
             }
@@ -178,8 +178,7 @@ if (!class_exists('AYA_Widget')) {
                 echo '<p>';
                 echo '<label>';
                 echo '<input class="widefat" id="' . $this->get_field_id('mobile_hide') . '" name="' . $this->get_field_name('mobile_hide') . '" type="checkbox" value="true" ' . checked($mobile_checked, 'true', false) . ' />';
-                echo "\n";
-                echo __('移动端隐藏这个小工具');
+                echo "\n" . __('Hide this Widget on the mobile end');
                 echo '</label>';
                 echo '</p>';
             }

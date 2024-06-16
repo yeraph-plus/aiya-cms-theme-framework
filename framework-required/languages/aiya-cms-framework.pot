@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: AIYA-CMS Options Framework\n"
-"POT-Creation-Date: 2024-03-23 21:25+0800\n"
+"POT-Creation-Date: 2024-06-16 08:48+0800\n"
 "PO-Revision-Date: 2024-03-23 21:25+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,90 +21,82 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: inc/fields/group.php:15 inc/fields/group.php:36
-msgid "Could not be built \"group\" in one loop."
-msgstr ""
-
-#: inc/fields/group_mult.php:38
-msgid "This field can not built duplicate creation."
-msgstr ""
-
-#: inc/fields/group_mult.php:54
+#: inc/fields/group-mult.php:46 inc/fields/group-mult.php:77
 msgid "Delete"
 msgstr ""
 
-#: inc/fields/group_mult.php:77
+#: inc/fields/group-mult.php:61
+msgid "This field can not built duplicate creation."
+msgstr ""
+
+#: inc/fields/group-mult.php:81
 msgid "Add"
+msgstr ""
+
+#: inc/fields/group.php:15 inc/fields/group.php:36
+msgid "Could not be built \"group\" in one loop."
 msgstr ""
 
 #: inc/fields/upload.php:26
 msgid "Upload"
 msgstr ""
 
-#: inc/option-field-action.php:51
+#: inc/framework-build-fields.php:56
 msgid "Field not found \"type\" : "
 msgstr ""
 
-#: inc/option-field-action.php:55
+#: inc/framework-build-fields.php:60
 msgid "Field not found \"id\" : "
 msgstr ""
 
-#: inc/option-field-action.php:184
+#: inc/framework-build-fields.php:160
 msgid "Only letters and white space allowed"
 msgstr ""
 
-#: inc/option-field-action.php:188
+#: inc/framework-build-fields.php:164
 msgid "Invalid email format"
 msgstr ""
 
-#: inc/option-field-action.php:192
+#: inc/framework-build-fields.php:168
 msgid "Invalid url format"
 msgstr ""
 
-#: inc/option-field-action.php:196
+#: inc/framework-build-fields.php:172
 msgid "Invalid number format"
 msgstr ""
 
-#: inc/option-field-action.php:200
+#: inc/framework-build-fields.php:176
 msgid "This is required"
 msgstr ""
 
-#: inc/option-framework-page.php:153
+#: inc/framework-option-page.php:179
 msgid "Options reseted."
 msgstr ""
 
-#: inc/option-framework-page.php:211
+#: inc/framework-option-page.php:238
 msgid "Options saved."
 msgstr ""
 
-#: inc/option-framework-page.php:214
+#: inc/framework-option-page.php:241
 msgid "Options has already been saved."
 msgstr ""
 
-#: inc/option-framework-page.php:271
+#: inc/framework-option-page.php:297
 msgid "Save Changes"
 msgstr ""
 
-#: inc/option-framework-page.php:272
+#: inc/framework-option-page.php:298
 msgid "Clear"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "AIYA-CMS Options Framework"
+#: inc/framework-widget-bulider.php:131
+msgid "Title:"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "https://www.yeraph.com/"
+#: inc/framework-widget-bulider.php:181
+msgid "Hide this Widget on the mobile end"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"A framework of options provided for AIYA-CMS themes, used to create settings "
-"pages, category Meta fields, and article MetaBox components, and provides "
-"some quick launch features."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Yeraph Studio"
+#: setup.php:44
+msgid "Settings"
 msgstr ""

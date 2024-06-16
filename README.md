@@ -1,4 +1,4 @@
-## AIYA-Framework
+## AIYA-Framework / AIYA-Optimize-Plugin
 
 ![截图](https://github.com/yeraph-plus/AIYA-CMS-THEME-CORE/blob/main/screenshot/2024-06-01%20001416.png)
 

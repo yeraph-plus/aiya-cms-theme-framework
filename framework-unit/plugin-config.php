@@ -634,7 +634,7 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
             'desc' => '此功能创建了一个新的头像标志，需要在WP的 <a href="options-discussion.php">讨论设置</a> 中，将默认头像设置切换为此选项<br/>Tips: 如果使用头像加速时可能会失效',
             'id' => 'site_default_avatar',
             'type' => 'upload',
-            'default' => get_template_directory_uri() . '/framework-required/assects/img/default_avatar.png',
+            'default' => AYF_URL . '/framework-required/assects/img/default_avatar.png',
         ),
         array(
             'desc' => 'WeAvatar头像服务',
