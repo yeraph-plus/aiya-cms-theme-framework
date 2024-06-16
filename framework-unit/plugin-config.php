@@ -832,8 +832,15 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'type' => 'title_2',
         ),
         array(
+            'title' => '启用自动替换',
+            'desc' => '用于在文内替换关键词或添加链接，请见下方格式说明<br/>*说明：内部使用 <code>str_replace()</code> 方法，匹配不一定准确',
+            'id' => 'site_seo_auto_replace',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
             'title' => '关键词列表',
-            'desc' => '添加文本替换列表，一行一个，不需要时留空<br/>*格式举例： <code> 站点首页|&lt;a href="' . home_url() . '"&gt;站点首页&lt;/a&gt;</code> ',
+            'desc' => '添加文本替换列表，一行一个，关键词使用<code>|</code>分隔<br/>*格式举例： <code> 站点首页|&lt;a href="' . home_url() . '"&gt;站点首页&lt;/a&gt;</code> ',
             'id' => 'site_replace_text_wps',
             'type' => 'textarea',
             'default' => '',
@@ -867,7 +874,7 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'title' => 'SEO-TDK',
             'slug' => 'seo',
             'parent' => 'plugin',
-            'desc' => '简单SEO组件，用于自定义页面标题、内链功能、关键词和描述',
+            'desc' => '简单SEO组件，用于自定义页面标题、关键词和描述，以及简单内链功能',
             'fields' => $AYF_SEO_TDK_FIELDS,
         )
     );

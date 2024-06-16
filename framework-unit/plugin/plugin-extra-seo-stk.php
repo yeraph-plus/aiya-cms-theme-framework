@@ -30,7 +30,7 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
             parent::add_action('wp_head', 'aya_theme_site_seo_action');
             parent::add_action('wp_head', 'aya_theme_site_seo_canonical');
         }
-        if ($action['site_replace_text_wps'] !== '') {
+        if ($action['site_seo_auto_replace'] == true) {
             parent::add_filter('the_content', 'aya_theme_site_replace_text_wps');
         }
         if ($action['site_seo_auto_add_tags'] == true) {
@@ -226,30 +226,33 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         $action = $this->seo_action;
 
         //重建数组
-        if (!empty($action['site_replace_text_wps'])) {
-            //按换行符拆分
-            $replace_input = trim($action['site_replace_text_wps']);
-            $lines = $replace_input ? explode("\n", $replace_input) : $replace_input;
-
-            $assoc_array = array();
-            //遍历拆分为关联数组
-            foreach ($lines as $line) {
-                $line = trim($line);
-
-                if (!empty($line)) {
-                    //按'|'拆分字符串
-                    $parts = explode('|', $line);
-
-                    //确保拆分后的数组有两个元素
-                    $parts[0] = (empty($parts[0])) ? 'NULL' : $parts[0];
-                    $parts[1] = (empty($parts[1])) ? 'NULL' : $parts[1];
-
-                    //添加到结果数组中
-                    $assoc_array[$parts[0]] = $parts[1];
-                }
-            }
-            $content = str_replace(array_keys($assoc_array), $assoc_array, $content);
+        $replace_input = trim($action['site_replace_text_wps']);
+        //按换行符拆分
+        if (!empty($replace_input)) {
+            $lines = explode("\n", $replace_input);
+        } else {
+            return $content;
         }
+
+        $assoc_array = array();
+        //遍历拆分为关联数组
+        foreach ($lines as $line) {
+            $line = trim($line);
+
+            if (!empty($line)) {
+                //按'|'拆分字符串
+                $parts = explode('|', $line);
+
+                //确保拆分后的数组有两个元素
+                $parts[0] = (empty($parts[0])) ? 'NULL' : $parts[0];
+                $parts[1] = (empty($parts[1])) ? 'NULL' : $parts[1];
+
+                //添加到结果数组中
+                $assoc_array[$parts[0]] = $parts[1];
+            }
+        }
+        $content = str_replace(array_keys($assoc_array), $assoc_array, $content);
+
 
         return $content;
     }

@@ -252,20 +252,7 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
 );
-$AYF_ALL_OFF_FIELDS = array(
-    array(
-        'desc' => '禁用拓展',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '全局禁用',
-        'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
-        'id' => 'all_plugin_off',
-        'type' => 'switch',
-        'default' => false,
-    ),
-);
-
+echo AYF::get_checked('all_plugin_off', 'plugin');
 //创建父级设置页面和内容
 if (AYF::get_checked('all_plugin_off', 'plugin')) {
     AYF::new_opt(
@@ -273,7 +260,19 @@ if (AYF::get_checked('all_plugin_off', 'plugin')) {
             'title' => 'AIYA-Optimize',
             'slug' => 'plugin',
             'desc' => 'AIYA-CMS 主题，全局功能组件',
-            'fields' => $AYF_ALL_OFF_FIELDS,
+            'fields' => array(
+                array(
+                    'desc' => '禁用拓展',
+                    'type' => 'title_2',
+                ),
+                array(
+                    'title' => '全局禁用',
+                    'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
+                    'id' => 'all_plugin_off',
+                    'type' => 'switch',
+                    'default' => true,
+                ),
+            ),
         )
     );
 
