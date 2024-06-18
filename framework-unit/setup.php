@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) exit;
 
 //引入插件框架
 require_once (__DIR__) . '/plugin-setup.php';
+require_once (__DIR__) . '/plugin-filter-hub.php';
 
 class AYP extends AYA_Theme_Setup
 {

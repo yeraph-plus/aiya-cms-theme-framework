@@ -846,6 +846,22 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'default' => '',
         ),
         array(
+            'desc' => '文章内容预处理',
+            'type' => 'title_2',
+        ),
+        array(
+            'desc' => '*采集站/笔记站的实用功能，在文章保存前对文章内容进行预处理，用于清理复制粘贴时带来的多余 HTML 标签',
+            'type' => 'message',
+            'type' => 'message',
+        ),
+        array(
+            'title' => 'HTML格式预处理',
+            'desc' => '执行过滤器，去除DIV、SPAN等标签和重叠的标签、去除全角空格等',
+            'id' => 'site_seo_auto_insert_post_data',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
             'desc' => '文本关键词自动内链',
             'type' => 'title_2',
         ),

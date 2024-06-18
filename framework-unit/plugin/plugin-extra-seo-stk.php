@@ -33,6 +33,10 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         if ($action['site_seo_auto_replace'] == true) {
             parent::add_filter('the_content', 'aya_theme_site_replace_text_wps');
         }
+        if ($action['site_seo_auto_insert_post_data'] == true) {
+            parent::add_filter('aya_insert_post_content_filtered', 'aya_theme_save_post_auto_insert_post_data');
+            parent::add_filter('aya_insert_post_content', 'aya_theme_save_post_auto_insert_post_data');
+        }
         if ($action['site_seo_auto_add_tags'] == true) {
             parent::add_action('save_post', 'aya_theme_save_post_auto_add_tags');
         }
@@ -256,9 +260,70 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
 
         return $content;
     }
+
+    //文本预处理组件
+
+    //发布文章前对文章内容进行预处理
+    public function aya_theme_save_post_auto_insert_post_data($data)
+    {
+        //合并方法
+        $data = self::light_insert_data_re_fullwidth_space($data);
+        $data = self::light_insert_data_re_div_tags($data);
+        $data = self::light_insert_data_re_del_overlap($data);
+        $data = self::light_insert_data_re_del_useless($data);
+
+        $data = trim($data);
+
+        return $data;
+    }
+    //HTML标签去除全角空格*(　) 
+    private function light_insert_data_re_fullwidth_space($data)
+    {
+        $data = preg_replace('/(　)*/', '', $data['post_content_filtered']);
+        $data = preg_replace('/&nbsp;/', '', $data['post_content_filtered']);
+
+        return $data;
+    }
+    //HTML标签替换为P
+    private function light_insert_data_re_div_tags($data)
+    {
+        foreach (array('div', 'center') as $val) {
+            $data = preg_replace('#<' . $val . '[^>]*>(.*?)</' . $val . '>#is', '<p>$1</p>', $data); //替换为p	
+
+        }
+
+        return $data;
+    }
+    //HTML标签去除重叠
+    private function light_insert_data_re_del_overlap($data)
+    {
+        foreach (array('strong', 'b') as $val) {
+            $data = preg_replace('#<' . $val . '><' . $val . '>(.*?)</' . $val . '></' . $val . '>#is', '<' . $val . '>$1</' . $val . '>', $data);
+            $data = preg_replace('#</' . $val . '><' . $val . '>#is', '', $data);
+            $data = preg_replace('#<' . $val . '></' . $val . '>#is', '', $data);
+        }
+
+        return $data;
+    }
+    //HTML标签删除
+    private function light_insert_data_re_del_useless($data)
+    {
+        foreach (array('span', 'section') as $val) {
+            $data = preg_replace('/<(\/?' . $val . '.*?)>/si', '', $data); //过滤标签
+
+        }
+
+        return $data;
+    }
+
+    //自动内链组件
+
     //文章保存时自动触发动作添加标签
     public function aya_theme_save_post_auto_add_tags()
     {
+        //跳过自动保存
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+
         $tags = get_tags(array('hide_empty' => false));
 
         $post_id = get_the_ID();
@@ -267,8 +332,7 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
 
         if ($tags) {
             foreach ($tags as $tag) {
-                if (strpos($post_content, $tag->name) !== false)
-                    wp_set_post_tags($post_id, $tag->name, true);
+                if (strpos($post_content, $tag->name) !== false) wp_set_post_tags($post_id, $tag->name, true);
             }
         }
     }
