@@ -634,7 +634,7 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
             'desc' => '此功能创建了一个新的头像标志，需要在WP的 <a href="options-discussion.php">讨论设置</a> 中，将默认头像设置切换为此选项<br/>Tips: 如果使用头像加速时可能会失效',
             'id' => 'site_default_avatar',
             'type' => 'upload',
-            'default' => AYF_URL . '/framework-required/assects/img/default_avatar.png',
+            'default' => AYF_URI . '/framework-required/assects/img/default_avatar.png',
         ),
         array(
             'desc' => 'WeAvatar头像服务',
@@ -1103,7 +1103,7 @@ if (AYF::get_checked('plugin_tinymce_add_modify', 'plugin')) {
         //本地粘贴图片自动上传（用户在编辑器中粘贴的图片自动上传媒体库）
         'tinymce_upload_image' => false,
         //向编辑器中注册新的插件（允许添加多个插件，格式'new' => 'plugin.js','new2' => 'plugin.js'）
-        'tinymce_add_plugins' => array('table' => AYF_URL . 'framework-unit/assects/mce-table-plugin.min.js'),
+        'tinymce_add_plugins' => array('table' => AYF_URI . 'framework-unit/assects/mce-table-plugin.min.js'),
         //向编辑器中注册插件按钮
         //'tinymce_add_buttons' => array('btnCode', 'btnPanel', 'btnPost', 'btnVideo', 'btnMusic',),
     ));

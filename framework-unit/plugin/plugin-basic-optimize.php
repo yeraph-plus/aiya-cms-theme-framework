@@ -314,14 +314,26 @@ class AYA_Plugin_Optimize
         //自动重命名上传
         if ($options['auto_upload_rename'] == true) {
             add_filter('wp_handle_upload_prefilter', function ($file) {
-                $file['name'] = date("YmdHis") . mt_rand(1, 100) . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
+                /*
+                //判断是否是图片
+                $file_type = exif_imagetype($file);
+                //是图片
+                if ($file_type == IMAGETYPE_JPEG || $file_type == IMAGETYPE_PNG || $file_type == IMAGETYPE_WEBP || $file_type == IMAGETYPE_GIF || $file_type == IMAGETYPE_BMP) {
+                }
+                */
+                //重命名
+                $file_name = pathinfo($file['name'], PATHINFO_FILENAME);
+                $file_extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
+                $file['name'] = preg_replace('/\s+/', '_', $file_name) . '.' . date("YmdHis") . mt_rand(1, 100) . '.' . $file_extension;
+
                 return $file;
             });
         }
         //设置原生缩略图尺寸为空
         if ($options['remove_image_thumbnails'] == true) {
-            add_filter('pre_option_thumbnail_size_w', '__return_zero');
-            add_filter('pre_option_thumbnail_size_h', '__return_zero');
+            //add_filter('pre_option_thumbnail_size_w', '__return_zero');
+            //add_filter('pre_option_thumbnail_size_h', '__return_zero');
             add_filter('pre_option_medium_size_w', '__return_zero');
             add_filter('pre_option_medium_size_h', '__return_zero');
             add_filter('pre_option_large_size_w', '__return_zero');

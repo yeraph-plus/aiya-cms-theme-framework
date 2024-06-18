@@ -18,7 +18,7 @@ if (!function_exists('is_user_logged_in')) require(ABSPATH . WPINC . '/pluggable
 
 define('AYF_VERSION', '1.1');
 define('AYF_PATH', plugin_dir_path(__FILE__));
-define('AYF_URL', plugin_dir_url(__FILE__));
+define('AYF_URI', plugin_dir_url(__FILE__));
 
 //引入设置框架
 require_once AYF_PATH . 'framework-required/setup.php';

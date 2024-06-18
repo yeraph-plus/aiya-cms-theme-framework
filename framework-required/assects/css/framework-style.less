@@ -81,6 +81,7 @@
       .desc {
         font-size: 13px;
         font-weight: 300;
+        line-height: 2;
         margin: 0;
         padding-top: 10px;
 
@@ -343,6 +344,10 @@
     .quick-upload-input {
       width: 75%;
       margin-right: 10px;
+
+      @media (min-width: 992px) {
+        width: 450px;
+      }
     }
 
     .quick-upload-button {}
@@ -351,14 +356,14 @@
   .section-tinymce {
     .field-area {
       margin-top: 10px;
-      width: 100% !important;
+      width: 100%;
     }
   }
 
   .section-code_editor {
     .field-area {
       margin-top: 10px;
-      width: 100% !important;
+      width: 100%;
     }
   }
 
