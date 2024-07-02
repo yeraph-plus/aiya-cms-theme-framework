@@ -18,7 +18,7 @@ AYA_Shortcode::shortcode_register('button', array(
     'id'       => 'new-button-shortcode',
     'title'    => 'Button',
     'note'    => 'Some base Button',
-    'template' => '[junkie-button {{attributes}}] {{content}} [/junkie-button]',
+    'template' => '[button {{attributes}}] {{content}} [/button]',
     'field_build'   => array(
         array(
             'id' => 'url',
@@ -171,7 +171,7 @@ if (!class_exists('AYA_Shortcode')) {
             $key = $param['id'];
             $label = isset($param['label']) ? $param['label'] : '';
             $desc = isset($param['desc']) ? $param['desc'] : '';
-            $default = isset($default) ? $default : '';
+            $default = isset($param['default']) ? $param['default'] : '';
 
             $html = '';
             $html .= '<tr>';
