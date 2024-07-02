@@ -2,12 +2,17 @@
 
 if (!defined('ABSPATH')) exit;
 
-/*
- * Name: Gravatar头像 谷歌字体 替换CDN加速
- * Version: 1.0.0
- * Author: AIYA-CMS
- * Author URI: https://www.yeraph.com
- */
+/**
+ * AIYA-Framework 拓展 Gravatar头像+谷歌字体替换CDN加速
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.1
+ **/
 
 class AYA_Plugin_CDN_Speed extends AYA_Theme_Setup
 {

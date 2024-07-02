@@ -2,12 +2,17 @@
 
 if (!defined('ABSPATH')) exit;
 
-/*
- * Name: WP SQL查询优化插件
- * Version: 1.0.7
- * Author: AIYA-CMS
- * Author URI: https://www.yeraph.com
- */
+/**
+ * AIYA-Framework 拓展 WP搜索和主查询SQL查询优化插件
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.5
+ **/
 
 class AYA_Plugin_Request
 {

@@ -2,12 +2,17 @@
 
 if (!defined('ABSPATH')) exit;
 
-/*
- * Name: WP 添加百度统计或谷歌统计
- * Version: 1.0.0
- * Author: AIYA-CMS
- * Author URI: https://www.yeraph.com
- */
+/**
+ * AIYA-Framework 拓展 添加百度统计或谷歌统计添加额外代码
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.1
+ **/
 
 class AYA_Plugin_Head_Extra extends AYA_Theme_Setup
 {

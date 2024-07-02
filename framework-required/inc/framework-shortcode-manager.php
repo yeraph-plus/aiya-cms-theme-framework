@@ -1,13 +1,19 @@
 <?php
 
 /**
- * AIYA-CMS Theme Options Framework 短代码UI编辑器框架
+ * AIYA-CMS Theme Options Framework 短代码弹窗编辑器插件
  * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
  * @version 1.0
  **/
 
-/*
 //Shortcode Editor Demo
+/*
 //This method only can be used in editor create a panel
 //, will not achieve the shortcode's function
 
@@ -63,6 +69,7 @@ AYA_Shortcode::shortcode_register('button', array(
     )
 ));
 */
+
 if (!class_exists('AYA_Shortcode')) {
     class AYA_Shortcode_Manager
     {

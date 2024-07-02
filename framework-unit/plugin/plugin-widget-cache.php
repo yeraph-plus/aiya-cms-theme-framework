@@ -2,13 +2,17 @@
 
 if (!defined('ABSPATH')) exit;
 
-/*
- * Name: 侧边栏小工具缓存插件
- * Version: 0.5.2
- * GitHub URI: https://github.com/kasparsd/widget-output-cache
- * Author: Kaspars Dambis
- * Author URI: http://kaspars.net
- */
+/**
+ * AIYA-Framework 拓展 侧边栏小工具缓存插件
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.1
+ **/
 
 /* 
  * Todo

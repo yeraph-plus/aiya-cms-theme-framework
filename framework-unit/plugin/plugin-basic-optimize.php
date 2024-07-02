@@ -2,12 +2,17 @@
 
 if (!defined('ABSPATH')) exit;
 
-/*
- * Name: WP 功能精简/优化插件
- * Version: 1.0.11
- * Author: AIYA-CMS
- * Author URI: https://www.yeraph.com
- */
+/**
+ * AIYA-Framework 拓展 WP功能精简+优化插件
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.9
+ **/
 
 class AYA_Plugin_Optimize
 {

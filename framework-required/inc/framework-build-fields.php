@@ -5,10 +5,16 @@ if (!defined('ABSPATH')) exit;
 if (!class_exists('AYA_Framework_Setup')) exit;
 
 /**
- * AIYA-CMS Theme Options Framework 组件方法
+ * AIYA-CMS Theme Options Framework 组件方法构造
  * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
  * @version 1.0
- */
+ **/
 
 if (!class_exists('AYA_Field_Action')) {
     abstract class AYA_Field_Action extends AYA_Framework_Setup

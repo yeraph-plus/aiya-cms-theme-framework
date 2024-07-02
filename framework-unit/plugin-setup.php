@@ -3,6 +3,19 @@
 if (!defined('ABSPATH')) exit;
 
 /**
+ * AIYA-CMS Theme Options Framework 组件功能
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.4
+ **/
+
+/**
  * ThemeSetup的一些说明：
  * 
  * 这是一个类似于插件方式的机制，但究极简化版。所以，它只能使用特定写法才会正常执行。

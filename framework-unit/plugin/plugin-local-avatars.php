@@ -2,6 +2,19 @@
 
 if (!defined('ABSPATH')) exit;
 
+/**
+ * AIYA-Framework 拓展 本地化头像功能插件
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.1
+ **/
+
 class AYA_Plugin_Local_Avatars
 {
     private $user_id_being_edited;

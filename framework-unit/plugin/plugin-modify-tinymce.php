@@ -2,12 +2,17 @@
 
 if (!defined('ABSPATH')) exit;
 
-/*
- * Name: TinyMCE编辑器 按钮重排+功能拓展
- * Version: 1.0.5
- * Author: AIYA-CMS
- * Author URI: https://www.yeraph.com
- */
+/**
+ * AIYA-Framework 拓展 TinyMCE编辑器按钮重排+功能拓展
+ * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.3
+ **/
 
 class AYA_Plugin_Modify_TinyMCE
 {

@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Field_Action')) exit;
 
+/**
+ * 抽屉
+ * 
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.0
+ */
+
 class AYA_Option_Fired_select extends AYA_Field_Action
 {
     public function action($field)

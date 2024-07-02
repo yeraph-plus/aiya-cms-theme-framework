@@ -3,6 +3,13 @@ if (!defined('ABSPATH')) exit;
 
 if (!class_exists('AYA_Field_Action')) exit;
 
+/**
+ * 嵌入tinymce编辑器
+ * 
+ * @package AIYA-CMS Theme Options Framework
+ * @version 1.0
+ */
+
 class AYA_Option_Fired_tinymce extends AYA_Field_Action
 {
     public function action($field)

@@ -5,11 +5,17 @@ if (!defined('ABSPATH')) exit;
 /**
  * AIYA-CMS Theme Options Framework 加载框架文件
  * 
+ * Author: Yeraph Studio
+ * Author URI: http://www.yeraph.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package AIYA-CMS Theme Options Framework
  * @version 1.3
  **/
 
 /**
- * 封装好的Framework创建方法
+ * 封装好的Framework创建方法：
  * 
  * 创建表单方法：
  * 方法 new_opt($conf) 合并$inst和$field参数创建设置页面
