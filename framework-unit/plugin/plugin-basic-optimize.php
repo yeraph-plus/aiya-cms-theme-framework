@@ -299,17 +299,22 @@ class AYA_Plugin_Optimize
                 return $locale;
             });
         }
-        //禁用webp上传时报错
+        //启用WP自带的WebP支持
         if ($options['add_upload_webp'] == true) {
+            //禁用webp上传时报错
             add_filter('plupload_default_settings', function ($defaults) {
                 $defaults['webp_upload_error'] = false;
                 return $defaults;
             }, 10, 1);
-
             add_filter('plupload_init', function ($plupload_init) {
                 $plupload_init['webp_upload_error'] = false;
                 return $plupload_init;
             }, 10, 1);
+            //替换默认的图片格式为webp
+            add_filter('image_editor_output_format', function ($formats) {
+                $formats['image/jpg'] = 'image/webp';
+                return $formats;
+            });
         }
         //自动重命名上传
         if ($options['auto_upload_rename'] == true) {
@@ -325,7 +330,7 @@ class AYA_Plugin_Optimize
                 $file_name = pathinfo($file['name'], PATHINFO_FILENAME);
                 $file_extension = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-                $file['name'] = preg_replace('/\s+/', '_', $file_name) . '.' . date("YmdHis") . mt_rand(1, 100) . '.' . $file_extension;
+                $file['name'] = date("YmdHis") . mt_rand(1, 100) . '_' . preg_replace('/\s+/', '_', $file_name) .  '.' . $file_extension;
 
                 return $file;
             });

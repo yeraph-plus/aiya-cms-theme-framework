@@ -332,3 +332,71 @@
   white-space: nowrap;
   text-align: center;
 }
+#scodedit-button {
+  background: 0 0;
+}
+#scodedit-button .dashicons {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+.scodedit-wrap {
+  margin: 0px 10px;
+}
+.scodedit-wrap .scodedit-parent-select {
+  width: 100%;
+}
+.scodedit-wrap .scodedit-parent-select label {
+  margin-right: 10px;
+}
+.scodedit-wrap .scodedit-sub-type table {
+  width: 100%;
+  background: #f7f7f7;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: move;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+.scodedit-wrap .scodedit-sub-type table label {
+  display: inline-block;
+  width: 20%;
+}
+.scodedit-wrap .scodedit-sub-type tr {
+  height: 60px;
+  margin-bottom: 10px;
+}
+.scodedit-wrap .scodedit-sub-type td {
+  padding: 10px 0;
+  vertical-align: top;
+}
+.scodedit-wrap .scodedit-sub-type input[type="text"],
+.scodedit-wrap .scodedit-sub-type textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}
+.scodedit-wrap .scodedit-sub-type .scodedit-form-label {
+  padding-top: 10px;
+}
+.scodedit-wrap .scodedit-sub-type .scodedit-form-desc {
+  color: #7a7a7a;
+  display: block;
+  font-size: 12px;
+  font-style: italic;
+  padding-top: 3px;
+}
+.scodedit-wrap .scodedit-note {
+  font-size: 14px;
+  font-style: italic;
+}
+.scodedit-wrap .submit_button .button-primary {
+  margin-right: 10px;
+}

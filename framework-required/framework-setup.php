@@ -47,7 +47,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         function __construct()
         {
             if (is_null(self::$include_once)) {
-                add_action('plugins_loaded', array(&$this, 'load_textdomain'));
+                add_action('init', array(&$this, 'load_textdomain'));
                 add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
 
                 self::include();
@@ -58,7 +58,11 @@ if (!class_exists('AYA_Framework_Setup')) {
         //注册翻译文件
         public function load_textdomain()
         {
-            load_plugin_textdomain('aiya-cms-framework', false, (__DIR__) . '/languages');
+            $domain = 'aiya-cms-framework';
+            $locale = apply_filters('plugin_locale', get_locale(), $domain);
+
+            load_textdomain($domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo');
+            load_plugin_textdomain($domain, false, dirname(plugin_basename(__FILE__)) . '/languages/');
         }
         //加载样式
         public function enqueue_script()

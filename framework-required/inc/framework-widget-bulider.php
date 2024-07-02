@@ -8,55 +8,60 @@ if (!defined('ABSPATH')) exit;
  **/
 
 /*
-//DEMO NEW Widget Class:
-function widget_args()
-{
-    $widget_args = array(
-        'id' => 'demo-widget',
-        'title' => 'Demo Widget',
-        'classname' => 'demo-widget',
-        'desc' => '',
-        'field_build' => array(
-            array(
-                'type' => 'input',
-                'id' => 'new_input',
-                'name' => 'input field',
-                'default' => '',
-            ),
-            array(
-                'type' => 'textarea',
-                'id' => 'new_textarea',
-                'name' => 'textarea field',
-                'default' => '',
-            ),
-            array(
-                'type' => 'checkbox',
-                'id' => 'new_checkbox',
-                'name' => 'checkbox field',
-                'default' => true,
-            ),
-            array(
-                'type' => 'select',
-                'id' => 'new_select',
-                'name' => 'select field',
-                'sub' => array(
-                    '0' => 'off',
-                    '1' => 'on',
-                ),
-                'default' => '',
-            ),
-        ),
-    );
+//Widget Demo
 
-    return $widget_args;
-}
-function widget_func()
+class AYA_Demo_Widget extends AYA_Widget
 {
-    echo parent::widget_opt('new_input');
-    echo parent::widget_opt('new_textarea');
-    echo parent::widget_opt('new_checkbox'); //this field will return string 'true' or '', is not bool
-    echo parent::widget_opt('new_select');
+    function widget_args()
+    {
+        $widget_args = array(
+            'id' => 'demo-widget',
+            'title' => 'Demo Widget',
+            'classname' => 'demo-widget',
+            'desc' => '',
+            'field_build' => array(
+                array(
+                    'type' => 'input',
+                    'id' => 'input',
+                    'name' => 'input field',
+                    'default' => '',
+                ),
+                array(
+                    'type' => 'textarea',
+                    'id' => 'textarea',
+                    'name' => 'textarea field',
+                    'default' => '',
+                ),
+                array(
+                    'type' => 'checkbox',
+                    'id' => 'checkbox',
+                    'name' => 'checkbox field',
+                    'default' => true,
+                ),
+                array(
+                    'type' => 'select',
+                    'id' => 'select',
+                    'name' => 'select field',
+                    'sub' => array(
+                        '0' => 'off',
+                        '1' => 'on',
+                    ),
+                    'default' => '',
+                ),
+            ),
+        );
+
+        return $widget_args;
+    }
+    function widget_func()
+    {
+        echo parent::widget_opt('input');
+        echo parent::widget_opt('textarea');
+        echo parent::widget_opt('checkbox'); //this field will return string 'true' or '', is not bool
+        echo parent::widget_opt('select');
+    }
 }
+
 */
 if (!class_exists('AYA_Widget')) {
     abstract class AYA_Widget extends WP_Widget
@@ -178,7 +183,7 @@ if (!class_exists('AYA_Widget')) {
                 echo '<p>';
                 echo '<label>';
                 echo '<input class="widefat" id="' . $this->get_field_id('mobile_hide') . '" name="' . $this->get_field_name('mobile_hide') . '" type="checkbox" value="true" ' . checked($mobile_checked, 'true', false) . ' />';
-                echo "\n" . __('Hide this Widget on the mobile end');
+                echo "\n" . __('移动端不显示这个小工具');
                 echo '</label>';
                 echo '</p>';
             }
