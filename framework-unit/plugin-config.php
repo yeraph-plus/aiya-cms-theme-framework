@@ -1124,6 +1124,11 @@ if (AYF::get_checked('plugin_tinymce_add_modify', 'plugin')) {
         //'tinymce_add_buttons' => array('btnCode', 'btnPanel', 'btnPost', 'btnVideo', 'btnMusic',),
     ));
 }
+//本地化头像
+if (AYF::get_checked('plugin_local_avatar_upload', 'plugin')) {
+    //无需设置
+    AYP::action('Local_Avatars', true);
+}
 //分类URL重建组件，移除分类URL中Category
 if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
     //无需设置

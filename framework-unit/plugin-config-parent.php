@@ -175,7 +175,7 @@ $AYF_PARENT_FIELDS = array(
     ),
     array(
         'title' => '外部功能加速',
-        'desc' => '将Gravatar头像服务、谷歌字体服务 替换为国内CDN',
+        'desc' => '将 Gravatar 头像服务、谷歌字体服务 替换为国内CDN',
         'id' => 'plugin_add_avatar_speed',
         'type' => 'switch',
         'default' => false,
@@ -189,7 +189,7 @@ $AYF_PARENT_FIELDS = array(
     ),
     array(
         'title' => '额外代码',
-        'desc' => '为站点增加额外JS/CSS代码，支持最小化添加百度统计和谷歌统计',
+        'desc' => '为站点增加额外 JS/CSS 代码，支持最小化添加百度统计和谷歌统计',
         'id' => 'plugin_add_site_statistics',
         'type' => 'switch',
         'default' => false,
@@ -205,6 +205,13 @@ $AYF_PARENT_FIELDS = array(
         'title' => '经典编辑器拓展',
         'desc' => '编辑增强插件，按钮重排、支持表格、自动上传 Tips：仅支持TinyMCE（经典编辑器）',
         'id' => 'plugin_tinymce_add_modify',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
+        'title' => '本地头像拓展',
+        'desc' => '本地化头像插件，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
+        'id' => 'plugin_local_avatar_upload',
         'type' => 'switch',
         'default' => false,
     ),
