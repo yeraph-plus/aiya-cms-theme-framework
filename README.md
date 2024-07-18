@@ -38,3 +38,5 @@ There is a short demo of building this framework:
 [预置功能](https://www.yeraph.com/439.html)
 
 [WP小工具的简化构造器](https://www.yeraph.com/435.html)
+
+[WP短代码编辑器快捷插入框架](https://www.yeraph.com/471.html)
