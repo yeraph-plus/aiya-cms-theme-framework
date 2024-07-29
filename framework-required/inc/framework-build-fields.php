@@ -28,7 +28,7 @@ if (!class_exists('AYA_Field_Action')) {
             if (in_array($field['type'], array('title_1', 'title_2'))) {
                 return self::title_tags($field);
             }
-            if (in_array($field['type'], array('content', 'message', 'success', 'error'))) {
+            if (in_array($field['type'], array('content', 'message', 'success', 'dismiss', 'error'))) {
                 return self::content_tags($field);
             }
             //回调组件
@@ -103,20 +103,23 @@ if (!class_exists('AYA_Field_Action')) {
             //切换标记
             switch ($field['type']) {
                 case 'content':
-                    $sign = '';
+                    $icon = '';
                     break;
                 case 'message':
-                    $sign = '<span class="dashicons dashicons-info"></span>';
+                    $icon = '<span class="dashicons dashicons-info"></span>';
                     break;
                 case 'success':
-                    $sign = '<span class="dashicons dashicons-info"></span>';
+                    $icon = '<span class="dashicons dashicons-yes-alt"></span>';
                     break;
-                case 'error':
-                    $sign = '<span class="dashicons dashicons-info"></span>';
+                case 'dismiss':
+                    $icon = '<span class="dashicons dashicons-dismiss"></span>';
+                    break;
+                case 'warning':
+                    $icon = '<span class="dashicons dashicons-warning"></span>';
                     break;
             }
             //输出
-            $html = '<div class="form-field section-content-field"><p class="' . $field['type'] . '">' . $sign . "  " . $field['desc'] . '</p></div>';
+            $html = '<div class="form-field section-content-field"><p class="' . $field['type'] . '">' . $icon . "  " . $field['desc'] . '</p></div>';
             echo $html;
         }
         //Before结构

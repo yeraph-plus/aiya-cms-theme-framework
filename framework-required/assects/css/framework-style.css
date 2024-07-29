@@ -186,8 +186,9 @@
 }
 .framework-wrap .section-content-field .content,
 .framework-wrap .section-content-field .success,
+.framework-wrap .section-content-field .dismiss,
 .framework-wrap .section-content-field .message,
-.framework-wrap .section-content-field .error {
+.framework-wrap .section-content-field .warning {
   width: auto;
   margin: 0;
   padding: 10px 10px;
@@ -196,13 +197,17 @@
   border-left: 5px solid #209b3f;
   background-color: #ccffe2;
 }
+.framework-wrap .section-content-field .dismiss {
+  border-left: 5px solid #f32160;
+  background-color: #f3ddeb;
+}
 .framework-wrap .section-content-field .message {
   border-left: 5px solid #2196f3;
   background-color: #ddffff;
 }
-.framework-wrap .section-content-field .error {
-  border-left: 5px solid #f32160;
-  background-color: #f3ddeb;
+.framework-wrap .section-content-field .warning {
+  border-left: 5px solid #ff9800;
+  background-color: #fff3d3;
 }
 .framework-wrap .section-text .quick-input {
   width: 95%;

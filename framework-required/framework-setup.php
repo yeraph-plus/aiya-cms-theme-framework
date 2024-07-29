@@ -117,35 +117,28 @@ if (!class_exists('AYA_Framework_Setup')) {
         public static function new_opt($conf = array())
         {
             if ($conf === array()) return;
-
-            //创建设置页面参数
-            $inst = array(
-                'title' => (empty($conf['title']) ? __('Settings') : $conf['title']),
-                'slug' => (empty($conf['slug'])) ? self::$header_inst . '_' : self::$header_inst . '_' . $conf['slug'],
-                'icon' => (empty($conf['icon'])) ? '' : $conf['icon'],
-                'parent' => (empty($conf['parent'])) ? '' : self::$header_inst . '_' . $conf['parent'],
-                'desc' => (empty($conf['desc'])) ? '' : $conf['desc'],
-            );
-
+            //提取别名用于创建设置表
+            $inst_slug = $conf['slug'];
+            //单独提取组件数组用于调用
             $field_conf = $conf['fields'];
 
             //缓存模式
             if (self::$cache_mode) {
-                self::cache_all_default($field_conf, $inst);
+                self::cache_all_default($field_conf, $inst_slug);
                 //刷新缓存表单
                 self::$cache_load = false;
                 //print_r(self::$cache_tab_option);
             }
-            new AYA_Framework_Options_Page($field_conf, $inst);
+            new AYA_Framework_Options_Page($field_conf, $conf);
         }
-        //设置默认值缓存到静态方法
-        public static function cache_all_default($field_conf, $inst)
+        //设置默认值提取到静态变量
+        public static function cache_all_default($field_conf, $inst_slug)
         {
             if (self::$cache_load) return;
 
             //提取表名存入$cache_tab_option，提取默认值存入$cache_def_option
 
-            self::$cache_tab_option[] = $inst['slug'];
+            self::$cache_tab_option[] = $inst_slug;
 
             //foreach 循环去除层级
             foreach ($field_conf as $field) {
@@ -158,7 +151,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             //标记位
             self::$cache_load = true;
         }
-        //设置用户值缓存到静态方法
+        //设置用户值提取到静态变量
         public static function cache_all_option()
         {
             if (self::$cache_success) return;

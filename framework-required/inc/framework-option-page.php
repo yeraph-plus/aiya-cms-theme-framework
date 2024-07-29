@@ -16,62 +16,73 @@ if (!defined('ABSPATH')) exit;
 if (!class_exists('AYA_Framework_Options_Page')) {
     class AYA_Framework_Options_Page
     {
-        private $option_info;
-        private $options;
+        private $option_menu;
+        private $option_conf;
+        private $option_saved_key;
 
-        private $menu_slug;
-        private $menu_icon;
-        private $menu_parent;
-        private $page_title;
-        private $menu_title;
-
+        private $cop_ability;
         private $in_multisite;
 
-        private $old_value;
-        private $saved_value;
+        private $menu_slug;
+        private $menu_parent_slug;
+        private $menu_icon;
+        private $menu_title;
+        private $menu_page_title;
+
 
         private $unfined_saved;
 
+        private $saved_value;
         private $saved_message;
 
-        public function __construct($option_conf, $option_info)
+        public function __construct($option_conf, $option_menu)
         {
-            //验证用户是否为管理员
-            if (!current_user_can('manage_options')) return;
 
-            $this->option_info = $option_info;
-            $this->options = $option_conf;
+            $this->option_menu = $option_menu;
+            $this->option_conf = $option_conf;
+            //操作权限
+            $this->cop_ability = 'manage_options';
+            //检查管理员
+            if (!current_user_can($this->cop_ability)) {
+                return;
+            }
 
-            $this->menu_slug = (!empty($option_info['slug'])) ? $option_info['slug'] : 'default';
-            $this->menu_icon = (!empty($option_info['icon'])) ? $option_info['icon'] : '';
-            $this->page_title = (key_exists('page_title', $option_info) && !empty($option_info['page_title'])) ? $option_info['page_title'] : $option_info['title'];
-            $this->menu_title = (!empty($option_info['title'])) ? $option_info['title'] : 'Default';
-            //判断子菜单
-            $this->menu_parent = (key_exists('parent', $option_info) && !empty($option_info['parent'])) ? $option_info['parent'] : '';
+            //检查输入参数组
+            $default = [
+                'slug' => 'settings',
+                'icon' => 'dashicons-admin-generic',
+                'title' => __('Settings'),
+                'page_title' => __('Settings'),
+                'parent' => '',
+            ];
+
+            $this->menu_slug = (isset($option_menu['slug'])) ? $option_menu['slug'] : $default['slug'];
+            $this->menu_icon = (isset($option_menu['icon'])) ? $option_menu['icon'] : $default['icon'];
+            $this->menu_parent_slug = (isset($option_menu['parent'])) ? $option_menu['parent'] : $default['parent'];
+            $this->menu_title = (isset($option_menu['title'])) ? $option_menu['title'] : $default['title'];
+            $this->menu_page_title = (isset($option_menu['page_title'])) ? $option_menu['page_title'] : $default['page_title'];
+
             //定义保存键名
-            $this->saved_value = 'aya_opt_' . $option_info['slug'];
-            //定义保存按钮排除
-            $this->unfined_saved = array('callback', 'content', 'message', 'success', 'error', 'title_h1', 'title_h2', 'title_h3');
+            $this->option_saved_key = 'aya_opt_' . $this->menu_slug;
+
             //检查多站点
-            $this->in_multisite = $this->in_multisite($option_info);
+            $this->in_multisite = self::in_multisite($option_menu);
 
             //多站点兼容
-            add_action($this->in_multisite ? 'network_admin_menu' : 'admin_menu', array(&$this, 'add_admin_menu_page'));
+            add_action($this->in_multisite ? 'network_admin_menu' : 'admin_menu', array(&$this, 'add_admin_dashboard_menu'));
 
-            //定位页面
+            //定义保存按钮排除
+            $this->unfined_saved = array('callback', 'content', 'message', 'success', 'error', 'title_h1', 'title_h2');
+
+            //定位页面加载JS
             if (isset($_GET['page']) && ($_GET['page'] == $this->menu_slug)) {
                 //加载
                 add_action('admin_enqueue_scripts', array(&$this, 'enqueue_ajax_script'));
             }
         }
         //创建页面
-        public function add_admin_menu_page()
+        public function add_admin_dashboard_menu()
         {
-            $menu_slug = $this->menu_slug;
-            $menu_icon = $this->menu_icon;
-            $parent_slug = $this->menu_parent;
-            $menu_title = $this->menu_title;
-            $page_title = $this->page_title;
             /**
              * WP默认的菜单位置顺序如下：
              * 2 Dashboard
@@ -90,10 +101,24 @@ if (!class_exists('AYA_Framework_Options_Page')) {
              * 99 Separator
              */
 
-            if ($parent_slug == '') {
-                add_menu_page($page_title, $menu_title,  'manage_options', $menu_slug, array(&$this, 'init_page'), $menu_icon, 99);
+            if ($this->menu_parent_slug == '') {
+                add_menu_page($this->menu_page_title, $this->menu_title,  $this->cop_ability, $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 99);
             } else {
-                add_submenu_page($parent_slug, $page_title,  $menu_title, 'manage_options', $menu_slug, array(&$this, 'init_page'), 99);
+                add_submenu_page($this->menu_parent_slug, $this->menu_page_title, $this->menu_title,  $this->cop_ability, $this->menu_slug, array(&$this, 'init_page'), 99);
+            }
+        }
+        //检查多站点设置
+        private function in_multisite($menu)
+        {
+            if (is_multisite()) {
+                //检查设置表单
+                if (isset($menu['multisite_mode']) && $menu['multisite_mode'] == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
             }
         }
         //加载样式
@@ -115,26 +140,12 @@ if (!class_exists('AYA_Framework_Options_Page')) {
 
             self::display_html();
         }
-        //检查多站点设置
-        private function in_multisite($info)
-        {
-            if (is_multisite()) {
-                //检查设置表单
-                if (isset($info['in_multisite']) && $info['in_multisite'] == true) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
         //循环 htmlspecialchars 方法处理多层数组
         public function deep_htmlspecialchars($mixed, $quote_style = ENT_QUOTES, $charset = 'UTF-8')
         {
             if (is_array($mixed)) {
                 foreach ($mixed as $key => $value) {
-                    $mixed[$key] = $this->deep_htmlspecialchars($value, $quote_style, $charset);
+                    $mixed[$key] = self::deep_htmlspecialchars($value, $quote_style, $charset);
                 }
             } elseif (is_string($mixed)) {
                 $mixed = htmlspecialchars_decode($mixed, $quote_style);
@@ -144,31 +155,35 @@ if (!class_exists('AYA_Framework_Options_Page')) {
         //提取数据
         public function data_options_available()
         {
+            //设置表键名
+            $saved_key = $this->option_saved_key;
             //多站点兼容
             if ($this->in_multisite) {
-                $this->old_value[$this->option_info['slug']] = get_site_option($this->saved_value);
+                $this->saved_value[$this->menu_slug] = get_site_option($saved_key);
             } else {
-                $this->old_value[$this->option_info['slug']] = get_option($this->saved_value);
+                $this->saved_value[$this->menu_slug] = get_option($saved_key);
             }
             //Fix
-            $this->old_value = $this->deep_htmlspecialchars($this->old_value, ENT_QUOTES, 'UTF-8');
+            $this->saved_value = self::deep_htmlspecialchars($this->saved_value, ENT_QUOTES, 'UTF-8');
 
-            foreach ($this->options as $key => $option) {
+            foreach ($this->option_conf as $key => $option) {
                 //选项不存在ID则跳过
-                if (isset($option['id']) && isset($this->old_value[$this->option_info['slug']][$option['id']])) {
+                if (isset($option['id']) && isset($this->saved_value[$this->menu_slug][$option['id']])) {
                     //格式化数据
-                    $this->options[$key]['default'] = $this->old_value[$this->option_info['slug']][$option['id']];
+                    $this->option_conf[$key]['default'] = $this->saved_value[$this->menu_slug][$option['id']];
                 }
             }
         }
         //保存数据
         public function save_options_data()
         {
+            //设置表键名
+            $saved_key = $this->option_saved_key;
             //验证用户是否为管理员
             if (!current_user_can('manage_options')) return;
 
             //获取设置数据
-            $new_value  = $this->old_value;
+            $new_value  = $this->saved_value;
 
             //检查From表单
             if (isset($_REQUEST['aya_option_field']) && check_admin_referer('aya_option_action', 'aya_option_field')) {
@@ -176,9 +191,9 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 if (!empty($_POST['aya_option_reset'])) {
                     //多站点兼容
                     if ($this->in_multisite) {
-                        delete_site_option($this->saved_value);
+                        delete_site_option($saved_key);
                     } else {
-                        delete_option($this->saved_value);
+                        delete_option($saved_key);
                     }
                     //提示
                     $this->saved_message = __('Options reseted.');
@@ -188,7 +203,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                     //array('option_name' => 'option_value');
                     $new_value = array();
                     //处理数据
-                    foreach ($this->options as $option) {
+                    foreach ($this->option_conf as $option) {
                         //没有ID则跳过循环
                         if (in_array($option['type'], $this->unfined_saved) || !isset($option['id'])) {
                             continue;
@@ -232,12 +247,12 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                         $new_value[$option['id']] = $value;
                     }
                     //防止重复提交
-                    if ($this->old_value != $new_value) {
+                    if ($this->saved_value != $new_value) {
                         //多站点兼容
                         if ($this->in_multisite) {
-                            update_site_option($this->saved_value, $new_value);
+                            update_site_option($saved_key, $new_value);
                         } else {
-                            update_option($this->saved_value, $new_value);
+                            update_option($saved_key, $new_value);
                         }
                         //提示
                         $this->saved_message = __('Options saved.');
@@ -257,9 +272,9 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $before_html .= '<div class="wrap" id="framework-page">';
 
             $before_html .= '<div class="container framework-title">';
-            $before_html .= '<h1>' . esc_html($this->option_info['title']) . '</h1>';
-            if (!empty($this->option_info['desc'])) {
-                $before_html .= '<p>' . esc_html($this->option_info['desc']) . '</p>';
+            $before_html .= '<h1>' . esc_html($this->option_menu['title']) . '</h1>';
+            if (!empty($this->option_menu['desc'])) {
+                $before_html .= '<p>' . esc_html($this->option_menu['desc']) . '</p>';
             }
             $before_html .= '</div>';
 
@@ -280,7 +295,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             //保存按钮
             $saved_button = false;
             //循环
-            foreach ($this->options as $option) {
+            foreach ($this->option_conf as $option) {
                 //如果是文本框则转换一次数据
                 if (in_array($option['type'], array('text', 'textarea'))) {
                     $option['default'] = htmlspecialchars($option['default'], ENT_COMPAT, 'UTF-8');
