@@ -36,18 +36,16 @@ if (!class_exists('AYA_Framework_Setup')) {
     class AYA_Framework_Setup
     {
         private static $include_once;
-        private static $header_inst = 'aya_option';
+        //private static $header_inst = 'aya_option';
 
         private static $cache_mode = true;
         private static $cache_load;
         private static $cache_success;
 
-        private static $cache_tab_option = array();
+        private static $cache_tab_slug = array();
         private static $cache_def_option = array();
-
         private static $cache_get_option = array();
 
-        public static $inc_dir = (__DIR__) . '/inc';
         public static $class_name = 'AYA_Option_Fired_';
 
         function __construct()
@@ -79,15 +77,15 @@ if (!class_exists('AYA_Framework_Setup')) {
         //引入框架
         public static function include()
         {
-            require_once self::$inc_dir . '/framework-build-fields.php';
-            require_once self::$inc_dir . '/framework-option-page.php';
-            require_once self::$inc_dir . '/framework-metabox-post.php';
-            require_once self::$inc_dir . '/framework-metabox-term.php';
-            require_once self::$inc_dir . '/framework-quick-editor.php';
-            require_once self::$inc_dir . '/framework-widget-bulider.php';
-            require_once self::$inc_dir . '/framework-shortcode-manager.php';
+            require_once (__DIR__) . '/inc/framework-build-fields.php';
+            require_once (__DIR__) . '/inc/framework-option-page.php';
+            require_once (__DIR__) . '/inc/framework-metabox-post.php';
+            require_once (__DIR__) . '/inc/framework-metabox-term.php';
+            require_once (__DIR__) . '/inc/framework-quick-editor.php';
+            require_once (__DIR__) . '/inc/framework-widget-bulider.php';
+            require_once (__DIR__) . '/inc/framework-shortcode-manager.php';
         }
-        //设置框架组件
+        //框架组件
         public static function include_field()
         {
             $fields = array(
@@ -109,7 +107,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             foreach ($fields as $field) {
                 if (!class_exists(self::$class_name . $field) && class_exists('AYA_Field_Action')) {
-                    include_once self::$inc_dir . '/fields/' . $field . '.php';
+                    include_once (__DIR__) . '/inc/fields/' . $field . '.php';
                 }
             }
         }
@@ -117,19 +115,17 @@ if (!class_exists('AYA_Framework_Setup')) {
         public static function new_opt($conf = array())
         {
             if ($conf === array()) return;
-            //提取别名用于创建设置表
-            $inst_slug = $conf['slug'];
-            //单独提取组件数组用于调用
-            $field_conf = $conf['fields'];
 
             //缓存模式
             if (self::$cache_mode) {
-                self::cache_all_default($field_conf, $inst_slug);
+                self::cache_all_default($conf['fields'], $conf['slug']);
                 //刷新缓存表单
                 self::$cache_load = false;
-                //print_r(self::$cache_tab_option);
             }
-            new AYA_Framework_Options_Page($field_conf, $conf);
+            //print_r(self::$cache_tab_option);
+
+            //单独提取组件数组用于调用
+            new AYA_Framework_Options_Page($conf['fields'], $conf);
         }
         //设置默认值提取到静态变量
         public static function cache_all_default($field_conf, $inst_slug)
@@ -138,7 +134,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             //提取表名存入$cache_tab_option，提取默认值存入$cache_def_option
 
-            self::$cache_tab_option[] = $inst_slug;
+            self::$cache_tab_slug[] = $inst_slug;
 
             //foreach 循环去除层级
             foreach ($field_conf as $field) {
@@ -147,6 +143,8 @@ if (!class_exists('AYA_Framework_Setup')) {
                 //存入
                 self::$cache_def_option[$field['id']] = (empty($field['default'])) ? '' : $field['default'];
             }
+            //print_r(self::$cache_tab_slug);
+            //print_r(self::$cache_def_option);
 
             //标记位
             self::$cache_load = true;
@@ -158,15 +156,16 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             //根据上一步的表名，一次性提取用户值存入$cache_get_option
 
-            foreach (self::$cache_tab_option as $option_name) {
+            foreach (self::$cache_tab_slug as $tab_slug) {
                 //读取设置
-                $config = get_option('aya_opt_' . $option_name, false);
+                $config = get_option('aya_opt_' . $tab_slug, false);
 
                 if ($config) {
                     //合并存入
-                    self::$cache_get_option[$option_name] = $config;
+                    self::$cache_get_option[$tab_slug] = $config;
                 }
             }
+            //print_r(self::$cache_get_option);
 
             //标记位
             self::$cache_success = true;
@@ -186,16 +185,16 @@ if (!class_exists('AYA_Framework_Setup')) {
             new AYA_Framework_Post_Meta($conf, $inst);
         }
         //提取设置
-        public static function used_option($option_name)
+        public static function used_option($option_sulg)
         {
             //验证缓存
-            if (array_key_exists($option_name, self::$cache_get_option)) {
-                return self::$cache_get_option[$option_name];
+            if (array_key_exists($option_sulg, self::$cache_get_option)) {
+                return self::$cache_get_option[$option_sulg];
             }
             //读取设置
-            $config = get_option('aya_opt_' . $option_name, false);
+            $config = get_option('aya_opt_' . $option_sulg, false);
             //存入缓存
-            self::$cache_get_option[$option_name] = $config;
+            self::$cache_get_option[$option_sulg] = $config;
             //返回
             return $config;
         }
@@ -214,21 +213,19 @@ if (!class_exists('AYA_Framework_Setup')) {
             }
         }
         //应用设置
-        public static function get_opt($name, $opt_sulg = '')
+        public static function get_opt($name, $sulg)
         {
             //未定义设置表单时
-            if ($opt_sulg === '') return null;
+            if ($sulg === '') return null;
 
-            $option_name = self::$header_inst . '_' . $opt_sulg;
-
-            $option_config = self::used_option($option_name);
+            $option_config = self::used_option($sulg);
 
             //验证已设置
             if ($option_config && isset($option_config[$name])) {
                 return $option_config[$name];
             }
             //返回默认值
-            $option_default = self::default_option($option_name);
+            $option_default = self::default_option($name);
 
             return $option_default;
         }

@@ -20,7 +20,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
         private $option_conf;
         private $option_saved_key;
 
-        private $cop_ability;
+        private $cap_ability;
         private $in_multisite;
 
         private $menu_slug;
@@ -41,9 +41,9 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $this->option_menu = $option_menu;
             $this->option_conf = $option_conf;
             //操作权限
-            $this->cop_ability = 'manage_options';
+            $this->cap_ability = 'manage_options';
             //检查管理员
-            if (!current_user_can($this->cop_ability)) {
+            if (!current_user_can($this->cap_ability)) {
                 return;
             }
 
@@ -101,10 +101,13 @@ if (!class_exists('AYA_Framework_Options_Page')) {
              * 99 Separator
              */
 
+            //别名前缀
+            $slug_prefix = 'aya-options-';
+
             if ($this->menu_parent_slug == '') {
-                add_menu_page($this->menu_page_title, $this->menu_title,  $this->cop_ability, $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 99);
+                add_menu_page($this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 99);
             } else {
-                add_submenu_page($this->menu_parent_slug, $this->menu_page_title, $this->menu_title,  $this->cop_ability, $this->menu_slug, array(&$this, 'init_page'), 99);
+                add_submenu_page($slug_prefix . $this->menu_parent_slug, $this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), 99);
             }
         }
         //检查多站点设置
