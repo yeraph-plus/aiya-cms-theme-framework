@@ -60,7 +60,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $this->menu_icon = (isset($option_menu['icon'])) ? $option_menu['icon'] : $default['icon'];
             $this->menu_parent_slug = (isset($option_menu['parent'])) ? $option_menu['parent'] : $default['parent'];
             $this->menu_title = (isset($option_menu['title'])) ? $option_menu['title'] : $default['title'];
-            $this->menu_page_title = (isset($option_menu['page_title'])) ? $option_menu['page_title'] : $default['page_title'];
+            $this->menu_page_title = (empty($option_menu['page_title'])) ? $option_menu['title'] : $option_menu['page_title'];
 
             //定义保存键名
             $this->option_saved_key = 'aya_opt_' . $this->menu_slug;

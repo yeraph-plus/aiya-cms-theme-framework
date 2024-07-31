@@ -28,11 +28,6 @@ require_once AYF_PATH . 'framework-required/setup.php';
 
 //引入插件组
 require_once AYF_PATH . 'framework-unit/setup.php';
-//加载插件组
-AYP::include_plugins('plugin');
-
-require_once AYF_PATH . 'framework-unit/plugin-config-parent.php';
-require_once AYF_PATH . 'framework-unit/plugin-config.php';
 
 //运行环境检查
 AYP::action('EnvCheck', array(

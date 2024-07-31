@@ -259,9 +259,17 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
 );
-echo AYF::get_checked('all_plugin_off', 'plugin');
 //创建父级设置页面和内容
-if (AYF::get_checked('all_plugin_off', 'plugin')) {
+if (AYF::get_checked('all_plugin_off', 'plugin') === false) {
+    AYF::new_opt(
+        array(
+            'title' => 'AIYA-Optimize',
+            'slug' => 'plugin',
+            'desc' => 'AIYA-CMS 主题，全局功能组件',
+            'fields' => $AYF_PARENT_FIELDS,
+        )
+    );
+} else {
     AYF::new_opt(
         array(
             'title' => 'AIYA-Optimize',
@@ -285,13 +293,4 @@ if (AYF::get_checked('all_plugin_off', 'plugin')) {
 
     //退出当前脚本
     return;
-} else {
-    AYF::new_opt(
-        array(
-            'title' => 'AIYA-Optimize',
-            'slug' => 'plugin',
-            'desc' => 'AIYA-CMS 主题，全局功能组件',
-            'fields' => $AYF_PARENT_FIELDS,
-        )
-    );
 }

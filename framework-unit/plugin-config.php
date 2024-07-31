@@ -1157,6 +1157,7 @@ if (AYF::get_checked('debug_shortcode_items', 'plugin')) {
         array(
             'title' => '简码列表',
             'slug' => 'shortcode_items',
+            'parent' => 'plugin',
             'desc' => '列出当前主题支持的全部简码功能（ Shortcode 字段），并列出回调函数',
             'fields' => array(
                 array(
@@ -1173,6 +1174,7 @@ if (AYF::get_checked('debug_rules_items', 'plugin')) {
         array(
             'title' => '路由列表',
             'slug' => 'rules_items',
+            'parent' => 'plugin',
             'desc' => '列出当前主题支持的全部固定链接（ Rewrite 规则）和查询方法',
             'fields' => array(
                 array(
