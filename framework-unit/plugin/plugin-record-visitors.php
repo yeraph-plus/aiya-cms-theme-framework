@@ -19,6 +19,7 @@ class AYA_Plugin_Record_Visitors
     public function __destruct()
     {
         add_action('wp_head', array($this, 'record_visitors'));
+        add_action('the_post', array($this, 'add_view_count_to_post_object'));
     }
     //浏览量计数器
     public function record_visitors()
@@ -26,12 +27,18 @@ class AYA_Plugin_Record_Visitors
         if (is_singular()) {
             global $post;
 
-            if ($post->ID) {
-                $post_views = (int)get_post_meta($post->ID, 'views', true);
-                if (!update_post_meta($post->ID, 'views', ($post_views + 1))) {
-                    add_post_meta($post->ID, 'views', 0, true);
-                }
-            }
+            $post_id = $post->ID;
+            $count = get_post_meta($post_id, 'post_view_count', true);
+
+            $count = $count ? $count + 1 : 0;
+            update_post_meta($post_id, 'post_view_count', $count);
         }
+    }
+    function add_view_count_to_post_object($post)
+    {
+        if (is_object($post) && property_exists($post, 'ID')) {
+            $post->view_count = get_post_meta($post->ID, 'post_view_count', true);
+        }
+        return $post;
     }
 }
