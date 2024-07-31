@@ -18,16 +18,16 @@ if (!defined('ABSPATH')) exit;
 if (!function_exists('is_user_logged_in')) require(ABSPATH . WPINC . '/pluggable.php');
 
 define('AYF_VERSION', '1.1');
-define('AYF_PATH', plugin_dir_path(__FILE__));
-define('AYF_URI', plugin_dir_url(__FILE__));
+define('AYF_PATH', untrailingslashit(plugin_dir_path(__FILE__)));
+define('AYF_URI', untrailingslashit(plugin_dir_url(__FILE__)));
 
 //引入设置框架
-require_once AYF_PATH . 'framework-required/setup.php';
+require_once AYF_PATH . '/framework-required/setup.php';
 //组件模板
-//require_once AYF_PATH . 'framework-required/sample-config.php';
+require_once AYF_PATH . '/framework-required/sample-config.php';
 
 //引入插件组
-require_once AYF_PATH . 'framework-unit/setup.php';
+require_once AYF_PATH . '/framework-unit/setup.php';
 
 //运行环境检查
 AYP::action('EnvCheck', array(
