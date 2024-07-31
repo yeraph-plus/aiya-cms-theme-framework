@@ -50,7 +50,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
             //加载方法
             $html .= parent::field_mult($sub_field, true);
         }
-        $html .= '<a href="#" class="del-item">' . __('Delete') . '</a>';
+        //$html .= '<a href="#" class="del-item">' . __('Delete') . '</a>';
         $html .= '</div>';
         $html .= '</template>';
         //循环

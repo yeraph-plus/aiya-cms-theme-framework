@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
   //color-picker
-  $(".framework-color-picker").ready(function () {
-    $(this).find(".quick-color").wpColorPicker();
+  $(".framework-color-picker").find(".quick-color").each(function () {
+    $(this).wpColorPicker();
   });
   //upload
   $(".framework-upload").on("click", "a.quick-upload-button", function () {
@@ -30,31 +30,18 @@ jQuery(document).ready(function ($) {
   });
   //mult mode
   $(".framework-field-mult").ready(function () {
-    $(".field-group-warp").on("click", "a.add-item", function () {
+    $(this).find(".field-group-warp").on("click", "a.add-item", function () {
+      let mult_count = $(this).closest(".field-group-warp").find(".group-item").length + 1;
+      mult_template_load = $("#" + $(this).data("group-name")).html().replace(/({{i}})/g, mult_count);
       event.preventDefault();
-      mult_self = $(this).closest(".field-group-warp");
-      mult_name = $(this).data("group-name");
-      mult_format = $("#" + mult_name).html();
-      count = mult_self.find(".group-item").length + 1;
-      add_template = mult_format.replace(/({{i}})/g, count);
-      $(this).before(add_template);
+      $(this).before(mult_template_load);
     });
-    $(".field-group-warp .group-item").on("click", "a.del-item", function () {
-      event.preventDefault();
-      mult_self = $(this).closest(".group-item");
+    $(".field-group-warp").find(".group-item").on("click", "a.del-item", function () {
       $(this).closest(".group-item").remove();
     });
   });
   //codemirror
-  $(".codemirror-editor").ready(function () {
-    let find_editor = $(this).find(".codemirror-editor").find("textarea");
-    load = setInterval(function () {
-      find_editor.each(function (i, e) {
-        let id = $(e).attr("id");
-        let attr = $(e).data("editor");
-        let editor = CodeMirror.fromTextArea(document.getElementById(id), attr);
-      });
-      clearInterval(load);
-    });
+  $(".codemirror-editor").find("textarea").each(function (div, obj) {
+    let editor = CodeMirror.fromTextArea(obj, $(obj).data("editor"));
   });
 });
