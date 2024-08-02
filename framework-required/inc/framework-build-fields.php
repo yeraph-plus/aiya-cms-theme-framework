@@ -59,7 +59,7 @@ if (!class_exists('AYA_Field_Action')) {
                     echo $class->action($field);
                 } else {
                     //报错
-                    self::out_error(__('Field not found "type" : ') . $field['type']);
+                    self::out_error(__('Field not found "type" : ') . print($field));
                 }
             } else {
                 //报错
@@ -91,7 +91,7 @@ if (!class_exists('AYA_Field_Action')) {
                 return;
             }
             //输出
-            $html = '<div class="section-title-field"><h3 class="' . $field['type'] . '">' . $field['desc'] . '</h3></div>';
+            $html = '<div class="section-title-field"><h3 class="' . $field['type'] . '">' . self::preg_desc($field['desc']) . '</h3></div>';
             echo $html;
         }
         //输出提示内容
@@ -119,7 +119,7 @@ if (!class_exists('AYA_Field_Action')) {
                     break;
             }
             //输出
-            $html = '<div class="form-field section-content-field"><p class="' . $field['type'] . '">' . $icon . "  " . $field['desc'] . '</p></div>';
+            $html = '<div class="form-field section-content-field"><p class="' . $field['type'] . '">' . $icon . "  " . self::preg_desc($field['desc']) . '</p></div>';
             echo $html;
         }
         //Before结构
@@ -136,7 +136,7 @@ if (!class_exists('AYA_Field_Action')) {
 
             //选项名称
             if (!empty($field['title'])) {
-                $html .= '<label class="field-label" for="' . $field['id'] . '">' . $field['title'] . '</label>';
+                $html .= '<label class="field-label" for="' . $field['id'] . '">' . self::preg_desc($field['title']) . '</label>';
             }
             $html .= '<div class="field-area">';
 
@@ -148,7 +148,7 @@ if (!class_exists('AYA_Field_Action')) {
             $html = '';
             //添加描述
             if (!empty($field['desc'])) {
-                $html = '<p class="desc">' . $field['desc'] . '</p>';
+                $html = '<p class="desc">' . self::preg_desc($field['desc']) . '</p>';
             }
 
             $html .= '</div></div>';
@@ -159,6 +159,21 @@ if (!class_exists('AYA_Field_Action')) {
         public static function out_error($message)
         {
             echo '<div class="field-error"><p>' . esc_html($message) . '</p></div>';
+        }
+        //一些转换html语法
+        public static function preg_desc($desc)
+        {
+            $desc = htmlspecialchars($desc);
+            $desc = preg_replace('[br]', '<br />', $desc);
+            $desc = preg_replace('/\[b\](.*?)\[\/b\]/', '<strong>$1</strong>', $desc);
+            $desc = preg_replace('/\[i\](.*?)\[\/i\]/', '<em>$1</em>', $desc);
+            $desc = preg_replace('/\[u\](.*?)\[\/u\]/', '<ins>$1</ins>', $desc);
+            $desc = preg_replace('/\[s\](.*?)\[\/s\]/', '<del>$1</del>', $desc);
+            $desc = preg_replace('/\[code\](.*?)\[\/code\]/', '<code>$1</code>', $desc);
+            $desc = preg_replace('/\[pre\](.*?)\[\/pre\]/', '<pre>$1</pre>', $desc);
+            $desc = preg_replace('/\[url\](.*?)\[\/url\]/', '<a href="$1" target="_blank">$1</a>', $desc);
+
+            return $desc;
         }
         //数据检查方法
         public static function test_input($value, $type = '')
