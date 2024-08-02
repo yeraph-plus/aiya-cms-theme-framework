@@ -90,17 +90,11 @@ if (!class_exists('AYA_Theme_Setup')) {
             $plugin_dir = self::$inc_dir . '/' . $dir;
             //验证目录存在
             if (is_dir($plugin_dir)) {
-                //定位其他组件
-                $plugin_inc_dir = scandir($plugin_dir);
-                //列出文件
-                sort($plugin_inc_dir);
                 //遍历
-                foreach ($plugin_inc_dir as $file) {
-                    //检查文件
-                    if (substr($file, -4) === '.php') {
-                        //执行include
-                        include_once $plugin_dir . '/' . $file;
-                    }
+                foreach (glob($plugin_dir . '/*.php') as $plugin_file) {
+                    //print_r(plugin_file));
+                    //执行include
+                    include_once $plugin_file;
                 }
                 //标记已加载
                 array_push(self::$include_once, $dir);

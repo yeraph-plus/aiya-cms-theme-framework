@@ -27,18 +27,22 @@ class AYA_Plugin_Record_Visitors
         if (is_singular()) {
             global $post;
 
-            $post_id = $post->ID;
-            $count = get_post_meta($post_id, 'post_view_count', true);
+            $count = get_post_meta($post->ID, 'view_count', true);
 
-            $count = $count ? $count + 1 : 0;
-            update_post_meta($post_id, 'post_view_count', $count);
+            $count = intval($count) + 1;
+
+            update_post_meta($post->ID, 'view_count', $count);
         }
     }
     function add_view_count_to_post_object($post)
     {
         if (is_object($post) && property_exists($post, 'ID')) {
-            $post->view_count = get_post_meta($post->ID, 'post_view_count', true);
+
+            $the_views = get_post_meta($post->ID, 'view_count', true);
+
+            $post->view_count = intval($the_views);
         }
+
         return $post;
     }
 }
