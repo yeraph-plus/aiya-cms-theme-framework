@@ -24,7 +24,7 @@ define('AYF_URI', untrailingslashit(plugin_dir_url(__FILE__)));
 //引入设置框架
 require_once AYF_PATH . '/framework-required/setup.php';
 //组件模板
-require_once AYF_PATH . '/framework-required/sample-config.php';
+//require_once AYF_PATH . '/framework-required/sample-config.php';
 
 //引入插件组
 require_once AYF_PATH . '/framework-unit/setup.php';

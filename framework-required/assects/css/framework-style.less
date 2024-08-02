@@ -72,13 +72,13 @@
       flex-wrap: wrap;
       width: auto;
       margin: 0;
-      padding: 30px 15px;
+      padding: 20px 10px;
 
       .field-label {
         width: 100%;
         font-size: 16px;
         font-weight: 600;
-        margin: 5px 0 10px 0;
+        padding: 10px;
 
         @media (min-width: 992px) {
           width: 24%;
@@ -230,6 +230,10 @@
       width: auto;
       margin: 0;
       padding: 10px 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-all;
+      word-wrap: break-word;
     }
 
     .success {
@@ -255,7 +259,7 @@
 
   .section-text {
     .quick-input {
-      width: 95%;
+      width: 75%;
 
       @media (min-width: 992px) {
         width: 75%;
@@ -269,7 +273,7 @@
       height: 200px;
 
       @media (min-width: 992px) {
-        width: auto;
+        width: 75%;
         height: 150px;
       }
 
@@ -278,15 +282,15 @@
 
   .section-color {}
 
+  .section-checkbox,
   .section-radio {
-    .quick-radio {
-      margin-right: 10px;
-    }
-  }
+    position: relative;
 
-  .section-checkbox {
-    .quick-checkbox {
-      margin-right: 10px;
+    .quick-checkbox,
+    .quick-radio {
+      cursor: pointer;
+      padding-right: 10px;
+      line-height: 1.8;
     }
   }
 
@@ -338,7 +342,7 @@
 
   .section-select {
     .quick-select {
-      margin-right: 10px;
+      padding-right: 10px;
     }
   }
 
@@ -347,23 +351,24 @@
 
     .quick-upload-input {
       width: 75%;
-      margin-right: 10px;
     }
 
-    .quick-upload-button {}
+    .quick-upload-button {
+      margin-left: 10px;
+    }
   }
 
   .section-tinymce {
     .field-area {
-      margin-top: 10px;
-      width: 100%;
+      padding: 10px;
+      width: 97% !important;
     }
   }
 
-  .section-code_editor {
+  .codemirror-editor {
     .field-area {
-      margin-top: 10px;
-      width: 100%;
+      padding: 10px;
+      width: 97% !important;
     }
   }
 
@@ -394,7 +399,9 @@
 
   .section-table-list {
     width: 100%;
+    background-color: #fff;
     border-collapse: collapse;
+    table-layout: auto;
 
     thead {
       th {
@@ -411,6 +418,7 @@
     td {
       border: 1px solid #eee;
       padding: 5px 0;
+      word-break: break-all;
     }
 
     tr:nth-child(even) {

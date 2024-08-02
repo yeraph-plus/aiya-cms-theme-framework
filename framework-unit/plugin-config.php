@@ -972,6 +972,12 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
             'desc' => '配置站点额外JavaScript代码，该项已包含<code>script</code>标签',
             'id' => 'site_extra_script',
             'type' => 'code_editor',
+            'settings' => array(
+                'lineNumbers'   => true, 
+                'tabSize'       => 2,
+                'theme'         => 'monokai',
+                'mode'          => 'javascript',
+            ),
             'default' => '',
         ),
         array(
@@ -983,6 +989,12 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
             'desc' => '配置站点额外CSS，该项已包含<code>style</code>标签',
             'id' => 'site_extra_css',
             'type' => 'code_editor',
+            'settings' => array(
+                'lineNumbers'   => true, 
+                'tabSize'       => 2,
+                'theme'         => 'monokai',
+                'mode'          => 'css',
+            ),
             'default' => '',
         ),
     );
