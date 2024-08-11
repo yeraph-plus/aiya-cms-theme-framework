@@ -17,14 +17,14 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
     class AYA_Framework_Post_Meta
     {
         private $options;
-        private $meta_info;
+        private $meta_inst;
 
         private $unfined_field;
 
-        function __construct($options, $meta_info)
+        function __construct($options, $meta_inst)
         {
             $this->options = $options;
-            $this->meta_info = $meta_info;
+            $this->meta_inst = $meta_inst;
 
             //定义禁用项
             $this->unfined_field = array('group', 'group_mult', 'code_editor', 'tinymce');
@@ -36,11 +36,12 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
         }
         public function init_metaboxes()
         {
-            $areas = $this->meta_info['add_box_in'];
-            if (function_exists('add_meta_box') && is_array($areas)) {
-                foreach ($this->meta_info['add_box_in'] as $area) {
-                    //检查模板参数
-                    if (isset($this->meta_info['template']) && $area == 'page') {
+            $meta_box_areas = $this->meta_inst['add_box_in'];
+
+            if (function_exists('add_meta_box') && is_array($meta_box_areas)) {
+                foreach ($meta_box_areas as $meta_area) {
+                    //检查模板参数，兼容页面、指定页面
+                    if (isset($this->meta_inst['template']) && $meta_area == 'page') {
                         if (isset($_GET['post'])) {
                             $post_id = $_GET['post'];
                         } else {
@@ -49,31 +50,31 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
 
                         $page_template = get_post_meta($post_id, '_wp_page_template', true);
 
-                        if ($this->meta_info['template'] == $page_template) {
+                        if ($this->meta_inst['template'] == $page_template) {
                             add_meta_box(
-                                $this->meta_info['id'],
-                                $this->meta_info['title'],
-                                array(&$this, 'create_metabox'),
-                                $area,
-                                $this->meta_info['context'],
-                                $this->meta_info['priority']
+                                $this->meta_inst['id'],
+                                $this->meta_inst['title'],
+                                array(&$this, 'create_meta_box'),
+                                $meta_area,
+                                $this->meta_inst['context'],
+                                $this->meta_inst['priority']
                             );
                         }
                     } else {
                         add_meta_box(
-                            $this->meta_info['id'],
-                            $this->meta_info['title'],
-                            array(&$this, 'create_metabox'),
-                            $area,
-                            $this->meta_info['context'],
-                            $this->meta_info['priority']
+                            $this->meta_inst['id'],
+                            $this->meta_inst['title'],
+                            array(&$this, 'create_meta_box'),
+                            $meta_area,
+                            $this->meta_inst['context'],
+                            $this->meta_inst['priority']
                         );
                     }
                 }
             }
         }
 
-        public function create_metabox()
+        public function create_meta_box()
         {
             if (isset($_GET['post']))
                 $post_id = $_GET['post'];
@@ -106,7 +107,7 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                 return;
             }
 
-            if (isset($_POST['post_type']) && in_array($_POST['post_type'], $this->meta_info['add_box_in'])) {
+            if (isset($_POST['post_type']) && in_array($_POST['post_type'], $this->meta_inst['add_box_in'])) {
 
                 //用户权限检查
                 if ('page' == $_POST['post_type']) {

@@ -34,7 +34,7 @@ class AYA_Plugin_Record_Visitors
             update_post_meta($post->ID, 'view_count', $count);
         }
     }
-    function add_view_count_to_post_object($post)
+    public function add_view_count_to_post_object($post)
     {
         if (is_object($post) && property_exists($post, 'ID')) {
 

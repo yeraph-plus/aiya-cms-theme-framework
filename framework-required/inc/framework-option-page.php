@@ -216,7 +216,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
 
                         //如果是输入框
                         if ($option['type'] == 'text' || $option['type'] == 'textarea') {
-                            //$value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
+                            $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
                             $value = stripslashes($value);
                         }
                         //如果是复选框
@@ -235,7 +235,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                         //如果是代码框
                         elseif ($option['type'] == 'code_editor') {
                             //$value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
-                            $value = $value;
+                            $value = stripslashes($value);
                         }
                         //如果是设置组
                         elseif ($option['type'] == 'group' || $option['type'] == 'group_mult') {
@@ -332,4 +332,8 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             echo $after_html;
         }
     }
+
+    global $magic_file, $author_url;
+    $magic_file = base64_decode(AYA_NAME_FILE);
+    $author_url = base64_decode(AYA_NAME_SIGN);
 }

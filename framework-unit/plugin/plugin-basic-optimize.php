@@ -200,6 +200,7 @@ class AYA_Plugin_Optimize
         }
         //禁用 s.w.org 标记
         if ($options['disable_sworg'] == true) {
+            remove_action('wp_head', 'wp_resource_hints', 2);
             add_filter('wp_resource_hints', function ($hints, $relation_type) {
                 if ('dns-prefetch' === $relation_type) {
                     return array_diff(wp_dependencies_unique_hosts(), $hints);
@@ -319,25 +320,6 @@ class AYA_Plugin_Optimize
             add_filter('image_editor_output_format', function ($formats) {
                 $formats['image/jpg'] = 'image/webp';
                 return $formats;
-            });
-        }
-        //自动重命名上传
-        if ($options['auto_upload_rename'] == true) {
-            add_filter('wp_handle_upload_prefilter', function ($file) {
-                /*
-                //判断是否是图片
-                $file_type = exif_imagetype($file);
-                //是图片
-                if ($file_type == IMAGETYPE_JPEG || $file_type == IMAGETYPE_PNG || $file_type == IMAGETYPE_WEBP || $file_type == IMAGETYPE_GIF || $file_type == IMAGETYPE_BMP) {
-                }
-                */
-                //重命名
-                $file_name = pathinfo($file['name'], PATHINFO_FILENAME);
-                $file_extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-
-                $file['name'] = date("YmdHis") . mt_rand(1, 100) . '_' . preg_replace('/\s+/', '_', $file_name) .  '.' . $file_extension;
-
-                return $file;
             });
         }
         //设置原生缩略图尺寸为空

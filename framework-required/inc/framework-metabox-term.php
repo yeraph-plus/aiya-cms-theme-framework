@@ -17,22 +17,22 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
     class AYA_Framework_Term_Meta
     {
         private $options;
-        private $option_array;
+        private $option_tax_meta;
 
         private $unfined_field;
 
-        function __construct($option_conf, $option_array)
+        function __construct($option_conf, $option_tax_meta)
         {
             $this->options = $option_conf;
-            $this->option_array = $option_array;
+            $this->option_tax_meta = $option_tax_meta;
 
             //定义禁用项
             $this->unfined_field = array('group', 'group_mult', 'code_editor', 'tinymce');
 
             //如果传入是数组
-            if (is_array($option_array)) {
+            if (is_array($option_tax_meta)) {
                 //循环执行
-                foreach ($this->option_array as $taxonomy) {
+                foreach ($this->option_tax_meta as $taxonomy) {
                     add_action($taxonomy . '_add_form_fields', array(&$this, 'add_taxonomy_field'), 10, 2);
                     add_action($taxonomy . '_edit_form_fields', array(&$this, 'edit_taxonomy_field'), 10, 2);
 
@@ -41,12 +41,17 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
                     add_action('delete_' . $taxonomy, array(&$this, 'delete_taxonomy_field_data'), 10, 1);
                 }
             } else {
-                add_action($option_array . '_add_form_fields', array(&$this, 'add_taxonomy_field'), 10, 2);
-                add_action($option_array . '_edit_form_fields', array(&$this, 'edit_taxonomy_field'), 10, 2);
+                //检查是否为空
+                if (!empty($option_tax_meta)) {
+                    $taxonomy = $option_tax_meta;
 
-                add_action('created_' . $option_array, array(&$this, 'save_taxonomy_field'), 10, 1);
-                add_action('edited_' . $option_array, array(&$this, 'save_taxonomy_field'), 10, 1);
-                add_action('delete_' . $option_array, array(&$this, 'delete_taxonomy_field'), 10, 1);
+                    add_action($taxonomy . '_add_form_fields', array(&$this, 'add_taxonomy_field'), 10, 2);
+                    add_action($taxonomy . '_edit_form_fields', array(&$this, 'edit_taxonomy_field'), 10, 2);
+
+                    add_action('created_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 10, 1);
+                    add_action('edited_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 10, 1);
+                    add_action('delete_' . $taxonomy, array(&$this, 'delete_taxonomy_field_data'), 10, 1);
+                }
             }
         }
         //创建字段

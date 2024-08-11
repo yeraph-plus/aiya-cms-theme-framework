@@ -22,6 +22,7 @@ AYP::instance();
 
 //加载插件组
 AYP::include_plugins('plugin');
+
 //加载插件设置
 include_once (__DIR__) . '/plugin-config-parent.php';
 include_once (__DIR__) . '/plugin-config.php';

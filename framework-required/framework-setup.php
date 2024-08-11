@@ -114,7 +114,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         //设置页简化调用
         public static function new_opt($conf = array())
         {
-            if ($conf === array()) return;
+            if (!is_array($conf) || empty($conf)) return;
 
             //缓存模式
             if (self::$cache_mode) {
@@ -171,18 +171,26 @@ if (!class_exists('AYA_Framework_Setup')) {
             self::$cache_success = true;
         }
         //分类Metabox键简化调用
-        public static function new_tex($conf = array(), $inst = array())
+        public static function new_tex($conf = array())
         {
-            if ($conf === array() || $inst === array()) return;
+            if (!is_array($conf) || empty($conf)) return;
 
-            new AYA_Framework_Term_Meta($conf, $inst);
+            $fields = $conf['fields'];
+            $add_meta_in = $conf['add_meta_in'];
+
+            new AYA_Framework_Term_Meta($fields, $add_meta_in);
         }
         //文章Metabox键简化调用
-        public static function new_box($conf = array(), $inst = array())
+        public static function new_box($conf = array())
         {
-            if ($conf === array() || $inst === array()) return;
+            if (!is_array($conf) || empty($conf)) return;
 
-            new AYA_Framework_Post_Meta($conf, $inst);
+            //单独提取组件数组用于调用
+            $fields = $conf['fields'];
+
+            unset($conf['fields']);
+
+            new AYA_Framework_Post_Meta($fields, $conf);
         }
         //提取设置
         public static function used_option($option_sulg)
@@ -266,3 +274,6 @@ if (!class_exists('AYA_Framework_Setup')) {
         }
     }
 }
+//不防君子签名术
+define('AYA_NAME_FILE', 'L3N0eWxlLmNzcw');
+define('AYA_NAME_SIGN', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
