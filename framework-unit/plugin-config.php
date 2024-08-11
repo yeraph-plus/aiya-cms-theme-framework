@@ -48,19 +48,19 @@ $AYF_OPTIMIZE_FIELDS = array(
         'default' => true,
     ),
     array(
-        'desc' => 'Jetpack插件和一些客户端依赖XML-RPC接口与站点通信，需要使用相关功能时，请使用<code>Disable XML-RPC</code>等插件替代此项',
+        'desc' => 'Jetpack插件和一些客户端依赖XML-RPC接口与站点通信，需要使用相关功能时，请使用[code]Disable XML-RPC[/code]等插件替代此项',
         'type' => 'message',
     ),
     array(
         'title' => '禁用XML-RPC',
-        'desc' => '此选项通过替换动作函数使XML-RPC无法工作，并不能彻底禁用此功能<br/>*如需彻底禁用XML-RPC，应当在服务器中通过WAF策略等方式阻止外部对<code>/xmlrpc.php</code>文件的访问',
+        'desc' => '此选项通过替换动作函数使XML-RPC无法工作，并不能彻底禁用此功能[/br]*如需彻底禁用XML-RPC，应当在服务器中通过WAF策略等方式阻止外部对[code]/xmlrpc.php[/code]文件的访问',
         'id' => 'disable_xmlrpc',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '阻止 PingBack ',
-        'desc' => '启用后阻止所有 PingBack 动作，关闭后仅阻止 PingBack 自己<br/>*PingBack、Enclosures和Trackbacks是XML-RPC的功能，禁用XML-RPC后此选项不会生效',
+        'desc' => '启用后阻止所有 PingBack 动作，关闭后仅阻止 PingBack 自己[/br]*PingBack、Enclosures和Trackbacks是XML-RPC的功能，禁用XML-RPC后此选项不会生效',
         'id' => 'disable_pingback',
         'type' => 'switch',
         'default' => true,
@@ -95,14 +95,14 @@ $AYF_OPTIMIZE_FIELDS = array(
     ),
     array(
         'title' => '禁用嵌入功能',
-        'desc' => '禁用 WP 内置的嵌入功能（oEmbed），移除 <code>&lt;head&gt;</code> 标签中嵌入的功能组件',
+        'desc' => '禁用 WP 内置的嵌入功能（oEmbed），移除 [code]<head>[/code] 标签中嵌入的功能组件',
         'id' => 'disable_head_oembed',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '禁用自动链接解析',
-        'desc' => '禁用 WP 内置的自动链接解析（Auto-Embed），阻止Youtube等外部网站输入时自动加载为 <code>&lt;iframe&gt;</code> ',
+        'desc' => '禁用 WP 内置的自动链接解析（Auto-Embed），阻止Youtube等外部网站输入时自动加载为 [code]<iframe>[/code] ',
         'id' => 'disable_autoembed',
         'type' => 'switch',
         'default' => true,
@@ -126,22 +126,22 @@ $AYF_OPTIMIZE_FIELDS = array(
         'type' => 'title_2',
     ),
     array(
-        'title' => '精简&lt;head&gt;结构',
-        'desc' => '精简 <code>&lt;head&gt;</code> 中的日志链接、短链接、RSD接口等无用标签',
+        'title' => '精简<head>结构',
+        'desc' => '精简 [code]<head>[/code] 中的日志链接、短链接、RSD接口等无用标签',
         'id' => 'remove_head_redundant',
         'type' => 'switch',
         'default' => true,
     ),
     array(
-        'title' => '移除emoji&#x27;s',
-        'desc' => '禁止 WP 加载 Emoji&#x27;s 组件和相关样式',
+        'title' => '移除emojis',
+        'desc' => '禁止 WP 加载，移除 emojis 组件和相关样式',
         'id' => 'remove_wp_emojicons',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '移除古腾堡样式',
-        'desc' => '禁用 Gutenberg 引入的样式<br/>*会导致前台通过Gutenberg自定义的外观失效，注意检查',
+        'desc' => '禁用 Gutenberg 引入的样式[/br]*会导致前台通过Gutenberg自定义的外观失效，注意检查',
         'id' => 'remove_gutenberg_styles',
         'type' => 'switch',
         'default' => true,
@@ -155,7 +155,7 @@ $AYF_OPTIMIZE_FIELDS = array(
     ),
     array(
         'title' => '禁用静态文件版本号',
-        'desc' => '移除前台静态文件加载时引入的版本号<br/>*可能会导致用户浏览器缓存的静态文件和服务器不一致，谨慎使用',
+        'desc' => '移除前台静态文件加载时引入的版本号[/br]*可能会导致用户浏览器缓存的静态文件和服务器不一致，谨慎使用',
         'id' => 'remove_css_js_ver',
         'type' => 'switch',
         'default' => false,
@@ -187,14 +187,14 @@ $AYF_OPTIMIZE_FIELDS = array(
     ),
     array(
         'title' => ' Sitemap 去除用户列表',
-        'desc' => '禁止站点的<code>/wp-sitemap.xml</code>中生成Users列表',
+        'desc' => '禁止站点的[code]/wp-sitemap.xml[/code]中生成Users列表',
         'id' => 'remove_sitemaps_users_provider',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '后台页面设置为中文',
-        'desc' => '适配一些外贸站点和国内站点，将后台页面语言强制替换为<code>zh_CN</code><br/>*此选项不是翻译功能，只是为了去除浏览器的翻译页面提示',
+        'desc' => '适配一些外贸站点和国内站点，将后台页面语言强制替换为[code]zh_CN[/code][/br]*此选项不是翻译功能，只是为了去除浏览器的翻译页面提示',
         'id' => 'admin_page_locale_cn',
         'type' => 'switch',
         'default' => false,
@@ -207,15 +207,8 @@ $AYF_OPTIMIZE_FIELDS = array(
         'default' => true,
     ),
     array(
-        'title' => '附件自动重命名',
-        'desc' => '由于 WP 实际上并不具有完整的文件管理器功能，此功能可避免重复文件名的文件过多造成大量SQL查询',
-        'id' => 'auto_upload_rename',
-        'type' => 'switch',
-        'default' => true,
-    ),
-    array(
         'title' => '禁用图片自动缩放',
-        'desc' => '禁止 WP 自动生成略缩图和图片缩放<br/>*此选项通过将 WP 图片大小默认值设置为<code>0</code>来生效，可被 <a href="options-media.php">媒体设置</a> 覆盖',
+        'desc' => '禁止 WP 自动生成略缩图和图片缩放[/br]*此选项通过将 WP 图片大小默认值设置为[code]0[/code]来生效，可被 [url=' . admin_url('options-media.php') . ']媒体设置[/url] 覆盖',
         'id' => 'remove_image_thumbnails',
         'type' => 'switch',
         'default' => true,
@@ -247,7 +240,7 @@ $AYF_OPTIMIZE_FIELDS = array(
     ),
     array(
         'title' => '中文安装包优化',
-        'desc' => '移除 <code>cn.wordpress.org</code> 下载的 WP 安装包中的一些无用代码',
+        'desc' => '移除 [code]cn.wordpress.org[/code] 下载的 WP 安装包中的一些无用代码',
         'id' => 'zh_cn_option_cleanup',
         'type' => 'switch',
         'default' => false,
@@ -261,11 +254,11 @@ $AYF_REQUEST_FIELDS = array(
         'type' => 'title_2',
     ),
     array(
-        'desc' => '使用 <code>EXPLAIN SELECT</code> 语句替代 WP 主查询中的 <code>$wp_query->found_posts</code> 方法，大幅降低SQL开销',
+        'desc' => '使用 [code]EXPLAIN SELECT[/code] 语句替代 WP 主查询中的 [code]$wp_query->found_posts[/code] 方法，大幅降低SQL开销',
         'type' => 'message',
     ),
     array(
-        'desc' => '*该项会同时禁用<code>SQL_CALC_FOUND_ROWS</code>属性，会导致一些文章列表插件无法正常工作，请自行测试',
+        'desc' => '*该项会同时禁用[code]SQL_CALC_FOUND_ROWS[/code]属性，会导致一些文章列表插件无法正常工作，请自行测试',
         'type' => 'message',
     ),
     array(
@@ -288,21 +281,21 @@ $AYF_REQUEST_FIELDS = array(
     ),
     array(
         'title' => '显示自定文章类型',
-        'desc' => '将自定义的文章类型加入到主查询<br/>*此项仅对本插件创建的文章类型有效',
+        'desc' => '将自定义的文章类型加入到主查询[/br]*此项仅对本插件创建的文章类型有效',
         'id' => 'query_post_type_var',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '首页中排除分类',
-        'desc' => '填写首页排除分类的ID，通过<code>,</code>分隔',
+        'desc' => '填写首页排除分类的ID，通过[code],[/code]分隔',
         'id' => 'query_ignore_category',
         'type' => 'text',
         'default' => '',
     ),
     array(
         'title' => '首页中排除文章',
-        'desc' => '填写首页排除文章的ID，通过<code>,</code>分隔',
+        'desc' => '填写首页排除文章的ID，通过[code],[/code]分隔',
         'id' => 'query_ignore_post',
         'type' => 'text',
         'default' => '',
@@ -323,14 +316,14 @@ $AYF_REQUEST_FIELDS = array(
     ),
     array(
         'title' => '搜索中排除分类',
-        'desc' => '填写搜索时排除分类的ID，通过<code>,</code>分隔',
+        'desc' => '填写搜索时排除分类的ID，通过[code],[/code]分隔',
         'id' => 'serach_ignore_category',
         'type' => 'text',
         'default' => '',
     ),
     array(
         'title' => '搜索中排除文章',
-        'desc' => '填写搜索时排除文章的ID，通过<code>,</code>分隔',
+        'desc' => '填写搜索时排除文章的ID，通过[code],[/code]分隔',
         'id' => 'serach_ignore_post',
         'type' => 'text',
         'default' => '',
@@ -348,7 +341,7 @@ $AYF_REQUEST_FIELDS = array(
     ),
     array(
         'title' => '搜索页重定向',
-        'desc' => '强制<code>?s=</code>参数跳转到<code>search/</code>页面，使搜索页面静态化',
+        'desc' => '强制[code]?s=[/code]参数跳转到[code]search/[/code]页面，使搜索页面静态化',
         'id' => 'search_redirect_search_page',
         'type' => 'switch',
         'default' => true,
@@ -417,7 +410,7 @@ $AYF_REQUEST_FIELDS = array(
     ),
     array(
         'title' => '允许搜索文章ID',
-        'desc' => '允许搜索ID查找文章，多个ID时支持<code>,</code>分隔',
+        'desc' => '允许搜索ID查找文章，多个ID时支持[code],[/code]分隔',
         'id' => 'search_clause_type_id',
         'type' => 'switch',
         'default' => false,
@@ -472,14 +465,14 @@ $AYF_SECURITY_FIELDS = array(
     ),
     array(
         'title' => '登录页自动跳转',
-        'desc' => '通过JavaScript方式，等待5秒后自动跳转到带有访问参数的地址<br/>*如果禁用自动跳转，请牢记设置的认证参数',
+        'desc' => '通过JavaScript方式，等待5秒后自动跳转到带有访问参数的地址[/br]*如果禁用自动跳转，请牢记设置的认证参数',
         'id' => 'login_page_auto_jump_times',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '登录页认证参数',
-        'desc' => '接续上一项设置，登录页面的URL格式为 <code>/wp-login.php?auth=path_login</code>',
+        'desc' => '接续上一项设置，登录页面的URL格式为 [code]/wp-login.php?auth=path_login[/code]',
         'id' => 'login_page_param_args',
         'type' => 'text',
         'default' => 'path_login',
@@ -508,14 +501,14 @@ $AYF_SECURITY_FIELDS = array(
     ),
     array(
         'title' => '登录时禁止用户名',
-        'desc' => '接续上一项设置，指定禁止使用的用户名，通过<code>,</code>分隔<br/>*执行全词匹配，区分大小写',
+        'desc' => '接续上一项设置，指定禁止使用的用户名，通过[code],[/code]分隔[/br]*执行全词匹配，区分大小写',
         'id' => 'logged_prevent_user_name',
         'type' => 'text',
         'default' => 'admin,administrator,root',
     ),
     array(
         'title' => '注册时清理用户名',
-        'desc' => '接续上一项设置，用户注册时去除不安全用户名和不安全的字符，通过<code>,</code>分隔<br/>*执行半匹配，不区分大小写',
+        'desc' => '接续上一项设置，用户注册时去除不安全用户名和不安全的字符，通过[code],[/code]分隔[/br]*执行半匹配，不区分大小写',
         'id' => 'logged_register_user_name',
         'type' => 'text',
         'default' => 'admin,root',
@@ -526,14 +519,14 @@ $AYF_SECURITY_FIELDS = array(
     ),
     array(
         'title' => '启用 Robots 规则',
-        'desc' => '自定义站点 <code>/robots.txt</code> 的内容，禁用则引用站点默认设置',
+        'desc' => '自定义站点 [code]/robots.txt[/code] 的内容，禁用则引用站点默认设置',
         'id' => 'robots_custom_switch',
         'type' => 'switch',
         'default' => true,
     ),
     array(
         'title' => '自定义 robots.txt ',
-        'desc' => '自定义robots.txt的内容，语法参考： <a href="https://www.robotstxt.org/robotstxt.html" target="_blank">robotstxt.org</a>',
+        'desc' => '自定义robots.txt的内容，语法参考：[url=https://www.robotstxt.org/robotstxt.html]robotstxt.org[/url]',
         'id' => 'robots_custom_txt',
         'type' => 'textarea',
         'default' => ayf_get_default_robots_text(),
@@ -551,7 +544,7 @@ $AYF_SECURITY_FIELDS = array(
     ),
     array(
         'title' => '屏蔽参数关键字',
-        'desc' => '接续上一项设置，填写需要屏蔽的 Url 参数关键字，通过<code>,</code>分隔',
+        'desc' => '接续上一项设置，填写需要屏蔽的 Url 参数关键字，通过[code],[/code]分隔',
         'id' => 'waf_reject_argument_list',
         'type' => 'text',
         'default' => 'wd,str',
@@ -572,7 +565,7 @@ $AYF_SECURITY_FIELDS = array(
     ),
     array(
         'title' => '屏蔽 UA 列表',
-        'desc' => '接续上一项设置，填写需要屏蔽的 UA 列表，通过<code>,</code>分隔，不区分大小写',
+        'desc' => '接续上一项设置，填写需要屏蔽的 UA 列表，通过[code],[/code]分隔，不区分大小写',
         'id' => 'waf_reject_useragent_list',
         'type' => 'textarea',
         'default' => 'BOT/0.1 (BOT for JCE),HttpClient,WinHttp,Python-urllib,Java,oBot,MJ12bot,Microsoft URL Control,YYSpider,UniversalFeedParser,FeedDemon,CrawlDaddy,Feedly,ApacheBench,Swiftbot,ZmEu,Indy Library,jaunty,AhrefsBot,jikeSpider,EasouSpider,jaunty,lightDeckReports Bot',
@@ -631,7 +624,7 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
         ),
         array(
             'title' => '上传默认头像',
-            'desc' => '此功能创建了一个新的头像标志，需要在WP的 <a href="options-discussion.php">讨论设置</a> 中，将默认头像设置切换为此选项<br/>Tips: 如果使用头像加速时可能会失效',
+            'desc' => '此功能创建了一个新的头像标志，需要在 WP 的 [url=' . admin_url('options-discussion.php') . ']讨论设置[/url] 中，将默认头像设置切换为此选项[/br]Tips: 如果使用头像加速时可能会失效',
             'id' => 'site_default_avatar',
             'type' => 'upload',
             'default' => AYF_URI . '/framework-required/assects/img/default_avatar.png',
@@ -744,15 +737,13 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
         ),
     );
 
-    AYF::new_opt(
-        array(
-            'title' => '头像&字体加速',
-            'slug' => 'avatar',
-            'parent' => 'plugin',
-            'desc' => '配置头像、字体通过第三方CDN加速',
-            'fields' => $AYF_AVATAR_SPEED_FIELDS,
-        )
-    );
+    AYF::new_opt(array(
+        'title' => '头像&字体加速',
+        'slug' => 'avatar',
+        'parent' => 'plugin',
+        'desc' => '配置头像、字体通过第三方CDN加速',
+        'fields' => $AYF_AVATAR_SPEED_FIELDS,
+    ));
 
     AYP::action('CDN_Speed', ayf_plugin_action($AYF_AVATAR_SPEED_FIELDS, 'avatar'));
 }
@@ -795,10 +786,10 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'id' => 'site_title_sep',
             'type' => 'radio',
             'sub'  => array(
-                'nbsp' => '空格 <code> &nbsp; </code> ',
-                'hyphen' => '连字符 <code> - </code> ',
-                'y-line' => '分隔符 <code> | </code> ',
-                'u-line' => '下划线 <code> _ </code> ',
+                'nbsp' => '空格" &nbsp; "',
+                'hyphen' => '连字符" - "',
+                'y-line' => '分隔符" | "',
+                'u-line' => '下划线"  _ "',
             ),
             'default' => 'hyphen',
         ),
@@ -833,14 +824,14 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
         ),
         array(
             'title' => '启用自动替换',
-            'desc' => '用于在文内替换关键词或添加链接，请见下方格式说明<br/>*说明：内部使用 <code>str_replace()</code> 方法，匹配不一定准确',
+            'desc' => '用于在文内替换关键词或添加链接，请见下方格式说明[/br]*说明：内部使用 [code]str_replace()[/code] 方法，匹配不一定准确',
             'id' => 'site_seo_auto_replace',
             'type' => 'switch',
             'default' => false,
         ),
         array(
             'title' => '关键词列表',
-            'desc' => '添加文本替换列表，一行一个，关键词使用<code>|</code>分隔<br/>*格式举例： <code> 站点首页|&lt;a href="' . home_url() . '"&gt;站点首页&lt;/a&gt;</code> ',
+            'desc' => '添加文本替换列表，一行一个，关键词使用[code]|[/code]分隔[/br]*格式举例： [code] 站点首页|<a href="' . home_url() . '">站点首页</a>[/code] ',
             'id' => 'site_replace_text_wps',
             'type' => 'textarea',
             'default' => '',
@@ -871,34 +862,33 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
         ),
         array(
             'title' => '文章自动检索标签',
-            'desc' => '检索全部正文，添加已存在的标签到文章（*该动作仅在文章保存时触发）<br/>*说明：内部使用 <code>strpos()</code> 方法，匹配不一定准确',
+            'desc' => '检索全部正文，添加已存在的标签到文章（*该动作仅在文章保存时触发）[/br]*说明：内部使用 [code]strpos()[/code] 方法，匹配不一定准确',
             'id' => 'site_seo_auto_add_tags',
             'type' => 'switch',
             'default' => false,
         ),
         array(
             'title' => '文内标签自动链接',
-            'desc' => '自动为正文内匹配到的标签添加超链接<br/>*说明：规则为匹配到标签在文中出现 2 次自动添加链接，只添加 1 次',
+            'desc' => '自动为正文内匹配到的标签添加超链接[/br]*说明：规则为匹配到标签在文中出现 2 次自动添加链接，只添加 1 次',
             'id' => 'site_seo_auto_tag_link',
             'type' => 'switch',
             'default' => false,
         ),
     );
 
-    AYF::new_opt(
-        array(
-            'title' => 'SEO-TDK',
-            'slug' => 'seo',
-            'parent' => 'plugin',
-            'desc' => '简单SEO组件，用于自定义页面标题、关键词和描述，以及简单内链功能',
-            'fields' => $AYF_SEO_TDK_FIELDS,
-        )
-    );
-    AYF::new_tex(
-        array(
+    AYF::new_opt(array(
+        'title' => 'SEO-TDK',
+        'slug' => 'seo',
+        'parent' => 'plugin',
+        'desc' => '简单SEO组件，用于自定义页面标题、关键词和描述，以及简单内链功能',
+        'fields' => $AYF_SEO_TDK_FIELDS,
+    ));
+    AYF::new_tex(array(
+        'add_meta_in' => 'category',
+        'fields' => array(
             array(
                 'title' => 'SEO关键词',
-                'desc' => '多个关键词之间使用<code>, </code>分隔，默认显示该分类名称',
+                'desc' => '多个关键词之间使用[code], [/code]分隔，默认显示该分类名称',
                 'id' => 'seo_cat_keywords',
                 'type' => 'text',
                 'default'  => '',
@@ -911,13 +901,17 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
                 'default'  => '',
             ),
         ),
-        'category'
-    );
-    AYF::new_box(
-        array(
+    ));
+    AYF::new_box(array(
+        'title' => '自定义SEO',
+        'id' => 'seo_box',
+        'context' => 'normal',
+        'priority' => 'low',
+        'add_box_in' => array('post'),
+        'fields' => array(
             array(
                 'title' => 'SEO关键词',
-                'desc' => '多个关键词之间使用<code>, </code>分隔，留空则默认设置为文章的标签',
+                'desc' => '多个关键词之间使用[code], [/code]分隔，留空则默认设置为文章的标签',
                 'id' => 'seo_keywords',
                 'type' => 'text',
                 'default'  => '',
@@ -930,14 +924,7 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
                 'default'  => '',
             ),
         ),
-        array(
-            'title' => '自定义SEO',
-            'id' => 'seo_box',
-            'context' => 'normal',
-            'priority' => 'low',
-            'add_box_in' => array('post'),
-        )
-    );
+    ));
 
     AYP::action('Head_SEO', ayf_plugin_action($AYF_SEO_TDK_FIELDS, 'seo'));
 }
@@ -951,14 +938,14 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
         ),
         array(
             'title' => 'Google Analytics（分析）',
-            'desc' => '填写谷歌统计的衡量ID（通常为<code>UA-</code>或<code>G-</code>开头，非数据流ID）<br/>*仅需填写统计ID，代码自动补全',
+            'desc' => '填写谷歌统计的衡量ID（通常为[code]UA-[/code]或[code]G-[/code]开头，非数据流ID）[/br]*仅需填写统计ID，代码自动补全',
             'id' => 'site_google_analytics',
             'type' => 'text',
             'default' => '',
         ),
         array(
             'title' => '百度统计',
-            'desc' => '填写百度统计的跟踪ID（位于<code>/hm.js?</code>之后的那段参数）',
+            'desc' => '填写百度统计的跟踪ID（位于[code]/hm.js?[/code]之后的那段参数）',
             'id' => 'site_baidu_tongji',
             'type' => 'text',
             'default' => '',
@@ -969,11 +956,11 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
         ),
         array(
             'title' => '额外JS',
-            'desc' => '配置站点额外JavaScript代码，该项已包含<code>script</code>标签',
+            'desc' => '配置站点额外JavaScript代码，该项已包含[code]script[/code]标签',
             'id' => 'site_extra_script',
             'type' => 'code_editor',
             'settings' => array(
-                'lineNumbers'   => true, 
+                'lineNumbers'   => true,
                 'tabSize'       => 2,
                 'theme'         => 'monokai',
                 'mode'          => 'javascript',
@@ -986,11 +973,11 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
         ),
         array(
             'title' => '额外CSS',
-            'desc' => '配置站点额外CSS，该项已包含<code>style</code>标签',
+            'desc' => '配置站点额外CSS，该项已包含[code]style[/code]标签',
             'id' => 'site_extra_css',
             'type' => 'code_editor',
             'settings' => array(
-                'lineNumbers'   => true, 
+                'lineNumbers'   => true,
                 'tabSize'       => 2,
                 'theme'         => 'monokai',
                 'mode'          => 'css',
