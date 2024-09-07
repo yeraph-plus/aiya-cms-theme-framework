@@ -51,7 +51,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         function __construct()
         {
             if (is_null(self::$include_once)) {
-                add_action('init', array(&$this, 'load_textdomain'));
+                add_action('admin_init', array(&$this, 'load_textdomain'));
                 add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
 
                 self::include();

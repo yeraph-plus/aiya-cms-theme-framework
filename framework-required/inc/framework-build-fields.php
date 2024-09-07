@@ -28,7 +28,7 @@ if (!class_exists('AYA_Field_Action')) {
             if (in_array($field['type'], array('title_1', 'title_2'))) {
                 return self::title_tags($field);
             }
-            if (in_array($field['type'], array('content', 'message', 'success', 'dismiss', 'error'))) {
+            if (in_array($field['type'], array('content', 'message', 'success', 'dismiss', 'warning'))) {
                 return self::content_tags($field);
             }
             //回调组件
@@ -164,7 +164,7 @@ if (!class_exists('AYA_Field_Action')) {
         public static function preg_desc($desc)
         {
             $desc = htmlspecialchars($desc);
-            $desc = preg_replace('/\[\/br\]/', '<br />', $desc);
+            $desc = preg_replace('/\[br\/]/', '<br />', $desc);
             $desc = preg_replace('/\[b\](.*?)\[\/b\]/', '<strong>$1</strong>', $desc);
             $desc = preg_replace('/\[i\](.*?)\[\/i\]/', '<em>$1</em>', $desc);
             $desc = preg_replace('/\[u\](.*?)\[\/u\]/', '<ins>$1</ins>', $desc);
