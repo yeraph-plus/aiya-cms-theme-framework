@@ -819,6 +819,24 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'default' => '',
         ),
         array(
+            'desc' => '编辑器默认内容',
+            'type' => 'title_2',
+        ),
+        array(
+            'title' => '进入编辑器时插入默认文本',
+            'desc' => '将一些标准的格式化的文章内容直接插入到编辑器中',
+            'id' => 'site_seo_auto_insert_pre',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '添加编辑器默认内容',
+            'desc' => '添加默认内容之后，会在创建文章时编辑器内可见',
+            'id' => 'site_seo_auto_insert_content',
+            'type' => 'textarea',
+            'default' => '',
+        ),
+        array(
             'desc' => '文本关键词自动替换',
             'type' => 'title_2',
         ),

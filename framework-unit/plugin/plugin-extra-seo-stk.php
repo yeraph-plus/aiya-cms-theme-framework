@@ -35,6 +35,9 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
             parent::add_action('wp_head', 'aya_theme_site_seo_action');
             parent::add_action('wp_head', 'aya_theme_site_seo_canonical');
         }
+        if ($action['site_seo_auto_insert_pre'] == true) {
+            parent::add_filter('default_content', 'aya_theme_site_insert_pre_content');
+        }
         if ($action['site_seo_auto_replace'] == true) {
             parent::add_filter('the_content', 'aya_theme_site_replace_text_wps');
         }
@@ -228,6 +231,18 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         }
         //输出
         echo '<link rel="canonical" href="' . $url . '" />' . "\n";
+    }
+    //编辑器默认内容
+    public function aya_theme_site_insert_pre_content()
+    {
+        $action = $this->seo_action;
+
+        $content = trim($action['site_seo_auto_insert_content']);
+
+        if (!empty($content) && !is_feed() && !is_home()) {
+
+            return $content;
+        }
     }
     //文内关键词替换
     function aya_theme_site_replace_text_wps($content)
