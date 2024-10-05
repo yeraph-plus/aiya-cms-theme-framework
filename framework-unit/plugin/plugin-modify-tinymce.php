@@ -78,10 +78,10 @@ class AYA_Plugin_Modify_TinyMCE
     //排序编辑器第一行
     public function try_mce_buttons_1($buttons)
     {
-        $insert_buttons    = [
-            'italic'        => ['underline', 'strikethrough', 'forecolor', 'backcolor', 'styleselect'],
-            'alignright'    => ['alignjustify'],
-            'wp_more'        => ['wp_page', 'hr']
+        $insert_buttons  = [
+            'italic' => ['underline', 'strikethrough', 'forecolor', 'backcolor', 'styleselect'],
+            'alignright' => ['alignleft', 'aligncenter', 'alignjustify'],
+            'wp_more' => ['toc', 'hr', 'wp_page'],
         ];
         $diff_buttons = array(
             'formatselect',
@@ -100,16 +100,19 @@ class AYA_Plugin_Modify_TinyMCE
     //排序编辑器第二行
     public function try_mce_buttons_2($buttons)
     {
+        //
         $add_buttons = array(
             'formatselect',
             'fontsizeselect',
             'fontselect',
-            'table'
+            'table',
+            'code',
+            'codesample',
         );
         $diff_buttons = array(
+            'hr',
             'strikethrough',
             'forecolor',
-            'hr'
         );
 
         return array_merge($add_buttons, array_diff($buttons, $diff_buttons));
