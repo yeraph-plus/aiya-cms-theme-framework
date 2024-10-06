@@ -34,6 +34,8 @@ require_once plugin_dir_path(__FILE__) . 'framework-required/setup.php';
 
 //引入插件组
 require_once plugin_dir_path(__FILE__) . 'opt-basic/setup.php';
+//编辑器插件
+require_once plugin_dir_path(__FILE__) . 'plugin-classic-editor-modify/setup.php';
 
 //运行环境检查
 AYP::action('EnvCheck', array(
@@ -50,6 +52,7 @@ AYP::action('EnvCheck', array(
 ));
 
 //注册翻译文件
+/*
 function aya_framework_load_textdomain()
 {
     $domain = 'aiya-cms-framework';
@@ -58,4 +61,5 @@ function aya_framework_load_textdomain()
     load_textdomain($domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo');
     load_plugin_textdomain($domain, false, (__DIR__) . '/languages/');
 }
-//add_action('admin_init', 'aya_framework_load_textdomain');
+add_action('admin_init', 'aya_framework_load_textdomain');
+*/

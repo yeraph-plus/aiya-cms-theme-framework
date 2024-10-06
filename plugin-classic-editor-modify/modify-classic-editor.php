@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('ABSPATH')) exit;
 
 /**
@@ -14,7 +13,7 @@ if (!defined('ABSPATH')) exit;
  * @version 1.3
  **/
 
-class AYA_Plugin_Modify_TinyMCE
+class AYA_Modify_TinyMCE
 {
     public $tinymce_options;
 
@@ -100,7 +99,6 @@ class AYA_Plugin_Modify_TinyMCE
     //排序编辑器第二行
     public function try_mce_buttons_2($buttons)
     {
-        //
         $add_buttons = array(
             'formatselect',
             'fontsizeselect',
