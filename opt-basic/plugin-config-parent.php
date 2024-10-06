@@ -149,7 +149,6 @@ function ayf_get_default_robots_text()
     return $output;
 }
 
-
 /*
  * ------------------------------------------------------------------------------
  * 父级设置页面
@@ -175,14 +174,14 @@ $AYF_PARENT_FIELDS = array(
     ),
     array(
         'title' => '外部功能加速',
-        'desc' => '将 Gravatar 头像服务、谷歌字体服务 替换为国内CDN',
+        'desc' => '将 Gravatar 头像服务、谷歌字体服务替换为国内 CDN 加速',
         'id' => 'plugin_add_avatar_speed',
         'type' => 'switch',
         'default' => false,
     ),
     array(
-        'title' => '简单SEO组件',
-        'desc' => '替代页面标题配置器并支持一些基础的SEO功能',
+        'title' => '简单 SEO 组件',
+        'desc' => '替代页面标题配置器并支持一些基础的 SEO 功能',
         'id' => 'plugin_add_seo_stk',
         'type' => 'switch',
         'default' => false,
@@ -202,13 +201,6 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
     array(
-        'title' => '经典编辑器拓展',
-        'desc' => '编辑增强插件，按钮重排、支持表格、自动上传 Tips：仅支持TinyMCE（经典编辑器）',
-        'id' => 'plugin_tinymce_add_modify',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
         'title' => '本地头像拓展',
         'desc' => '本地化头像插件，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
         'id' => 'plugin_local_avatar_upload',
@@ -221,7 +213,7 @@ $AYF_PARENT_FIELDS = array(
     ),
     array(
         'title' => '分类 URL 重建',
-        'desc' => '移除分类URL中 <code>/category/</code> 层级，启用此项功能后，需要在 <a href="options-permalink.php">固定链接</a> 设置中重新保存一次',
+        'desc' => '移除分类URL中 [code]/category/[/code] 层级，启用此项功能后，需要在 [url=options-permalink.php]固定链接[/url] 设置中重新保存一次',
         'id' => 'plugin_no_category_url',
         'type' => 'switch',
         'default' => false,
@@ -239,21 +231,21 @@ $AYF_PARENT_FIELDS = array(
     ),
     array(
         'title' => 'DEBUG模式',
-        'desc' => '在wp_footer中输出SQL和include等调试信息',
+        'desc' => '在 wp_footer() 中输出 SQL 和 include 等调试信息',
         'id' => 'debug_mode',
         'type' => 'switch',
         'default' => false,
     ),
     array(
         'title' => '简码列表',
-        'desc' => '列出WP当前的全部固定链接（ Rewrite 规则）和查询方法',
+        'desc' => '列出 WP 当前的全部固定链接（ Rewrite 规则）和查询方法',
         'id' => 'debug_shortcode_items',
         'type' => 'switch',
         'default' => false,
     ),
     array(
         'title' => '路由列表',
-        'desc' => '列出WP当前的全部简码功能（ Shortcode 字段），并列出回调函数',
+        'desc' => '列出 WP 当前的全部简码功能（ Shortcode 字段）并列出回调函数',
         'id' => 'debug_rules_items',
         'type' => 'switch',
         'default' => false,

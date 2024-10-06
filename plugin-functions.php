@@ -25,7 +25,6 @@ if (!function_exists('is_user_logged_in')) require(ABSPATH . WPINC . '/pluggable
 //简码图床
 //AYA_Shortcode_Pic_Bed::instance();
 
-//define('AYF_URI', get_template_directory_uri());
 define('AYF_VERSION', '1.2');
 
 //引入设置框架
