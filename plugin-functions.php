@@ -18,8 +18,14 @@ if (!defined('ABSPATH')) exit;
 //在插件中加载时，兼容框架的权限验证
 if (!function_exists('is_user_logged_in')) require(ABSPATH . WPINC . '/pluggable.php');
 
+//define('AYA_IMAGE_PATH', untrailingslashit(plugin_dir_path(__FILE__)));
+//define('AYA_PICBED_CSS_URL', plugin_dir_url(__FILE__) . '/bulit-in-pic-bed');
+//内置图床扩展
+//require_once AYA_IMAGE_PATH . '/bulit-in-pic-bed/setup.php';
+//简码图床
+//AYA_Shortcode_Pic_Bed::instance();
+
 //define('AYF_URI', get_template_directory_uri());
-define('AYF_URI', untrailingslashit(plugin_dir_url(__FILE__)));
 define('AYF_VERSION', '1.2');
 
 //引入设置框架
@@ -43,3 +49,14 @@ AYP::action('EnvCheck', array(
     //经典小工具插件
     'check_classic_widgets' => true,
 ));
+
+//注册翻译文件
+function aya_framework_load_textdomain()
+{
+    $domain = 'aiya-cms-framework';
+    $locale = apply_filters('plugin_locale', get_locale(), $domain);
+
+    load_textdomain($domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo');
+    load_plugin_textdomain($domain, false, (__DIR__) . '/languages/');
+}
+//add_action('admin_init', 'aya_framework_load_textdomain');
