@@ -626,7 +626,7 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
             'default' => AYF_URI . '/assects/img/default_avatar.png',
         ),
         array(
-            'desc' => 'WeAvatar头像服务',
+            'desc' => ' WeAvatar 头像服务',
             'type' => 'title_2',
         ),
         array(
