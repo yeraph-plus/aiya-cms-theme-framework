@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 //检查插件加载位置
 if (defined('AYA_RELEASE')) {
-    define('MCE_PLUGIN_URI', AYA_URI . '/plugins/framework-required');
+    define('MCE_PLUGIN_URI', AYA_URI . '/plugins/plugin-classic-editor-modify');
 } else {
     define('MCE_PLUGIN_URI', untrailingslashit(plugin_dir_url(__FILE__)));
 }
