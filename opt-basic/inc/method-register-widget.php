@@ -20,6 +20,8 @@ class AYA_Plugin_Widget_Load extends AYA_Theme_Setup
 
     public function __construct($args)
     {
+        if (!is_array($args)) return;
+        
         $this->register_widgets = $args;
     }
 
@@ -47,6 +49,8 @@ class AYA_Plugin_Widget_Unload extends AYA_Theme_Setup
 
     public function __construct($args)
     {
+        if (!is_array($args)) return;
+        
         $this->unload_widgets = $args;
     }
 

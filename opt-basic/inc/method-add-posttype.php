@@ -21,6 +21,8 @@ class AYA_Plugin_Register_Post_Type extends AYA_Theme_Setup
 
     public function __construct($args)
     {
+        if (!is_array($args)) return;
+        
         $this->register_post_type = $args;
         //定义伪静态
         $this->rewrite_html = '.html';

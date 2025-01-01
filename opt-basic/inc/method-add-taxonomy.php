@@ -20,6 +20,8 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
 
     public function __construct($args)
     {
+        if (!is_array($args)) return;
+        
         $this->register_taxonomy = $args;
     }
 

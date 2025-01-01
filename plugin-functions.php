@@ -27,7 +27,7 @@ require_once plugin_dir_path(__FILE__) . 'framework-required/setup.php';
 //引入插件组
 require_once plugin_dir_path(__FILE__) . 'opt-basic/setup.php';
 //编辑器插件
-require_once plugin_dir_path(__FILE__) . 'plugin-classic-editor-modify/setup.php';
+//require_once plugin_dir_path(__FILE__) . 'plugin-classic-editor-modify/setup.php';
 //简码图床插件
 //require_once plugin_dir_path(__FILE__) . 'plugin-internal-pic-bed/setup.php';
 

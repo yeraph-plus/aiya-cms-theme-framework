@@ -7,10 +7,10 @@ if (!defined('ABSPATH')) exit;
  * ------------------------------------------------------------------------------
  */
 
-//添加钩子 URL自动附加反斜杠
+//添加钩子URL自动附加反斜杠
 add_filter('user_trailingslashit', 'ayf_filter_auto_trailingslashit', 10, 2);
-//添加钩子 保存格式过滤 
-//Tips：此钩子也在 post_update() 和 post_delete() 上触发，应当注意检查其他插件的兼容性
+
+//添加钩子保存格式过滤 Tips：此钩子也在 post_update() 和 post_delete() 上触发，应当注意检查其他插件的兼容性
 //add_filter('wp_insert_post_data', 'ayf_filter_insert_post_data', 10, 3);
 //添加钩子 排除评论表单字段
 //add_filter('comment_form_default_fields', 'ayf_filter_insert_comment_form_unset_field');
