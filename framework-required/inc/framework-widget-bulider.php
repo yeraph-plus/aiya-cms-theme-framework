@@ -15,7 +15,6 @@ if (!defined('ABSPATH')) exit;
 
 /*
 //Widget Demo
-
 class AYA_Demo_Widget extends AYA_Widget
 {
     function widget_args()
@@ -67,8 +66,8 @@ class AYA_Demo_Widget extends AYA_Widget
         echo parent::widget_opt('select');
     }
 }
-
 */
+
 if (!class_exists('AYA_Widget')) {
     abstract class AYA_Widget extends WP_Widget
     {
