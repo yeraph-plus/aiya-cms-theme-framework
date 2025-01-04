@@ -26,7 +26,7 @@ class AYA_Plugin_Template_New_Page extends AYA_Theme_Setup
         //定义伪静态
         $this->rewrite_html = '.html';
         //定义模板位置
-        $this->template_page_path = 'page';
+        $this->template_page_path = 'pages';
     }
 
     public function __destruct()

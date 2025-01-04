@@ -107,12 +107,13 @@ if (!class_exists('AYA_Ajax')) {
         //注册URL变量
         public static function localize()
         {
-            //Tips: POST请求时读取变量为 aya_ajax.url
+            //Tips: POST请求时读取变量为 aya_local.ajax_url
             add_action('wp_enqueue_scripts', wp_localize_script(
-                'aya-ajax-url',
-                'aya_ajax',
+                'aya-local-url',
+                'aya_local',
                 array(
-                    'url' => admin_url('admin-ajax.php')
+                    'home_url' => home_url(),
+                    'ajax_url' => admin_url('admin-ajax.php'),
                 )
             ));
         }
