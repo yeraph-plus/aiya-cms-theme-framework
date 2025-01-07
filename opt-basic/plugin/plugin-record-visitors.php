@@ -29,11 +29,15 @@ class AYA_Plugin_Record_Visitors
 
             $count = get_post_meta($post->ID, 'view_count', true);
 
-            $count = intval($count) + 1;
-
-            update_post_meta($post->ID, 'view_count', $count);
+            if ($count) {
+                $count = intval($count) + 1;
+                update_post_meta($post->ID, 'view_count', $count);
+            } else {
+                update_post_meta($post->ID, 'view_count', 1);
+            }
         }
     }
+
     public function add_view_count_to_post_object($post)
     {
         if (is_object($post) && property_exists($post, 'ID')) {
