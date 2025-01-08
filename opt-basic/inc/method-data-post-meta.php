@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) exit;
 
 class AYA_Plugin_Data_Post_Meta
 {
-    public function __construct($post_id = 0, $return_loop_meta, $date_mod = 'short', $preview_size = 255)
+    public function __construct($post_id, $return_loop_meta, $date_mod = 'short', $preview_size = 255)
     {
         $post = self::aya_get_post($post_id);
 
@@ -37,6 +37,7 @@ class AYA_Plugin_Data_Post_Meta
             $post_data['date'] = self::aya_get_post_date($post, $date_mod);
             $post_data['author'] = self::aya_get_post_author($post);
             $post_data['comments'] = self::aya_get_post_comments($post);
+            $post_data['thumb'] = self::aya_get_post_thumb($post);
             $post_data['preview'] = self::aya_get_post_preview($post, $preview_size);
         } else {
             $post_data['id'] = self::aya_get_post_id($post);
@@ -336,15 +337,17 @@ class AYA_Plugin_Data_Post_Meta
             return get_the_post_thumbnail_url($post);
         }
         //返回空
-        return NULL;
+        return false;
     }
 
     //获取文章缩略图
-    public function aya_get_post_thumb($post_id = 0, $t_w = 400, $t_h = 300)
+    public function aya_get_post_thumb($post = NULL)
     {
-        if (empty($post_id)) {
-            $post_id = get_the_ID();
+        if (!is_object($post)) {
+            $post = get_post($post);
         }
+
+        $post_id = $post->ID;
 
         //如果存在特色图片
         if (has_post_thumbnail($post_id)) {
@@ -354,20 +357,16 @@ class AYA_Plugin_Data_Post_Meta
         //获取文章中的第一张图片
         else {
             //查询附件
-            $media = self::aya_get_post_media('image', $post_id);
+            $media = self::aya_get_post_media($post_id, 'image');
             //弹出数组中的第一个元素
             $media = array_shift($media);
+
             //只取URL，忽略width和height
             $img_url = (empty($media)) ? NULL : wp_get_attachment_image_src($media->ID, '', false)[0];
         }
-        //如果存在图片
-        if ($img_url !== NULL) {
-            //返回裁剪
-            return get_bfi_thumb($img_url, $t_w, $t_h);
-        }
 
-        //不存在则返回主题默认
-        return aya_opt('site_default_thumb_upload', 'basic');
+        //如果存在图片
+        return ($img_url !== NULL) ? $img_url : false;
     }
 }
 
@@ -377,6 +376,6 @@ class AYA_Post_Meta extends AYA_Plugin_Data_Post_Meta
     {
         return parent::__construct($post_id, $return_loop_meta, $date_mod, $preview_size);
 
-        return (object)$post_data;
+        return (object) $post_data;
     }
 }
