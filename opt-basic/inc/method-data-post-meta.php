@@ -202,6 +202,19 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
         }
     }
 
+    //获取作者头像
+    public function aya_get_post_author_avatar($post = NULL, $size = 32)
+    {
+        if (!is_object($post)) {
+            $post = get_post($post);
+            $the_author = get_post_field('post_author', $post);
+        } else {
+            $the_author = $post->post_author;
+        }
+
+        return get_avatar_url($the_author, $size);
+    }
+
     //计算已发布时间
     public function aya_diff_timeago($time)
     {
@@ -232,6 +245,26 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
                 return date($date_format, $publish_time);
         }
     }
+
+    //检查文章是否已过时
+    function aya_get_post_is_outdated($post = NULL, $out_day = 30)
+    {
+        if (!is_object($post)) {
+            $post = get_post($post);
+        }
+        $publish_time = get_post_time('U', false, $post, true);
+        $modified_time = get_post_modified_time('U', false, $post, true);
+
+        //判断更新时间取最近
+        $last_time = ($modified_time > $publish_time) ? $modified_time : $publish_time;
+
+        //时间30天
+        if (time() > $last_time + 86400 * $out_day) {
+            return true;
+        }
+        return false;
+    }
+
 
     //获取文章评论数
     public function aya_get_post_comments($post = NULL, $modified = false)
@@ -327,9 +360,9 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
 
 class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
 {
-    public $id, $url, $title, $attr_title, $status, $views, $likes, $date, $author, $comments, $thumb, $preview;
+    public $id, $url, $title, $attr_title, $status, $views, $likes, $date, $author, $author_avatar, $comments, $thumb_url, $preview;
 
-    public function __construct($post_id = 0, $date_mod = 'short', $preview_size = 255)
+    public function __construct($post_id = 0, $date_mod = 'short', $avatar_size = 32, $preview_size = 255)
     {
         //获取原始 POST 对象
         $post = parent::aya_get_post($post_id);
@@ -340,15 +373,16 @@ class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
         //获取数据存入当前对象
         $this->id = parent::aya_get_post_id($post);
         $this->url = parent::aya_get_post_url($post);
-        $this->title = parent::aya_get_post_title($post, 0);
-        $this->attr_title = parent::aya_get_post_title($post, 1);
+        $this->title = parent::aya_get_post_title($post, false);
+        $this->attr_title = parent::aya_get_post_title($post, true);
         $this->status = parent::aya_get_post_status($post);
         $this->views = parent::aya_get_post_views($post);
         $this->likes = parent::aya_get_post_likes($post);
         $this->date = parent::aya_get_post_date($post, $date_mod);
-        $this->author = parent::aya_get_post_author($post);
+        $this->author = parent::aya_get_post_author($post, false);
+        $this->author_avatar = parent::aya_get_post_author_avatar($post, $avatar_size);
         $this->comments = parent::aya_get_post_comments($post);
-        $this->thumb = parent::aya_get_post_thumb($post);
+        $this->thumb_url = parent::aya_get_post_thumb($post);
         $this->preview = parent::aya_get_post_preview($post, $preview_size);
 
         return (object) $this;
@@ -357,9 +391,9 @@ class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
 
 class AYA_Post_Content extends AYA_Plugin_Data_Template_Of_Post_Meta
 {
-    public $id, $title, $status, $author, $views, $likes, $date, $comments, $excerpt, $thumbnail, $content;
+    public $id, $title, $status, $author, $author_avatar, $views, $likes, $date, $is_outdated, $comments, $excerpt, $thumbnail, $content;
 
-    public function __construct($post_id = 0)
+    public function __construct($post_id = 0, $avatar_size = 128, $days_outdate = 30)
     {
         //获取原始 POST 对象
         $post = parent::aya_get_post($post_id);
@@ -369,12 +403,14 @@ class AYA_Post_Content extends AYA_Plugin_Data_Template_Of_Post_Meta
 
         //获取数据存入当前对象
         $this->id = parent::aya_get_post_id($post);
-        $this->title = parent::aya_get_post_title($post, 0);
+        $this->title = parent::aya_get_post_title($post, false);
         $this->status = parent::aya_get_post_status($post);
-        $this->author = parent::aya_get_post_author($post, 1);
+        $this->author = parent::aya_get_post_author($post, true);
+        $this->author_avatar = parent::aya_get_post_author_avatar($post, $avatar_size);
         $this->views = parent::aya_get_post_views($post);
         $this->likes = parent::aya_get_post_likes($post);
         $this->date = parent::aya_get_post_date($post, 'full');
+        $this->is_outdated = parent::aya_get_post_is_outdated($post, $days_outdate);
         $this->comments = parent::aya_get_post_comments($post);
         $this->excerpt = parent::aya_get_post_excerpt($post);
         $this->thumbnail = parent::aya_get_post_thumbnail($post);
