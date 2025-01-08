@@ -14,53 +14,8 @@ if (!defined('ABSPATH')) exit;
  * @version 1.0
  **/
 
-class AYA_Plugin_Data_Post_Meta
+class AYA_Plugin_Data_Template_Of_Post_Meta
 {
-    public function __construct($post_id, $return_loop_meta, $date_mod = 'short', $preview_size = 255)
-    {
-        $post = self::aya_get_post($post_id);
-
-        //直接退出
-        if (!$post) return NULL;
-
-        $post_data = array();
-
-        //转换$post对象存入当前数组
-        if ($return_loop_meta) {
-            $post_data['id'] = self::aya_get_post_id($post);
-            $post_data['url'] = self::aya_get_post_url($post);
-            $post_data['title'] = self::aya_get_post_title($post, 0);
-            $post_data['attr_title'] = self::aya_get_post_title($post, 1);
-            $post_data['status'] = self::aya_get_post_status($post);
-            $post_data['views'] = self::aya_get_post_views($post);
-            $post_data['likes'] = self::aya_get_post_likes($post);
-            $post_data['date'] = self::aya_get_post_date($post, $date_mod);
-            $post_data['author'] = self::aya_get_post_author($post);
-            $post_data['comments'] = self::aya_get_post_comments($post);
-            $post_data['thumb'] = self::aya_get_post_thumb($post);
-            $post_data['preview'] = self::aya_get_post_preview($post, $preview_size);
-        } else {
-            $post_data['id'] = self::aya_get_post_id($post);
-            $post_data['title'] = self::aya_get_post_title($post, 1);
-            $post_data['status'] = self::aya_get_post_status($post);
-            $post_data['author'] = self::aya_get_post_author($post, 1);
-            $post_data['views'] = self::aya_get_post_views($post);
-            $post_data['likes'] = self::aya_get_post_likes($post);
-            $post_data['date'] = self::aya_get_post_date($post, 'full');
-            $post_data['comments'] = self::aya_get_post_comments($post, 1);
-            $post_data['excerpt'] = self::aya_get_post_excerpt($post);
-            $post_data['thumbnail'] = self::aya_get_post_thumbnail($post);
-            $post_data['content'] = self::aya_get_post_content($post);
-        }
-
-        //将数组内容转换为单独对象
-        foreach ($post_data as $key => $value) {
-            $this->$key = $value;
-        }
-    }
-
-    public function __destruct() {}
-
     //替代一些WP原来的The_方法
 
     //定位文章
@@ -370,12 +325,61 @@ class AYA_Plugin_Data_Post_Meta
     }
 }
 
-class AYA_Post_Meta extends AYA_Plugin_Data_Post_Meta
+class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
 {
-    public function __construct($post_id = 0, $return_loop_meta, $date_mod = 'short', $preview_size = 255)
-    {
-        return parent::__construct($post_id, $return_loop_meta, $date_mod, $preview_size);
+    public $id, $url, $title, $attr_title, $status, $views, $likes, $date, $author, $comments, $thumb, $preview;
 
-        return (object) $post_data;
+    public function __construct($post_id = 0, $date_mod = 'short', $preview_size = 255)
+    {
+        //获取原始 POST 对象
+        $post = parent::aya_get_post($post_id);
+
+        //报错时直接退出
+        if (!$post) return NULL;
+
+        //获取数据存入当前对象
+        $this->id = parent::aya_get_post_id($post);
+        $this->url = parent::aya_get_post_url($post);
+        $this->title = parent::aya_get_post_title($post, 0);
+        $this->attr_title = parent::aya_get_post_title($post, 1);
+        $this->status = parent::aya_get_post_status($post);
+        $this->views = parent::aya_get_post_views($post);
+        $this->likes = parent::aya_get_post_likes($post);
+        $this->date = parent::aya_get_post_date($post, $date_mod);
+        $this->author = parent::aya_get_post_author($post);
+        $this->comments = parent::aya_get_post_comments($post);
+        $this->thumb = parent::aya_get_post_thumb($post);
+        $this->preview = parent::aya_get_post_preview($post, $preview_size);
+
+        return (object) $this;
+    }
+}
+
+class AYA_Post_Content extends AYA_Plugin_Data_Template_Of_Post_Meta
+{
+    public $id, $title, $status, $author, $views, $likes, $date, $comments, $excerpt, $thumbnail, $content;
+
+    public function __construct($post_id = 0)
+    {
+        //获取原始 POST 对象
+        $post = parent::aya_get_post($post_id);
+
+        //报错时直接退出
+        if (!$post) return NULL;
+
+        //获取数据存入当前对象
+        $this->id = parent::aya_get_post_id($post);
+        $this->title = parent::aya_get_post_title($post, 0);
+        $this->status = parent::aya_get_post_status($post);
+        $this->author = parent::aya_get_post_author($post, 1);
+        $this->views = parent::aya_get_post_views($post);
+        $this->likes = parent::aya_get_post_likes($post);
+        $this->date = parent::aya_get_post_date($post, 'full');
+        $this->comments = parent::aya_get_post_comments($post);
+        $this->excerpt = parent::aya_get_post_excerpt($post);
+        $this->thumbnail = parent::aya_get_post_thumbnail($post);
+        $this->content = parent::aya_get_post_content($post);
+
+        return (object) $this;
     }
 }
