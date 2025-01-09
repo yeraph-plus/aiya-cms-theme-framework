@@ -3,7 +3,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * AIYA-Framework 组件 重定义的文章Meta数据模板
+ * AIYA-Framework 组件 重定义WP的文章Meta数据模板
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
