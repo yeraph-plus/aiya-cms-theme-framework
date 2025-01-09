@@ -135,6 +135,48 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
         }
     }
 
+    //获取文章分类
+    public function aya_get_post_cat_list($post = NULL, $before = '<em>', $sep = '</em><em>', $after = '</em>')
+    {
+        if (!is_object($post)) {
+            $post = get_post($post);
+        }
+
+        //判断类型是否是文章
+        if ($post && $post->post_type == 'post') {
+            $post_id = $post->ID;
+
+            $the_cat_list = get_the_term_list($post_id, 'category', $before, $sep, $after);
+
+            //省去判断文章类型是否支持标签，直接检查WP是否报错
+            if (!is_wp_error($the_cat_list)) {
+                return $the_cat_list;
+            }
+        }
+        return false;
+    }
+
+    //获取文章标签
+    public function aya_get_post_tag_list($post = NULL, $before = '<em>', $sep = '</em><em>', $after = '</em>')
+    {
+        if (!is_object($post)) {
+            $post = get_post($post);
+        }
+
+        //判断类型是否是文章
+        if ($post && $post->post_type == 'post') {
+            $post_id = $post->ID;
+
+            $the_tag_list = get_the_term_list($post_id, 'post_tag', $before, $sep, $after);
+
+            //省去判断文章类型是否支持标签，直接检查WP是否报错
+            if (!is_wp_error($the_tag_list)) {
+                return $the_tag_list;
+            }
+        }
+        return false;
+    }
+
     //获取文章用户摘要
     public function aya_get_post_excerpt($post = NULL)
     {
@@ -152,17 +194,18 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
         if (!is_object($post)) {
             $post = get_post($post);
         }
+
         //如果文章加密
         if (post_password_required($post)) {
             return __('这篇文章受密码保护，输入密码才能阅读。', 'AIYA');
         }
+
         //如果用户设置了摘要，则直接输出摘要内容
         if (has_excerpt($post)) {
             $the_preview = has_excerpt($post);
         }
         //没有摘要，截取正文内容
         else {
-
             //如果内容为空，则返回空
             $the_content = $post->post_content;
             $the_content = aya_clear_text(strip_shortcodes($the_content));
@@ -174,11 +217,12 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
                 $the_preview = mb_strimwidth($the_content, 0, $size, '...');
             }
         }
+
         //再次检查摘要是否为空
-        if ($the_preview != '') {
-            return $the_preview;
-        } else {
+        if (empty($the_preview)) {
             return __('这篇文章没有摘要内容。', 'AIYA');
+        } else {
+            return $the_preview;
         }
     }
 
@@ -360,7 +404,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
 
 class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
 {
-    public $id, $url, $title, $attr_title, $status, $views, $likes, $date, $author, $author_avatar, $comments, $thumb_url, $preview;
+    public $id, $url, $title, $attr_title, $status, $cat_list, $tag_list, $views, $likes, $date, $author, $author_avatar, $comments, $thumb_url, $preview;
 
     public function __construct($post_id = 0, $date_mod = 'short', $avatar_size = 32, $preview_size = 255)
     {
@@ -376,6 +420,8 @@ class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
         $this->title = parent::aya_get_post_title($post, false);
         $this->attr_title = parent::aya_get_post_title($post, true);
         $this->status = parent::aya_get_post_status($post);
+        //$this->cat_list = parent::aya_get_post_cat_list($post, '<em>', '</em><em>', '</em>');
+        //$this->tag_list = parent::aya_get_post_tag_list($post, '<em>', '</em><em>', '</em>');
         $this->views = parent::aya_get_post_views($post);
         $this->likes = parent::aya_get_post_likes($post);
         $this->date = parent::aya_get_post_date($post, $date_mod);
@@ -391,7 +437,7 @@ class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
 
 class AYA_Post_Content extends AYA_Plugin_Data_Template_Of_Post_Meta
 {
-    public $id, $title, $status, $author, $author_avatar, $views, $likes, $date, $is_outdated, $comments, $excerpt, $thumbnail, $content;
+    public $id, $title, $status, $cat_list, $tag_list, $author, $author_avatar, $views, $likes, $date, $is_outdated, $comments, $excerpt, $thumbnail, $content;
 
     public function __construct($post_id = 0, $avatar_size = 128, $days_outdate = 30)
     {
@@ -405,6 +451,8 @@ class AYA_Post_Content extends AYA_Plugin_Data_Template_Of_Post_Meta
         $this->id = parent::aya_get_post_id($post);
         $this->title = parent::aya_get_post_title($post, false);
         $this->status = parent::aya_get_post_status($post);
+        //$this->cat_list = parent::aya_get_post_cat_list($post, '<em>', '</em><em>', '</em>');
+        //$this->tag_list = parent::aya_get_post_tag_list($post, '<em>', '</em><em>', '</em>');
         $this->author = parent::aya_get_post_author($post, true);
         $this->author_avatar = parent::aya_get_post_author_avatar($post, $avatar_size);
         $this->views = parent::aya_get_post_views($post);
