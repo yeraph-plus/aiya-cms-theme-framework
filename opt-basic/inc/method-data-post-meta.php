@@ -430,8 +430,6 @@ class AYA_Post_Meta extends AYA_Plugin_Data_Template_Of_Post_Meta
         $this->comments = parent::aya_get_post_comments($post);
         $this->thumb_url = parent::aya_get_post_thumb($post);
         $this->preview = parent::aya_get_post_preview($post, $preview_size);
-
-        return (object) $this;
     }
 }
 
@@ -463,7 +461,5 @@ class AYA_Post_Content extends AYA_Plugin_Data_Template_Of_Post_Meta
         $this->excerpt = parent::aya_get_post_excerpt($post);
         $this->thumbnail = parent::aya_get_post_thumbnail($post);
         $this->content = parent::aya_get_post_content($post);
-
-        return (object) $this;
     }
 }

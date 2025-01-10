@@ -16,15 +16,19 @@ if (!defined('ABSPATH')) exit;
 
 class AYA_Plugin_Menu_Object_In_Array
 {
+    public $menu;
+
     public function __construct($menu_name, $convet_json = false)
     {
         $menu_array = self::aya_get_menu_array($menu_name);
 
         if ($convet_json) {
-            return json_encode($menu_array);
+            $this->menu = json_encode($menu_array);
         }
 
-        return $menu_array;
+        $this->menu = $menu_array;
+
+        //return (object) $this;
     }
 
     //将WP菜单对象构造为数组
