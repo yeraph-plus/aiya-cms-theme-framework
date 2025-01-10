@@ -33,15 +33,16 @@ class AYA_Plugin_Pagination_link_In_Array
 
         //判断是否是主查询
         if (!$wp_query->is_main_query()) return false;
-
+        //最大页数
+        $max_num_page = $wp_query->max_num_pages;
+        //是否需要分页
+        if (1 == $max_num_page) return false;
         //当前页码
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-        //检查值
-        $max_num_page = $wp_query->max_num_pages;
+        //文章总数
         $total_posts = $wp_query->found_posts;
+        //每页文章数量设置
         $posts_per_page = $wp_query->query_vars['posts_per_page'];
-
 
         //生成统计信息
         if ($wp_query->is_front_page() || $wp_query->is_archive()) {
@@ -61,25 +62,18 @@ class AYA_Plugin_Pagination_link_In_Array
         $paged_array = array();
 
         //首页
-        $paged_array[] = array(
-            'type' => 'page_home',
-            'link' => get_pagenum_link(1),
+        $paged_array['page_home'] = array(
             'text' =>  __('Home', 'AIYA'),
-            'active' => (1 == $paged) ? true : false,
+            'link' => get_pagenum_link(1),
+            'event_none' => (3 > $paged) ? true : false,
+            'is_active' => (1 == $paged) ? true : false,
         );
         //上页
-        $paged_array[] = array(
-            'type' => 'page_prev',
-            'link' => get_pagenum_link($paged - 1),
+        $paged_array['page_prev'] = array(
             'text' => __('Prev', 'AIYA'),
-            'active' => (1 == $paged) ? true : false,
-        );
-        //下页
-        $paged_array[] = array(
-            'type' => 'page_next',
-            'link' => get_pagenum_link($paged + 1),
-            'text' => __('Next', 'AIYA'),
-            'active' => ($max_num_page == $paged) ? true : false,
+            'link' => get_pagenum_link($paged - 1),
+            'event_none' => (1 == $paged) ? true : false,
+            'is_active' => false,
         );
 
         //页码范围
@@ -92,109 +86,117 @@ class AYA_Plugin_Pagination_link_In_Array
                 if ($paged < $range_round) {
                     //循环
                     for ($i = 1; $i <= $range_num_page; $i++) {
-                        $paged_array[] = array(
-                            'type' => 'page_num',
-                            'link' => get_pagenum_link($i),
+                        $paged_array['page_num_' . $i] = array(
                             'text' => $i,
-                            'active' => ($i == $paged) ? true : false,
+                            'link' => get_pagenum_link($i),
+                            'event_none' => false,
+                            'is_active' => ($i == $paged) ? true : false,
                         );
                     }
                     //省略号
-                    $paged_array[] = array(
-                        'type' => 'page_ellipsis',
-                        'link' => '#',
+                    $paged_array['page_ellipsis'] = array(
                         'text' => '...',
-                        'active' => false,
+                        'link' => '#',
+                        'event_none' => true,
+                        'is_active' => false,
                     );
                     //最后一页
-                    $paged_array[] = array(
-                        'type' => 'page_num',
-                        'link' => get_pagenum_link($max_num_page),
+                    $paged_array['page_num_last'] = array(
                         'text' => $max_num_page,
-                        'active' => ($max_num_page == $paged) ? true : false,
+                        'link' => get_pagenum_link($max_num_page),
+                        'event_none' => false,
+                        'is_active' => ($max_num_page == $paged) ? true : false,
                     );
                 }
                 //当前页码大于显示范围时，从最后一页开始循环
                 else if ($paged > $last_round) {
                     //第一页
-                    $paged_array[] = array(
-                        'type' => 'page_num',
+                    $paged_array['page_num_first'] = array(
+                        'text' => '1',
                         'link' => get_pagenum_link(1),
-                        'text' => 1,
-                        'active' => (1 == $paged) ? true : false,
+                        'event_none' => false,
+                        'is_active' => (1 == $paged) ? true : false,
                     );
                     //省略号
-                    $paged_array[] = array(
-                        'type' => 'page_ellipsis',
-                        'link' => '#',
+                    $paged_array['page_ellipsis'] = array(
                         'text' => '...',
-                        'active' => false,
+                        'link' => '#',
+                        'event_none' => true,
+                        'is_active' => false,
                     );
                     //循环
                     for ($i = $last_round; $i <= $max_num_page; $i++) {
-                        $paged_array[] = array(
-                            'type' => 'page_num',
-                            'link' => get_pagenum_link($i),
+                        $paged_array['page_num_' . $i] = array(
                             'text' => $i,
-                            'active' => ($i == $paged) ? true : false,
+                            'link' => get_pagenum_link($i),
+                            'event_none' => false,
+                            'is_active' => ($i == $paged) ? true : false,
                         );
                     }
                 }
                 //当前页码在显示范围中间时，显示当前页前后各一半的页数
                 else if ($paged >= $range_round && $paged <= $last_round) {
                     //第一页
-                    $paged_array[] = array(
-                        'type' => 'page_num',
-                        'link' => get_pagenum_link(1),
+                    $paged_array['page_num_first'] = array(
                         'text' => 1,
-                        'active' => (1 == $paged) ? true : false,
+                        'link' => get_pagenum_link(1),
+                        'event_none' => false,
+                        'is_active' => (1 == $paged) ? true : false,
                     );
                     //省略号
-                    $paged_array[] = array(
-                        'type' => 'page_ellipsis',
-                        'link' => '#',
+                    $paged_array['page_ellipsis_first'] = array(
                         'text' => '...',
-                        'active' => false,
+                        'link' => '#',
+                        'event_none' => true,
+                        'is_active' => false,
                     );
                     //循环
                     for ($i = $paged - $range_round; $i <= $paged + $range_round; $i++) {
-                        $paged_array[] = array(
-                            'type' => 'page_num',
-                            'link' => get_pagenum_link($i),
+                        $paged_array['page_num_' . $i] = array(
                             'text' => $i,
-                            'active' => ($i == $paged) ? true : false
+                            'link' => get_pagenum_link($i),
+                            'event_none' => false,
+                            'is_active' => ($i == $paged) ? true : false
                         );
                     }
                     //省略号
-                    $paged_array[] = array(
-                        'type' => 'page_ellipsis',
-                        'link' => '#',
+                    $paged_array['page_ellipsis_last'] = array(
                         'text' => '...',
-                        'active' => false,
+                        'link' => '#',
+                        'event_none' => true,
+                        'is_active' => false,
                     );
                     //最后一页
-                    $paged_array[] = array(
-                        'type' => 'page_num',
-                        'link' => get_pagenum_link($max_num_page),
+                    $paged_array['page_num_last'] = array(
                         'text' => $max_num_page,
-                        'active' => ($max_num_page == $paged) ? true : false,
+                        'link' => get_pagenum_link($max_num_page),
+                        'event_none' => false,
+                        'is_active' => ($max_num_page == $paged) ? true : false,
                     );
                 }
             } else {
                 //页数不足时直接生成页码
                 for ($i = 1; $i <= $max_num_page; $i++) {
-                    $paged_array[] = array(
-                        'type' => 'page_num',
-                        'link' => get_pagenum_link($i),
+                    $paged_array['page_num_' . $i] = array(
                         'text' => $i,
-                        'active' => ($i == $paged) ? true : false,
+                        'link' => get_pagenum_link($i),
+                        'event_none' => false,
+                        'is_active' => ($i == $paged) ? true : false,
                     );
                 }
             }
         }
 
+        //下页
+        $paged_array['page_next'] = array(
+            'link' => get_pagenum_link($paged + 1),
+            'text' => __('Next', 'AIYA'),
+            'event_none' => ($max_num_page == $paged) ? true : false,
+            'is_active' => false,
+        );
+
         return array(
-            'total_info' => $total_info,
+            'paged_total_info' => $total_info,
             'paged_array' => $paged_array,
         );
     }
