@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
  * Plugin Name: AIYA-Optimize 优化插件
  * Plugin URI: https://www.yeraph.com/
  * Description: 又一款WordPress优化插件
- * Version: 1.2.1
+ * Version: 1.2.4
  * Author: Yeraph Studio
  * Author URI: https://www.yeraph.com/
  * License: GPLv3 or later

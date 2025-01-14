@@ -36,7 +36,8 @@ class AYA_Plugin_Pagination_link_In_Array
         //最大页数
         $max_num_page = $wp_query->max_num_pages;
         //是否需要分页
-        if (1 == $max_num_page) return false;
+        if (1 >= $max_num_page) return false;
+        
         //当前页码
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         //文章总数
@@ -70,7 +71,7 @@ class AYA_Plugin_Pagination_link_In_Array
         );
         //上页
         $paged_array['page_prev'] = array(
-            'text' => __('Prev', 'AIYA'),
+            'text' => __('⭠ Prev', 'AIYA'),
             'link' => get_pagenum_link($paged - 1),
             'event_none' => (1 == $paged) ? true : false,
             'is_active' => false,
@@ -190,7 +191,7 @@ class AYA_Plugin_Pagination_link_In_Array
         //下页
         $paged_array['page_next'] = array(
             'link' => get_pagenum_link($paged + 1),
-            'text' => __('Next', 'AIYA'),
+            'text' => __('Next ⭢', 'AIYA'),
             'event_none' => ($max_num_page == $paged) ? true : false,
             'is_active' => false,
         );
