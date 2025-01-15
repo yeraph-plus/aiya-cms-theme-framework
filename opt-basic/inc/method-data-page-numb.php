@@ -17,6 +17,7 @@ if (!defined('ABSPATH')) exit;
 class AYA_Plugin_Pagination_link_In_Array
 {
     public $pagination;
+
     public function __construct($page_num_type = true, $range_num_page = 4)
     {
         $paged_array = self::aya_get_paged_nav_item($page_num_type, $range_num_page);
@@ -37,7 +38,7 @@ class AYA_Plugin_Pagination_link_In_Array
         $max_num_page = $wp_query->max_num_pages;
         //是否需要分页
         if (1 >= $max_num_page) return false;
-        
+
         //当前页码
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
         //文章总数
