@@ -45,6 +45,8 @@ class AYA_Plugin_Record_Visitors
             $the_views = get_post_meta($post->ID, 'view_count', true);
 
             $post->view_count = intval($the_views);
+        }else{
+            $post->view_count = 0;
         }
 
         return $post;

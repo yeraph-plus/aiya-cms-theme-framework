@@ -679,6 +679,8 @@ class AYA_Post_Query extends AYA_Plugin_Data_Template_Of_Post_Meta
     {
         $post_query = parent::aya_get_query($query_array);
 
+        if ($post_query === false) return NULL;
+
         $content = array();
 
         //循环输出
