@@ -25,9 +25,15 @@ class AYA_Plugin_Record_ClickLikes
         add_action('the_post', array($this, 'add_like_count_to_post_object'));
     }
     //点赞计数器
-    public function set_post_click_likes($post_id)
+    public function set_post_click_likes()
     {
-        if (is_singular()) {
+        //验证请求
+        if (!isset($_POST['post_id'])) {
+            $response = array('status' => 'error');
+
+            wp_send_json($response);
+        } else {
+            $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
 
             $count = get_post_meta($post_id, 'like_count', true);
 
@@ -37,6 +43,10 @@ class AYA_Plugin_Record_ClickLikes
             } else {
                 update_post_meta($post_id, 'like_count', 1);
             }
+
+            $response = array('status' => 'done');
+
+            wp_send_json($response);
         }
     }
 
