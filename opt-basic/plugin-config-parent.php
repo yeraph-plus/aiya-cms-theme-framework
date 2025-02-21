@@ -256,6 +256,7 @@ if (AYF::get_checked('all_plugin_off', 'plugin') === false) {
     AYF::new_opt(
         array(
             'title' => 'AIYA-Optimize',
+            'page_tittle' => '首选项',
             'slug' => 'plugin',
             'desc' => 'AIYA-CMS 主题，全局功能组件',
             'fields' => $AYF_PARENT_FIELDS,
@@ -266,6 +267,7 @@ if (AYF::get_checked('all_plugin_off', 'plugin') === false) {
         array(
             'title' => 'AIYA-Optimize',
             'slug' => 'plugin',
+            'page_tittle' => '首选项',
             'desc' => 'AIYA-CMS 主题，全局功能组件',
             'fields' => array(
                 array(

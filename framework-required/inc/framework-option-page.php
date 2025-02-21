@@ -29,7 +29,6 @@ if (!class_exists('AYA_Framework_Options_Page')) {
         private $menu_title;
         private $menu_page_title;
 
-
         private $unfined_saved;
 
         private $saved_value;
@@ -105,7 +104,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $slug_prefix = 'aya-options-';
 
             if ($this->menu_parent_slug == '') {
-                add_menu_page($this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 99);
+                add_menu_page($this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 81);
             } else {
                 add_submenu_page($slug_prefix . $this->menu_parent_slug, $this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), 99);
             }
@@ -142,9 +141,11 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             self::data_options_available();
 
             self::display_html();
+
+            return;
         }
         //循环 htmlspecialchars 方法处理多层数组
-        public function deep_htmlspecialchars($mixed, $quote_style = ENT_QUOTES, $charset = 'UTF-8')
+        private function deep_htmlspecialchars($mixed, $quote_style = ENT_QUOTES, $charset = 'UTF-8')
         {
             if (is_array($mixed)) {
                 foreach ($mixed as $key => $value) {
@@ -156,7 +157,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             return $mixed;
         }
         //提取数据
-        public function data_options_available()
+        private function data_options_available()
         {
             //设置表键名
             $saved_key = $this->option_saved_key;
@@ -178,7 +179,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             }
         }
         //保存数据
-        public function save_options_data()
+        private function save_options_data()
         {
             //设置表键名
             $saved_key = $this->option_saved_key;
@@ -267,7 +268,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             }
         }
         //HTML结构
-        public function display_html()
+        private function display_html()
         {
             $before_html = '';
             $after_html = '';
@@ -333,7 +334,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
         }
     }
 
-    global $magic_file, $author_url;
-    $magic_file = base64_decode(AYA_NAME_FILE);
-    $author_url = base64_decode(AYA_NAME_SIGN);
+    //global $magic_file, $author_url;
+    //$magic_file = base64_decode(AYA_NAME_FILE);
+    //$author_url = base64_decode(AYA_NAME_SIGN);
 }

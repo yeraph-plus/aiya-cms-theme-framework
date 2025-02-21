@@ -11,12 +11,11 @@ if (!defined('ABSPATH')) exit;
  * License: GPLv3 or later
  * Requires at least: 6.1
  * Tested up to: 6.5
- * Requires PHP: 7.4
+ * Requires PHP: 8.2
  */
 
-
-//在插件中加载时，兼容框架的权限验证
-if (!function_exists('is_user_logged_in')) require(ABSPATH . WPINC . '/pluggable.php');
+//在插件中加载时，兼容WP的权限验证
+if (!function_exists('is_user_logged_in')) require_once(ABSPATH . WPINC . '/pluggable.php');
 
 define('AYF_VERSION', '1.2');
 
@@ -26,11 +25,7 @@ require_once plugin_dir_path(__FILE__) . 'framework-required/setup.php';
 //require_once plugin_dir_path(__FILE__) . 'framework-required/sample-config.php';
 //引入插件组
 require_once plugin_dir_path(__FILE__) . 'opt-basic/setup.php';
-//编辑器插件
-//require_once plugin_dir_path(__FILE__) . 'plugin-classic-editor-modify/setup.php';
-//简码图床插件
-//require_once plugin_dir_path(__FILE__) . 'plugin-internal-pic-bed/setup.php';
-
+/*
 //运行环境检查
 AYP::action('EnvCheck', array(
     //PHP最低版本
@@ -46,7 +41,6 @@ AYP::action('EnvCheck', array(
 ));
 
 //注册翻译文件
-/*
 function aya_framework_load_textdomain()
 {
     $domain = 'aiya-cms-framework';

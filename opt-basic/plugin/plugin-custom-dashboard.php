@@ -35,10 +35,6 @@ class AYA_Plugin_Admin_Custom
             add_filter('admin_title', array($this, 'aya_theme_custom_admin_title'), 10, 2);
             add_filter('login_title', array($this, 'aya_theme_custom_admin_title'), 10, 2);
         }
-        //移除后台导航栏右上角LOGO
-        if ($options['remove_admin_bar_wp_logo'] == true) {
-            add_action('wp_before_admin_bar_render', array($this, 'aya_theme_remove_admin_bar_logo'), 0);
-        }
         //移除后台仪表盘欢迎模块和WordPress新闻
         if ($options['remove_admin_dashboard_wp_news'] == true) {
             add_action('wp_dashboard_setup', array($this, 'aya_theme_remove_dashboard_meta_box'));
@@ -49,7 +45,6 @@ class AYA_Plugin_Admin_Custom
         add_filter('update_footer', '__return_false', 11);
         //移除后台右上角帮助
         add_action('in_admin_header', array($this, 'aya_theme_remove_help_tabs'));
-
         //注册工具栏自定义链接
         add_action('admin_bar_menu', array($this, 'aya_theme_custom_admin_bar_link'), 90);
     }
@@ -58,17 +53,6 @@ class AYA_Plugin_Admin_Custom
     {
         //站点名 - 页面
         return get_bloginfo('name') . ' - ' . $title;
-    }
-    //隐藏后台导航栏功能
-    public function aya_theme_remove_admin_bar_logo()
-    {
-        global $wp_admin_bar;
-        //禁用 WP-LOGO
-        $wp_admin_bar->remove_menu('wp-logo');
-        //禁用 评论提醒
-        //$wp_admin_bar->remove_menu('comments');
-        //禁用 更新提醒
-        //$wp_admin_bar->remove_menu('updates');
     }
     //隐藏后台欢迎模块和WordPress新闻
     public function aya_theme_remove_dashboard_meta_box()
@@ -117,15 +101,23 @@ class AYA_Plugin_Admin_Custom
         $current_screen->remove_help_tabs();
     }
     //注册工具栏自定义链接
-    public function aya_theme_custom_admin_bar_link($admin_bar = array())
+    public function aya_theme_custom_admin_bar_link()
     {
         $options = $this->admin_options;
 
-        if ($options['admin_footer_replace'] != '') {
-        }
         global $wp_admin_bar;
 
-        //$参数：
+        //禁用 WP-LOGO
+        if ($options['remove_admin_bar_wp_logo'] == true) {
+            $wp_admin_bar->remove_menu('wp-logo');
+        }
+        //禁用 评论提醒
+        //$wp_admin_bar->remove_menu('comments');
+        //禁用 更新提醒
+        //$wp_admin_bar->remove_menu('updates');
+
+        //注册新的菜单
+        /*参数：
         $add_bar = array(
             'parent' => false, //'false'添加主层级，子级需要填写父级菜单ID
             'id' => 'order', //链接ID
@@ -133,8 +125,7 @@ class AYA_Plugin_Admin_Custom
             'href' => admin_url('admin.php?page=orders'), //链接地址
             'meta' => false, // array( 'html' => '', 'class' => '', 'onclick' => '', target => '', title => '' )
         );
-
-        //注册新的菜单
-        $wp_admin_bar->add_menu($add_bar);
+        */
+        //$wp_admin_bar->add_menu($add_bar);
     }
 }

@@ -48,7 +48,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
         public static $class_name = 'AYA_Option_Fired_';
 
-        function __construct()
+        public function __construct()
         {
             if (is_null(self::$include_once)) {
                 add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
@@ -65,7 +65,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             wp_enqueue_script('aiya-cms-framework', AYF_URI . '/assects/js/framework-main.js');
         }
         //引入框架
-        public static function include()
+        public function include()
         {
             require_once (__DIR__) . '/inc/framework-build-fields.php';
             require_once (__DIR__) . '/inc/framework-option-page.php';
@@ -77,7 +77,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             require_once (__DIR__) . '/inc/framework-ajax-hook-bulider.php';
         }
         //框架组件
-        public static function include_field()
+        public function include_field()
         {
             $fields = array(
                 'text',
@@ -116,7 +116,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             //print_r(self::$cache_tab_option);
 
             //单独提取组件数组用于调用
-            new AYA_Framework_Options_Page($conf['fields'], $conf);
+            return new AYA_Framework_Options_Page($conf['fields'], $conf);
         }
         //设置默认值提取到静态变量
         public static function cache_all_default($field_conf, $inst_slug)
@@ -169,7 +169,7 @@ if (!class_exists('AYA_Framework_Setup')) {
             $fields = $conf['fields'];
             $add_meta_in = $conf['add_meta_in'];
 
-            new AYA_Framework_Term_Meta($fields, $add_meta_in);
+            return new AYA_Framework_Term_Meta($fields, $add_meta_in);
         }
         //文章Metabox键简化调用
         public static function new_box($conf = array())
@@ -181,7 +181,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             unset($conf['fields']);
 
-            new AYA_Framework_Post_Meta($fields, $conf);
+            return new AYA_Framework_Post_Meta($fields, $conf);
         }
         //提取设置
         public static function used_option($option_sulg)
@@ -266,5 +266,5 @@ if (!class_exists('AYA_Framework_Setup')) {
     }
 }
 //不防君子签名术
-define('AYA_NAME_FILE', 'L3N0eWxlLmNzcw');
-define('AYA_NAME_SIGN', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
+//define('AYA_NAME_FILE', 'L3N0eWxlLmNzcw');
+//define('AYA_NAME_SIGN', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
