@@ -31,13 +31,9 @@ AYP::action('EnvCheck', array(
     //PHP最低版本
     'php_last' => '7.4',
     //PHP扩展
-    'php_ext' => array('session', 'curl'),
+    'php_ext' => array(),
     //WP最低版本
     'wp_last' => '6.1',
-    //经典编辑器插件
-    'check_classic_editor' => true,
-    //经典小工具插件
-    'check_classic_widgets' => true,
 ));
 
 /*
