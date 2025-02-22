@@ -51,18 +51,12 @@ if (!class_exists('AYA_Framework_Setup')) {
         public function __construct()
         {
             if (is_null(self::$include_once)) {
-                add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
-
                 self::include();
                 self::include_field();
                 self::$include_once = true;
+
+                add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
             }
-        }
-        //加载样式
-        public function enqueue_script()
-        {
-            wp_enqueue_style('aiya-cms-framework', AYF_URI . '/assects/css/framework-style.css');
-            wp_enqueue_script('aiya-cms-framework', AYF_URI . '/assects/js/framework-main.js');
         }
         //引入框架
         public function include()
@@ -101,6 +95,41 @@ if (!class_exists('AYA_Framework_Setup')) {
                     include_once (__DIR__) . '/inc/fields/' . $field . '.php';
                 }
             }
+        }
+        //根据上下文判断静态文件URL
+        public static function get_base_url()
+        {
+            //获取当前文件的标准化路径及其目录
+            $current_file = wp_normalize_path(__FILE__);
+            $current_dir = wp_normalize_path(dirname($current_file));
+            //获取插件和主题目录
+            $plugin_dir = wp_normalize_path(WP_PLUGIN_DIR);
+            $theme_dir = wp_normalize_path(get_stylesheet_directory());
+
+            //在插件目录
+            if (strpos($current_dir, $plugin_dir) === 0) {
+                return untrailingslashit(plugin_dir_url(__FILE__));
+            }
+            //在主题目录
+            elseif (strpos($current_dir, $theme_dir) === 0) {
+                //截取相对于主题目录的路径
+                $relative_dir = ltrim(str_replace($theme_dir, '', $current_dir), '');
+                return trailingslashit(get_stylesheet_directory_uri()) . trailingslashit($relative_dir);
+            }
+            //在AIYA-CMS主题加载
+            elseif (defined('AYA_PATH')) {
+                return AYA_URI . '/plugins/framework-required';
+            }
+            //其他情况
+            else {
+                return untrailingslashit($current_dir);
+            }
+        }
+        //加载样式
+        public function enqueue_script()
+        {
+            wp_enqueue_style('aiya-cms-framework', self::get_base_url() . '/assects/css/framework-style.css');
+            wp_enqueue_script('aiya-cms-framework', self::get_base_url() . '/assects/js/framework-main.js');
         }
         //设置页简化调用
         public static function new_opt($conf = array())

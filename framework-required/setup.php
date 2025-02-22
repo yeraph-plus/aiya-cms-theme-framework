@@ -1,16 +1,5 @@
 <?php
 if (!defined('ABSPATH')) exit;
-
-//判断框架是否已经加载
-if (!defined('AYF_URI')) {
-    if (did_action('after_setup_theme')) {
-        //兼容主题
-        define('AYF_URI', get_template_directory_uri());
-    } else {
-        define('AYF_URI', untrailingslashit(plugin_dir_url(__FILE__)));
-    }
-}
-
 //引入设置框架
 require_once (__DIR__) . '/framework-setup.php';
 //实例化框架方法

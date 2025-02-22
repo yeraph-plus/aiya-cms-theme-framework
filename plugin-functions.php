@@ -25,6 +25,7 @@ require_once plugin_dir_path(__FILE__) . 'framework-required/setup.php';
 //require_once plugin_dir_path(__FILE__) . 'framework-required/sample-config.php';
 //引入插件组
 require_once plugin_dir_path(__FILE__) . 'basic-optimize/setup.php';
+
 //运行环境检查
 AYP::action('EnvCheck', array(
     //PHP最低版本
