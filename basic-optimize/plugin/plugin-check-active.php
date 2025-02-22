@@ -16,14 +16,28 @@ if (!defined('ABSPATH')) exit;
 
 class AYA_Plugin_PluginCheck extends AYA_Theme_Setup
 {
+    public $plugin_check_list;
+
     public function __construct($args)
+    {
+        if (!empty($this->plugin_check_list)) {
+            $this->plugin_check_list = array_merge($this->plugin_check_list, $args);
+        } else {
+            $this->plugin_check_list = $args;
+        }
+
+        add_action('init', array($this, 'aya_theme_plugin_check_init'));
+    }
+
+    //在init加载此函数
+    public function aya_theme_plugin_check_init()
     {
         //Fix 确保函数存在
         if (!function_exists('is_plugin_active')) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
 
-        foreach ($args as $plugin => $plugin_path) {
+        foreach ($this->plugin_check_list as $plugin => $plugin_path) {
             return self::aya_theme_wp_plugin_activation_check($plugin, $plugin_path);
         }
     }
@@ -37,7 +51,7 @@ class AYA_Plugin_PluginCheck extends AYA_Theme_Setup
             return false;
         }
         //检测插件状态
-        if (!is_plugin_active($plugin_path)) {
+        if (!is_plugin_active($plugin_entry_path)) {
             //获取插件信息
             $plugin_data = get_plugin_data($plugin_path);
             $plugin_name = !empty($plugin_data['Name']) ? $plugin_data['Name'] : $plugin_name;
@@ -45,7 +59,7 @@ class AYA_Plugin_PluginCheck extends AYA_Theme_Setup
             $message = sprintf(__('请启用 %s 插件以确保功能正常。', 'AIYA'), $plugin_name);
 
             add_action('admin_notices', function () use ($message) {
-                echo '<div class="notice notice-error is-dismissible"><p>'
+                echo '<div class="notice notice-warning is-dismissible"><p>'
                     . esc_html($message)
                     . '</p></div>';
             });
