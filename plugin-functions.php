@@ -16,8 +16,8 @@ if (!defined('ABSPATH')) exit;
 
 //在插件中加载时，兼容WP的权限验证
 if (!function_exists('is_user_logged_in')) require_once(ABSPATH . WPINC . '/pluggable.php');
-
-define('AYF_VERSION', '1.2');
+//用于识别插件存在
+define('AYF_RELEASE', '1.2');
 
 //引入设置框架
 require_once plugin_dir_path(__FILE__) . 'framework-required/setup.php';

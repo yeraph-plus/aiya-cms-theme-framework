@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) exit;
 //Ajax Demo
 class AYA_Ajax_Demo extends AYA_Ajax
 {
-    function ajax_action()
+    public function ajax_action()
     {
         $action = array(
             'name' => 'ajax_demo',
@@ -42,12 +42,12 @@ class AYA_Ajax_Demo extends AYA_Ajax
 if (!class_exists('AYA_Ajax')) {
     abstract class AYA_Ajax
     {
-        public $action_name;
-        public $callback_func;
+        private $action_name;
+        private $callback_func;
 
-        public $public_access;
-        public $create_nonce;
-        public $nonce_name;
+        private $public_access;
+        private $create_nonce;
+        private $nonce_name;
 
         abstract public function ajax_action();
 
@@ -89,7 +89,7 @@ if (!class_exists('AYA_Ajax')) {
         }
 
         //结构化AJAX请求URL
-        protected function get_action_url($action, $args = array())
+        protected function get_ajax_action_url($action, $args = array())
         {
             $url = admin_url('admin-ajax.php?action=') . $action;
 
@@ -105,7 +105,7 @@ if (!class_exists('AYA_Ajax')) {
         }
 
         //注册URL变量
-        public static function localize()
+        public function ajax_localize()
         {
             //Tips: POST请求时读取变量为 aya_local.ajax_url
             add_action('wp_enqueue_scripts', wp_localize_script(
@@ -119,7 +119,7 @@ if (!class_exists('AYA_Ajax')) {
         }
 
         //访问原始 POST 数据
-        public static function get_req_body()
+        public static function get_ajax_req_body()
         {
             //使用PHP伪协议方法
             $body = @file_get_contents('php://input');
