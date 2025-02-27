@@ -20,6 +20,8 @@ class AYA_Plugin_Menu_Object_In_Array
 
     public function __construct($menu_name, $convet_json = false)
     {
+        //if($menu_name = '') return;
+
         $menu_array = self::aya_get_menu_array($menu_name);
 
         if ($convet_json) {

@@ -1,25 +1,6 @@
 ## AIYA-Framework / AIYA-Optimize-Plugin
 
-![截图](https://github.com/yeraph-plus/aiya-wordpress-theme-core/blob/main/screenshot/2024-06-01%20001416.png)
-
----
-
-A WordPress theme framework, can be use to create settings option pages, category Meta fields, and article MetaBox components, also provides some quick launch features.
-
-There is a short demo of building this framework:
-
-1. Copy the entire `framework-required` directory in the theme's folder.
-2. Add require following to your theme `functions.php`:
-
-  `//Require framework file`
-
-  `require_once get_template_directory() . '/framework-required/setup.php';`
-
-  `//The sample-config`
-  
-  `require_once get_template_directory() . '/framework-required/sample-config.php';`
-
----
+### 说明
 
 这个项目是为了将 AIYA-CMS 主题的开发工作分支出来而专门设计的，你可以认为这是一个不包含前台页面组件的 AIYA-CMS 主题。
 
@@ -31,12 +12,18 @@ There is a short demo of building this framework:
 
 ---
 
-关于此项目更详细的说明和教程，我更新在博客上：
+![截图](https://github.com/yeraph-plus/aiya-wordpress-theme-core/blob/main/screenshot/2024-06-01%20001416.png)
 
-[框架使用](https://www.yeraph.com/437.html)
+A WordPress theme framework, can be use to create settings option pages, category Meta fields, and article MetaBox components, also provides some quick launch features.
 
-[预置功能](https://www.yeraph.com/439.html)
+There is a short demo of building this framework:
 
-[WP小工具的简化构造器](https://www.yeraph.com/435.html)
+1. Copy the entire `framework-required` directory copy in the theme's directory.
+2. Add require following to your theme `functions.php`:
 
-[WP短代码编辑器快捷插入框架](https://www.yeraph.com/471.html)
+```
+//Require framework file
+require_once get_template_directory() . '/framework-required/setup.php';
+//The sample-config
+require_once get_template_directory() . '/framework-required/sample-config.php';
+```

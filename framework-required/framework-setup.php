@@ -128,8 +128,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         //加载样式
         public function enqueue_script()
         {
-            wp_enqueue_style('aiya-cms-framework', self::get_base_url() . '/assects/css/framework-style.css');
-            wp_enqueue_script('aiya-cms-framework', self::get_base_url() . '/assects/js/framework-main.js');
+            wp_enqueue_style('aiya-cms-framework', self::get_base_url() . '/assets/css/framework-style.css');
+            wp_enqueue_script('aiya-cms-framework', self::get_base_url() . '/assets/js/framework-main.js');
         }
         //设置页简化调用
         public static function new_opt($conf = array())
