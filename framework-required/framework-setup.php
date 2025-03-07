@@ -68,7 +68,6 @@ if (!class_exists('AYA_Framework_Setup')) {
             require_once (__DIR__) . '/inc/framework-quick-editor.php';
             require_once (__DIR__) . '/inc/framework-widget-bulider.php';
             require_once (__DIR__) . '/inc/framework-shortcode-manager.php';
-            require_once (__DIR__) . '/inc/framework-ajax-hook-bulider.php';
         }
         //框架组件
         public function include_field()

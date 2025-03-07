@@ -43,14 +43,10 @@ function scodeditInsertShortcode() {
             console.log(el);
 
             if ($el.attr('id') === 'content') {
-                content = $el.val();
+                content = $el.val().replace(/\n/g, '<br>'); //保留换行
                 return '';
-            } else if ($el.attr('id') === 'last') {
-                if ($el.is(':checked')) {
-                    return $el.attr('id') + '="true"';
-                } else {
-                    return '';
-                }
+            } else if ($el.attr('type') === 'checkbox') {
+                return $el.attr('id') + '="' + ($el.is(':checked') ? 'true' : 'false') + '"';
             } else {
                 return $el.attr('id') + '="' + $el.val() + '"';
             }
@@ -80,9 +76,9 @@ function scodeditInsertShortcode() {
 //将输入初始化为空
 function scodeditResetFields() {
     jQuery('#scodedit-sub-title').text('');
-    jQuery('.scodedit-wrap').find('input[type=text], select').val('');
     jQuery('.codedit-shortcode-wrap').find('textarea').text('');
-    jQuery('.scodedit-sub-type').hide();
+    //jQuery('.scodedit-wrap').find('input[type=text], select').val('');
+    //jQuery('.scodedit-sub-type').hide();
 }
 
 //redraw the thickbox
