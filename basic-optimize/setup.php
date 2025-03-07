@@ -1,7 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-//判断框架是否已经加载
 if (!class_exists('AYP')) {
     //引入插件框架
     require_once (__DIR__) . '/plugin-setup.php';
