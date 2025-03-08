@@ -19,13 +19,19 @@ class AYA_Plugin_Register_Post_Type extends AYA_Theme_Setup
     public $register_post_type;
     public $rewrite_html;
 
-    public function __construct($args)
+    public function __construct($args, $rewrite_static = true)
     {
         if (!is_array($args)) return;
-        
+
         $this->register_post_type = $args;
-        //定义伪静态
-        $this->rewrite_html = '.html';
+
+        //添加伪静态
+        if (is_bool($rewrite_static) && $rewrite_static) {
+            //定义伪静态
+            $this->rewrite_html = '.html';
+        } else {
+            $this->rewrite_html = '';
+        }
     }
 
     public function __destruct()
@@ -35,25 +41,33 @@ class AYA_Plugin_Register_Post_Type extends AYA_Theme_Setup
         parent::add_filter('post_type_link', 'aya_theme_custom_post_link', 1, 3);
     }
 
+    public function aya_theme_post_show_in_homepage($type_args)
+    {
+        //声明一个全局变量
+        if (!isset($GLOBALS['aya_post_type']) || empty($GLOBALS['aya_post_type'])) {
+            $GLOBALS['aya_post_type'] = array();
+        }
+        //注册到全局变量
+        if (isset($type_args['in_homepage']) && is_bool($type_args['in_homepage']) && $type_args['in_homepage']) {
+            $GLOBALS['aya_post_type'][] = $type_args['slug'];
+        }
+
+        return $type_args;
+    }
+
     public function aya_theme_register_post_type()
     {
-        $types = $this->register_post_type;
-        $html = $this->rewrite_html;
-
-        if (parent::inspect($types)) return;
-
-        global $aya_post_type;
-        $aya_post_type = array();
+        if (parent::inspect($this->register_post_type)) return;
 
         //循环
-        foreach ($types as $type => $type_args) {
+        foreach ($this->register_post_type as $type => $type_args) {
+
+            //是否加载到首页
+            $in_homepage = self::aya_theme_post_show_in_homepage($type_args);
 
             $name = $type_args['name'];
             $slug = $type_args['slug'];
             $icon = $type_args['icon'];
-
-            //向全局添加
-            $aya_post_type[] = $slug;
 
             //组装文章类型参数
             $labels = array(
@@ -88,24 +102,23 @@ class AYA_Plugin_Register_Post_Type extends AYA_Theme_Setup
                 'menu_icon' => $icon,
                 'supports' => array('editor', 'author', 'title', 'custom-fields', 'comments'),
             );
+
             register_post_type($type, $args);
             //添加路由规则
-            add_rewrite_rule('' . $slug . '/([0-9]+)?' . $html . '$', 'index.php?post_type=' . $slug . '&p=$matches[1]', 'top');
+            add_rewrite_rule('' . $slug . '/([0-9]+)?' . $this->rewrite_html . '$', 'index.php?post_type=' . $slug . '&p=$matches[1]', 'top');
             //评论规则
-            add_rewrite_rule('' . $slug . '/([0-9]+)?' . $html . '/comment-page-([0-9]{1,})$', 'index.php?post_type=' . $slug . '&p=$matches[1]&cpage=$matches[2]', 'top');
+            add_rewrite_rule('' . $slug . '/([0-9]+)?' . $this->rewrite_html . '/comment-page-([0-9]{1,})$', 'index.php?post_type=' . $slug . '&p=$matches[1]&cpage=$matches[2]', 'top');
         }
     }
-    //定义自定义文章的内页路径
+
+    //定义自定义文章的内页链接
     function aya_theme_custom_post_link($link, $post = 0)
     {
-        global $aya_post_type;
-
-        $html = $this->rewrite_html;
-
         $post = get_post($post);
+
         //比对
-        if (is_object($post) && in_array($post->post_type, $aya_post_type)) {
-            return home_url('' . $post->post_type . '/' . $post->ID . $html);
+        if (is_object($post) && in_array($post->post_type, $GLOBALS['aya_post_type'])) {
+            return home_url('' . $post->post_type . '/' . $post->ID . $this->rewrite_html);
         } else {
             return $link;
         }

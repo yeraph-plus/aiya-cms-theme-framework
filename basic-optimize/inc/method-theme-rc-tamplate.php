@@ -14,14 +14,14 @@ if (!defined('ABSPATH')) exit;
  * @version 1.2
  **/
 
-class AYA_Plugin_Template_Redefine extends AYA_Theme_Setup
+class AYA_Plugin_Template_Redefine_Path extends AYA_Theme_Setup
 {
     public $template_path;
 
     public function __construct()
     {
         //定义模板位置
-        $this->template_path = 'template-parts';
+        $this->template_path = 'templates';
     }
 
     public function __destruct()

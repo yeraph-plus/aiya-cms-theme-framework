@@ -144,13 +144,12 @@ class AYA_Plugin_Request
             return -$vaule;
         }
 
-        global $aya_post_type;
-
         //添加自定义类型
         if ($options['query_post_type_var'] == true) {
             //合并数组
-            $self_post_type = (is_array($aya_post_type)) ? $aya_post_type : array();
-            $post_type = array_merge($post_type, $self_post_type);
+            if (isset($GLOBALS['aya_post_type']) && is_array($GLOBALS['aya_post_type'])) {
+                $post_type = array_merge($post_type, $GLOBALS['aya_post_type']);
+            }
         }
         //首页循环
         if (is_home()) {

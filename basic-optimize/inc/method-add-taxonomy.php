@@ -21,7 +21,7 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
     public function __construct($args)
     {
         if (!is_array($args)) return;
-        
+
         $this->register_taxonomy = $args;
     }
 
@@ -31,22 +31,14 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
     }
     function aya_theme_register_register_taxonomy()
     {
-        $taxonomys = $this->register_taxonomy;
-
-        if (parent::inspect($taxonomys)) return;
-
-        global $aya_tax_type;
-        $aya_tax_type = array();
+        if (parent::inspect($this->register_taxonomy)) return;
 
         //循环
-        foreach ($taxonomys as $tax => $tax_args) {
+        foreach ($this->register_taxonomy as $tax => $tax_args) {
 
             $tax_name = $tax_args['name'];
             $tax_slug = $tax_args['slug'];
             $hook_type = $tax_args['post_type'];
-
-            //向全局添加
-            $aya_tax_type[] = $tax_slug;
 
             //组装自定义分类法参数
             $labels = array(
@@ -72,6 +64,7 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
                     'slug' => $tax_slug,
                 ),
             );
+
             register_taxonomy($tax_slug, $hook_type, $args_tax);
         }
     }

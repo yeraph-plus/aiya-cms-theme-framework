@@ -108,9 +108,10 @@ class AYA_Plugin_Optimize
         } else {
             //将自定义的文章类型加入feed
             add_filter('request', function ($query) {
-                global $aya_post_type;
+
                 if (isset($query['feed']) && !isset($query['post_type'])) {
-                    $query['post_type'] = array($aya_post_type);
+
+                    $query['post_type'] = array($GLOBALS['aya_post_type']);
                 }
                 return $query;
             });

@@ -38,14 +38,14 @@ class AYA_Plugin_Add_Page_Template extends AYA_Theme_Setup
         $this->template_page_path = $args['plugin_path'];
 
         //主题的模板列表索引
-        add_filter('theme_page_templates', array($this, 'add_new_template'));
+        parent::add_filter('theme_page_templates', 'aya_plugin_add_new_template');
         //操作过滤WP的模板页面缓存
-        add_filter('wp_insert_post_data', array($this, 'register_project_templates'));
+        parent::add_filter('wp_insert_post_data', 'aya_plugin_register_project_templates');
         //验证模板可用然后返回模板的真实路径
-        add_filter('template_include', array($this, 'view_project_template'));
+        parent::add_filter('template_include', 'aya_plugin_view_project_template');
     }
     //在页面模板的下拉列表注册
-    public function add_new_template($posts_templates)
+    public function aya_plugin_add_new_template($posts_templates)
     {
         //附加数组
         $posts_templates = array_merge($posts_templates, $this->templates);
@@ -53,7 +53,7 @@ class AYA_Plugin_Add_Page_Template extends AYA_Theme_Setup
         return $posts_templates;
     }
     //注册模板文件的路由方法，使WP误认为文件存在于主题中
-    public function register_project_templates($atts)
+    public function aya_plugin_register_project_templates($atts)
     {
         //创建一个主题缓存
         $cache_key = 'page_templates-' . md5(get_theme_root() . '/' . get_stylesheet());
@@ -75,7 +75,7 @@ class AYA_Plugin_Add_Page_Template extends AYA_Theme_Setup
         return $atts;
     }
     //验证模板是否已分配给页面
-    public function view_project_template($template)
+    public function aya_plugin_view_project_template($template)
     {
         global $post;
 

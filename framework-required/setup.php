@@ -1,10 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
-
+//引入设置框架
+require_once (__DIR__) . '/framework-setup.php';
+//实例化框架方法
 if (!class_exists('AYF')) {
-    //引入设置框架
-    require_once (__DIR__) . '/framework-setup.php';
-    //实例化框架方法
     class AYF extends AYA_Framework_Setup
     {
         private static $instance;
