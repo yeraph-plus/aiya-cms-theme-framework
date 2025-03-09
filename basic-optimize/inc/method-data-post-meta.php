@@ -234,7 +234,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
         else {
             //如果内容为空，则返回空
             $the_content = $post->post_content;
-            $the_content = aya_clear_text(strip_shortcodes($the_content));
+            $the_content = wp_strip_all_tags(strip_shortcodes($the_content));
             if ($the_content === null) {
                 $the_preview = '';
             } else {

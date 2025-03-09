@@ -57,7 +57,7 @@ class AYA_Plugin_Template_New_Page extends AYA_Theme_Setup
             if (array_key_exists($page_type, $this->route_page_type)) {
                 //定义模板位置
                 $this_template_name = $this->route_page_type[$page_type] . '.php';
-                $slug_template = locate_template($this_template_name, true, false);
+                $slug_template = locate_template($this_template_name, false, true);
 
                 //验证模板是否存在
                 if ($template != '') {
