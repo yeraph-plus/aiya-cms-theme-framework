@@ -81,7 +81,7 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
             else
                 $post_id = 0;
 
-            echo '<div class="tab-content framework-wrap">';
+            echo '<div class="tab-content framework-section">';
 
             foreach ($this->options as $option) {
                 //排除不支持的组件

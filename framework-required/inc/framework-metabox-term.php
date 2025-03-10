@@ -27,7 +27,7 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
             $this->option_tax_meta = $option_tax_meta;
 
             //定义禁用项
-            $this->unfined_field = array('group', 'group_mult', 'code_editor', 'tinymce');
+            $this->unfined_field = array('switch', 'group', 'group_mult', 'code_editor', 'tinymce');
 
             //如果传入是数组
             if (is_array($option_tax_meta)) {
@@ -57,8 +57,6 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
         //创建字段
         function add_taxonomy_field()
         {
-            echo '<div class="form-field framework-wrap">';
-
             foreach ($this->options as $option) {
                 //排除不支持的组件
                 if (in_array($option['type'], $this->unfined_field)) {
@@ -67,8 +65,6 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
 
                 AYA_Field_Action::field($option);
             }
-
-            echo '</div>';
         }
         //编辑字段
         function edit_taxonomy_field($tag)
@@ -90,14 +86,13 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
                 if ($option['type'] == 'color') $add_class = ' framework-color-picker';
                 if ($option['type'] == 'switch') $add_class = ' framework-switcher';
                 if ($option['type'] == 'upload') $add_class = ' framework-upload';
-
-                $html = '<div class="form-field framework-wrap">';
+                $html = '';
                 $html .= '<tr class="section-' . $option['type'] . $add_class . '"><th scope="row">';
                 $html .= '<label for="' . $option['id'] . '">' . $option['title'] . '</label>';
                 $html .= '</th><td>';
                 $html .= AYA_Field_Action::field_mult($option);
                 $html .= '<p class="description">' . $option['desc'] . '</p>';
-                $html .= '</td></tr></div>';
+                $html .= '</td></tr>';
 
                 echo $html;
             }

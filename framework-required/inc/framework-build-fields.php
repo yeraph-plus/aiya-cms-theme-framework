@@ -91,7 +91,7 @@ if (!class_exists('AYA_Field_Action')) {
                 return;
             }
             //输出
-            $html = '<div class="section-title-field"><h3 class="' . $field['type'] . '">' . self::preg_desc($field['desc']) . '</h3></div>';
+            $html = '<div class="field-title"><h3 class="' . $field['type'] . '">' . self::preg_desc($field['desc']) . '</h3></div>';
             echo $html;
         }
         //输出提示内容
@@ -119,7 +119,7 @@ if (!class_exists('AYA_Field_Action')) {
                     break;
             }
             //输出
-            $html = '<div class="form-field section-content-field"><p class="' . $field['type'] . '">' . $icon . "  " . self::preg_desc($field['desc']) . '</p></div>';
+            $html = '<div class="form-field field-message"><p class="' . $field['type'] . '">' . $icon . "  " . self::preg_desc($field['desc']) . '</p></div>';
             echo $html;
         }
         //Before结构
@@ -172,6 +172,7 @@ if (!class_exists('AYA_Field_Action')) {
             $desc = preg_replace('/\[code\](.*?)\[\/code\]/', '<code>$1</code>', $desc);
             $desc = preg_replace('/\[pre\](.*?)\[\/pre\]/', '<pre>$1</pre>', $desc);
             $desc = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/', '<a href="$1" target="_blank">$2</a>',$desc);;
+            $desc = preg_replace('/\[del\](.*?)\[\/del\]/', '<del>$1</del>',$desc);;
 
             return $desc;
         }

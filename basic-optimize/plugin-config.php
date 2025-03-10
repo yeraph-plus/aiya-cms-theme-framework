@@ -52,7 +52,7 @@ $AYF_OPTIMIZE_FIELDS = array(
         'type' => 'message',
     ),
     array(
-        'title' => '禁用XML-RPC',
+        'title' => '禁用 XML-RPC ',
         'desc' => '此选项通过替换动作函数使 XML-RPC 无法工作，并不能彻底禁用此功能[br/]*如需彻底禁用XML-RPC，应当在服务器中通过WAF策略等方式阻止外部对[code]/xmlrpc.php[/code]文件的访问',
         'id' => 'disable_xmlrpc',
         'type' => 'switch',

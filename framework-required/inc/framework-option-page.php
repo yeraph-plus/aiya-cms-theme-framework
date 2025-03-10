@@ -273,23 +273,21 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $before_html = '';
             $after_html = '';
 
-            $before_html .= '<div class="wrap" id="framework-page">';
+            $before_html .= '<div class="wrap" id="framework-wrap">';
 
             $before_html .= '<div class="container framework-title">';
-            $before_html .= '<h1>' . esc_html($this->option_menu['title']) . '</h1>';
+            $before_html .= '<h1 class="title">' . esc_html($this->option_menu['title']) . '</h1>';
             if (!empty($this->option_menu['desc'])) {
-                $before_html .= '<p>' . esc_html($this->option_menu['desc']) . '</p>';
+                $before_html .= '<p class="desc">' . esc_html($this->option_menu['desc']) . '</p>';
+            }
+            //保存提示
+            if (!empty($this->saved_message)) {
+                $before_html .= '<p id="saved" class="saved-success">' . esc_html($this->saved_message) . '</p>';
             }
             $before_html .= '</div>';
 
-            //保存提示
-            if (!empty($this->saved_message)) {
-                $before_html .= '<div class="container framework-content framework-saved-success">';
-                $before_html .= '<p>' . esc_html($this->saved_message) . '</p>';
-                $before_html .= '</div>';
-            }
 
-            $before_html .= '<div class="container framework-content framework-wrap">';
+            $before_html .= '<div class="container framework-content framework-section">';
 
             //表单结构
             $before_html .= '<form method="post" id="from-wrap" action="#saved">';
@@ -318,8 +316,8 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 //Fix：检索表单的nonce隐藏字段
                 wp_nonce_field('aya_option_action', 'aya_option_field');
 
-                $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary autowidth" value="' . esc_html__('Save Changes') . '" />';
-                $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary autowidth" value="' . esc_html__('Clear') . '" />';
+                $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary auto-width" value="' . esc_html__('Save Changes') . '" />';
+                $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary auto-width" value="' . esc_html__('Clear') . '" />';
 
                 $button_html .= '</div>';
 
