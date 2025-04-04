@@ -1,7 +1,9 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
-if (!class_exists('AYA_Field_Action')) exit;
+if (!class_exists('AYA_Field_Action'))
+    exit;
 
 /**
  * 编组循环调用
@@ -31,6 +33,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
             $n = count($field['default'], 0);
         }
         $html .= '<div class="field-group-warp">';
+
         //创建自增表单格式模板
         $html .= '<template id="' . $field['id'] . '">';
         $html .= '<div class="group-item">';
@@ -45,14 +48,15 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
             }
 
             //重建参数
-            $sub_field['id'] = $field['id']  . '[{{i}}][' . $sub_field['id'] . ']';
+            $sub_field['id'] = $field['id'] . '[{{i}}][' . $sub_field['id'] . ']';
 
             //加载方法
             $html .= parent::field_mult($sub_field, true);
         }
-        //$html .= '<a href="#" class="del-item">' . __('Delete') . '</a>';
+        $html .= '<a href="#" class="del-item">' . __('Delete') . '</a>';
         $html .= '</div>';
         $html .= '</template>';
+
         //循环
         for ($i = 1; $i <= $n; $i++) {
             $html .= '<div class="group-item">';
@@ -75,7 +79,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
                     $sub_field['default'] = $field['default'][$i][$sub_field['id']];
                 }
                 //重建参数
-                $sub_field['id'] = $field['id']  . '[' . $i . '][' . $sub_field['id'] . ']';
+                $sub_field['id'] = $field['id'] . '[' . $i . '][' . $sub_field['id'] . ']';
 
                 //加载方法
                 $html .= parent::field_mult($sub_field, true);

@@ -39,6 +39,7 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
             $tax_name = $tax_args['name'];
             $tax_slug = $tax_args['slug'];
             $hook_type = $tax_args['post_type'];
+            $tag_mode = (is_bool($tax_args['tag_mode'] ?? null)) ? $tax_args['tag_mode'] : false;
 
             //组装自定义分类法参数
             $labels = array(
@@ -55,9 +56,10 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Theme_Setup
                 'menu_name' => $tax_name,
             );
             $args_tax = array(
-                'hierarchical' => true,
+                'hierarchical' => $tag_mode,
                 'labels' => $labels,
                 'show_ui' => true,
+                'show_in_rest' => true,
                 'show_admin_column' => true,
                 'query_var' => true,
                 'rewrite' => array(

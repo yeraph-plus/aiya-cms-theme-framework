@@ -8,17 +8,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 //将 WordPress 的 AJAX URL 和 nonce 传递给前端
-//add_action('wp_enqueue_scripts', 'ayf_ajax_enqueue_scripts');
-
-function ayf_ajax_enqueue_scripts()
-{
-    wp_localize_script('ajax-script', 'ajax_url', array(
-        'home_url' => home_url(),
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'ajax_nonce' => wp_create_nonce('ajax_nonce'),
-    ));
-}
-
+//add_action('wp_admin_enqueue_scripts', 'ayf_ajax_enqueue_scripts');
 //添加钩子 URL自动附加反斜杠
 add_filter('user_trailingslashit', 'ayf_filter_auto_trailingslashit', 10, 2);
 //添加钩子 保存格式过滤 Tips：此钩子也在 post_update() 和 post_delete() 上触发，应当注意检查其他插件的兼容性
@@ -32,6 +22,16 @@ add_filter('comment_class', 'ayf_filter_insert_body_class');
 //add_filter('nav_menu_css_class', 'ayf_filter_insert_menu_class');
 //add_filter('nav_menu_item_id', 'ayf_filter_insert_menu_class');
 //add_filter('page_css_class', 'ayf_filter_insert_menu_class');
+
+//ajax参数
+function ayf_ajax_enqueue_scripts()
+{
+    wp_localize_script('ajax-script', 'ajax_url', array(
+        'home_url' => home_url(),
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'ajax_nonce' => wp_create_nonce('ajax_nonce'),
+    ));
+}
 //URL自动附加反斜杠
 function ayf_filter_auto_trailingslashit($string, $type)
 {
