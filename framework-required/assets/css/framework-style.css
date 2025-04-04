@@ -83,7 +83,7 @@
 #framework-wrap .framework-content {
   width: 100%;
   background-color: #fff;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   padding: 15px 10px;
 }
@@ -99,7 +99,7 @@
   font-weight: 700;
   padding: 10px 0;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   #framework-wrap .framework-content .form-field .field-label {
     width: 24%;
   }
@@ -110,7 +110,7 @@
   font-weight: 500;
   line-height: 2;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   #framework-wrap .framework-content .form-field .field-area {
     width: 72%;
   }
@@ -121,22 +121,34 @@
   margin: 0;
   padding-top: 10px;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   #framework-wrap .framework-content .form-field .field-area .desc {
     white-space: nowrap;
   }
 }
-#framework-wrap .framework-content .field-group-warp {
-  border-radius: 3px;
-  border: 2px solid #eee;
-}
 #framework-wrap .framework-content .field-group-warp .group-item {
-  border-bottom: 2px solid #eee;
+  display: block;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  position: relative;
+}
+#framework-wrap .framework-content .field-group-warp .group-item .del-item {
+  display: inline-block;
+  padding: 10px;
+  font-size: 14px;
+}
+#framework-wrap .framework-content .field-group-warp .group-item .add-item {
+  margin: 10px;
+}
+#framework-wrap .framework-content .field-group-warp .form-field .field-label {
+  padding: 0;
 }
 #framework-wrap .framework-content .field-saved-button {
   padding: 20px 15px 10px 15px;
   margin-top: 20px;
-  border-top: 2px solid #eee;
+  border-top: 2px solid #ddd;
 }
 #framework-wrap .framework-content .field-saved-button .button-primary {
   margin-right: 10px;
@@ -223,7 +235,9 @@
 .framework-section .section-radio .quick-radio {
   cursor: pointer;
   padding-right: 10px;
-  line-height: 1.8;
+  line-height: 2;
+  font-size: 14px;
+  font-weight: 400;
 }
 .framework-section .section-switch .quick-switch {
   position: relative;
@@ -265,6 +279,9 @@
   transform: translateX(26px);
 }
 .framework-section .section-select .quick-select {
+  min-width: 150px;
+  font-size: 14px;
+  font-weight: 400;
   padding-right: 10px;
 }
 .framework-section .section-upload {
@@ -284,6 +301,11 @@
   padding: 10px;
   width: 97% !important;
 }
+.framework-section .section-group_mult .field-area,
+.framework-section .section-group .field-area {
+  padding: 10px;
+  width: 97% !important;
+}
 .framework-section .section-group_mult .field-group-warp,
 .framework-section .section-group .field-group-warp {
   position: relative;
@@ -296,11 +318,9 @@
 .framework-section .section-group .field-group-warp .field-label {
   margin: 0 !important;
 }
-.framework-section .section-group_mult .del-item {
-  float: inline-end;
-}
-.framework-section .section-group_mult .add-item {
-  margin: 10px;
+.framework-section .section-group .field-group-warp {
+  border-radius: 3px;
+  border: 1px solid #ddd;
 }
 .framework-section .section-table-list {
   width: 100%;
