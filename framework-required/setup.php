@@ -1,5 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 //引入设置框架
 require_once (__DIR__) . '/framework-setup.php';
 //实例化框架方法
@@ -10,10 +11,13 @@ if (!class_exists('AYF')) {
 
         public static function instance()
         {
-            if (is_null(self::$instance)) new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
+            }
+            return self::$instance;
         }
         //初始父类方法
-        public function __construct()
+        private function __construct()
         {
             parent::__construct();
         }

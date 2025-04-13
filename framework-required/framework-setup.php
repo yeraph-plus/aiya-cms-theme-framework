@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * AIYA-CMS Theme Options Framework 加载框架文件
@@ -134,7 +135,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         //设置页简化调用
         public static function new_opt($conf = array())
         {
-            if (!is_array($conf) || empty($conf)) return;
+            if (!is_array($conf) || empty($conf))
+                return;
 
             //缓存模式
             if (self::$cache_mode) {
@@ -150,7 +152,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         //设置默认值提取到静态变量
         public static function cache_all_default($field_conf, $inst_slug)
         {
-            if (self::$cache_load) return;
+            if (self::$cache_load)
+                return;
 
             //提取表名存入$cache_tab_option，提取默认值存入$cache_def_option
 
@@ -159,7 +162,8 @@ if (!class_exists('AYA_Framework_Setup')) {
             //foreach 循环去除层级
             foreach ($field_conf as $field) {
                 //跳过
-                if (empty($field['id'])) continue;
+                if (empty($field['id']))
+                    continue;
                 //存入
                 self::$cache_def_option[$field['id']] = (empty($field['default'])) ? '' : $field['default'];
             }
@@ -172,7 +176,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         //设置用户值提取到静态变量
         public static function cache_all_option()
         {
-            if (self::$cache_success) return;
+            if (self::$cache_success)
+                return;
 
             //根据上一步的表名，一次性提取用户值存入$cache_get_option
 
@@ -193,7 +198,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         //分类Metabox键简化调用
         public static function new_tex($conf = array())
         {
-            if (!is_array($conf) || empty($conf)) return;
+            if (!is_array($conf) || empty($conf))
+                return;
 
             $fields = $conf['fields'];
             $add_meta_in = $conf['add_meta_in'];
@@ -203,7 +209,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         //文章Metabox键简化调用
         public static function new_box($conf = array())
         {
-            if (!is_array($conf) || empty($conf)) return;
+            if (!is_array($conf) || empty($conf))
+                return;
 
             //单独提取组件数组用于调用
             $fields = $conf['fields'];
@@ -230,7 +237,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         public static function default_option($option_name)
         {
             //缓存模式
-            if (!self::$cache_mode) return false;
+            if (!self::$cache_mode)
+                return false;
             //读取设置
             $default = self::$cache_def_option;
             //返回
@@ -244,7 +252,8 @@ if (!class_exists('AYA_Framework_Setup')) {
         public static function get_opt($name, $sulg)
         {
             //未定义设置表单时
-            if ($sulg === '') return null;
+            if ($sulg === '')
+                return null;
 
             $option_config = self::used_option($sulg);
 
@@ -281,15 +290,13 @@ if (!class_exists('AYA_Framework_Setup')) {
         {
             $value = self::get_opt($name, $opt_sulg);
 
-            if ($value === true || $value === 'true' || $value === 1 || $value === '1') {
-                return true;
-            }
-            return false;
+            return filter_var($value, FILTER_VALIDATE_BOOLEAN);
         }
         //判断输出
         public static function out_checked($name, $opt_sulg = '', $output = '')
         {
             $value = self::get_checked($name, $opt_sulg);
+
             echo ($value) ? '' : $output;
         }
     }

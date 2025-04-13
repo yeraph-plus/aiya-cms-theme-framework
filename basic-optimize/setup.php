@@ -1,5 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 if (!class_exists('AYP')) {
     //引入插件框架
@@ -12,7 +13,10 @@ if (!class_exists('AYP')) {
 
         public static function instance()
         {
-            if (is_null(self::$instance)) new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
+            }
+            return self::$instance;
         }
     }
     //启动

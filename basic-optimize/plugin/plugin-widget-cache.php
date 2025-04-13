@@ -36,6 +36,7 @@ class AYA_WidgetOutputCache
         static $instance;
 
         if (!$instance) new self();
+        
         return $instance;
     }
 

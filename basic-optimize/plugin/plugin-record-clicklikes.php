@@ -18,7 +18,7 @@ class AYA_Plugin_Record_ClickLikes
 {
     public function __destruct()
     {
-        //前端action事件名 click_likes
+        //前端action事件名：click_likes
         add_action('wp_ajax_click_likes', array($this, 'set_post_click_likes'));
         add_action('wp_ajax_nopriv_click_likes', array($this, 'set_post_click_likes'));
 

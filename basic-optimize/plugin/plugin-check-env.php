@@ -18,9 +18,9 @@ class AYA_Plugin_EnvCheck extends AYA_Theme_Setup
 {
     public function __construct($args)
     {
-        return self::aya_theme_check_php_version($args['php_last']);
-        return self::aya_theme_check_php_loaded($args['php_ext']);
-        return self::aya_theme_check_wp_version($args['wp_last']);
+        self::aya_theme_check_php_version($args['php_last']);
+        self::aya_theme_check_php_loaded($args['php_ext']);
+        self::aya_theme_check_wp_version($args['wp_last']);
     }
 
     //检查PHP版本

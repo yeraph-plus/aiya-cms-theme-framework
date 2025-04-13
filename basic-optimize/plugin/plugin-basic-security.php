@@ -44,8 +44,6 @@ class AYA_Plugin_Security
 
         add_filter('shake_error_codes', array($this, 'aya_theme_logged_shake_error_codes'));
 
-        add_filter('robots_txt', array($this, 'aya_theme_custom_robots_txt'), 10, 2);
-
         add_action('init', array($this, 'aya_theme_init_rewind_url_reject'));
         add_action('init', array($this, 'aya_theme_init_user_agent_reject'));
     }
@@ -361,17 +359,6 @@ class AYA_Plugin_Security
 
     //WAF功能
 
-    //robots.txt
-    public function aya_theme_custom_robots_txt($output, $public)
-    {
-        $options = $this->security_options;
-
-        if ($options['robots_custom_switch'] && $options['robots_custom_txt'] != '') {
-            //替换为自定义输出
-            $output = esc_attr(wp_strip_all_tags($options['robots_custom_txt']));
-        }
-        return $output;
-    }
     //验证访问URL参数
     public function aya_theme_init_rewind_url_reject()
     {

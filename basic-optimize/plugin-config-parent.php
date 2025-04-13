@@ -169,7 +169,7 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
     array(
-        'desc' => '插件',
+        'desc' => '次要组件',
         'type' => 'title_2',
     ),
     array(
@@ -183,6 +183,13 @@ $AYF_PARENT_FIELDS = array(
         'title' => '简单 SEO 组件',
         'desc' => '替代页面标题配置器并支持一些基础的 SEO 功能',
         'id' => 'plugin_add_seo_stk',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
+        'title' => '垃圾评论过滤',
+        'desc' => '基于语法规则的垃圾评论过滤，无需 Akismet 接口',
+        'id' => 'plugin_add_comment_filter',
         'type' => 'switch',
         'default' => false,
     ),
@@ -201,8 +208,8 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
     array(
-        'title' => '本地头像拓展',
-        'desc' => '本地化头像插件，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
+        'title' => '本地化头像',
+        'desc' => '本地化头像功能，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
         'id' => 'plugin_local_avatar_upload',
         'type' => 'switch',
         'default' => false,

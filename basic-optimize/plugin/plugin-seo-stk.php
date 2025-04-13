@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * AIYA-Framework 拓展 简易SEO功能插件
@@ -11,7 +12,7 @@ if (!defined('ABSPATH')) exit;
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package AIYA-CMS Theme Options Framework
- * @version 1.3
+ * @version 1.4
  **/
 
 class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
@@ -50,6 +51,9 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         }
         if ($action['site_seo_auto_tag_link'] == true) {
             parent::add_filter('the_content', 'aya_theme_content_auto_tags_re_link');
+        }
+        if ($action['site_seo_robots_switch'] && $action['site_seo_robots_txt'] != '') {
+            parent::add_filter('robots_txt', 'aya_theme_custom_robots_txt', 10, 2);
         }
     }
     //站点标题选择器
@@ -157,7 +161,8 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
     {
         $action = $this->seo_action;
 
-        if ($action['site_seo_action'] == false) return;
+        if ($action['site_seo_action'] == false)
+            return;
 
         //首页关键词
         $seo_keywords = $action['site_seo_keywords'];
@@ -180,7 +185,8 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
                     //格式化数组
                     foreach (get_the_tags() as $tag_item) {
                         $tags_str .= $tag_item->name . ',';
-                    };
+                    }
+                    ;
                     $tags_str = substr($tags_str, 0, strlen($tags_str) - 1);
                     //输出
                     $seo_keywords = $tags_str;
@@ -231,6 +237,15 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         }
         //输出
         echo '<link rel="canonical" href="' . $url . '" />' . "\n";
+    }
+    //robots.txt
+    public function aya_theme_custom_robots_txt($output, $public)
+    {
+        $action = $this->seo_action;
+
+        //替换为自定义输出
+        $output = esc_attr(wp_strip_all_tags($action['site_seo_robots_txt']));
+        return $output;
     }
     //编辑器默认内容
     public function aya_theme_site_insert_pre_content()
@@ -342,7 +357,8 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
     public function aya_theme_save_post_auto_add_tags()
     {
         //跳过自动保存
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
 
         $tags = get_tags(array('hide_empty' => false));
 
@@ -352,7 +368,8 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
 
         if ($tags) {
             foreach ($tags as $tag) {
-                if (strpos($post_content, $tag->name) !== false) wp_set_post_tags($post_id, $tag->name, true);
+                if (strpos($post_content, $tag->name) !== false)
+                    wp_set_post_tags($post_id, $tag->name, true);
             }
         }
     }
@@ -362,7 +379,8 @@ class AYA_Plugin_Head_SEO extends AYA_Theme_Setup
         //内置方法：标签按长度排序
         function tag_sort($a, $b)
         {
-            if ($a->name == $b->name) return 0;
+            if ($a->name == $b->name)
+                return 0;
             return (strlen($a->name) > strlen($b->name)) ? -1 : 1;
         }
 

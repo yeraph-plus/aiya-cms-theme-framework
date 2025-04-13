@@ -229,10 +229,13 @@ if (!class_exists('AYA_Shortcode')) {
         //实例化
         public static function instance()
         {
-            if (is_null(self::$instance)) new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
+            }
+            return self::$instance;
         }
         //初始父类方法
-        public function __construct()
+        private function __construct()
         {
             parent::__construct();
         }

@@ -1,5 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 if (AYF::get_checked('all_plugin_off', 'plugin')) {
     //退出当前脚本
@@ -372,7 +373,7 @@ $AYF_REQUEST_FIELDS = array(
         'desc' => '仅允许已登录的用户使用搜索功能，或关闭搜索',
         'id' => 'serach_scope_user_check',
         'type' => 'radio',
-        'sub'  => array(
+        'sub' => array(
             'all' => '无限制',
             'logged' => '仅限登录用户',
             'disabled' => '关闭站点搜索'
@@ -438,7 +439,7 @@ $AYF_SECURITY_FIELDS = array(
         'desc' => '根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页',
         'id' => 'admin_backend_verify',
         'type' => 'radio',
-        'sub'  => array(
+        'sub' => array(
             'false' => '无限制',
             //'administrator' => '管理员',
             //'editor' => '编辑',
@@ -510,24 +511,6 @@ $AYF_SECURITY_FIELDS = array(
         'default' => 'admin,root',
     ),
     array(
-        'desc' => ' robots.txt 规则设置',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '启用 Robots 规则',
-        'desc' => '自定义站点 [code]/robots.txt[/code] 的内容，禁用则引用站点默认设置',
-        'id' => 'robots_custom_switch',
-        'type' => 'switch',
-        'default' => true,
-    ),
-    array(
-        'title' => '自定义 robots.txt ',
-        'desc' => '自定义robots.txt的内容，语法参考：[url=https://www.robotstxt.org/robotstxt.html]robotstxt.org[/url]',
-        'id' => 'robots_custom_txt',
-        'type' => 'textarea',
-        'default' => ayf_get_default_robots_text(),
-    ),
-    array(
         'desc' => '简单 WAF 防护',
         'type' => 'title_2',
     ),
@@ -582,7 +565,7 @@ AYP::action('Optimize', ayf_plugin_action($AYF_OPTIMIZE_FIELDS, 'optimize'));
 
 AYF::new_opt(
     array(
-        'title' => '查询设置',
+        'title' => '查询和搜索',
         'slug' => 'request',
         'parent' => 'plugin',
         'desc' => '自定义调整WordPress首页和搜索的查询参数',
@@ -594,7 +577,7 @@ AYP::action('Request', ayf_plugin_action($AYF_REQUEST_FIELDS, 'request'));
 
 AYF::new_opt(
     array(
-        'title' => '安全性设置',
+        'title' => '防护功能',
         'slug' => 'security',
         'parent' => 'plugin',
         'desc' => '禁用或调整一些WordPress内置功能，增加登录和后台访问验证',
@@ -652,7 +635,7 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
             'desc' => '使用 Gravatar 头像服务的镜像源',
             'id' => 'avatar_cdn_type',
             'type' => 'radio',
-            'sub'  => array(
+            'sub' => array(
                 'cn' => 'Gravatar （官方CN源）',
                 'qiniu' => '七牛 CDN',
                 'v2ex' => 'V2EX CDN',
@@ -691,7 +674,7 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
             'desc' => '使用 Google 字体的镜像源，加速主题加载',
             'id' => 'google_fonts_cdn_type',
             'type' => 'radio',
-            'sub'  => array(
+            'sub' => array(
                 'geekzu' => '极客族 CDN',
                 'loli' => 'LOLI 图床',
                 'ustc' => '中科大 CDN',
@@ -709,25 +692,25 @@ if (AYF::get_checked('plugin_add_avatar_speed', 'plugin')) {
                     'title' => 'googleapis_fonts',
                     'id' => 'fonts_cdn',
                     'type' => 'text',
-                    'default'  => '//fonts.googleapis.com',
+                    'default' => '//fonts.googleapis.com',
                 ),
                 array(
                     'title' => 'googleapis_ajax',
                     'id' => 'fonts_ajax',
                     'type' => 'text',
-                    'default'  => '//ajax.googleapis.com',
+                    'default' => '//ajax.googleapis.com',
                 ),
                 array(
                     'title' => 'googleusercontent_themes',
                     'id' => 'fonts_themes',
                     'type' => 'text',
-                    'default'  => '//themes.googleusercontent.com',
+                    'default' => '//themes.googleusercontent.com',
                 ),
                 array(
                     'title' => 'gstatic_fonts',
                     'id' => 'fonts_gstatic',
                     'type' => 'text',
-                    'default'  => '//fonts.gstatic.com',
+                    'default' => '//fonts.gstatic.com',
                 ),
             ),
         ),
@@ -781,7 +764,7 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'desc' => '设置标题文本的分隔符，默认添加空格补正',
             'id' => 'site_title_sep',
             'type' => 'radio',
-            'sub'  => array(
+            'sub' => array(
                 'nbsp' => '空格" &nbsp; "',
                 'hyphen' => '连字符" - "',
                 'y-line' => '分隔符" | "',
@@ -813,6 +796,24 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
             'id' => 'site_seo_description',
             'type' => 'textarea',
             'default' => '',
+        ),
+        array(
+            'desc' => ' robots.txt 规则设置',
+            'type' => 'title_2',
+        ),
+        array(
+            'title' => '启用 Robots 规则',
+            'desc' => '自定义站点 [code]/robots.txt[/code] 的内容，禁用则引用站点默认设置',
+            'id' => 'site_seo_robots_switch',
+            'type' => 'switch',
+            'default' => true,
+        ),
+        array(
+            'title' => '自定义 robots.txt ',
+            'desc' => '自定义robots.txt的内容，语法参考：[url=https://www.robotstxt.org/robotstxt.html]robotstxt.org[/url]',
+            'id' => 'site_seo_robots_txt',
+            'type' => 'textarea',
+            'default' => ayf_get_default_robots_text(),
         ),
         array(
             'desc' => '编辑器默认内容',
@@ -905,14 +906,14 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
                 'desc' => '多个关键词之间使用 [code], [/code] 分隔，默认显示该分类名称',
                 'id' => 'seo_cat_keywords',
                 'type' => 'text',
-                'default'  => '',
+                'default' => '',
             ),
             array(
                 'title' => 'SEO描述',
                 'desc' => '默认显示该分类说明文本',
                 'id' => 'seo_cat_desc',
                 'type' => 'textarea',
-                'default'  => '',
+                'default' => '',
             ),
         ),
     ));
@@ -928,20 +929,43 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
                 'desc' => '多个关键词之间使用 [code], [/code] 分隔，留空则默认设置为文章的标签',
                 'id' => 'seo_keywords',
                 'type' => 'text',
-                'default'  => '',
+                'default' => '',
             ),
             array(
                 'title' => 'SEO描述',
                 'desc' => '文章页面默认提取全文为前150个字符（描述文本推荐不超过150个字符）',
                 'id' => 'seo_desc',
                 'type' => 'textarea',
-                'default'  => '',
+                'default' => '',
             ),
         ),
     ));
 
     AYP::action('Head_SEO', ayf_plugin_action($AYF_SEO_TDK_FIELDS, 'seo'));
 }
+//评论过滤器组件
+if (AYF::get_checked('plugin_add_comment_filter', 'plugin')) {
+    //设置项
+    $AYF_COMMENT_FILTER_FIELDS = array(
+        array(
+            'desc' => '评论过滤',
+            'type' => 'title_2',
+        ),
+    );
+
+    AYF::new_opt(
+        array(
+            'title' => '评论过滤',
+            'slug' => 'comment',
+            'parent' => 'plugin',
+            'desc' => '',
+            'fields' => $AYF_COMMENT_FILTER_FIELDS,
+        )
+    );
+
+    AYP::action('Comment_Filter', ayf_plugin_action($AYF_COMMENT_FILTER_FIELDS, 'extra'));
+}
+
 //外部统计组件
 if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
     //设置项
@@ -974,10 +998,10 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
             'id' => 'site_extra_script',
             'type' => 'code_editor',
             'settings' => array(
-                'lineNumbers'   => true,
-                'tabSize'       => 2,
-                'theme'         => 'monokai',
-                'mode'          => 'javascript',
+                'lineNumbers' => true,
+                'tabSize' => 2,
+                'theme' => 'monokai',
+                'mode' => 'javascript',
             ),
             'default' => '',
         ),
@@ -991,10 +1015,10 @@ if (AYF::get_checked('plugin_add_site_statistics', 'plugin')) {
             'id' => 'site_extra_css',
             'type' => 'code_editor',
             'settings' => array(
-                'lineNumbers'   => true,
-                'tabSize'       => 2,
-                'theme'         => 'monokai',
-                'mode'          => 'css',
+                'lineNumbers' => true,
+                'tabSize' => 2,
+                'theme' => 'monokai',
+                'mode' => 'css',
             ),
             'default' => '',
         ),
@@ -1078,7 +1102,7 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
             'desc' => '',
             'id' => 'smtp_ssl',
             'type' => 'radio',
-            'sub'  => array(
+            'sub' => array(
                 'yes' => '启用SSL',
                 'no' => '禁用SSL',
             ),
@@ -1103,7 +1127,7 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
             'desc' => '',
             'id' => 'smtp_auth',
             'type' => 'radio',
-            'sub'  => array(
+            'sub' => array(
                 'yes' => '启用认证',
                 'no' => '禁用认证',
             ),
