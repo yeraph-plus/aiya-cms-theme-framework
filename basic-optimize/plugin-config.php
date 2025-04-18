@@ -858,7 +858,6 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
         array(
             'desc' => '*采集站/笔记站的实用功能，在文章保存前对文章内容进行预处理，用于清理复制粘贴时带来的多余 HTML 标签',
             'type' => 'message',
-            'type' => 'message',
         ),
         array(
             'title' => 'HTML格式预处理',
@@ -948,9 +947,108 @@ if (AYF::get_checked('plugin_add_comment_filter', 'plugin')) {
     //设置项
     $AYF_COMMENT_FILTER_FIELDS = array(
         array(
-            'desc' => '评论过滤',
+            'desc' => '过滤器设置',
             'type' => 'title_2',
         ),
+        array(
+            'desc' => '与 WP 自身的评论过滤器不同，此过滤器工作在站点的评论表单提交时，垃圾评论不会被保存到数据库',
+            'type' => 'message',
+        ),
+        /*
+        array(
+            'title' => '启用 Akismet 插件兼容',
+            'desc' => '如果评论用户已登录，则忽略此过滤器',
+            'id' => 'site_comment_akismet_compatibility',
+            'type' => 'switch',
+            'default' => true,
+        ),
+        */
+        array(
+            'title' => '忽略已登录用户的评论',
+            'desc' => '如果评论用户已登录，则忽略此过滤器',
+            'id' => 'site_comment_ignore_logged_users',
+            'type' => 'switch',
+            'default' => true,
+        ),
+        array(
+            'title' => '禁止垃圾评论提交到数据库',
+            'desc' => '使 [url=' . admin_url('options-discussion.php') . '] 讨论设置 [/url] 中的 “禁止使用的评论关键字” 列表在当前插件中生效',
+            'id' => 'site_comment_check_wp_blacklist',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '排除评论表单网址字段',
+            'desc' => '使站点评论表单的 url （网址）字段失效，即使模板网址字段可被填写，但不会被提交到数据库',
+            'id' => 'site_comment_remove_url_field',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'desc' => '评论内容过滤',
+            'type' => 'title_2',
+        ),
+        array(
+            'title' => '排除所有非中文评论',
+            'desc' => '基于 UTF-8 编码检测，排除所有非中文评论',
+            'id' => 'site_comment_all_foreign_lang',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '评论内容字数限制',
+            'desc' => '评论内容检测，限制评论内容最少字数',
+            'id' => 'site_comment_min_word_strlen',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '最少字数限制参数',
+            'desc' => '计算评论内容字数，默认最少需要 [code]10[/code] 字',
+            'id' => 'site_comment_min_word_strlen_num',
+            'type' => 'text',
+            'default' => '10',
+        ),
+        array(
+            'title' => '评论链接限制',
+            'desc' => '评论内容检测，限制评论内容最多出现几个链接',
+            'id' => 'site_comment_count_link_limit',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '链接限制计数参数',
+            'desc' => '计算评论内容链接数量，默认最多允许出现 [code]2[/code] 个链接',
+            'id' => 'site_comment_count_link_limit_num',
+            'type' => 'text',
+            'default' => '2',
+        ),
+        array(
+            'desc' => '自定义过滤器',
+            'type' => 'title_2',
+        ),
+        array(
+            'title' => '启用自定义正则',
+            'desc' => '使用正则表达式过滤评论列表，匹配成功时自动过滤，[b]如果不了解正则语法，请勿使用[/b]',
+            'id' => 'site_comment_filter_custom_regular',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '表达式列表',
+            'desc' => '一行一个，顺序执行。常用语法：
+            [br/][code]/\d{10,}/[/code] 匹配 10 位以上数字（常见电话号码）
+            [br/][code]/[A-Z]{10,}/[/code] 匹配 10 位以上大写字母
+            [br/][code]/[!@#$%^&*]{5,}/[/code] 匹配 5 个以上连续特殊符号
+            [br/][code]/\p{So}{5,}/u[/code] 匹配特殊符号（如 emoji）
+            [br/][code]/代刷|文凭|菠菜|办理|代理|棋牌|包过/iu[/code] 匹配中文关键词
+            [br/][code]/\b(viagra|casino|loan|sex)\b/i[/code] 匹配英文关键词
+            [br/][code]/\p{Han}{3}\d{3}/u[/code] 匹配类似 "关键词123" 的引流类关键词',
+            'id' => 'site_comment_filter_custom_str_list',
+            'type' => 'textarea',
+            'default' => '/代刷|文凭|菠菜|办理|代理|棋牌|包过/iu' . "\n" . '\b(viagra|casino|loan|sex)\b/i',
+        ),
+
     );
 
     AYF::new_opt(
@@ -958,12 +1056,12 @@ if (AYF::get_checked('plugin_add_comment_filter', 'plugin')) {
             'title' => '评论过滤',
             'slug' => 'comment',
             'parent' => 'plugin',
-            'desc' => '',
+            'desc' => '基于正则匹配方式的评论过滤组件，阻止垃圾评论',
             'fields' => $AYF_COMMENT_FILTER_FIELDS,
         )
     );
 
-    AYP::action('Comment_Filter', ayf_plugin_action($AYF_COMMENT_FILTER_FIELDS, 'extra'));
+    AYP::action('Comment_Filter', ayf_plugin_action($AYF_COMMENT_FILTER_FIELDS, 'comment'));
 }
 
 //外部统计组件
