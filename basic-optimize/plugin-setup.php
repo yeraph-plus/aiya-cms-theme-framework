@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * AIYA-CMS Theme Options Framework 组件功能
@@ -23,17 +24,15 @@ if (!defined('ABSPATH')) exit;
  * 用法：
  * 
  * $SET['Class类名'] = 'Class参数';
- * $Setup = new AYA_Theme_Setup();
+ * $Setup = new AYA_Plugin_Setup();
  * $Setup->action($SET);
  */
 
-if (!class_exists('AYA_Theme_Setup')) {
-    class AYA_Theme_Setup
+if (!class_exists('AYA_Plugin_Setup')) {
+    class AYA_Plugin_Setup extends AYA_Framework_Setup
     {
-        private static $include_once = array();
+        private static $include_once = null;
         private static $plugin_array = array();
-
-        public static $inc_dir = (__DIR__);
 
         //实例化方法
         public static function action($plugin_name, $args)
@@ -49,7 +48,8 @@ if (!class_exists('AYA_Theme_Setup')) {
                 }
                 //参数为布尔型，则不添加参数
                 else if (is_bool($args)) {
-                    if ($args === false) return;
+                    if ($args === false)
+                        return;
                     new $class();
                 }
                 //返回错误提示
@@ -75,33 +75,31 @@ if (!class_exists('AYA_Theme_Setup')) {
             //执行循环
             foreach (self::$plugin_array as $plugin => $args) {
                 //验证参数为null直接跳过
-                if ($args === null) continue;
+                if ($args === null)
+                    continue;
                 //实例化
                 self::action($plugin, $args);
             }
         }
         //Include方法
-        public static function include_plugins($dir)
+        public static function include_plugins()
         {
-            //跳过已加载
-            if (in_array($dir, self::$include_once)) return;
-
-            //根目录
-            $plugin_dir = self::$inc_dir . '/' . $dir;
-            //验证目录存在
-            if (is_dir($plugin_dir)) {
+            if (is_null(self::$include_once)) {
+                //根目录
+                $plugin_dir = (__DIR__) . '/inc';
                 //遍历
                 foreach (glob($plugin_dir . '/*.php') as $plugin_file) {
-                    //print_r(plugin_file));
-                    //执行include
-                    include_once $plugin_file;
+                    //验证文件是否存在
+                    if (!is_file($plugin_file)) {
+                        //print('Error File: ' . $plugin_file);
+                        continue;
+                    }
+
+                    include $plugin_file;
                 }
                 //标记已加载
-                array_push(self::$include_once, $dir);
-            }
-            //目录不存在报错
-            else {
-                self::message_error('notice', __('Include directory not found: ') . "\"$plugin_dir\"");
+                self::$include_once = true;
+
             }
         }
         //包装WP报错
@@ -110,61 +108,6 @@ if (!class_exists('AYA_Theme_Setup')) {
             add_action('admin_notices', function () use ($line, $message) {
                 echo '<div id="message" class="' . $line . '"><p>[AIYA-THEME] ' . $message . '</p></div>';
             });
-        }
-        //验证文件方法
-        public static function include_file_helper($file, $load = true)
-        {
-            $path = '';
-
-            $file = ltrim($file, '/');
-            $dir = plugin_dir_path(__FILE__);
-
-            //验证父主题位置
-            if (file_exists(get_parent_theme_file_path($file))) {
-                $path = get_parent_theme_file_path($file);
-            }
-            //验证主题位置
-            elseif (file_exists(get_theme_file_path($file))) {
-                $path = get_theme_file_path($file);
-            }
-            //直接验证当前文件
-            elseif (file_exists($dir . $file)) {
-                $path = $dir . $file;
-            }
-
-            if (!empty($path) && !empty($file) && $load) {
-                //执行include
-                require_once($path);
-            } else {
-                return $file;
-            }
-        }
-        //除错方法
-        protected static function inspect($array)
-        {
-            //检查数组是否为空
-            if (!is_array($array)) return false;
-
-            if (!empty($array) && count($array) != 0 && $array != array('')) return false;
-
-            return true;
-        }
-        //替代方法
-        protected function add_action($hook, $callback, $priority = 10, $args = 1)
-        {
-            add_action($hook, array($this, $callback), $priority, $args);
-        }
-        protected function add_filter($hook, $callback, $priority = 10, $args = 1)
-        {
-            add_filter($hook, array($this, $callback), $priority, $args);
-        }
-        protected function remove_action($hook, $callback, $priority = 10, $args = 1)
-        {
-            add_action($hook, array($this, $callback), $priority, $args);
-        }
-        protected function remove_filter($hook, $callback, $priority = 10, $args = 1)
-        {
-            add_filter($hook, array($this, $callback), $priority, $args);
         }
     }
 }

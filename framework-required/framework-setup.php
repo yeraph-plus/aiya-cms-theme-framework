@@ -36,7 +36,7 @@ if (!defined('ABSPATH'))
 if (!class_exists('AYA_Framework_Setup')) {
     class AYA_Framework_Setup
     {
-        private static $include_once;
+        private static $include_once = null;
         //private static $header_inst = 'aya_option';
 
         private static $cache_mode = true;
@@ -52,28 +52,25 @@ if (!class_exists('AYA_Framework_Setup')) {
         public function __construct()
         {
             if (is_null(self::$include_once)) {
-                self::include();
-                self::include_field();
-                self::$include_once = true;
+                //框架包
+                self::include_inc();
+                //模块包
+                self::include_module();
 
-                add_action('admin_enqueue_scripts', array(&$this, 'enqueue_script'));
+                self::add_action('admin_enqueue_scripts', 'enqueue_script');
+
+                self::$include_once = true;
             }
         }
         //引入框架
-        public function include()
+        public function include_inc()
         {
-            require_once (__DIR__) . '/inc/framework-build-fields.php';
-            require_once (__DIR__) . '/inc/framework-option-page.php';
-            require_once (__DIR__) . '/inc/framework-metabox-post.php';
-            require_once (__DIR__) . '/inc/framework-metabox-term.php';
-            require_once (__DIR__) . '/inc/framework-quick-editor.php';
-            require_once (__DIR__) . '/inc/framework-widget-bulider.php';
-            require_once (__DIR__) . '/inc/framework-shortcode-manager.php';
-            require_once (__DIR__) . '/inc/framework-action-execute.php';
-        }
-        //框架组件
-        public function include_field()
-        {
+            require (__DIR__) . '/inc/framework-build-fields.php';
+            require (__DIR__) . '/inc/framework-option-page.php';
+            require (__DIR__) . '/inc/framework-metabox-post.php';
+            require (__DIR__) . '/inc/framework-metabox-term.php';
+            require (__DIR__) . '/inc/framework-quick-editor.php';
+            //注册框架组件
             $fields = array(
                 'text',
                 'textarea',
@@ -90,12 +87,29 @@ if (!class_exists('AYA_Framework_Setup')) {
                 'group-mult',
                 'code-editor',
             );
-
+            //遍历
             foreach ($fields as $field) {
-                if (!class_exists(self::$class_name . $field) && class_exists('AYA_Field_Action')) {
-                    include_once (__DIR__) . '/inc/fields/' . $field . '.php';
+                if (!class_exists(self::$class_name . $field)) {
+                    include (__DIR__) . '/inc/fields/' . $field . '.php';
                 }
             }
+        }
+        //引入模块
+        public function include_module()
+        {
+            //组件目录
+            $module_path = (__DIR__) . '/plugin';
+            //遍历
+            foreach (glob($module_path . '/*.php') as $module_file) {
+                //验证文件是否存在
+                if (!is_file($module_file)) {
+                    //print('Error File: ' . $module_file);
+                    continue;
+                }
+
+                require $module_file;
+            }
+
         }
         //根据上下文判断静态文件URL
         public static function get_base_url()
@@ -126,28 +140,39 @@ if (!class_exists('AYA_Framework_Setup')) {
                 return untrailingslashit($current_dir);
             }
         }
+        //验证文件方法
+        public static function include_file_helper($file, $load = true)
+        {
+            $path = '';
+
+            $file = ltrim($file, '/');
+            $dir = plugin_dir_path(__FILE__);
+
+            //验证父主题位置
+            if (file_exists(get_parent_theme_file_path($file))) {
+                $path = get_parent_theme_file_path($file);
+            }
+            //验证主题位置
+            elseif (file_exists(get_theme_file_path($file))) {
+                $path = get_theme_file_path($file);
+            }
+            //直接验证当前文件
+            elseif (file_exists($dir . $file)) {
+                $path = $dir . $file;
+            }
+
+            if (!empty($path) && !empty($file) && $load) {
+                //执行include
+                require_once($path);
+            } else {
+                return $file;
+            }
+        }
         //加载样式
         public function enqueue_script()
         {
             wp_enqueue_style('aiya-cms-framework', self::get_base_url() . '/assets/css/framework-style.css');
             wp_enqueue_script('aiya-cms-framework', self::get_base_url() . '/assets/js/framework-main.js');
-        }
-        //设置页简化调用
-        public static function new_opt($conf = array())
-        {
-            if (!is_array($conf) || empty($conf))
-                return;
-
-            //缓存模式
-            if (self::$cache_mode) {
-                self::cache_all_default($conf['fields'], $conf['slug']);
-                //刷新缓存表单
-                self::$cache_load = false;
-            }
-            //print_r(self::$cache_tab_option);
-
-            //单独提取组件数组用于调用
-            return new AYA_Framework_Options_Page($conf['fields'], $conf);
         }
         //设置默认值提取到静态变量
         public static function cache_all_default($field_conf, $inst_slug)
@@ -194,6 +219,52 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             //标记位
             self::$cache_success = true;
+        }
+        //除错方法
+        protected static function inspect($array)
+        {
+            //检查数组是否为空
+            if (!is_array($array))
+                return false;
+
+            if (!empty($array) && count($array) != 0 && $array != array(''))
+                return false;
+
+            return true;
+        }
+        //替代方法
+        protected function add_action($hook, $callback, $priority = 10, $args = 1)
+        {
+            add_action($hook, array($this, $callback), $priority, $args);
+        }
+        protected function add_filter($hook, $callback, $priority = 10, $args = 1)
+        {
+            add_filter($hook, array($this, $callback), $priority, $args);
+        }
+        protected function remove_action($hook, $callback, $priority = 10, $args = 1)
+        {
+            add_action($hook, array($this, $callback), $priority, $args);
+        }
+        protected function remove_filter($hook, $callback, $priority = 10, $args = 1)
+        {
+            add_filter($hook, array($this, $callback), $priority, $args);
+        }
+        //设置页简化调用
+        public static function new_opt($conf = array())
+        {
+            if (!is_array($conf) || empty($conf))
+                return;
+
+            //缓存模式
+            if (self::$cache_mode) {
+                self::cache_all_default($conf['fields'], $conf['slug']);
+                //刷新缓存表单
+                self::$cache_load = false;
+            }
+            //print_r(self::$cache_tab_option);
+
+            //单独提取组件数组用于调用
+            return new AYA_Framework_Options_Page($conf['fields'], $conf);
         }
         //分类Metabox键简化调用
         public static function new_tex($conf = array())

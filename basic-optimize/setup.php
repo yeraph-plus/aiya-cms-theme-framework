@@ -7,7 +7,7 @@ if (!class_exists('AYP')) {
     require_once (__DIR__) . '/plugin-setup.php';
     require_once (__DIR__) . '/plugin-filter-hub.php';
     //实例化
-    class AYP extends AYA_Theme_Setup
+    class AYP extends AYA_Plugin_Setup
     {
         private static $instance;
 
@@ -16,13 +16,15 @@ if (!class_exists('AYP')) {
             if (is_null(self::$instance)) {
                 self::$instance = new self();
             }
+
             return self::$instance;
         }
     }
+
     //启动
     AYP::instance();
-    //加载插件组
-    AYP::include_plugins('plugin');
+    //include
+    AYP::include_plugins();
     //加载插件设置
     include_once (__DIR__) . '/plugin-config-parent.php';
     include_once (__DIR__) . '/plugin-config.php';

@@ -74,13 +74,6 @@ $AYF_OPTIMIZE_FIELDS = array(
         'default' => false,
     ),
     array(
-        'title' => '验证 REST-API 请求来源',
-        'desc' => '不禁用 REST-API 接口，但在 REST-API 内部添加来源验证',
-        'id' => 'add_rest_api_referer_verify',
-        'type' => 'switch',
-        'default' => true,
-    ),
-    array(
         'title' => '禁用 Feed ',
         'desc' => '禁用 Feed 功能 （RSS），启用后访问此接口会返回报错',
         'id' => 'disable_feed',
