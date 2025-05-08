@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
  * Plugin Name: AIYA-Optimize 优化插件
  * Plugin URI: https://www.yeraph.com/
  * Description: 又一款WordPress优化插件
- * Version: 1.2.4
+ * Version: 2.0.1
  * Author: Yeraph Studio
  * Author URI: https://www.yeraph.com/
  * License: GPLv3 or later
@@ -16,8 +16,8 @@ if (!defined('ABSPATH')) exit;
 
 //在插件中加载时，兼容WP的权限验证
 if (!function_exists('is_user_logged_in')) require_once(ABSPATH . WPINC . '/pluggable.php');
-//用于识别插件存在
-define('AYF_RELEASE', '1.2');
+
+define('AYF_RELEASE', '2.0');
 
 //引入设置框架
 require_once plugin_dir_path(__FILE__) . 'framework-required/setup.php';

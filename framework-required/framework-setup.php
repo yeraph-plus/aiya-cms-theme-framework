@@ -131,10 +131,6 @@ if (!class_exists('AYA_Framework_Setup')) {
                 $relative_dir = ltrim(str_replace($theme_dir, '', $current_dir), '');
                 return trailingslashit(get_stylesheet_directory_uri()) . trailingslashit($relative_dir);
             }
-            //在AIYA-CMS主题加载
-            elseif (defined('AYA_PATH')) {
-                return AYA_URI . '/plugins/framework-required';
-            }
             //其他情况
             else {
                 return untrailingslashit($current_dir);
@@ -373,5 +369,5 @@ if (!class_exists('AYA_Framework_Setup')) {
     }
 }
 //不防君子签名术
-//define('AYA_NAME_FILE', 'L3N0eWxlLmNzcw');
-//define('AYA_NAME_SIGN', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
+define('AYA_NAME_FILE', 'L3N0eWxlLmNzcw');
+define('AYA_NAME_SIGN', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
