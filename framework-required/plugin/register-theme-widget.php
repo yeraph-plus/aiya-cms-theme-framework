@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 注册主题小工具 注销主题小工具
+ * AIYA-Framework 组件 注册主题小工具插件&注销主题小工具插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -20,8 +22,9 @@ class AYA_Plugin_Widget_Load extends AYA_Framework_Setup
 
     public function __construct($args)
     {
-        if (!is_array($args)) return;
-        
+        if (!is_array($args))
+            return;
+
         $this->register_widgets = $args;
     }
 
@@ -34,7 +37,8 @@ class AYA_Plugin_Widget_Load extends AYA_Framework_Setup
     {
         $widgets = $this->register_widgets;
 
-        if (parent::inspect($widgets)) return;
+        if (parent::inspect($widgets))
+            return;
 
         //循环
         foreach ($widgets as $widget) {
@@ -49,8 +53,9 @@ class AYA_Plugin_Widget_Unload extends AYA_Framework_Setup
 
     public function __construct($args)
     {
-        if (!is_array($args)) return;
-        
+        if (!is_array($args))
+            return;
+
         $this->unload_widgets = $args;
     }
 
@@ -63,7 +68,8 @@ class AYA_Plugin_Widget_Unload extends AYA_Framework_Setup
     {
         $widgets = $this->unload_widgets;
 
-        if (parent::inspect($widgets)) return;
+        if (parent::inspect($widgets))
+            return;
 
         //循环
         foreach ($widgets as $widget) {

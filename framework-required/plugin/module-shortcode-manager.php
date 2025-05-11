@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * AIYA-CMS Theme Options Framework 短代码弹窗编辑器插件
  * 
@@ -105,7 +109,7 @@ if (!class_exists('AYA_Shortcode')) {
             }
             $screen_inline = '#TB_inline?width=1000&height=1000&inlineId=insert-shortcode-button';
 
-            echo '<a id="scodedit-button" class="thickbox button" href="' . $screen_inline . '"><span class="dashicons dashicons-shortcode"></span> ' . __('Add Shortcode') . '</a>';
+            echo '<a id="scodedit-button" class="thickbox button" href="' . $screen_inline . '"><span class="dashicons dashicons-shortcode"></span> ' . __('简码编辑器', 'AIYA_FRAMEWORK') . '</a>';
         }
         //弹窗
         public static function shortcode_popup_html()
@@ -128,9 +132,9 @@ if (!class_exists('AYA_Shortcode')) {
             $html .= '<div id="insert-shortcode-button" style="display: none;"><div class="scodedit-wrap">';
             //外层select
             $html .= '<div class="scodedit-parent-select">';
-            $html .= '<h3>' . __('Select the ShortCode') . '</h3>';
-            //$html .= '<label for="scodedit-parent">' . __('Select the ShortCode') . '</label>';
-            $html .= '<select name="scodedit-parent" id="select-scodedit-shortcode"><option>' . __('Cancel Type') . '</option>';
+            $html .= '<h3>' . __('选择…', 'AIYA_FRAMEWORK') . '</h3>';
+            //$html .= '<label for="scodedit-parent">' . __('选择…', 'AIYA_FRAMEWORK') . '</label>';
+            $html .= '<select name="scodedit-parent" id="select-scodedit-shortcode"><option>' . __('NULL', 'AIYA_FRAMEWORK') . '</option>';
             //从监听数组中遍历
             foreach ($shortcode as $short) {
                 $html .= '<option data-title="' . $short['title'] . '" value="' . $short['id'] . '">' . $short['title'] . '</option>';
@@ -164,8 +168,8 @@ if (!class_exists('AYA_Shortcode')) {
 
             //保存按钮
             $html .= '<div class="submit_button">';
-            $html .= '<input type="button" id="scodedit-insert-shortcode" class="button-primary" value="' .  __('Add') . '" onclick="scodeditInsertShortcode();" />';
-            $html .= '<a href="#" id="scodedit-cancel-shortcode" class="button-secondary scodedit-cancel-shortcode" onclick="tb_remove()">' . __('Cancel') . '</a>';
+            $html .= '<input type="button" id="scodedit-insert-shortcode" class="button-primary" value="' .  __('添加', 'AIYA_FRAMEWORK') . '" onclick="scodeditInsertShortcode();" />';
+            $html .= '<a href="#" id="scodedit-cancel-shortcode" class="button-secondary scodedit-cancel-shortcode" onclick="tb_remove()">' . __('取消', 'AIYA_FRAMEWORK') . '</a>';
             $html .= '</div>';
 
             $html .= '</div></div>';

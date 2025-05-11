@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 自定义单页和路由模板
+ * AIYA-Framework 组件 自定义单页和路由模板插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/

@@ -1,6 +1,9 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 
 /**
  * AIYA-Framework 组件 生成分页链接
@@ -48,14 +51,14 @@ class AYA_Plugin_Pagination_link_In_Array
 
         //生成统计信息
         if ($wp_query->is_front_page() || $wp_query->is_archive()) {
-            $total_info = sprintf(__('第%1$s页，共%2$s页。', 'AIYA'), $paged, $max_num_page);
+            $total_info = sprintf(__('第%1$s页，共%2$s页。', 'AIYA_FRAMEWORK'), $paged, $max_num_page);
         }
         //搜索
         else if ($wp_query->is_search()) {
             //根据页码计算项目次序
             $show_item_from = ($paged - 1) * $posts_per_page + 1;
             $show_item_to = $paged * $posts_per_page;
-            $total_info = sprintf(__('共有%1$s条结果，当前为第%2$s条到%3$s条。', 'AIYA'), $total_posts, $show_item_from, $show_item_to);
+            $total_info = sprintf(__('共有%1$s条结果，当前为第%2$s条到%3$s条。', 'AIYA_FRAMEWORK'), $total_posts, $show_item_from, $show_item_to);
         } else {
             $total_info = '';
         }
@@ -65,14 +68,14 @@ class AYA_Plugin_Pagination_link_In_Array
 
         //首页
         $paged_array['page_home'] = array(
-            'text' =>  __('Home', 'AIYA'),
+            'text' =>  __('回首页', 'AIYA_FRAMEWORK'),
             'link' => get_pagenum_link(1),
             'event_none' => (3 > $paged) ? true : false,
             'is_active' => (1 == $paged) ? true : false,
         );
         //上页
         $paged_array['page_prev'] = array(
-            'text' => __('⭠ Prev', 'AIYA'),
+            'text' => __('上一页', 'AIYA_FRAMEWORK'),
             'link' => get_pagenum_link($paged - 1),
             'event_none' => (1 == $paged) ? true : false,
             'is_active' => false,
@@ -192,7 +195,7 @@ class AYA_Plugin_Pagination_link_In_Array
         //下页
         $paged_array['page_next'] = array(
             'link' => get_pagenum_link($paged + 1),
-            'text' => __('Next ⭢', 'AIYA'),
+            'text' => __('下一页', 'AIYA_FRAMEWORK'),
             'event_none' => ($max_num_page == $paged) ? true : false,
             'is_active' => false,
         );

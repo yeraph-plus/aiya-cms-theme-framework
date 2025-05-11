@@ -1,5 +1,8 @@
 <?php
-if (!defined('ABSPATH')) exit;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * AIYA-CMS Theme Options Framework 小工具的简化构造器
@@ -117,7 +120,8 @@ if (!class_exists('AYA_Widget')) {
             //$mobile_hide = isset($instance['mobile_hide']) && $instance['mobile_hide'] == 1 ? 'mobile-hide' : '';
 
             //判断是否为移动端
-            if (wp_is_mobile() && $instance['mobile_hide'] == 'true') return '';
+            if (wp_is_mobile() && $instance['mobile_hide'] == 'true')
+                return '';
 
             echo $before_widget;
 
@@ -138,7 +142,7 @@ if (!class_exists('AYA_Widget')) {
                 $title_type = isset($instance['title']) ? $instance['title'] : '';
 
                 echo '<p>';
-                echo '<label for="' . $this->get_field_id('title') . '">' . __('Title:', 'AIYA-CMS') . '</label>';
+                echo '<label for="' . $this->get_field_id('title') . '">' . __('标题：', 'AIYA_FRAMEWORK') . '</label>';
                 echo '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title_type) . '" />';
                 echo '</p>';
             }
@@ -167,7 +171,8 @@ if (!class_exists('AYA_Widget')) {
                 }
                 //下拉框
                 elseif ($field['type'] == 'select') {
-                    if (empty($field['sub'])) continue; //找不到sub则跳过
+                    if (empty($field['sub']))
+                        continue; //找不到sub则跳过
 
                     echo '<label for="' . $this->get_field_id($field_id) . '"> ' . $field['name'] . '</label>';
                     echo '<select class="widefat" id="' . $this->get_field_id($field_id) . '" name="' . $this->get_field_name($field_id) . '" >';
@@ -188,7 +193,7 @@ if (!class_exists('AYA_Widget')) {
                 echo '<p>';
                 echo '<label>';
                 echo '<input class="widefat" id="' . $this->get_field_id('mobile_hide') . '" name="' . $this->get_field_name('mobile_hide') . '" type="checkbox" value="true" ' . checked($mobile_checked, 'true', false) . ' />';
-                echo "\n" . __('移动端不显示这个小工具');
+                echo "\n" . __('移动端不显示这个小工具', 'AIYA_FRAMEWORK');
                 echo '</label>';
                 echo '</p>';
             }

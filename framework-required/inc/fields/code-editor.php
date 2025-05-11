@@ -1,7 +1,9 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Field_Action')) exit;
+//防止错位加载
+if (!defined('ABSPATH') || !class_exists('AYA_Field_Action')) {
+    exit;
+}
 
 /**
  * 嵌入codemirror编辑器
@@ -16,10 +18,10 @@ class AYA_Option_Fired_code_editor extends AYA_Field_Action
     {
         if (empty($field['settings']) || !is_array($field['settings'])) {
             $field['settings'] = array(
-                'lineNumbers'   => true, //显示行号
-                'tabSize'       => 2,
-                'theme'         => 'monokai', //主题
-                'mode'          => 'htmlmixed', //HMTL混合模式
+                'lineNumbers' => true, //显示行号
+                'tabSize' => 2,
+                'theme' => 'monokai', //主题
+                'mode' => 'htmlmixed', //HMTL混合模式
             );
         }
 

@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 拓展 文章点赞计数器
+ * AIYA-Framework 拓展 文章点赞计数插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/

@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 创建自定义文章类型
+ * AIYA-Framework 组件 创建自定义文章类型插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -21,7 +23,8 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
 
     public function __construct($args, $rewrite_static = true)
     {
-        if (!is_array($args)) return;
+        if (!is_array($args))
+            return;
 
         $this->register_post_type = $args;
 
@@ -57,7 +60,8 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
 
     public function aya_theme_register_post_type()
     {
-        if (parent::inspect($this->register_post_type)) return;
+        if (parent::inspect($this->register_post_type))
+            return;
 
         //循环
         foreach ($this->register_post_type as $type => $type_args) {
@@ -73,14 +77,14 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
             $labels = array(
                 'name' => $name,
                 'singular_name' => $name,
-                'add_new' => __('发表') . $name,
-                'add_new_item' => __('发表') . $name,
-                'edit_item' => __('编辑') . $name,
-                'new_item' => __('新') . $name,
-                'view_item' => __('查看') . $name,
-                'search_items' => __('搜索') . $name,
-                'not_found' => __('暂无') . $name,
-                'not_found_in_trash' => __('没有已删除的') . $name,
+                'add_new' => __('发表', 'AIYA_FRAMEWORK') . $name,
+                'add_new_item' => __('发表', 'AIYA_FRAMEWORK') . $name,
+                'edit_item' => __('编辑', 'AIYA_FRAMEWORK') . $name,
+                'new_item' => __('新', 'AIYA_FRAMEWORK') . $name,
+                'view_item' => __('查看', 'AIYA_FRAMEWORK') . $name,
+                'search_items' => __('搜索', 'AIYA_FRAMEWORK') . $name,
+                'not_found' => __('暂无', 'AIYA_FRAMEWORK') . $name,
+                'not_found_in_trash' => __('没有已删除的', 'AIYA_FRAMEWORK') . $name,
                 'parent_item_colon' => '',
                 'menu_name' => $name,
             );

@@ -1,5 +1,8 @@
 <?php
-if (!defined('ABSPATH')) exit;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * AIYA-CMS Theme Options Framework 创建Taxonomy额外字段
@@ -83,9 +86,12 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
                 //重排组件结构
                 $add_class = '';
 
-                if ($option['type'] == 'color') $add_class = ' framework-color-picker';
-                if ($option['type'] == 'switch') $add_class = ' framework-switcher';
-                if ($option['type'] == 'upload') $add_class = ' framework-upload';
+                if ($option['type'] == 'color')
+                    $add_class = ' framework-color-picker';
+                if ($option['type'] == 'switch')
+                    $add_class = ' framework-switcher';
+                if ($option['type'] == 'upload')
+                    $add_class = ' framework-upload';
                 $html = '';
                 $html .= '<tr class="section-' . $option['type'] . $add_class . '"><th scope="row">';
                 $html .= '<label for="' . $option['id'] . '">' . $option['title'] . '</label>';
@@ -101,7 +107,8 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
         function save_taxonomy_field($term_id)
         {
             //用户权限检查
-            if (!current_user_can('manage_categories')) return;
+            if (!current_user_can('manage_categories'))
+                return;
 
             foreach ($this->options as $option) {
 

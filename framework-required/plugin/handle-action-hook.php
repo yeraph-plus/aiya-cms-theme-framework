@@ -1,5 +1,8 @@
 <?php
-if (!defined('ABSPATH')) exit;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * AIYA-CMS Theme Options Framework 事件调度器

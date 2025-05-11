@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 创建自定义分类法
+ * AIYA-Framework 组件 创建自定义分类法插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -20,7 +22,8 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Framework_Setup
 
     public function __construct($args)
     {
-        if (!is_array($args)) return;
+        if (!is_array($args))
+            return;
 
         $this->register_taxonomy = $args;
     }
@@ -31,7 +34,8 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Framework_Setup
     }
     function aya_theme_register_register_taxonomy()
     {
-        if (parent::inspect($this->register_taxonomy)) return;
+        if (parent::inspect($this->register_taxonomy))
+            return;
 
         //循环
         foreach ($this->register_taxonomy as $tax => $tax_args) {
@@ -45,14 +49,14 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Framework_Setup
             $labels = array(
                 'name' => $tax_name,
                 'singular_name' => $tax_name,
-                'search_items' => __('搜索') . $tax_name,
-                'all_items' => __('所有') . $tax_name,
-                'parent_item' => __('父级') . $tax_name,
-                'parent_item_colon' => __('父级') . $tax_name,
-                'edit_item' => __('编辑') . $tax_name,
-                'update_item' => __('更新') . $tax_name,
-                'add_new_item' => __('添加新') . $tax_name,
-                'new_item_name' => __('新') . $tax_name . __('名称'),
+                'search_items' => __('搜索', 'AIYA_FRAMEWORK') . $tax_name,
+                'all_items' => __('所有', 'AIYA_FRAMEWORK') . $tax_name,
+                'parent_item' => __('父级', 'AIYA_FRAMEWORK') . $tax_name,
+                'parent_item_colon' => __('父级', 'AIYA_FRAMEWORK') . $tax_name,
+                'edit_item' => __('编辑', 'AIYA_FRAMEWORK') . $tax_name,
+                'update_item' => __('更新', 'AIYA_FRAMEWORK') . $tax_name,
+                'add_new_item' => __('添加新', 'AIYA_FRAMEWORK') . $tax_name,
+                'new_item_name' => __('新', 'AIYA_FRAMEWORK') . $tax_name . __('名称', 'AIYA_FRAMEWORK'),
                 'menu_name' => $tax_name,
             );
             $args_tax = array(

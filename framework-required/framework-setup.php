@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('ABSPATH'))
+if (!defined('ABSPATH')) {
     exit;
+}
 
 /**
  * AIYA-CMS Theme Options Framework 加载框架文件
@@ -65,6 +66,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         //引入框架
         public function include_inc()
         {
+            //框架主程序
             require (__DIR__) . '/inc/framework-build-fields.php';
             require (__DIR__) . '/inc/framework-option-page.php';
             require (__DIR__) . '/inc/framework-metabox-post.php';

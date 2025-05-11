@@ -1,6 +1,9 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 
 /**
  * AIYA-Framework 组件 重定义WP的文章Meta数据模板
@@ -61,7 +64,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
 
         //检查文章标题
         if (strlen($the_title) === 0) {
-            $the_title = __('无标题', 'AIYA');
+            $the_title = __('无标题', 'AIYA_FRAMEWORK');
         }
         //是否转义
         if ($attribute == true) {
@@ -94,22 +97,22 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
         //返回文本
         switch ($the_status) {
             case 'publish':
-                //return __('已发布', 'AIYA');
+                //return __('已发布', 'AIYA_FRAMEWORK');
                 return '';
             case 'pending':
-                return __('待审', 'AIYA');
+                return __('待审', 'AIYA_FRAMEWORK');
             case 'future':
-                return __('定时发布', 'AIYA');
+                return __('定时发布', 'AIYA_FRAMEWORK');
             case 'private':
-                return __('私密文章', 'AIYA');
+                return __('私密文章', 'AIYA_FRAMEWORK');
             case 'draft':
-                return __('草稿', 'AIYA');
+                return __('草稿', 'AIYA_FRAMEWORK');
             case 'auto-draft':
-                return __('自动保存的草稿', 'AIYA');
+                return __('自动保存的草稿', 'AIYA_FRAMEWORK');
             case 'inherit':
-                return __('修订版本', 'AIYA');
+                return __('修订版本', 'AIYA_FRAMEWORK');
             case 'trash':
-                return __('已删除', 'AIYA');
+                return __('已删除', 'AIYA_FRAMEWORK');
             default:
                 return '';
         }
@@ -223,7 +226,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
 
         //如果文章加密
         if (post_password_required($post)) {
-            return __('这篇文章受密码保护，输入密码才能阅读。', 'AIYA');
+            return __('这篇文章受密码保护，输入密码才能阅读。', 'AIYA_FRAMEWORK');
         }
 
         //如果用户设置了摘要，则直接输出摘要内容
@@ -246,7 +249,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
 
         //再次检查摘要是否为空
         if (empty($the_preview)) {
-            return __('这篇文章没有摘要内容。', 'AIYA');
+            return __('这篇文章没有摘要内容。', 'AIYA_FRAMEWORK');
         } else {
             return $the_preview;
         }
@@ -256,7 +259,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
     public function aya_diff_timeago($time)
     {
         //更新：使用WordPress内置方法
-        return human_time_diff($time, current_time('timestamp')) . __('前', 'AIYA');
+        return human_time_diff($time, current_time('timestamp')) . __('前', 'AIYA_FRAMEWORK');
     }
 
     //获取文章发布时间
@@ -273,7 +276,7 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
         switch ($modified) {
             case 'full':
                 $modified_time = get_post_modified_time('U', false, $post, true);
-                return date($date_format, $publish_time) . __(' [ 上次更新于 ', 'AIYA') . self::aya_diff_timeago($modified_time) . __(' ]', 'AIYA');
+                return date($date_format, $publish_time) . __(' [ 上次更新于 ', 'AIYA_FRAMEWORK') . self::aya_diff_timeago($modified_time) . __(' ]', 'AIYA_FRAMEWORK');
             case 'short':
                 return date($date_format, $publish_time);
             case 'timeago':
@@ -294,9 +297,9 @@ class AYA_Plugin_Data_Template_Of_Post_Meta
 
         if ($modified == true) {
             if ($the_comment_count > 0) {
-                return $the_comment_count . __('条评论', 'AIYA');
+                return $the_comment_count . __('条评论', 'AIYA_FRAMEWORK');
             } else {
-                return __('无人评论', 'AIYA');
+                return __('无人评论', 'AIYA_FRAMEWORK');
             }
         } else {
             return empty($the_comment_count) ? 0 : $the_comment_count;

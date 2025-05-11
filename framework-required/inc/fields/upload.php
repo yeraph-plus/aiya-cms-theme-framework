@@ -1,7 +1,9 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Field_Action')) exit;
+//防止错位加载
+if (!defined('ABSPATH') || !class_exists('AYA_Field_Action')) {
+    exit;
+}
 
 /**
  * 嵌入文件管理器
@@ -30,7 +32,7 @@ class AYA_Option_Fired_upload extends AYA_Field_Action
     public function upload($field)
     {
         //检查按钮文本
-        $button_text = (empty($field['button_text'])) ? __('Upload') : $field['button_text'];
+        $button_text = (empty($field['button_text'])) ? __('上传', 'AIYA_FRAMEWORK') : $field['button_text'];
 
         //定义格式
         $format = '<input type="text" id="%s" name="%s" value="%s" class="quick-upload-input autowidth" />';

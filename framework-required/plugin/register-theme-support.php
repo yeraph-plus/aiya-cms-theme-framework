@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 注册主题功能/after_setup_theme
+ * AIYA-Framework 组件 注册主题功能插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -20,8 +22,9 @@ class AYA_Plugin_After_Setup_Theme extends AYA_Framework_Setup
 
     public function __construct($args)
     {
-        if (!is_array($args)) return;
-        
+        if (!is_array($args))
+            return;
+
         $this->register_theme_support = $args;
     }
 

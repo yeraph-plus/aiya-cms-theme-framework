@@ -1,9 +1,9 @@
 <?php
-if (!defined('ABSPATH'))
-    exit;
 
-if (!class_exists('AYA_Field_Action'))
+//防止错位加载
+if (!defined('ABSPATH') || !class_exists('AYA_Field_Action')) {
     exit;
+}
 
 /**
  * 编组循环调用
@@ -53,7 +53,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
             //加载方法
             $html .= parent::field_mult($sub_field, true);
         }
-        $html .= '<a href="#" class="del-item">' . __('Delete') . '</a>';
+        $html .= '<a href="#" class="del-item">' . __('删除', 'AIYA_FRAMEWORK') . '</a>';
         $html .= '</div>';
         $html .= '</template>';
 
@@ -69,7 +69,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
                 //跳过重复创建
                 if ($sub_field['type'] == 'group' || $sub_field['type'] == 'group_mult' || $sub_field['type'] == 'tinymce') {
                     //报错
-                    parent::out_error(__('This field can not built duplicate creation.'));
+                    parent::out_error(__('此字段无法生成重复创建。', 'AIYA_FRAMEWORK'));
 
                     continue;
                 }
@@ -85,11 +85,11 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
                 $html .= parent::field_mult($sub_field, true);
             }
 
-            $html .= '<a href="#" class="del-item">' . __('Delete') . '</a>';
+            $html .= '<a href="#" class="del-item">' . __('删除', 'AIYA_FRAMEWORK') . '</a>';
             $html .= '</div>';
         }
 
-        $html .= '<a href="#" class="add-item button-secondary" data-group-name="' . $field['id'] . '">' . __('Add') . '</a>';
+        $html .= '<a href="#" class="add-item button-secondary" data-group-name="' . $field['id'] . '">' . __('新增', 'AIYA_FRAMEWORK') . '</a>';
 
         $html .= '</div>';
 

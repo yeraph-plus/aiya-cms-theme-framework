@@ -1,8 +1,9 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
 //防止错位加载
-if (!class_exists('AYA_Framework_Setup')) exit;
+if (!defined('ABSPATH') || !class_exists('AYA_Framework_Setup')) {
+    exit;
+}
 
 /**
  * AIYA-CMS Theme Options Framework 组件方法构造
@@ -59,11 +60,11 @@ if (!class_exists('AYA_Field_Action')) {
                     echo $class->action($field);
                 } else {
                     //报错
-                    self::out_error(__('Field not found "type" : ') . print($field));
+                    self::out_error(__('字段参数 "type" 不存在：', 'AIYA_FRAMEWORK') . print ($field));
                 }
             } else {
                 //报错
-                self::out_error(__('Field not found "id" : ') . $field['type']);
+                self::out_error(__('字段参数 "id" 不存在：', 'AIYA_FRAMEWORK') . $field['type']);
             }
         }
         //内部调用
@@ -171,8 +172,10 @@ if (!class_exists('AYA_Field_Action')) {
             $desc = preg_replace('/\[s\](.*?)\[\/s\]/', '<del>$1</del>', $desc);
             $desc = preg_replace('/\[code\](.*?)\[\/code\]/', '<code>$1</code>', $desc);
             $desc = preg_replace('/\[pre\](.*?)\[\/pre\]/', '<pre>$1</pre>', $desc);
-            $desc = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/', '<a href="$1" target="_blank">$2</a>',$desc);;
-            $desc = preg_replace('/\[del\](.*?)\[\/del\]/', '<del>$1</del>',$desc);;
+            $desc = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/', '<a href="$1" target="_blank">$2</a>', $desc);
+            ;
+            $desc = preg_replace('/\[del\](.*?)\[\/del\]/', '<del>$1</del>', $desc);
+            ;
 
             return $desc;
         }
@@ -182,23 +185,23 @@ if (!class_exists('AYA_Field_Action')) {
             switch ($type) {
                 case 'name':
                     //只包含字母跟空格
-                    $err = (!preg_match("/^[a-zA-Z ]*$/", $value)) ? __('Only letters and white space allowed') : '';
+                    $err = (!preg_match("/^[a-zA-Z ]*$/", $value)) ? __('只允许使用字母和空格', 'AIYA_FRAMEWORK') : '';
                     break;
                 case 'email':
                     //检查邮箱合法性
-                    $err = (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $value)) ? __('Invalid email format') : '';
+                    $err = (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $value)) ? __('只允许邮箱地址', 'AIYA_FRAMEWORK') : '';
                     break;
                 case 'url':
                     //检查URL合法性
-                    $err = (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value)) ? __('Invalid url format') : '';
+                    $err = (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value)) ? __('只允许URL地址', 'AIYA_FRAMEWORK') : '';
                     break;
                 case 'number':
                     //检查是否为数字
-                    $err = (is_numeric($value)) ? '' : __('Invalid number format');
+                    $err = (is_numeric($value)) ? '' : __('只允许数字', 'AIYA_FRAMEWORK');
                     break;
                 case 'required':
                     //检查是否为空
-                    $err = empty($value == '') ? __('This is required') : '';
+                    $err = empty($value == '') ? __('不能为空', 'AIYA_FRAMEWORK') : '';
                 default:
                     $err = '';
                     break;
@@ -223,7 +226,8 @@ if (!class_exists('AYA_Field_Action')) {
         //选择器的查询方法
         private static function select_entries($value)
         {
-            if ($value == '') return;
+            if ($value == '')
+                return;
 
             //获取所有可显示的Taxonomy
             $taxonomies_names = get_taxonomies(array('show_ui' => true, '_builtin' => false), 'names');

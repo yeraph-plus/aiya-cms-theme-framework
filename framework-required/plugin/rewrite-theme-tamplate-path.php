@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 自定义主题模板和路由
+ * AIYA-Framework 组件 自定义主题模板和路由插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -69,7 +71,8 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
     //自定义查询模板
     public function aya_query_template($type, $templates = array())
     {
-        if (empty($type) || is_array($type)) return '';
+        if (empty($type) || is_array($type))
+            return '';
 
         $new_template_path = $this->template_path . '/';
 
@@ -88,23 +91,23 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
     {
         //From wp-includes/template-loader.php
         $tag_templates = array(
-            'is_embed'             => 'aya_embed_template',
-            'is_404'               => 'aya_404_template',
-            'is_search'            => 'aya_search_template',
-            'is_front_page'        => 'aya_front_page_template',
-            'is_home'              => 'aya_home_template',
-            'is_privacy_policy'    => 'aya_privacy_policy_template',
+            'is_embed' => 'aya_embed_template',
+            'is_404' => 'aya_404_template',
+            'is_search' => 'aya_search_template',
+            'is_front_page' => 'aya_front_page_template',
+            'is_home' => 'aya_home_template',
+            'is_privacy_policy' => 'aya_privacy_policy_template',
             'is_post_type_archive' => 'aya_post_type_archive_template',
-            'is_tax'               => 'aya_taxonomy_template',
-            'is_attachment'        => 'aya_attachment_template',
-            'is_single'            => 'aya_single_template',
-            'is_page'              => 'aya_page_template',
-            'is_singular'          => 'aya_singular_template',
-            'is_category'          => 'aya_category_template',
-            'is_tag'               => 'aya_tag_template',
-            'is_author'            => 'aya_author_template',
-            'is_date'              => 'aya_date_template',
-            'is_archive'           => 'aya_archive_template',
+            'is_tax' => 'aya_taxonomy_template',
+            'is_attachment' => 'aya_attachment_template',
+            'is_single' => 'aya_single_template',
+            'is_page' => 'aya_page_template',
+            'is_singular' => 'aya_singular_template',
+            'is_category' => 'aya_category_template',
+            'is_tag' => 'aya_tag_template',
+            'is_author' => 'aya_author_template',
+            'is_date' => 'aya_date_template',
+            'is_archive' => 'aya_archive_template',
         );
         $template = false;
 

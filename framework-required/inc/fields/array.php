@@ -1,7 +1,9 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Field_Action')) exit;
+//防止错位加载
+if (!defined('ABSPATH') || !class_exists('AYA_Field_Action')) {
+    exit;
+}
 
 /**
  * 输入框生成数组

@@ -1,7 +1,9 @@
 <?php
-if (!defined('ABSPATH')) exit;
 
-if (!class_exists('AYA_Field_Action')) exit;
+//防止错位加载
+if (!defined('ABSPATH') || !class_exists('AYA_Field_Action')) {
+    exit;
+}
 
 /**
  * 编组
@@ -19,7 +21,7 @@ class AYA_Option_Fired_group extends AYA_Field_Action
         //检查数据
         if (empty($field['sub_type']) || !is_array($field['sub_type'])) {
             //报错
-            parent::out_error(__('Could not be built "group" in one loop.'));
+            parent::out_error(__('设置组字段参数 "sub_type" 不存在。', 'AIYA_FRAMEWORK'));
 
             $field['sub_type'] = array();
         }
@@ -40,7 +42,7 @@ class AYA_Option_Fired_group extends AYA_Field_Action
             //跳过重复创建
             if ($sub_field['type'] == 'group') {
                 //报错
-                parent::out_error(__('Could not be built "group" in one loop.'));
+                parent::out_error(__('无法在一次循环中多次创建设置组。', 'AIYA_FRAMEWORK'));
 
                 continue;
             }

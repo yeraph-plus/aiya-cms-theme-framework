@@ -1,6 +1,9 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 
 /**
  * AIYA-Framework 组件 直接提取WP的菜单数据结构到数组

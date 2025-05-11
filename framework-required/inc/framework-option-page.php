@@ -1,5 +1,8 @@
 <?php
-if (!defined('ABSPATH')) exit;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * AIYA-CMS Theme Options Framework 创建设置页面
@@ -50,8 +53,8 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $default = [
                 'slug' => 'settings',
                 'icon' => 'dashicons-admin-generic',
-                'title' => __('Settings'),
-                'page_title' => __('Settings'),
+                'title' => __('设置', 'AIYA_FRAMEWORK'),
+                'page_title' => __('设置', 'AIYA_FRAMEWORK'),
                 'parent' => '',
             ];
 
@@ -104,9 +107,9 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $slug_prefix = 'aya-options-';
 
             if ($this->menu_parent_slug == '') {
-                add_menu_page($this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 81);
+                add_menu_page($this->menu_page_title, $this->menu_title, $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), $this->menu_icon, 81);
             } else {
-                add_submenu_page($slug_prefix . $this->menu_parent_slug, $this->menu_page_title, $this->menu_title,  $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), 99);
+                add_submenu_page($slug_prefix . $this->menu_parent_slug, $this->menu_page_title, $this->menu_title, $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), 99);
             }
         }
         //检查多站点设置
@@ -184,10 +187,11 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             //设置表键名
             $saved_key = $this->option_saved_key;
             //验证用户是否为管理员
-            if (!current_user_can('manage_options')) return;
+            if (!current_user_can('manage_options'))
+                return;
 
             //获取设置数据
-            $new_value  = $this->saved_value;
+            $new_value = $this->saved_value;
 
             //检查From表单
             if (isset($_REQUEST['aya_option_field']) && check_admin_referer('aya_option_action', 'aya_option_field')) {
@@ -200,7 +204,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                         delete_option($saved_key);
                     }
                     //提示
-                    $this->saved_message = __('Options reseted.');
+                    $this->saved_message = __('已重置所有设置。', 'AIYA_FRAMEWORK');
                 }
                 //存入新数据
                 if (!empty($_POST['aya_option_submit'])) {
@@ -259,10 +263,10 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                             update_option($saved_key, $new_value);
                         }
                         //提示
-                        $this->saved_message = __('Options saved.');
+                        $this->saved_message = __('设置已保存。', 'AIYA_FRAMEWORK');
                     } else {
                         //提示
-                        $this->saved_message = __('Options has already been saved.');
+                        $this->saved_message = __('没有设置被修改。', 'AIYA_FRAMEWORK');
                     }
                 }
             }
@@ -316,8 +320,8 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 //Fix：检索表单的nonce隐藏字段
                 wp_nonce_field('aya_option_action', 'aya_option_field');
 
-                $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary auto-width" value="' . esc_html__('Save Changes') . '" />';
-                $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary auto-width" value="' . esc_html__('Clear') . '" />';
+                $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary auto-width" value="' . esc_html__('保存更改', 'AIYA_FRAMEWORK') . '" />';
+                $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary auto-width" value="' . esc_html__('重置', 'AIYA_FRAMEWORK') . '" />';
 
                 $button_html .= '</div>';
 

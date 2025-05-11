@@ -1,9 +1,11 @@
 <?php
-if (!defined('ABSPATH'))
+
+if (!defined('ABSPATH')) {
     exit;
+}
 
 /**
- * AIYA-CMS Theme Options Framework AJAX方法构造器
+ * AIYA-CMS Theme Options Framework AJAX方法构造
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -15,8 +17,8 @@ if (!defined('ABSPATH'))
  **/
 
 /*
-//Ajax Demo
-class AYA_Ajax_Demo extends AYA_Ajax_Hook
+//Ajax Hook Demo
+class AYA_Ajax_Demo extends AYA_WP_AJAX
 {
     public function ajax_action()
     {
@@ -40,8 +42,8 @@ class AYA_Ajax_Demo extends AYA_Ajax_Hook
 }
 */
 
-if (!class_exists('AYA_Ajax_Hook')) {
-    abstract class AYA_Ajax_Hook
+if (!class_exists('AYA_WP_AJAX')) {
+    abstract class AYA_WP_AJAX
     {
         private $action_name;
         private $callback_func;

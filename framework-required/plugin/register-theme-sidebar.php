@@ -1,9 +1,11 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * AIYA-Framework 组件 注册主题侧边栏位
+ * AIYA-Framework 组件 注册主题侧边栏位插件
  * 
  * Author: Yeraph Studio
  * Author URI: http://www.yeraph.com/
@@ -20,8 +22,9 @@ class AYA_Plugin_Register_Sidebar extends AYA_Framework_Setup
 
     public function __construct($args)
     {
-        if (!is_array($args)) return;
-        
+        if (!is_array($args))
+            return;
+
         $this->register_sidebars = $args;
     }
 
@@ -34,14 +37,15 @@ class AYA_Plugin_Register_Sidebar extends AYA_Framework_Setup
     {
         $sidebars = $this->register_sidebars;
 
-        if (parent::inspect($sidebars)) return;
+        if (parent::inspect($sidebars))
+            return;
 
         //循环
         foreach ($sidebars as $id => $name) {
             register_sidebar(array(
                 'name' => $name,
                 'id' => $id,
-                'description' => $name . __('侧边栏'),
+                'description' => $name . __('小工具', 'AIYA_FRAMEWORK'),
                 'before_widget' => '<aside id="%1$s" class="widget %2$s">',
                 'after_widget' => '</aside>',
                 'before_title' => '<h3 class="widget-title">',

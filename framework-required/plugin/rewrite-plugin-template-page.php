@@ -1,10 +1,11 @@
 <?php
 
-if (!defined('ABSPATH'))
+if (!defined('ABSPATH')) {
     exit;
+}
 
 /**
- * AIYA-Framework 组件 在插件中注册页面模板的方法
+ * AIYA-Framework 组件 在插件中注册页面模板的方法插件
  * 
  * 这个方法不添加页面路由，只是方便从插件中向主题添加页面模板
  * 
