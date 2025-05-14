@@ -82,6 +82,7 @@ if (!class_exists('AYA_Framework_Setup')) {
                 'select',
                 'upload',
                 'array',
+                'hidden',
                 'callback',
                 'switch',
                 'tinymce',

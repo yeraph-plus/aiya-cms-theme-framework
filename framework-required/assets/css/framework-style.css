@@ -142,8 +142,8 @@
 #framework-wrap .framework-content .field-group-warp .group-item .add-item {
   margin: 10px;
 }
-#framework-wrap .framework-content .field-group-warp .form-field .field-label {
-  padding: 0;
+#framework-wrap .framework-content .field-group-warp .form-field {
+  padding: 10px 10px;
 }
 #framework-wrap .framework-content .field-saved-button {
   padding: 20px 15px 10px 15px;
@@ -239,6 +239,9 @@
   font-size: 14px;
   font-weight: 400;
 }
+.framework-section .section-hidden {
+  display: none !important;
+}
 .framework-section .section-switch .quick-switch {
   position: relative;
   display: inline-block;
@@ -312,7 +315,7 @@
 }
 .framework-section .section-group_mult .field-group-warp .form-field,
 .framework-section .section-group .field-group-warp .form-field {
-  padding: 20px 15px !important;
+  padding: 20px 10px;
 }
 .framework-section .section-group_mult .field-group-warp .field-label,
 .framework-section .section-group .field-group-warp .field-label {
