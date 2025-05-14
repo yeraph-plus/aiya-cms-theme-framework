@@ -1,6 +1,8 @@
 <?php
-if (!defined('ABSPATH'))
+
+if (!defined('ABSPATH')) {
     exit;
+}
 
 if (AYF::get_checked('all_plugin_off', 'plugin')) {
     //退出当前脚本
@@ -178,13 +180,6 @@ $AYF_OPTIMIZE_FIELDS = array(
         'id' => 'remove_editor_autosave',
         'type' => 'switch',
         'default' => false,
-    ),
-    array(
-        'title' => ' Sitemap 去除用户列表',
-        'desc' => '禁止站点的 [code]/wp-sitemap.xml[/code] 中生成Users列表',
-        'id' => 'remove_sitemaps_users_provider',
-        'type' => 'switch',
-        'default' => true,
     ),
     array(
         'title' => '后台页面设置为中文',
@@ -424,23 +419,22 @@ $AYF_REQUEST_FIELDS = array(
 //安全性
 $AYF_SECURITY_FIELDS = array(
     array(
-        'desc' => '后台入口权限设置',
+        'desc' => '禁止外部查询用户信息',
         'type' => 'title_2',
     ),
     array(
-        'title' => '验证权限级别',
-        'desc' => '根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页',
-        'id' => 'admin_backend_verify',
-        'type' => 'radio',
-        'sub' => array(
-            'false' => '无限制',
-            //'administrator' => '管理员',
-            //'editor' => '编辑',
-            'author' => '作者',
-            'contributor' => '贡献者',
-            'subscriber' => '订阅者',
-        ),
-        'default' => 'false',
+        'title' => '去除 Sitemap 用户列表',
+        'desc' => '禁止站点的 [code]/wp-sitemap.xml[/code] 中生成Users列表',
+        'id' => 'remove_sitemaps_users_provider',
+        'type' => 'switch',
+        'default' => true,
+    ),
+    array(
+        'title' => '去除 REST-API 用户端点',
+        'desc' => '禁止站点的 [code]/wp-json/wp/v2/users[/code] 中生成Users端点',
+        'id' => 'remove_restapi_users_endpoint',
+        'type' => 'switch',
+        'default' => true,
     ),
     array(
         'desc' => '登录页防护',
@@ -468,16 +462,38 @@ $AYF_SECURITY_FIELDS = array(
         'default' => 'path_login',
     ),
     array(
-        'desc' => '用户验证',
+        'desc' => '后台入口权限调整',
         'type' => 'title_2',
     ),
     array(
-        'desc' => '*注意！开启此选项后如果忘记密码将只能通过 SSH 等其他方式删除或禁用此插件来解除限制',
-        'type' => 'message',
+        'title' => '调整访问后台用户级别',
+        'desc' => '根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页',
+        'id' => 'admin_backend_verify',
+        'type' => 'radio',
+        'sub' => array(
+            'false' => '无限制',
+            //'administrator' => '管理员',
+            //'editor' => '编辑',
+            'author' => '作者',
+            'contributor' => '贡献者',
+            'subscriber' => '订阅者',
+        ),
+        'default' => 'false',
+    ),
+    array(
+        'desc' => '登录验证逻辑调整',
+        'type' => 'title_2',
+    ),
+    array(
+        'title' => '强制使用邮箱登录',
+        'desc' => '修改登录方式仅允许邮箱登录',
+        'id' => 'admin_allow_email_login',
+        'type' => 'switch',
+        'default' => false,
     ),
     array(
         'title' => '禁止管理员找回密码',
-        'desc' => '禁止权限为管理员的用户发起密码找回',
+        'desc' => '禁止权限为管理员的用户发起密码找回[br/]*注意！开启此选项后如果忘记密码将只能通过 SSH 等其他方式删除或禁用此插件来解除限制',
         'id' => 'admin_disallow_password_reset',
         'type' => 'switch',
         'default' => false,
@@ -502,46 +518,7 @@ $AYF_SECURITY_FIELDS = array(
         'id' => 'logged_register_user_name',
         'type' => 'text',
         'default' => 'admin,root',
-    ),
-    array(
-        'desc' => '简单 WAF 防护',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '启用 URL 参数验证',
-        'desc' => '屏蔽一些和站点无关的参数访问，也可以用于防止百度统计刷数据',
-        'id' => 'waf_reject_argument_switch',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '屏蔽参数关键字',
-        'desc' => '接续上一项设置，填写需要屏蔽的 Url 参数关键字，通过 [code],[/code] 分隔',
-        'id' => 'waf_reject_argument_list',
-        'type' => 'text',
-        'default' => 'wd,str',
-    ),
-    array(
-        'title' => '启用 UA 验证',
-        'desc' => '屏蔽一些无用的搜索引擎蜘蛛对网站的页面爬取和防御采集器，节约服务器CPU、内存、带宽的开销',
-        'id' => 'waf_reject_useragent_switch',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '验证 UA 是否为空',
-        'desc' => '禁止空 USER AGENT 访问，[br/]*大部分采集程序都是空 UA ，部分 SQL 注入工具也是空 UA ',
-        'id' => 'waf_reject_useragent_empty',
-        'type' => 'switch',
-        'default' => true,
-    ),
-    array(
-        'title' => '屏蔽 UA 列表',
-        'desc' => '接续上一项设置，填写需要屏蔽的 UA 列表，通过 [code],[/code] 分隔，不区分大小写',
-        'id' => 'waf_reject_useragent_list',
-        'type' => 'textarea',
-        'default' => 'BOT/0.1 (BOT for JCE),HttpClient,WinHttp,Python-urllib,Java,oBot,MJ12bot,Microsoft URL Control,YYSpider,UniversalFeedParser,FeedDemon,CrawlDaddy,Feedly,ApacheBench,Swiftbot,ZmEu,Indy Library,jaunty,AhrefsBot,jikeSpider,EasouSpider,jaunty,lightDeckReports Bot',
-    ),
+    )
 );
 
 AYF::new_opt(
@@ -570,7 +547,7 @@ AYP::action('Request', ayf_plugin_action($AYF_REQUEST_FIELDS, 'request'));
 
 AYF::new_opt(
     array(
-        'title' => '防护功能',
+        'title' => '登录保护',
         'slug' => 'security',
         'parent' => 'plugin',
         'desc' => '禁用或调整一些WordPress内置功能，增加登录和后台访问验证',
@@ -934,6 +911,76 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
     ));
 
     AYP::action('Head_SEO', ayf_plugin_action($AYF_SEO_TDK_FIELDS, 'seo'));
+}
+//WAF组件
+if (AYF::get_checked('plugin_add_ua_firewall', 'plugin')) {
+    $AYF_FIREWALL_FIELDS = array(
+        array(
+            'desc' => '简单 WAF 防护',
+            'type' => 'title_2',
+        ),
+        array(
+            'title' => '启用 URL 参数验证',
+            'desc' => '屏蔽一些和站点无关的参数访问，也可以用于防止百度统计刷数据',
+            'id' => 'waf_reject_argument_switch',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '屏蔽参数关键字',
+            'desc' => '接续上一项设置，填写需要屏蔽的 Url 参数关键字，通过 [code],[/code] 分隔',
+            'id' => 'waf_reject_argument_list',
+            'type' => 'text',
+            'default' => 'wd,str',
+        ),
+        array(
+            'title' => '启用 UA 验证',
+            'desc' => '屏蔽一些无用的搜索引擎蜘蛛对网站的页面爬取和防御采集器，节约服务器CPU、内存、带宽的开销',
+            'id' => 'waf_reject_useragent_switch',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '屏蔽空 UA ',
+            'desc' => '禁止空 USER AGENT 访问，[br/]*大部分采集程序都是空 UA ，部分 SQL 注入工具也是空 UA ',
+            'id' => 'waf_reject_useragent_empty',
+            'type' => 'switch',
+            'default' => true,
+        ),
+        array(
+            'title' => '屏蔽 UA 列表',
+            'desc' => '接续上一项设置，填写需要屏蔽的 UA 列表，通过 [code],[/code] 分隔，不区分大小写',
+            'id' => 'waf_reject_useragent_list',
+            'type' => 'textarea',
+            'default' => 'BOT/0.1 (BOT for JCE),HttpClient,WinHttp,Python-urllib,Java,oBot,MJ12bot,Microsoft URL Control,YYSpider,UniversalFeedParser,FeedDemon,CrawlDaddy,Feedly,ApacheBench,Swiftbot,ZmEu,Indy Library,jaunty,AhrefsBot,jikeSpider,EasouSpider,jaunty,lightDeckReports Bot',
+        ),
+        array(
+            'title' => '启用 IP 验证',
+            'desc' => '禁止某些 IP 访问，使用黑名单模式',
+            'id' => 'waf_reject_ips_switch',
+            'type' => 'switch',
+            'default' => false,
+        ),
+        array(
+            'title' => '屏蔽 IP 列表',
+            'desc' => '接续上一项设置，填写需要屏蔽的 IP 列表，每行一条（支持 IP 段）',
+            'id' => 'waf_reject_ip_list',
+            'type' => 'textarea',
+            'default' => '127.0.0.1' . "\n" . '192.168.1.1',
+        ),
+    );
+
+    AYF::new_opt(
+        array(
+            'title' => 'WAF模块',
+            'slug' => 'firewall',
+            'parent' => 'plugin',
+            'desc' => '基于正则匹配方式的评论过滤组件，阻止垃圾评论',
+            'fields' => $AYF_FIREWALL_FIELDS,
+        )
+    );
+
+    AYP::action('UA_Firewall', ayf_plugin_action($AYF_FIREWALL_FIELDS, 'firewall'));
 }
 //评论过滤器组件
 if (AYF::get_checked('plugin_add_comment_filter', 'plugin')) {

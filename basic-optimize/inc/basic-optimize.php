@@ -289,12 +289,6 @@ class AYA_Plugin_Optimize
                 return 0;
             }, 10, 2);
         }
-        //Sitemap中跳过输出users列表
-        if ($options['remove_sitemaps_users_provider']) {
-            add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
-                return ($name == 'users') ? false : $provider;
-            }, 10, 2);
-        }
         //强制locale加载为中文
         if ($options['admin_page_locale_cn'] == true) {
             add_filter('locale', function ($locale) {

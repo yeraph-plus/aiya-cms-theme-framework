@@ -187,6 +187,13 @@ $AYF_PARENT_FIELDS = array(
         'default' => false,
     ),
     array(
+        'title' => '简单 WAF 防护',
+        'desc' => '基于用户UA、IP、特定参数检测的防火墙功能',
+        'id' => 'plugin_add_ua_firewall',
+        'type' => 'switch',
+        'default' => false,
+    ),
+    array(
         'title' => '垃圾评论过滤',
         'desc' => '基于语法规则的垃圾评论过滤，无需 Akismet 接口',
         'id' => 'plugin_add_comment_filter',

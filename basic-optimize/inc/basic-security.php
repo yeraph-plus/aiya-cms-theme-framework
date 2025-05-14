@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * AIYA-Framework 拓展 WP安全性优化功能插件
@@ -34,6 +35,8 @@ class AYA_Plugin_Security
 
         add_filter('authenticate', array($this, 'aya_theme_logged_disable_admin_user'), 30, 3);
 
+        add_filter('authenticate', array($this, 'aya_theme_allow_email_login'), 20, 3);
+
         //add_action('wp_login_failed', array($this, 'aya_theme_limit_login_attempts'), 10, 1);
         //add_action('wp_login', array($this, 'aya_theme_reset_login_attempts'), 10, 1);
         //add_filter('authenticate', array($this, 'aya_theme_logged_scope_limit_verify'), 10, 3);
@@ -44,21 +47,50 @@ class AYA_Plugin_Security
 
         add_filter('shake_error_codes', array($this, 'aya_theme_logged_shake_error_codes'));
 
-        add_action('init', array($this, 'aya_theme_init_rewind_url_reject'));
-        add_action('init', array($this, 'aya_theme_init_user_agent_reject'));
+        $options = $this->security_options;
+        //Sitemap中跳过输出users列表
+        if ($options['remove_sitemaps_users_provider']) {
+            add_filter('wp_sitemaps_add_provider', array($this, 'aya_theme_remove_sitemap_users_provider'), 10, 2);
+        }
+        if ($options['remove_restapi_users_endpoint']) {
+            add_filter('rest_endpoints', array($this, 'aya_theme_remove_restapi_users_endpoint'));
+        }
+    }
+    //清理 Sitemap 用户列表
+    public function aya_theme_remove_sitemap_users_provider($provider, $name)
+    {
+        return ($name == 'users') ? false : $provider;
+    }
+    //清理 REST-API 用户端点
+    public function aya_theme_remove_restapi_users_endpoint($endpoints)
+    {
+        if (isset($endpoints['/wp/v2/users'])) {
+            unset($endpoints['/wp/v2/users']);
+        }
+
+        if (isset($endpoints['/wp/v2/users/(?P<id>[\d]+)'])) {
+            unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+        }
+
+        return $endpoints;
     }
     //限制后台访问
     public function aya_theme_admin_backend_verify()
     {
-
-        if (!is_admin()) return;
+        if (!is_admin()) {
+            return;
+        }
 
         //DEBUG：跳过AJAX请求防止影响第三方登录方式
-        if ($_SERVER['PHP_SELF'] == '/wp-admin/admin-ajax.php') return;
+        if ($_SERVER['PHP_SELF'] == '/wp-admin/admin-ajax.php') {
+            return;
+        }
 
         $options = $this->security_options;
 
-        if (empty($options['admin_backend_verify'])) return;
+        if (empty($options['admin_backend_verify'])) {
+            return;
+        }
 
         //检查登录用户权限
         switch ($options['admin_backend_verify']) {
@@ -86,10 +118,24 @@ class AYA_Plugin_Security
             wp_redirect('/');
         }
     }
+    //强制使用邮箱登录
+    public function aya_theme_allow_email_login($user, $username, $password)
+    {
+        if (is_email($username)) {
+            $user = get_user_by('email', $username);
+
+            if ($user)
+                $username = $user->user_login;
+        }
+
+        return wp_authenticate_username_password(null, $username, $password);
+    }
     //限制特定权限用户修改密码
     public function aya_theme_disallow_password_reset($allow, $user)
     {
-        if (!$allow) return false;
+        if (!$allow) {
+            return false;
+        }
 
         $options = $this->security_options;
 
@@ -274,8 +320,8 @@ class AYA_Plugin_Security
             echo $html;
 
             //自动的跳转JS
-            if ($options['login_page_auto_jump_times'] == true) :
-?>
+            if ($options['login_page_auto_jump_times'] == true):
+                ?>
                 <script>
                     const waitForSeconds = 5;
                     let waited = 0;
@@ -289,13 +335,13 @@ class AYA_Plugin_Security
                     document.getElementById("user_login").closest("p").remove();
                     document.getElementById("user_pass").closest(".user-pass-wrap").remove();
 
-                    const uiInterval = setInterval(function() {
+                    const uiInterval = setInterval(function () {
                         waited++;
                         const remaining = waitForSeconds - waited;
                         secondsElement.innerText = remaining >= 0 ? remaining + "" : "0";
                         if (remaining <= 0) clearInterval(uiInterval);
                     }, 1000);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         waitElement.style.display = "none";
                         redirectElement.style.display = "inherit";
                         const href = window.location.href;
@@ -305,15 +351,15 @@ class AYA_Plugin_Security
                     }, waitForSeconds * 1000);
                 </script>
                 </form>
-            <?php
-            else :
-            ?>
+                <?php
+            else:
+                ?>
                 <script>
                     document.getElementById("user_login").closest("p").remove();
                     document.getElementById("user_pass").closest(".user-pass-wrap").remove();
                 </script>
                 </form>
-<?php
+                <?php
             endif;
             //加载原结构
             login_footer();
@@ -357,74 +403,6 @@ class AYA_Plugin_Security
         return $error_codes;
     }
 
-    //WAF功能
-
-    //验证访问URL参数
-    public function aya_theme_init_rewind_url_reject()
-    {
-        $options = $this->security_options;
-        //获取设置
-        if ($options['waf_reject_argument_switch'] == true) {
-            //获取屏蔽参数列表
-            if ($options['waf_reject_argument_list'] != '') {
-                //重建数组
-                $key_list = explode(',', $options['waf_reject_argument_list']);
-                $key_list = array_map('trim', $key_list);
-            }
-
-            $key_list = (empty($key_list)) ? array() : $key_list;
-
-            if (count($key_list) > 0) {
-                //循环
-                foreach ($key_list as $key) {
-                    //获取请求参数
-                    if (isset($_GET[$key])) {
-                        //返回报错
-                        return self::aya_theme_error_rewind_url_reject();
-                    }
-                }
-            }
-        }
-    }
-    //验证访问UA
-    public function aya_theme_init_user_agent_reject()
-    {
-        $options = $this->security_options;
-
-        //获取设置
-        if ($options['waf_reject_useragent_switch'] == true) {
-            //获取UA信息
-            $user_agent = $_SERVER['HTTP_USER_AGENT'];
-            //禁止空UA
-            if ($options['waf_reject_useragent_empty'] == true) {
-                //不存在则返回报错
-                if (!$user_agent) return self::aya_theme_error_rewind_ua_reject();
-            }
-            //UA信息转为小写
-            $user_agent = strtolower($user_agent);
-            //获取UA黑名单
-            if ($options['waf_reject_useragent_list'] != '') {
-                //重建数组
-                $ua_black_list = explode(',', $options['waf_reject_useragent_list']);
-                $ua_black_list = array_map('trim', $ua_black_list);
-            }
-
-            $ua_black_list = (empty($ua_black_list)) ? array() : $ua_black_list;
-
-            if (count($ua_black_list) > 0) {
-                //循环
-                foreach ($ua_black_list as $this_ua) {
-                    //判断是否是数组中存在的UA
-                    if (strpos($user_agent, strtolower($this_ua)) !== false) {
-                        //返回报错
-                        return self::aya_theme_error_rewind_ua_reject();
-                    }
-                }
-            }
-        }
-    }
-
-
     //返回登录报错
     public function aya_theme_error_login_action()
     {
@@ -434,36 +412,6 @@ class AYA_Plugin_Security
             'response' => 403,
             "link_text" => __("Login form"),
             "link_url" => wp_login_url(),
-        );
-
-        wp_die($message, $title, $args);
-
-        exit;
-    }
-    //返回参数非法报错
-    public function aya_theme_error_rewind_url_reject()
-    {
-        $message = __('The URL carries unlawful args.');
-        $title = __('Access was denied.');
-        $args = array(
-            'response' => 403,
-            'link_url' => home_url('/'),
-            'link_text' => __('Return Homepage'),
-            'back_link' => false,
-        );
-
-        wp_die($message, $title, $args);
-
-        exit;
-    }
-    //返回UA非法报错
-    public function aya_theme_error_rewind_ua_reject()
-    {
-        $message = __('The current browser userAgent is disabled by the site administrator.');
-        $title = __('Access was denied.');
-        $args = array(
-            'response' => 403,
-            'back_link' => false,
         );
 
         wp_die($message, $title, $args);

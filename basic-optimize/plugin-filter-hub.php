@@ -16,8 +16,8 @@ add_filter('user_trailingslashit', 'ayf_filter_auto_trailingslashit', 10, 2);
 //添加钩子 排除评论表单字段
 //add_filter('comment_form_default_fields', 'ayf_filter_insert_comment_form_unset_field');
 //添加钩子 过滤评论和body输出html的css
-add_filter('body_class', 'ayf_filter_insert_body_class');
-add_filter('comment_class', 'ayf_filter_insert_body_class');
+//add_filter('body_class', 'ayf_filter_insert_body_class');
+//add_filter('comment_class', 'ayf_filter_insert_body_class');
 //添加钩子 过滤菜单和页面输出html的css
 //add_filter('nav_menu_css_class', 'ayf_filter_insert_menu_class');
 //add_filter('nav_menu_item_id', 'ayf_filter_insert_menu_class');
