@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 if (!class_exists('AYA_WP_REST_API')) {
     class AYA_WP_REST_API
     {
-        private $routes = array();
+        private static $routes = array();
 
         private $base_namespace;
 
@@ -33,12 +33,15 @@ if (!class_exists('AYA_WP_REST_API')) {
         //注册路由
         public function register_route($endpoint, $params = array())
         {
+            //记录端点到内置数组
+            self::$routes[$endpoint] = isset($params['description']) ? $params['description'] : '';
+
             //处理入参
             $default_param = [
                 'methods' => 'GET',
                 'callback' => null,
                 'permission_callback' => '__return_true',
-                'args' => []
+                'args' => [],
             ];
             $params = wp_parse_args($params, $default_param);
 
@@ -51,6 +54,7 @@ if (!class_exists('AYA_WP_REST_API')) {
                 register_rest_route($this->base_namespace, '/' . $endpoint, $params);
             });
         }
+
         //报错处理
         public function error_response($error_key, $additional_data = array())
         {
@@ -88,7 +92,8 @@ if (!class_exists('AYA_WP_REST_API')) {
                 )
             );
         }
-        //响应成功
+
+        //响应成功返回格式
         public function response($data, $status = 200)
         {
             return new WP_REST_Response([
@@ -96,6 +101,7 @@ if (!class_exists('AYA_WP_REST_API')) {
                 'data' => $data
             ], $status);
         }
+
         //处理参数定义
         private function process_arguments($args)
         {
@@ -134,6 +140,7 @@ if (!class_exists('AYA_WP_REST_API')) {
 
             return $processed;
         }
+
         //自动类型验证
         private function validate_type($value, $type)
         {
@@ -153,6 +160,7 @@ if (!class_exists('AYA_WP_REST_API')) {
                     return is_string($value);
             }
         }
+
         //自动数据清理
         private function sanitize_type($value, $type, $need_length = 400)
         {
@@ -175,6 +183,12 @@ if (!class_exists('AYA_WP_REST_API')) {
                 default:
                     return trim($value);
             }
+        }
+
+        //返回记录的端点列表
+        public function get_endpoints()
+        {
+            return self::$routes;
         }
     }
 }
