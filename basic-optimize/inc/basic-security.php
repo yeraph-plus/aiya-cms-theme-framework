@@ -87,11 +87,7 @@ class AYA_Plugin_Security
         }
 
         $options = $this->security_options;
-
-        if (empty($options['admin_backend_verify'])) {
-            return;
-        }
-
+        
         //检查登录用户权限
         switch ($options['admin_backend_verify']) {
             case 'administrator':

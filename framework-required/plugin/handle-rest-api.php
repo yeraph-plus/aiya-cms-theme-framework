@@ -19,47 +19,37 @@ if (!defined('ABSPATH')) {
 if (!class_exists('AYA_WP_REST_API')) {
     class AYA_WP_REST_API
     {
-        private static $rest_routes = array();
+        private $routes = array();
 
-        private static $base_url_prefix = null;
         private $base_namespace;
 
-        //路径参数
-        public function __construct($namespace, $prefix = '')
+        //初始化
+        public function __construct($namespace)
         {
-            //重建参数，使首次传入的参数生效
-            if ($prefix !== '' && !isset($this->base_url_prefix)) {
-                $this->base_url_prefix = $prefix;
-            }
             //命名空间参数
             $this->base_namespace = $namespace;
         }
-        //初始化
-        public function __destruct()
-        {
-            if ($this->base_url_prefix !== null) {
-                //使用自定义的API路径
-                add_filter('rest_url_prefix', function () {
-                    return $this->base_url_prefix;
-                });
-                //兼容 "/wp-json" 重定向
-                add_action('template_redirect', function () {
-                    if (strpos($_SERVER['REQUEST_URI'], 'wp-json') !== false) {
-                        wp_redirect(site_url(str_replace('wp-json', $this->base_url_prefix, $_SERVER['REQUEST_URI'])), 301);
-                        exit;
-                    }
-                });
-            }
 
-            add_action('rest_api_init', array($this, 'register_rest_routes'));
-        }
-        //注册路由 
-        public function register_rest_routes()
+        //注册路由
+        public function register_route($endpoint, $params = array())
         {
-            //循环
-            foreach ($this->rest_routes as $endpoint => $params) {
-                register_rest_route($this->base_namespace, '/' . $endpoint, $params);
+            //处理入参
+            $default_param = [
+                'methods' => 'GET',
+                'callback' => null,
+                'permission_callback' => '__return_true',
+                'args' => []
+            ];
+            $params = wp_parse_args($params, $default_param);
+
+            if (!empty($params['args'])) {
+                $params['args'] = $this->process_arguments($params['args']);
             }
+            //匿名方法传递
+            add_action('rest_api_init', function () use ($endpoint, $params) {
+                //注册
+                register_rest_route($this->base_namespace, '/' . $endpoint, $params);
+            });
         }
         //报错处理
         public function error_response($error_key, $additional_data = array())
@@ -106,25 +96,6 @@ if (!class_exists('AYA_WP_REST_API')) {
                 'data' => $data
             ], $status);
         }
-        //通过类属性存储路由结构
-        public function add_route($endpoint, $params = array())
-        {
-            $default_param = array(
-                'methods' => 'GET',
-                'callback' => null,
-                'permission' => '__return_true',
-                'args' => array()
-            );
-            //处理入参
-            $params = wp_parse_args($params, $default_param);
-            //添加到类属性
-            $this->rest_routes[$endpoint] = array(
-                'methods' => $params['methods'],
-                'callback' => $params['callback'],
-                'permission_callback' => $params['permission'],
-                'args' => $this->process_arguments($params['args'])
-            );
-        }
         //处理参数定义
         private function process_arguments($args)
         {
@@ -136,7 +107,6 @@ if (!class_exists('AYA_WP_REST_API')) {
                     'type' => 'string',
                     'validate_callback' => null,
                     'sanitize_callback' => null,
-                    'description' => ''
                 ]);
                 //类型验证
                 if (!$processed[$param]['validate_callback']) {
