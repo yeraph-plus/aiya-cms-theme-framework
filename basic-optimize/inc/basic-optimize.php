@@ -85,7 +85,7 @@ class AYA_Plugin_Optimize
 
             add_filter('rest_enabled', '__return_false');
             add_filter('rest_jsonp_enabled', '__return_false');
-            add_filter('rest_authentication_errors', '__return_false');
+            //add_filter('rest_authentication_errors', '__return_false');
             add_filter('rest_authentication_errors', array($this, 'aya_theme_error_rest_api_is_off'), 1);
             //移除head中的RSET API接口
             remove_action('wp_head', 'rest_output_link_wp_head', 10);
@@ -446,7 +446,7 @@ class AYA_Plugin_Optimize
     // Rest-API 返回报错
     public function aya_theme_error_rest_api_is_off()
     {
-        $id = 'rest_api_is_disabled';
+        $id = 'rest_disabled';
         $message = __('Rest-API has disabled. Please ask the site administrator or check this site option settings.');
         $args = array('status' => 403);
 

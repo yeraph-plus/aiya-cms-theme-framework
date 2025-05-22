@@ -47,29 +47,38 @@ class AYA_Plugin_Security
 
         add_filter('shake_error_codes', array($this, 'aya_theme_logged_shake_error_codes'));
 
-        $options = $this->security_options;
-        //Sitemap中跳过输出users列表
-        if ($options['remove_sitemaps_users_provider']) {
-            add_filter('wp_sitemaps_add_provider', array($this, 'aya_theme_remove_sitemap_users_provider'), 10, 2);
-        }
-        if ($options['remove_restapi_users_endpoint']) {
-            add_filter('rest_endpoints', array($this, 'aya_theme_remove_restapi_users_endpoint'));
-        }
+        add_filter('wp_sitemaps_add_provider', array($this, 'aya_theme_remove_sitemap_users_provider'), 10, 2);
+
+        add_filter('rest_endpoints', array($this, 'aya_theme_remove_restapi_users_endpoint'));
+
     }
-    //清理 Sitemap 用户列表
+    //在 WP-Sitemap 中跳过输出 users 列表
     public function aya_theme_remove_sitemap_users_provider($provider, $name)
     {
-        return ($name == 'users') ? false : $provider;
+        $options = $this->security_options;
+
+        if ($options['remove_sitemaps_users_provider']) {
+            return ($name == 'users') ? false : $provider;
+        }
     }
-    //清理 REST-API 用户端点
+    //清理 REST-API 默认端点
     public function aya_theme_remove_restapi_users_endpoint($endpoints)
     {
-        if (isset($endpoints['/wp/v2/users'])) {
-            unset($endpoints['/wp/v2/users']);
-        }
+        $options = $this->security_options;
 
-        if (isset($endpoints['/wp/v2/users/(?P<id>[\d]+)'])) {
-            unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+        if ($options['remove_restapi_users_endpoint']) {
+            if (isset($endpoints['/wp/v2/users'])) {
+                unset($endpoints['/wp/v2/users']);
+            }
+
+            if (isset($endpoints['/wp/v2/users/(?P<id>[\d]+)'])) {
+                unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+            }
+        }
+        if ($options['remove_restapi_posts_endpoint']) {
+            if (isset($endpoints['/wp/v2/posts'])) {
+                unset($endpoints['/wp/v2/posts']);
+            }
         }
 
         return $endpoints;
@@ -87,7 +96,7 @@ class AYA_Plugin_Security
         }
 
         $options = $this->security_options;
-        
+
         //检查登录用户权限
         switch ($options['admin_backend_verify']) {
             case 'administrator':

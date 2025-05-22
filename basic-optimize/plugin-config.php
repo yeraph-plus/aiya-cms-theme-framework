@@ -254,6 +254,13 @@ $AYF_REQUEST_FIELDS = array(
         'default' => false,
     ),
     array(
+        'title' => '预加载元数据',
+        'desc' => '使 WP 全局预加载文章的元数据（post meta）和分类数据（post term）以提高查询速度',
+        'id' => 'query_update_post_cache',
+        'type' => 'switch',
+        'default' => true,
+    ),
+    array(
         'desc' => '查询过滤器',
         'type' => 'title_2',
     ),
@@ -419,7 +426,7 @@ $AYF_REQUEST_FIELDS = array(
 //安全性
 $AYF_SECURITY_FIELDS = array(
     array(
-        'desc' => '禁止外部查询用户信息',
+        'desc' => '阻止外部查询用户信息',
         'type' => 'title_2',
     ),
     array(
@@ -431,10 +438,35 @@ $AYF_SECURITY_FIELDS = array(
     ),
     array(
         'title' => '去除 REST-API 用户端点',
-        'desc' => '禁止站点的 [code]/wp-json/wp/v2/users[/code] 中生成Users端点',
+        'desc' => '禁止站点的 [code]/wp-json/wp/v2/users[/code] 接口端点',
         'id' => 'remove_restapi_users_endpoint',
         'type' => 'switch',
         'default' => true,
+    ),
+    array(
+        'title' => '去除 REST-API 文章端点',
+        'desc' => '禁止站点的 [code]/wp-json/wp/v2/posts[/code] 接口端点',
+        'id' => 'remove_restapi_posts_endpoint',
+        'type' => 'switch',
+        'default' => true,
+    ),
+    array(
+        'desc' => '后台入口权限调整',
+        'type' => 'title_2',
+    ),
+    array(
+        'title' => '调整访问后台用户级别',
+        'desc' => '根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页',
+        'id' => 'admin_backend_verify',
+        'type' => 'radio',
+        'sub' => array(
+            'false' => '无限制',
+            'editor' => '编辑',
+            'author' => '作者',
+            'contributor' => '贡献者',
+            'subscriber' => '订阅者',
+        ),
+        'default' => 'false',
     ),
     array(
         'desc' => '登录页防护',
@@ -460,25 +492,6 @@ $AYF_SECURITY_FIELDS = array(
         'id' => 'login_page_param_args',
         'type' => 'text',
         'default' => 'path_login',
-    ),
-    array(
-        'desc' => '后台入口权限调整',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '调整访问后台用户级别',
-        'desc' => '根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页',
-        'id' => 'admin_backend_verify',
-        'type' => 'radio',
-        'sub' => array(
-            'false' => '无限制',
-            //'administrator' => '管理员',
-            //'editor' => '编辑',
-            'author' => '作者',
-            'contributor' => '贡献者',
-            'subscriber' => '订阅者',
-        ),
-        'default' => 'false',
     ),
     array(
         'desc' => '登录验证逻辑调整',

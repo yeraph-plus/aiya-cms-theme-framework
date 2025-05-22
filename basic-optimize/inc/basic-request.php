@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * AIYA-Framework 拓展 WP搜索和主查询SQL查询优化插件
@@ -39,7 +40,8 @@ class AYA_Plugin_Request
     public function aya_theme_serach_on_init()
     {
         //管理员用户跳过
-        if (is_user_logged_in() && current_user_can('manage_options')) return;
+        if (is_user_logged_in() && current_user_can('manage_options'))
+            return;
 
         if (
             strlen($_SERVER['REQUEST_URI']) > 255 ||
@@ -60,7 +62,8 @@ class AYA_Plugin_Request
         $options = $this->query_options;
 
         //不是搜索则跳过
-        if (is_admin() || !is_search()) return;
+        if (is_admin() || !is_search())
+            return;
 
         //配置重定向
         if ($options['search_redirect_search_page'] === true) {
@@ -79,7 +82,8 @@ class AYA_Plugin_Request
         $options = $this->query_options;
 
         //不是搜索则跳过
-        if (is_admin() || !is_search()) return;
+        if (is_admin() || !is_search())
+            return;
 
         $search_vars = get_query_var('s');
 
@@ -117,16 +121,22 @@ class AYA_Plugin_Request
     //操作pre_get_posts钩子
     public function aya_theme_pre_get_posts(\WP_Query $query)
     {
-        //如果是后台
-        if (is_admin()) return $query;
-
-        //如果不是主查询
-        if (!$query->is_main_query()) return $query;
+        //如果是后台 & 是主查询
+        if (!$query->is_main_query() || is_admin())
+            return $query;
 
         //获取设置
         $options = $this->query_options;
 
         //开始生成查询参数
+
+        //预加载设置
+        if ($options['query_update_post_cache'] === true) {
+            //文章元数据
+            $query->set('update_post_meta_cache', true);
+            //分类数据
+            $query->set('update_post_term_cache', true);
+        }
 
         //添加'no_found_rows'属性
         if ($options['query_no_found_rows'] === true) {
@@ -209,7 +219,7 @@ class AYA_Plugin_Request
                 //获取作者和登录者身份
                 $current_user_can = current_user_can('publish_pages');
                 $current_user_id = get_current_user_id();
-                $user_id =  get_query_var('author');
+                $user_id = get_query_var('author');
                 //判断是否为本人
                 if ($user_id == $current_user_id || $current_user_can) {
                     //输出时包含文章状态
@@ -382,7 +392,7 @@ class AYA_Plugin_Request
             $distinct = isset($clauses['distinct']) ? $clauses['distinct'] : '';
 
             //get_row()方法添加语句
-            $wp_query->found_posts = (int)$wpdb->get_row("EXPLAIN SELECT $distinct * FROM {$wpdb->posts} $join WHERE 1=1 $where")->rows;
+            $wp_query->found_posts = (int) $wpdb->get_row("EXPLAIN SELECT $distinct * FROM {$wpdb->posts} $join WHERE 1=1 $where")->rows;
 
             //验证分页
             $posts_per_page = (!empty($wp_query->query_vars['posts_per_page']) ? absint($wp_query->query_vars['posts_per_page']) : absint(get_option('posts_per_page')));
