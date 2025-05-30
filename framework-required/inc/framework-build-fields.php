@@ -173,9 +173,7 @@ if (!class_exists('AYA_Field_Action')) {
             $desc = preg_replace('/\[code\](.*?)\[\/code\]/', '<code>$1</code>', $desc);
             $desc = preg_replace('/\[pre\](.*?)\[\/pre\]/', '<pre>$1</pre>', $desc);
             $desc = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/', '<a href="$1" target="_blank">$2</a>', $desc);
-            ;
             $desc = preg_replace('/\[del\](.*?)\[\/del\]/', '<del>$1</del>', $desc);
-            ;
 
             return $desc;
         }
