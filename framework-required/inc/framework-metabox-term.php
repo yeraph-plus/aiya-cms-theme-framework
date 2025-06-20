@@ -61,6 +61,10 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
         function add_taxonomy_field()
         {
             foreach ($this->options as $option) {
+                //跳过空的数组定义
+                if (empty($option)) {
+                    continue;
+                }
                 //排除不支持的组件
                 if (in_array($option['type'], $this->unfined_field)) {
                     continue;
@@ -73,6 +77,10 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
         function edit_taxonomy_field($tag)
         {
             foreach ($this->options as $option) {
+                //跳过空的数组定义
+                if (empty($option)) {
+                    continue;
+                }
                 //排除不支持的组件
                 if (in_array($option['type'], $this->unfined_field)) {
                     continue;
@@ -111,6 +119,10 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
                 return;
 
             foreach ($this->options as $option) {
+                //跳过空的数组定义
+                if (empty($option)) {
+                    continue;
+                }
 
                 //$old_data = get_term_meta($term_id, $option['id'], true);
 

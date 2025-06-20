@@ -87,6 +87,10 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
             echo '<div class="tab-content framework-section">';
 
             foreach ($this->options as $option) {
+                //跳过空的数组定义
+                if (empty($option)) {
+                    continue;
+                }
                 //排除不支持的组件
                 if (in_array($option['type'], $this->unfined_field)) {
                     continue;
@@ -125,6 +129,10 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
 
                     //$old_data = get_post_meta($post_id, $option['id']);
 
+                    //跳过空的数组定义
+                    if (empty($option)) {
+                        continue;
+                    }
                     //没有ID则直接跳过
                     if (!isset($option['id'])) {
                         continue;

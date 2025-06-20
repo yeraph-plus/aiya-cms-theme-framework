@@ -25,6 +25,10 @@ if (!class_exists('AYA_Field_Action')) {
         //组件构造
         public static function field($field)
         {
+            //跳过空的数组定义
+            if (empty($field)) {
+                return;
+            }
             //过滤组件
             if (in_array($field['type'], array('title_1', 'title_2'))) {
                 return self::title_tags($field);
@@ -164,18 +168,33 @@ if (!class_exists('AYA_Field_Action')) {
         //一些转换html语法
         public static function preg_desc($desc)
         {
-            $desc = htmlspecialchars($desc);
+            //BBCode语法标记到HTML的转换
             $desc = preg_replace('/\[br\/]/', '<br />', $desc);
-            $desc = preg_replace('/\[b\](.*?)\[\/b\]/', '<strong>$1</strong>', $desc);
-            $desc = preg_replace('/\[i\](.*?)\[\/i\]/', '<em>$1</em>', $desc);
-            $desc = preg_replace('/\[u\](.*?)\[\/u\]/', '<ins>$1</ins>', $desc);
-            $desc = preg_replace('/\[s\](.*?)\[\/s\]/', '<del>$1</del>', $desc);
-            $desc = preg_replace('/\[code\](.*?)\[\/code\]/', '<code>$1</code>', $desc);
-            $desc = preg_replace('/\[pre\](.*?)\[\/pre\]/', '<pre>$1</pre>', $desc);
-            $desc = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/', '<a href="$1" target="_blank">$2</a>', $desc);
-            $desc = preg_replace('/\[del\](.*?)\[\/del\]/', '<del>$1</del>', $desc);
+            $desc = preg_replace('/\[b\](.*?)\[\/b\]/s', '<strong>$1</strong>', $desc);
+            $desc = preg_replace('/\[i\](.*?)\[\/i\]/s', '<em>$1</em>', $desc);
+            $desc = preg_replace('/\[u\](.*?)\[\/u\]/s', '<ins>$1</ins>', $desc);
+            $desc = preg_replace('/\[s\](.*?)\[\/s\]/s', '<del>$1</del>', $desc);
+            $desc = preg_replace('/\[code\](.*?)\[\/code\]/s', '<code>$1</code>', $desc);
+            $desc = preg_replace('/\[pre\](.*?)\[\/pre\]/s', '<pre>$1</pre>', $desc);
+            $desc = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" target="_blank">$2</a>', $desc);
+            $desc = preg_replace('/\[del\](.*?)\[\/del\]/s', '<del>$1</del>', $desc);
 
-            return $desc;
+            //合并wp_kses()允许一些安全的HTML标签
+            $allowed_html = array(
+                'a' => array(
+                    'href' => array(),
+                    'target' => array(),
+                ),
+                'br' => array(),
+                'strong' => array(),
+                'em' => array(),
+                'ins' => array(),
+                'del' => array(),
+                'code' => array(),
+                'pre' => array(),
+            );
+
+            return wp_kses($desc, $allowed_html);
         }
         //数据检查方法
         public static function test_input($value, $type = '')

@@ -88,6 +88,12 @@ if (!class_exists('AYA_Shortcode')) {
         //加载样式
         public function enqueue_script()
         {
+            $screen = get_current_screen();
+
+            if (!$screen || $screen->base !== 'post' || $screen->is_block_editor) {
+                return;
+            }
+
             //add_thickbox();
             wp_enqueue_script('aiya-shortcode-manager', AYF::get_base_url() . '/assets/js/framework-shortcode-editor.js');
         }
@@ -168,7 +174,7 @@ if (!class_exists('AYA_Shortcode')) {
 
             //保存按钮
             $html .= '<div class="submit_button">';
-            $html .= '<input type="button" id="scodedit-insert-shortcode" class="button-primary" value="' .  __('添加', 'AIYA_FRAMEWORK') . '" onclick="scodeditInsertShortcode();" />';
+            $html .= '<input type="button" id="scodedit-insert-shortcode" class="button-primary" value="' . __('添加', 'AIYA_FRAMEWORK') . '" onclick="scodeditInsertShortcode();" />';
             $html .= '<a href="#" id="scodedit-cancel-shortcode" class="button-secondary scodedit-cancel-shortcode" onclick="tb_remove()">' . __('取消', 'AIYA_FRAMEWORK') . '</a>';
             $html .= '</div>';
 
@@ -198,7 +204,8 @@ if (!class_exists('AYA_Shortcode')) {
                     $field = '<textarea rows="10" cols="30" name="' . esc_attr($key) . '" id="' . esc_attr($key) . '" class="scodedit-form-textarea scodedit-input">' . $default . '</textarea>' . "\n";
                     break;
                 case 'select':
-                    if (empty($param['sub'])) break; //找不到sub则跳过
+                    if (empty($param['sub']))
+                        break; //找不到sub则跳过
 
                     $field = '<select name="' . esc_attr($key) . '" id="' . esc_attr($key) . '" class="scodedit-form-select scodedit-input">' . "\n";
 

@@ -302,6 +302,10 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $saved_button = false;
             //循环
             foreach ($this->option_conf as $option) {
+                //跳过空的数组定义
+                if (empty($option)) {
+                    continue;
+                }
                 //如果是文本框则转换一次数据
                 if (in_array($option['type'], array('text', 'textarea'))) {
                     $option['default'] = htmlspecialchars($option['default'], ENT_COMPAT, 'UTF-8');
