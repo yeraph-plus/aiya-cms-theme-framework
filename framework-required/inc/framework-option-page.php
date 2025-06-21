@@ -39,7 +39,6 @@ if (!class_exists('AYA_Framework_Options_Page')) {
 
         public function __construct($option_conf, $option_menu)
         {
-
             $this->option_menu = $option_menu;
             $this->option_conf = $option_conf;
             //操作权限
@@ -112,6 +111,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 add_submenu_page($slug_prefix . $this->menu_parent_slug, $this->menu_page_title, $this->menu_title, $this->cap_ability, $slug_prefix . $this->menu_slug, array(&$this, 'init_page'), 99);
             }
         }
+
         //检查多站点设置
         private function in_multisite($menu)
         {
@@ -126,6 +126,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 return false;
             }
         }
+
         //加载样式
         public function enqueue_ajax_script()
         {
@@ -136,6 +137,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 'cdn_url' => 'https://cdn.staticfile.net/',
             ));
         }
+
         //定义执行顺序
         public function init_page()
         {
@@ -147,6 +149,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
 
             return;
         }
+
         //循环 htmlspecialchars 方法处理多层数组
         private function deep_htmlspecialchars($mixed, $quote_style = ENT_QUOTES, $charset = 'UTF-8')
         {
@@ -159,6 +162,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             }
             return $mixed;
         }
+
         //提取数据
         private function data_options_available()
         {
@@ -181,6 +185,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 }
             }
         }
+
         //保存数据
         private function save_options_data()
         {
@@ -271,6 +276,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                 }
             }
         }
+
         //HTML结构
         private function display_html()
         {
@@ -339,8 +345,4 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             echo $after_html;
         }
     }
-
-    //global $magic_file, $author_url;
-    //$magic_file = base64_decode(AYA_NAME_FILE);
-    //$author_url = base64_decode(AYA_NAME_SIGN);
 }

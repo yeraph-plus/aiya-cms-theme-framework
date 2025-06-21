@@ -35,34 +35,32 @@ if (!defined('ABSPATH')) {
  */
 
 if (!class_exists('AYA_Framework_Setup')) {
+    define('AYA_SEP', '_');
     class AYA_Framework_Setup
     {
         private static $include_once = null;
-        //private static $header_inst = 'aya_option';
-
-        private static $cache_mode = true;
-        private static $cache_load;
-        private static $cache_success;
-
-        private static $cache_tab_slug = array();
-        private static $cache_def_option = array();
-        private static $cache_get_option = array();
-
+        private static $def_option_cache = [];
+        private static $sql_option_cache = [];
         public static $class_name = 'AYA_Option_Fired_';
+        public static $option_key_prefix = 'aya_opt_';
 
         public function __construct()
         {
-            if (is_null(self::$include_once)) {
+            //避免重复加载
+            if (empty(self::$include_once)) {
                 //框架包
                 self::include_inc();
                 //模块包
                 self::include_module();
+
+                self::magic_helper();
 
                 self::add_action('admin_enqueue_scripts', 'enqueue_script');
 
                 self::$include_once = true;
             }
         }
+
         //引入框架
         public function include_inc()
         {
@@ -97,6 +95,7 @@ if (!class_exists('AYA_Framework_Setup')) {
                 }
             }
         }
+
         //引入模块
         public function include_module()
         {
@@ -114,7 +113,8 @@ if (!class_exists('AYA_Framework_Setup')) {
             }
 
         }
-        //根据上下文判断静态文件URL
+
+        //定位静态文件URL
         public static function get_base_url()
         {
             //获取当前文件的标准化路径及其目录
@@ -139,7 +139,8 @@ if (!class_exists('AYA_Framework_Setup')) {
                 return untrailingslashit($current_dir);
             }
         }
-        //验证文件方法
+
+        //验证文件的方法
         public static function include_file_helper($file, $load = true)
         {
             $path = '';
@@ -167,58 +168,20 @@ if (!class_exists('AYA_Framework_Setup')) {
                 return $file;
             }
         }
-        //加载样式
-        public function enqueue_script()
+
+        //验证文件的方法
+        public function magic_helper()
         {
-            wp_enqueue_style('aiya-cms-framework', self::get_base_url() . '/assets/css/framework-style.css');
-            wp_enqueue_script('aiya-cms-framework', self::get_base_url() . '/assets/js/framework-main.js');
+            global $F_REFS, $F_OPFS;
+
+            $A_FRCO = 'AY' . 'A' . AYA_SEP . 'H' . 'ASH' . AYA_SEP . 'FRO' . 'M';
+            $A_MECO = 'AY' . 'A' . AYA_SEP . 'AU' . 'TH' . AYA_SEP . 'T' . 'YPE';
+
+            $F_DESF = function ($str) { return base64_decode($str); };
+            $F_OPFS = function ($fil, $str) { return strstr(file_get_contents($fil), $str); };
+            $F_REFS = function ($SEP) use ($A_FRCO, $A_MECO, $F_DESF) { return $F_DESF(constant(($SEP == true) ? $A_FRCO : $A_MECO)); };
         }
-        //设置默认值提取到静态变量
-        public static function cache_all_default($field_conf, $inst_slug)
-        {
-            if (self::$cache_load)
-                return;
 
-            //提取表名存入$cache_tab_option，提取默认值存入$cache_def_option
-
-            self::$cache_tab_slug[] = $inst_slug;
-
-            //foreach 循环去除层级
-            foreach ($field_conf as $field) {
-                //跳过
-                if (empty($field['id']))
-                    continue;
-                //存入
-                self::$cache_def_option[$field['id']] = (empty($field['default'])) ? '' : $field['default'];
-            }
-            //print_r(self::$cache_tab_slug);
-            //print_r(self::$cache_def_option);
-
-            //标记位
-            self::$cache_load = true;
-        }
-        //设置用户值提取到静态变量
-        public static function cache_all_option()
-        {
-            if (self::$cache_success)
-                return;
-
-            //根据上一步的表名，一次性提取用户值存入$cache_get_option
-
-            foreach (self::$cache_tab_slug as $tab_slug) {
-                //读取设置
-                $config = get_option('aya_opt_' . $tab_slug, false);
-
-                if ($config) {
-                    //合并存入
-                    self::$cache_get_option[$tab_slug] = $config;
-                }
-            }
-            //print_r(self::$cache_get_option);
-
-            //标记位
-            self::$cache_success = true;
-        }
         //除错方法
         protected static function inspect($array)
         {
@@ -248,106 +211,97 @@ if (!class_exists('AYA_Framework_Setup')) {
         {
             add_filter($hook, array($this, $callback), $priority, $args);
         }
-        //设置页简化调用
-        public static function new_opt($conf = array())
+
+        //加载静态资源
+        public function enqueue_script()
         {
-            if (!is_array($conf) || empty($conf))
+            wp_enqueue_style('aiya-cms-framework', self::get_base_url() . '/assets/css/framework-style.css');
+            wp_enqueue_script('aiya-cms-framework', self::get_base_url() . '/assets/js/framework-main.js');
+        }
+
+        //设置默认值提取到静态变量
+        public static function cache_default_option($inst_slug, $field_conf)
+        {
+            //检查此slug是否已被合并
+            if (isset(self::$def_option_cache[$inst_slug])) {
                 return;
-
-            //缓存模式
-            if (self::$cache_mode) {
-                self::cache_all_default($conf['fields'], $conf['slug']);
-                //刷新缓存表单
-                self::$cache_load = false;
             }
-            //print_r(self::$cache_tab_option);
 
-            //单独提取组件数组用于调用
+            //初始化该slug的默认值数组
+            self::$def_option_cache[$inst_slug] = [];
+
+            //提取每个字段的默认值，存储到对应slug的数组中
+            foreach ($field_conf as $field) {
+                if (empty($field['id'])) {
+                    continue;
+                }
+
+                $field_id = $field['id'];
+                $value = isset($field['default']) ? $field['default'] : '';
+
+                self::$def_option_cache[$inst_slug][$field_id] = $value;
+            }
+        }
+
+        //设置用户值提取到静态变量
+        public static function cache_custom_option($tab_slug)
+        {
+            //检查此slug是否已被查询
+            if (isset(self::$sql_option_cache[$tab_slug])) {
+                return;
+            }
+
+            //初始化该slug的用户值数组
+            self::$sql_option_cache[$tab_slug] = [];
+
+            //提取每个字段的用户值，存储到对应slug的数组中
+            $query = get_option('aya_opt_' . $tab_slug, false);
+
+            //检查数据存在
+            if (!empty($query)) {
+                self::$sql_option_cache[$tab_slug] = $query;
+            }
+        }
+
+        //设置页简化调用
+        public static function new_opt($conf = [])
+        {
+            if (!is_array($conf) || empty($conf)) {
+                return;
+            }
+
+            //确保必要键存在
+            if (!isset($conf['slug']) || !isset($conf['fields'])) {
+                return;
+            }
+
+            //缓存默认值
+            self::cache_default_option($conf['slug'], $conf['fields']);
+            //返回设置页面实例
             return new AYA_Framework_Options_Page($conf['fields'], $conf);
         }
-        //分类Metabox键简化调用
-        public static function new_tex($conf = array())
+
+        //获取设置
+        public static function get_opt($name, $sulg)
         {
-            if (!is_array($conf) || empty($conf))
-                return;
-
-            $fields = $conf['fields'];
-            $add_meta_in = $conf['add_meta_in'];
-
-            return new AYA_Framework_Term_Meta($fields, $add_meta_in);
-        }
-        //文章Metabox键简化调用
-        public static function new_box($conf = array())
-        {
-            if (!is_array($conf) || empty($conf))
-                return;
-
-            //单独提取组件数组用于调用
-            $fields = $conf['fields'];
-
-            unset($conf['fields']);
-
-            return new AYA_Framework_Post_Meta($fields, $conf);
-        }
-        //提取设置
-        public static function used_option($option_sulg)
-        {
-            //验证缓存
-            if (array_key_exists($option_sulg, self::$cache_get_option)) {
-                return self::$cache_get_option[$option_sulg];
-            }
-            //读取设置
-            $config = get_option('aya_opt_' . $option_sulg, false);
-            //存入缓存
-            self::$cache_get_option[$option_sulg] = $config;
-            //返回
-            return $config;
-        }
-        //提取默认值
-        public static function default_option($option_name)
-        {
-            //缓存模式
-            if (!self::$cache_mode)
+            //未定义设置表单时
+            if ($sulg === '') {
                 return false;
-            //读取设置
-            $default = self::$cache_def_option;
-            //返回
-            if (isset($default[$option_name])) {
-                return $default[$option_name];
+            }
+
+            //缓存用户值
+            self::cache_custom_option($sulg);
+
+            //直接从缓存提取用户值
+            if (isset(self::$sql_option_cache[$sulg][$name])) {
+                return self::$sql_option_cache[$sulg][$name];
+            } else if (isset(self::$def_option_cache[$sulg][$name])) {
+                return self::$def_option_cache[$sulg][$name];
             } else {
                 return false;
             }
         }
-        //应用设置
-        public static function get_opt($name, $sulg)
-        {
-            //未定义设置表单时
-            if ($sulg === '')
-                return null;
 
-            $option_config = self::used_option($sulg);
-
-            //验证已设置
-            if ($option_config && isset($option_config[$name])) {
-                return $option_config[$name];
-            }
-            //返回默认值
-            $option_default = self::default_option($name);
-
-            return $option_default;
-        }
-        //应用Meta
-        public static function get_meta($name)
-        {
-            //判断页面类型
-            if (is_singular()) {
-                return get_post_meta(get_the_ID(), $name, true);
-            }
-            //判断页面类型
-            else if (is_tax() || is_category() || is_tag()) {
-                return get_term_meta(get_queried_object_id(), $name, true);
-            }
-        }
         //直接输出
         public static function out_opt($name, $opt_sulg = '')
         {
@@ -369,8 +323,38 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             echo ($value) ? '' : $output;
         }
+
+        //分类Metabox键简化调用
+        public static function new_tex($conf = [])
+        {
+            if (!is_array($conf) || empty($conf))
+                return;
+
+            $fields = $conf['fields'];
+            $add_meta_in = $conf['add_meta_in'];
+
+            return new AYA_Framework_Term_Meta($fields, $add_meta_in);
+        }
+
+        //文章Metabox键简化调用
+        public static function new_box($conf = [])
+        {
+            if (!is_array($conf) || empty($conf))
+                return;
+
+            //单独提取组件数组用于调用
+            $fields = $conf['fields'];
+
+            unset($conf['fields']);
+
+            return new AYA_Framework_Post_Meta($fields, $conf);
+        }
+
+        //Tips: Metabox需要在指定到ID时提取数据，此处不实现
     }
+
 }
+
 //不防君子签名术
-define('AYA_NAME_FILE', 'L3N0eWxlLmNzcw');
-define('AYA_NAME_SIGN', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
+define('AYA_HASH_FROM', 'L3N0eWxlLmNzcw');
+define('AYA_AUTH_TYPE', 'aHR0cHM6Ly93d3cueWVyYXBoLmNvbQ');
