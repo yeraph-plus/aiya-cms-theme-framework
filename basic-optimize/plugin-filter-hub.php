@@ -1,5 +1,7 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /*
  * ------------------------------------------------------------------------------
@@ -36,9 +38,11 @@ function ayf_ajax_enqueue_scripts()
 function ayf_filter_auto_trailingslashit($string, $type)
 {
     //排除文章和页面
-    if (get_query_var('page_type')) return $string;
+    if (get_query_var('page_type'))
+        return $string;
 
-    if ($type == 'single' || $type == 'page') return $string;
+    if ($type == 'single' || $type == 'page')
+        return $string;
 
     //使用WP内置过滤器
     $string = trailingslashit($string);
@@ -56,7 +60,8 @@ function ayf_filter_insert_post_data($data, $postarr, $unsanitized_postarr)
 //排除评论表单站点字段
 function ayf_filter_insert_comment_form_unset_field($fields)
 {
-    if (isset($fields['url'])) unset($fields['url']);
+    if (isset($fields['url']))
+        unset($fields['url']);
 
     return $fields;
 }

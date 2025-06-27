@@ -37,7 +37,7 @@ if (!class_exists('AYA_Plugin_Setup')) {
         //实例化方法
         public static function action($plugin_name, $args)
         {
-            //修饰类名
+            //修饰类名前缀
             $class = 'AYA_Plugin_' . $plugin_name;
 
             //如果类存在
