@@ -27,42 +27,61 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
         $options = $this->phpmailer_options;
         //关闭新用户注册通知站长的邮件
         if ($options['disable_new_user_email_admin'] !== false) {
-            add_filter('wp_new_user_notification_email_admin', '__return_false');
+            parent::add_filter('wp_new_user_notification_email_admin', '__return_false');
         }
         //关闭新用户注册用户邮件通知
         if ($options['disable_new_user_email_user'] !== false) {
-            add_filter('wp_new_user_notification_email', '__return_false');
+            parent::add_filter('wp_new_user_notification_email', '__return_false');
         }
+
 
         parent::add_action('phpmailer_init', 'aya_theme_mail_smtp_option');
     }
 
-    public function __destruct()
-    {
-    }
+    public function __destruct() {}
 
     public function aya_theme_mail_smtp_option($phpmailer)
     {
         $options = $this->phpmailer_options;
-        $option_action = filter_var($options['stmp_action'], FILTER_VALIDATE_BOOLEAN);
-
-        //检查启用状态
-        if (!isset($options['stmp_action']) || !$option_action) {
-            return;
-        }
 
         //检查最少配置
         if (empty($options['smtp_host']) || empty($options['smtp_from'])) {
             return;
         }
 
-        // 配置SMTP设置
+        global $phpmailer;
+
+        if (!($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
+            require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
+            require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
+            require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
+            require_once ABSPATH . WPINC . '/class-wp-phpmailer.php';
+
+            $phpmailer = new WP_PHPMailer(true);
+
+            $phpmailer::$validator = static function ($email) {
+                return (bool) is_email($email);
+            };
+        }
+
+        //发件人
+        $from_email =  (empty($options['smtp_from'])) ? $options['smtp_from'] : '';
+        $from_name  = (empty($options['smtp_from_name'])) ? $options['smtp_from_name'] : '';
+        $content_type = (empty($options['smtp_content_type'])) ? $options['smtp_content_type'] : '';
+
+        //配置SMTP设置
         $phpmailer->isSMTP();
-        $phpmailer->setFrom($options['smtp_from'], $options['smtp_from_name']);
+
+        try {
+            $phpmailer->setFrom($from_email, $from_name, false);
+        } catch (PHPMailer\PHPMailer\Exception $e) {
+            return;
+        }
+
         $phpmailer->Host = $options['smtp_host'];
         $phpmailer->Port = intval($options['smtp_port']);
 
-        // 设置加密方式
+        //设置加密方式
         if ($options['smtp_secure'] === 'ssl') {
             $phpmailer->SMTPSecure = 'ssl';
         } else if ($options['smtp_secure'] === 'tls') {
@@ -73,7 +92,6 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
 
         //用户认证
         $option_auth = filter_var($options['smtp_auth'], FILTER_VALIDATE_BOOLEAN);
-
         if ($option_auth) {
             $phpmailer->SMTPAuth = true;
             $phpmailer->Username = $options['smtp_username'];
@@ -82,12 +100,62 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
             $phpmailer->SMTPAuth = false;
         }
 
-        // 调试模式（可选）
+        //关闭自动TLS
+        $phpmailer->SMTPAutoTLS = false;
+
+        //强制设置邮件内容类型
+        if (! isset($content_type)) {
+            $content_type = 'text/plain';
+        }
+
+        $content_type = apply_filters('wp_mail_content_type', $content_type);
+
+        $phpmailer->ContentType = $content_type;
+
+        if ('text/html' === $content_type) {
+            $phpmailer->isHTML(true);
+        }
+
+        //强制设置邮件字符集
+        if (! isset($charset)) {
+            $charset = get_bloginfo('charset');
+        }
+
+        $phpmailer->CharSet = apply_filters('wp_mail_charset', $charset);
+
+        //关闭SSL证书验证
+        if (!empty($options['smtp_disable_ssl_verification'])) {
+            $phpmailer->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true,
+                ),
+            );
+        }
+
+        //通过过滤器添加 Reply-To
+        $reply_to = apply_filters('smtpmailer_reply_to', '');
+        if (!empty($reply_to)) {
+            $addresses = array_map('trim', explode(',', $reply_to));
+            foreach ($addresses as $addr) {
+                if (!empty($addr)) {
+                    try {
+                        $phpmailer->addReplyTo($addr);
+                    } catch (PHPMailer\PHPMailer\Exception $e) {
+                    }
+                }
+            }
+        }
+
+        // 调试模式
         if (defined('WP_DEBUG') && WP_DEBUG) {
             $phpmailer->SMTPDebug = 2;
+            $phpmailer->Debugoutput = 'html';
         }
     }
 
+    //使用 wp_mail() 函数发件方法
     public function send_callback($data)
     {
         $data = array(

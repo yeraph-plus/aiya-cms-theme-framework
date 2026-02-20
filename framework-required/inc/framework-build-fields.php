@@ -30,6 +30,9 @@ if (!class_exists('AYA_Field_Action')) {
                 return;
             }
             //过滤组件
+            if (in_array($field['type'], array('html'))) {
+                return self::html_tags($field);
+            }
             if (in_array($field['type'], array('title_1', 'title_2'))) {
                 return self::title_tags($field);
             }
@@ -99,6 +102,16 @@ if (!class_exists('AYA_Field_Action')) {
             $html = '<div class="field-title"><h3 class="' . $field['type'] . '">' . self::preg_desc($field['desc']) . '</h3></div>';
             echo $html;
         }
+        //只调用模板
+        public static function html_tags($field)
+        {
+            if (empty($field['desc'])) {
+                return;
+            }
+            //输出
+            echo $field['desc'];
+        }
+
         //输出提示内容
         public static function content_tags($field)
         {
@@ -243,8 +256,9 @@ if (!class_exists('AYA_Field_Action')) {
         //选择器的查询方法
         private static function select_entries($value)
         {
-            if ($value == '')
+            if ($value == '') {
                 return;
+            }
 
             //获取所有可显示的Taxonomy
             $taxonomies_names = get_taxonomies(array('show_ui' => true, '_builtin' => false), 'names');

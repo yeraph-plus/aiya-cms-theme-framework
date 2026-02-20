@@ -1214,13 +1214,6 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
             'type' => 'title_2',
         ),
         array(
-            'title' => '启用 SMTP ',
-            'desc' => '启用 SMTP 邮件发送功能',
-            'id' => 'stmp_action',
-            'type' => 'switch',
-            'default' => false,
-        ),
-        array(
             'title' => '发件邮箱',
             'desc' => '',
             'id' => 'smtp_from',
@@ -1256,7 +1249,7 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
             'sub' => array(
                 'ssl' => 'SSL认证',
                 'tls' => 'TLS认证',
-                'fil' => '禁用认证',
+                'fil' => '禁用',
             ),
             'default' => 'fil',
         ),
@@ -1280,6 +1273,13 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
             'id' => 'smtp_password',
             'type' => 'text',
             'default' => '',
+        ),
+        array(
+            'title' => '禁用SSL证书验证',
+            'desc' => '使用此选项以禁用PHP默认的 SSL 证书配置验证，如果可选，你应该让你的主机修复 SSL 配置而不是绕过它',
+            'id' => 'smtp_disable_ssl_verification',
+            'type' => 'switch',
+            'default' => false,
         ),
     );
 
@@ -1312,7 +1312,7 @@ if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
  * ------------------------------------------------------------------------------
  */
 
-//服务器状态小组件
+//服务器状态仪表盘小组件
 if (AYF::get_checked('dashboard_server_monitor', 'plugin')) {
     //无需设置
     AYP::action('Dashboard_Server_Status', true);

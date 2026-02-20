@@ -24,10 +24,6 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
     {
         //定义模板位置
         $this->template_path = 'templates';
-    }
-
-    public function __destruct()
-    {
         //添加自定义的路径过滤器
         parent::add_filter('404_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('archive_template_hierarchy', 'aya_theme_rc_template_hierarchy');
@@ -50,6 +46,8 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
         //添加重写的过滤器
         //parent::add_action('template_include', 'aya_template_reload');
     }
+
+    public function __destruct() {}
     //重写查询位置
     public function aya_theme_rc_template_hierarchy($template)
     {

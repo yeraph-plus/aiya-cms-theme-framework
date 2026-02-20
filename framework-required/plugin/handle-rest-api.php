@@ -40,7 +40,10 @@ if (!class_exists('AYA_WP_REST_API')) {
             $default_param = [
                 'methods' => 'GET',
                 'callback' => null,
-                'permission_callback' => '__return_true',
+                // 默认使用当前用户“edit_posts”权限，若未显式传入 permission_callback 则强制必须传入 capability
+                'permission_callback' => function () {
+                    return current_user_can('edit_posts');
+                },
                 'args' => [],
             ];
             $params = wp_parse_args($params, $default_param);

@@ -29,7 +29,7 @@ require_once plugin_dir_path(__FILE__) . 'basic-optimize/setup.php';
 //运行环境检查
 AYP::action('EnvCheck', array(
     //PHP最低版本
-    'php_last' => '7.4',
+    'php_last' => '8.2',
     //PHP扩展
     'php_ext' => array(),
     //WP最低版本

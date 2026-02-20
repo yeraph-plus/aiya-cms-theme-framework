@@ -39,9 +39,10 @@ class AYA_Plugin_Request
     //增加一些验证阻止非法访问
     public function aya_theme_serach_on_init()
     {
-        //管理员用户跳过
-        if (is_user_logged_in() && current_user_can('manage_options'))
+        //登录用户跳过
+        if (is_user_logged_in()) {
             return;
+        }
 
         if (
             strlen($_SERVER['REQUEST_URI']) > 255 ||
@@ -62,8 +63,9 @@ class AYA_Plugin_Request
         $options = $this->query_options;
 
         //不是搜索则跳过
-        if (is_admin() || !is_search())
+        if (is_admin() || !is_search()) {
             return;
+        }
 
         //配置重定向
         if ($options['search_redirect_search_page'] === true) {
@@ -82,8 +84,9 @@ class AYA_Plugin_Request
         $options = $this->query_options;
 
         //不是搜索则跳过
-        if (is_admin() || !is_search())
+        if (is_admin() || !is_search()) {
             return;
+        }
 
         $search_vars = get_query_var('s');
 
@@ -122,8 +125,9 @@ class AYA_Plugin_Request
     public function aya_theme_pre_get_posts(\WP_Query $query)
     {
         //如果是后台 & 是主查询
-        if (!$query->is_main_query() || is_admin())
+        if (!$query->is_main_query() || is_admin()) {
             return $query;
+        }
 
         //获取设置
         $options = $this->query_options;
