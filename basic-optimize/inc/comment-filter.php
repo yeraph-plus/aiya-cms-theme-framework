@@ -15,17 +15,14 @@ if (!defined('ABSPATH'))
  * @version 1.1
  **/
 
-class AYA_Plugin_Comment_Filter extends AYA_Plugin_Setup
+class AYA_Plugin_Comment_Filter
 {
     public $filter_options;
 
     public function __construct($args)
     {
         $this->filter_options = $args;
-    }
 
-    public function __destruct()
-    {
         $options = $this->filter_options;
 
         if (is_user_logged_in() && $options['site_comment_ignore_logged_users'] == true) {
@@ -44,6 +41,9 @@ class AYA_Plugin_Comment_Filter extends AYA_Plugin_Setup
         //评论过滤器（完整）
         add_filter('preprocess_comment', array($this, 'aya_theme_comments_filter_comment'));
     }
+
+    public function __destruct() {}
+
     //修改评论表单
     public function aya_theme_comment_remove_field($fields)
     {
@@ -53,6 +53,7 @@ class AYA_Plugin_Comment_Filter extends AYA_Plugin_Setup
 
         return $fields;
     }
+
     //禁止垃圾评论提交到数据库
     public function aya_theme_comments_filter_from_wp_blacklist($comment_data)
     {
@@ -79,7 +80,6 @@ class AYA_Plugin_Comment_Filter extends AYA_Plugin_Setup
         //转换为小写
         $content_to_check = strtolower($content_to_check);
 
-        wp_die($content_to_check);
         //循环关键字
         foreach ($disallowed_array as $word) {
 
@@ -166,6 +166,7 @@ class AYA_Plugin_Comment_Filter extends AYA_Plugin_Setup
 
         return $comment_data;
     }
+
     //报错
     public function aya_theme_comment_error_message($message)
     {

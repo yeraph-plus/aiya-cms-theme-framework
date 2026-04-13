@@ -16,17 +16,6 @@ if (!defined('ABSPATH'))
  * @version 1.4
  **/
 
-/**
- * ThemeSetup的一些说明：
- * 
- * 这是一个类似于插件方式的机制，但究极简化版。所以，它只能使用特定写法才会正常执行。
- * 
- * 用法：
- * 
- * $SET['Class类名'] = 'Class参数';
- * $Setup = new AYA_Plugin_Setup();
- * $Setup->action($SET);
- */
 
 if (!class_exists('AYA_Plugin_Setup')) {
     class AYA_Plugin_Setup extends AYA_Framework_Setup
@@ -35,52 +24,61 @@ if (!class_exists('AYA_Plugin_Setup')) {
         private static $plugin_array = array();
 
         //实例化方法
-        public static function action($plugin_name, $args)
+        public static function action($plugin_name, $args, $slug)
         {
-            //修饰类名前缀
-            $class = 'AYA_Plugin_' . $plugin_name;
+            $fetch_args = self::_action_plugin_opt($args, $slug);
 
-            //如果类存在
-            if (class_exists($class)) {
-                //参数是否是数组
-                if (is_array($args)) {
-                    new $class($args);
-                }
-                //参数为布尔型，则不添加参数
-                else if (is_bool($args)) {
-                    if ($args === false)
-                        return;
-                    new $class();
-                }
-                //返回错误提示
-                else {
-                    self::message_error('notice', __('Plugin class input bad parameter: ') . "\"$class\"");
-                }
-            }
-            //返回错误提示
-            else {
-                self::message_error('notice', __('Plugin class not found: ') . "\"$class\"");
-            }
+            AYF::module($plugin_name, $fetch_args);
         }
-        //注册实例方法
-        public static function action_register($plugin_name, $args)
+
+        //插件功能转换参数
+        private static function _action_plugin_opt($field_array, $opt_sulg)
         {
-            $add_array = &self::$plugin_array;
-            //增加一组
-            $add_array[$plugin_name] = $args;
-        }
-        //实例化全部
-        public static function action_all()
-        {
-            //执行循环
-            foreach (self::$plugin_array as $plugin => $args) {
-                //验证参数为null直接跳过
-                if ($args === null)
+            if (!is_array($field_array))
+                return;
+
+            $action_array = array();
+
+            //遍历
+            foreach ($field_array as $field) {
+                //跳过
+                if (empty($field['id'])) {
                     continue;
-                //实例化
-                self::action($plugin, $args);
+                }
+                //验证选项布尔型
+                if ($field['type'] === 'switch') {
+                    $action_array[$field['id']] = AYF::get_checked($field['id'], $opt_sulg);
+                } else {
+                    $action_array[$field['id']] = AYF::get_opt($field['id'], $opt_sulg);
+                }
             }
+
+            //数组打印工具
+            //print_r($action_array);
+            //self::_print_plugin_action($field_array);
+            //返回
+            return $action_array;
         }
+
+        //打印当前设置表单
+        private static function _print_plugin_action($field_array)
+        {
+            if (!is_array($field_array))
+                return;
+
+            $setting_array = array();
+            $i = 0;
+            foreach ($field_array as $field) {
+                $i++;
+                if (empty($field['id'])) {
+                    continue;
+                }
+                $setting_array[$i] = $field['id'] . '/' . $field['title'] . '/' . $field['desc'];
+            }
+
+            print_r($setting_array);
+        }
+
         //Include方法
         public static function include_plugins()
         {
@@ -99,15 +97,7 @@ if (!class_exists('AYA_Plugin_Setup')) {
                 }
                 //标记已加载
                 self::$include_once = true;
-
             }
-        }
-        //包装WP报错
-        public static function message_error($line, $message)
-        {
-            add_action('admin_notices', function () use ($line, $message) {
-                echo '<div id="message" class="' . $line . '"><p>[AIYA-THEME] ' . $message . '</p></div>';
-            });
         }
     }
 }

@@ -22,10 +22,7 @@ class AYA_Plugin_Security
     public function __construct($args)
     {
         $this->security_options = $args;
-    }
 
-    public function __destruct()
-    {
         add_action('admin_init', array($this, 'aya_theme_admin_backend_verify'));
 
         add_filter('allow_password_reset', array($this, 'aya_theme_disallow_password_reset'), 10, 2);
@@ -50,8 +47,10 @@ class AYA_Plugin_Security
         add_filter('wp_sitemaps_add_provider', array($this, 'aya_theme_remove_sitemap_users_provider'), 10, 2);
 
         add_filter('rest_endpoints', array($this, 'aya_theme_remove_restapi_users_endpoint'));
-
     }
+
+    public function __destruct() {}
+
     //在 WP-Sitemap 中跳过输出 users 列表
     public function aya_theme_remove_sitemap_users_provider($provider, $name)
     {
@@ -61,6 +60,7 @@ class AYA_Plugin_Security
             return ($name == 'users') ? false : $provider;
         }
     }
+
     //清理 REST-API 默认端点
     public function aya_theme_remove_restapi_users_endpoint($endpoints)
     {
@@ -83,6 +83,7 @@ class AYA_Plugin_Security
 
         return $endpoints;
     }
+
     //限制后台访问
     public function aya_theme_admin_backend_verify()
     {
@@ -123,6 +124,7 @@ class AYA_Plugin_Security
             wp_redirect('/');
         }
     }
+
     //强制使用邮箱登录
     public function aya_theme_allow_email_login($user, $username, $password)
     {
@@ -135,6 +137,7 @@ class AYA_Plugin_Security
 
         return wp_authenticate_username_password(null, $username, $password);
     }
+
     //限制特定权限用户修改密码
     public function aya_theme_disallow_password_reset($allow, $user)
     {
@@ -156,6 +159,7 @@ class AYA_Plugin_Security
 
         return true;
     }
+
     //禁用 admin 用户名注册
     public function aya_theme_prevent_disable_admin_user($user)
     {
@@ -178,6 +182,7 @@ class AYA_Plugin_Security
         }
         return $user;
     }
+
     //清理用户名中包含的 admin 字符串
     public function aya_theme_prevent_clean_admin_user($username)
     {
@@ -201,6 +206,7 @@ class AYA_Plugin_Security
         }
         return $username;
     }
+
     //禁用 admin 用户名进行身份验证
     public function aya_theme_logged_disable_admin_user($user, $username, $password)
     {
@@ -227,6 +233,7 @@ class AYA_Plugin_Security
         }
         return $user;
     }
+
     /*
     //设置允许的最大登录尝试次数
     public function aya_theme_limit_login_attempts($username)
@@ -326,7 +333,7 @@ class AYA_Plugin_Security
 
             //自动的跳转JS
             if ($options['login_page_auto_jump_times'] == true):
-                ?>
+?>
                 <script>
                     const waitForSeconds = 5;
                     let waited = 0;
@@ -340,13 +347,13 @@ class AYA_Plugin_Security
                     document.getElementById("user_login").closest("p").remove();
                     document.getElementById("user_pass").closest(".user-pass-wrap").remove();
 
-                    const uiInterval = setInterval(function () {
+                    const uiInterval = setInterval(function() {
                         waited++;
                         const remaining = waitForSeconds - waited;
                         secondsElement.innerText = remaining >= 0 ? remaining + "" : "0";
                         if (remaining <= 0) clearInterval(uiInterval);
                     }, 1000);
-                    setTimeout(function () {
+                    setTimeout(function() {
                         waitElement.style.display = "none";
                         redirectElement.style.display = "inherit";
                         const href = window.location.href;
@@ -356,15 +363,15 @@ class AYA_Plugin_Security
                     }, waitForSeconds * 1000);
                 </script>
                 </form>
-                <?php
+            <?php
             else:
-                ?>
+            ?>
                 <script>
                     document.getElementById("user_login").closest("p").remove();
                     document.getElementById("user_pass").closest(".user-pass-wrap").remove();
                 </script>
                 </form>
-                <?php
+<?php
             endif;
             //加载原结构
             login_footer();
@@ -377,6 +384,7 @@ class AYA_Plugin_Security
             wp_nonce_field('secure-login-nonce-action', 'secure-login-nonce');
         }
     }
+
     //验证登录页面的表单
     public function aya_theme_page_modify_login_action()
     {
@@ -385,6 +393,7 @@ class AYA_Plugin_Security
             return self::aya_theme_error_login_action();
         }
     }
+
     //DEBUG：其他表单兼容性
     public function aya_theme_page_modify_login_form_bottom($content, $args)
     {
@@ -399,6 +408,7 @@ class AYA_Plugin_Security
 
         return $content . $field;
     }
+
     //创建登录框动态
     public function aya_theme_logged_shake_error_codes($error_codes)
     {

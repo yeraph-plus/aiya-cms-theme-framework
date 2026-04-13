@@ -14,41 +14,40 @@ if (!defined('ABSPATH')) exit;
  * @version 1.1
  **/
 
-class AYA_Plugin_CDN_Speed extends AYA_Plugin_Setup
+class AYA_Plugin_CDN_Speed
 {
     public $speed_options;
 
     public function __construct($args)
     {
-
         $this->speed_options = $args;
-    }
 
-    public function __destruct()
-    {
         $options = $this->speed_options;
-        //$options['site_default_avatar']
+
         if ($options['site_default_avatar'] != '') {
-            parent::add_filter('avatar_defaults', 'aya_theme_default_avatar');
+            add_filter('avatar_defaults', array($this, 'aya_theme_default_avatar'));
         }
         if ($options['use_speed_gravatar'] == true && $options['use_speed_weavatar'] == false) {
-            parent::add_filter('get_avatar', 'aya_theme_replace_gravatar_cdn');
-            parent::add_filter('get_avatar_url', 'aya_theme_replace_gravatar_cdn');
+            add_filter('get_avatar', array($this, 'aya_theme_replace_gravatar_cdn'));
+            add_filter('get_avatar_url', array($this, 'aya_theme_replace_gravatar_cdn'));
         }
         if ($options['use_speed_google_fonts'] == true) {
-            parent::add_filter('style_loader_tag', 'aya_theme_replace_google_fonts_cdn', 999, 4);
+            add_filter('style_loader_tag', array($this, 'aya_theme_replace_google_fonts_cdn'), 999, 4);
         }
         if ($options['use_speed_weavatar'] == true) {
-            parent::add_filter('um_user_avatar_url_filter', 'get_weavatar_url', 1);
-            parent::add_filter('bp_gravatar_url', 'get_weavatar_url', 1);
-            parent::add_filter('get_avatar_url', 'get_weavatar_url', 1);
-            parent::add_filter('um_user_avatar_url_filter', 'get_weavatar_url', PHP_INT_MAX);
-            parent::add_filter('bp_gravatar_url', 'get_weavatar_url', PHP_INT_MAX);
-            parent::add_filter('get_avatar_url', 'get_weavatar_url', PHP_INT_MAX);
-            parent::add_filter('avatar_defaults', 'set_defaults_for_weavatar', 1);
-            parent::add_filter('user_profile_picture_description', 'set_user_profile_picture_for_weavatar', 1);
+            add_filter('um_user_avatar_url_filter', array($this, 'get_weavatar_url'), 1);
+            add_filter('bp_gravatar_url', array($this, 'get_weavatar_url'), 1);
+            add_filter('get_avatar_url', array($this, 'get_weavatar_url'), 1);
+            add_filter('um_user_avatar_url_filter', array($this, 'get_weavatar_url'), PHP_INT_MAX);
+            add_filter('bp_gravatar_url', array($this, 'get_weavatar_url'), PHP_INT_MAX);
+            add_filter('get_avatar_url', array($this, 'get_weavatar_url'), PHP_INT_MAX);
+            add_filter('avatar_defaults', array($this, 'set_defaults_for_weavatar'), 1);
+            add_filter('user_profile_picture_description', array($this, 'set_user_profile_picture_for_weavatar'), 1);
         }
     }
+
+    public function __destruct() {}
+
     //创建一个自定义的头像标志
     public function aya_theme_default_avatar($avatar_defaults)
     {
@@ -60,6 +59,7 @@ class AYA_Plugin_CDN_Speed extends AYA_Plugin_Setup
 
         return $avatar_defaults;
     }
+
     //替换GravatarCDN源
     public function aya_theme_replace_gravatar_cdn($avatar)
     {
@@ -100,6 +100,7 @@ class AYA_Plugin_CDN_Speed extends AYA_Plugin_Setup
 
         return str_replace($gravatar_sources, $url, $avatar);
     }
+
     //替换谷歌字体加速
     public function aya_theme_replace_google_fonts_cdn($fonts)
     {
@@ -156,6 +157,7 @@ class AYA_Plugin_CDN_Speed extends AYA_Plugin_Setup
         }
         return array_map(str_replace(['http://', 'https://'], '//', $replace), array_keys($sources), $sources);
     }
+
     //替换Gravatar为国内WeAvatar
     public function get_weavatar_url($url)
     {
@@ -174,11 +176,13 @@ class AYA_Plugin_CDN_Speed extends AYA_Plugin_Setup
         );
         return str_replace($sources, 'weavatar.com', $url);
     }
+
     public function set_defaults_for_weavatar($avatar_defaults)
     {
         $avatar_defaults['gravatar_default'] = 'WeAvatar 头像';
         return $avatar_defaults;
     }
+
     public function set_user_profile_picture_for_weavatar()
     {
         return '<a href="https://weavatar.com" target="_blank">您可以在 WeAvatar 修改您的资料图片</a>';

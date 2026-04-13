@@ -22,10 +22,7 @@ class AYA_Plugin_Request
     public function __construct($args)
     {
         $this->query_options = $args;
-    }
 
-    public function __destruct()
-    {
         add_action('init', array($this, 'aya_theme_serach_on_init'));
         add_action('template_redirect', array($this, 'aya_theme_serach_template_redirect'));
         add_action('template_redirect', array($this, 'aya_theme_serach_clause_redirect'));
@@ -36,6 +33,9 @@ class AYA_Plugin_Request
         //SQL优化拓展
         add_filter('posts_clauses', array($this, 'aya_theme_sql_set_filter'), 10, 2);
     }
+
+    public function __destruct() {}
+
     //增加一些验证阻止非法访问
     public function aya_theme_serach_on_init()
     {
@@ -57,6 +57,7 @@ class AYA_Plugin_Request
             exit;
         }
     }
+
     //配置重定向
     public function aya_theme_serach_template_redirect()
     {
@@ -78,6 +79,7 @@ class AYA_Plugin_Request
             }
         }
     }
+
     //搜索条件重定向
     public function aya_theme_serach_clause_redirect()
     {
@@ -121,6 +123,7 @@ class AYA_Plugin_Request
             }
         }
     }
+
     //操作pre_get_posts钩子
     public function aya_theme_pre_get_posts(\WP_Query $query)
     {
@@ -237,6 +240,7 @@ class AYA_Plugin_Request
         //返回
         return $query;
     }
+
     //操作request钩子
     public function aya_theme_serach_pre_request($query)
     {
@@ -267,6 +271,7 @@ class AYA_Plugin_Request
         //返回查询
         return $query;
     }
+
     //验证搜索权限
     public function aya_theme_search_permission()
     {
@@ -291,6 +296,7 @@ class AYA_Plugin_Request
             return;
         }
     }
+
     //计算搜索关键词长度
     public function aya_theme_search_length($search_vars = '')
     {
@@ -306,6 +312,7 @@ class AYA_Plugin_Request
         }
         return true;
     }
+
     //根据IP计数搜索次数
     public function aya_theme_serach_limit()
     {
@@ -332,6 +339,7 @@ class AYA_Plugin_Request
             return true;
         }
     }
+
     //SQL优化&自定义搜索拓展
     public function aya_theme_sql_set_filter($clauses, $wp_query)
     {
@@ -407,6 +415,7 @@ class AYA_Plugin_Request
         //返回
         return $clauses;
     }
+
     //返回搜索关闭报错
     public function aya_theme_error_search_clause_off()
     {
@@ -421,6 +430,7 @@ class AYA_Plugin_Request
 
         exit;
     }
+
     //返回搜索登录报错
     public function aya_theme_error_search_clause_login()
     {
@@ -435,6 +445,7 @@ class AYA_Plugin_Request
 
         exit;
     }
+
     //返回搜索词过长报错
     public function aya_theme_error_search_clause_too_long()
     {
@@ -449,6 +460,7 @@ class AYA_Plugin_Request
 
         exit;
     }
+
     //返回搜索频率过多报错
     public function aya_theme_error_search_clause_too_fast()
     {

@@ -14,19 +14,19 @@ if (!defined('ABSPATH')) exit;
  * @version 1.1
  **/
 
-class AYA_Plugin_Head_Extra extends AYA_Plugin_Setup
+class AYA_Plugin_Head_Extra
 {
     public $extra_action;
 
     public function __construct($args)
     {
         $this->extra_action = $args;
+
+        add_action('wp_head', array($this, 'aya_theme_site_code_extra'));
     }
 
-    public function __destruct()
-    {
-        parent::add_action('wp_head', 'aya_theme_site_code_extra');
-    }
+    public function __destruct() {}
+
     //额外代码
     public function aya_theme_site_code_extra()
     {
@@ -50,6 +50,7 @@ class AYA_Plugin_Head_Extra extends AYA_Plugin_Setup
         }
         echo $head;
     }
+
     //插入谷歌统计代码
     public function add_google_analytics($id)
     {
@@ -61,6 +62,7 @@ class AYA_Plugin_Head_Extra extends AYA_Plugin_Setup
 
         return $script;
     }
+
     //插入百度统计代码
     public function add_baidu_tongji($id)
     {

@@ -15,47 +15,37 @@ if (!defined('ABSPATH'))
  * @version 1.4
  **/
 
-class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
+class AYA_Plugin_Head_SEO
 {
     public $seo_action;
 
     public function __construct($args)
     {
         $this->seo_action = $args;
-    }
 
-    public function __destruct()
-    {
         $action = $this->seo_action;
 
-        parent::add_action('pre_get_document_title', 'aya_theme_site_title');
+        add_action('pre_get_document_title', array($this, 'aya_theme_site_title'));
 
         if ($action['site_seo_action'] == true) {
             //移除本页链接
             remove_action('wp_head', 'rel_canonical');
-            parent::add_action('wp_head', 'aya_theme_site_seo_action');
-            parent::add_action('wp_head', 'aya_theme_site_seo_canonical');
-        }
-        if ($action['site_seo_auto_insert_pre'] == true) {
-            parent::add_filter('default_content', 'aya_theme_site_insert_pre_content');
+            add_action('wp_head', array($this, 'aya_theme_site_seo_action'));
+            add_action('wp_head', array($this, 'aya_theme_site_seo_canonical'));
         }
         if ($action['site_seo_auto_replace'] == true) {
-            parent::add_filter('the_content', 'aya_theme_site_replace_text_wps');
-        }
-        if ($action['site_seo_auto_insert_post_data'] == true) {
-            parent::add_filter('aya_insert_post_content_filtered', 'aya_theme_save_post_auto_insert_post_data');
-            parent::add_filter('aya_insert_post_content', 'aya_theme_save_post_auto_insert_post_data');
-        }
-        if ($action['site_seo_auto_add_tags'] == true) {
-            parent::add_action('save_post', 'aya_theme_save_post_auto_add_tags');
+            add_filter('the_content', array($this, 'aya_theme_site_replace_text_wps'));
         }
         if ($action['site_seo_auto_tag_link'] == true) {
-            parent::add_filter('the_content', 'aya_theme_content_auto_tags_re_link');
+            add_filter('the_content', array($this, 'aya_theme_content_auto_tags_re_link'));
         }
         if ($action['site_seo_robots_switch'] && $action['site_seo_robots_txt'] != '') {
-            parent::add_filter('robots_txt', 'aya_theme_custom_robots_txt', 10, 2);
+            add_filter('robots_txt', array($this, 'aya_theme_custom_robots_txt'), 10, 2);
         }
     }
+
+    public function __destruct() {}
+
     //站点标题选择器
     public function aya_theme_site_title($title)
     {
@@ -156,6 +146,7 @@ class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
         //输出
         //echo '<title>' . $head_title . '</title>' . "\n";
     }
+
     //SEO功能
     public function aya_theme_site_seo_action()
     {
@@ -185,8 +176,7 @@ class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
                     //格式化数组
                     foreach (get_the_tags() as $tag_item) {
                         $tags_str .= $tag_item->name . ',';
-                    }
-                    ;
+                    };
                     $tags_str = substr($tags_str, 0, strlen($tags_str) - 1);
                     //输出
                     $seo_keywords = $tags_str;
@@ -227,6 +217,7 @@ class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
         //输出
         echo $head_seo;
     }
+
     //配置canonical标签
     public function aya_theme_site_seo_canonical()
     {
@@ -238,6 +229,7 @@ class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
         //输出
         echo '<link rel="canonical" href="' . $url . '" />' . "\n";
     }
+
     //robots.txt
     public function aya_theme_custom_robots_txt($output, $public)
     {
@@ -247,18 +239,9 @@ class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
         $output = esc_attr(wp_strip_all_tags($action['site_seo_robots_txt']));
         return $output;
     }
-    //编辑器默认内容
-    public function aya_theme_site_insert_pre_content()
-    {
-        $action = $this->seo_action;
 
-        $content = trim($action['site_seo_auto_insert_content']);
+    //额外内容过滤器
 
-        if (!empty($content) && !is_feed() && !is_home()) {
-
-            return $content;
-        }
-    }
     //文内关键词替换
     function aya_theme_site_replace_text_wps($content)
     {
@@ -296,83 +279,6 @@ class AYA_Plugin_Head_SEO extends AYA_Plugin_Setup
         return $content;
     }
 
-    //文本预处理组件
-
-    //发布文章前对文章内容进行预处理
-    public function aya_theme_save_post_auto_insert_post_data($data)
-    {
-        //合并方法
-        $data = self::light_insert_data_re_fullwidth_space($data);
-        $data = self::light_insert_data_re_div_tags($data);
-        $data = self::light_insert_data_re_del_overlap($data);
-        $data = self::light_insert_data_re_del_useless($data);
-
-        $data = trim($data);
-
-        return $data;
-    }
-    //HTML标签去除全角空格*(　) 
-    private function light_insert_data_re_fullwidth_space($data)
-    {
-        $data = preg_replace('/(　)*/', '', $data['post_content_filtered']);
-        $data = preg_replace('/&nbsp;/', '', $data['post_content_filtered']);
-
-        return $data;
-    }
-    //HTML标签替换为P
-    private function light_insert_data_re_div_tags($data)
-    {
-        foreach (array('div', 'center') as $val) {
-            $data = preg_replace('#<' . $val . '[^>]*>(.*?)</' . $val . '>#is', '<p>$1</p>', $data); //替换为p	
-
-        }
-
-        return $data;
-    }
-    //HTML标签去除重叠
-    private function light_insert_data_re_del_overlap($data)
-    {
-        foreach (array('strong', 'b') as $val) {
-            $data = preg_replace('#<' . $val . '><' . $val . '>(.*?)</' . $val . '></' . $val . '>#is', '<' . $val . '>$1</' . $val . '>', $data);
-            $data = preg_replace('#</' . $val . '><' . $val . '>#is', '', $data);
-            $data = preg_replace('#<' . $val . '></' . $val . '>#is', '', $data);
-        }
-
-        return $data;
-    }
-    //HTML标签删除
-    private function light_insert_data_re_del_useless($data)
-    {
-        foreach (array('span', 'section') as $val) {
-            $data = preg_replace('/<(\/?' . $val . '.*?)>/si', '', $data); //过滤标签
-
-        }
-
-        return $data;
-    }
-
-    //自动内链组件
-
-    //文章保存时自动触发动作添加标签
-    public function aya_theme_save_post_auto_add_tags()
-    {
-        //跳过自动保存
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-            return;
-
-        $tags = get_tags(array('hide_empty' => false));
-
-        $post_id = get_the_ID();
-
-        $post_content = get_post($post_id)->post_content;
-
-        if ($tags) {
-            foreach ($tags as $tag) {
-                if (strpos($post_content, $tag->name) !== false)
-                    wp_set_post_tags($post_id, $tag->name, true);
-            }
-        }
-    }
     //文章载入时自动检索匹配的标签添加链接
     public function aya_theme_content_auto_tags_re_link($content)
     {

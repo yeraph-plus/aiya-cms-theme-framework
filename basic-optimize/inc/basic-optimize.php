@@ -21,10 +21,7 @@ class AYA_Plugin_Optimize
     public function __construct($args)
     {
         $this->optimize_options = $args;
-    }
 
-    public function __destruct()
-    {
         $options = $this->optimize_options;
 
         //禁用WP自动更新
@@ -232,6 +229,12 @@ class AYA_Plugin_Optimize
             remove_action('wp_head', 'wp_resource_hints', 2);
             //移除WordPress版本
             remove_action('wp_head', 'wp_generator');
+            //移除 theme.json 和站点编辑器产生的全局样式
+            remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+            remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
+            //移除图片自动尺寸CSS
+            remove_action('wp_head', 'wp_render_img_auto_sizes_contain_css');
+
             //移除本页链接
             //remove_action('wp_head', 'rel_canonical');
             //移除机器人元标记
@@ -362,6 +365,7 @@ class AYA_Plugin_Optimize
         add_action('wp_enqueue_scripts', array($this, 'aya_theme_dequeue_script'));
         add_action('admin_enqueue_scripts', array($this, 'aya_theme_dequeue_admin_script'));
     }
+
     //操作静态文件注册
     public function aya_theme_dequeue_script()
     {
@@ -388,6 +392,7 @@ class AYA_Plugin_Optimize
             wp_deregister_script('wp-embed');
         }
     }
+
     //操作静态文件注册（后台）
     public function aya_theme_dequeue_admin_script()
     {
@@ -405,6 +410,7 @@ class AYA_Plugin_Optimize
             wp_deregister_script('autosave');
         }
     }
+
     //favicon.ico
     public function aya_theme_site_favicon()
     {
@@ -427,6 +433,7 @@ class AYA_Plugin_Optimize
             return $head;
         }
     }
+
     // Feed 返回报错
     public function aya_theme_error_feed_is_off()
     {
@@ -443,6 +450,7 @@ class AYA_Plugin_Optimize
 
         exit;
     }
+
     // Rest-API 返回报错
     public function aya_theme_error_rest_api_is_off()
     {

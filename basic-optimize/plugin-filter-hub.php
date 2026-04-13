@@ -16,7 +16,7 @@ add_filter('user_trailingslashit', 'ayf_filter_auto_trailingslashit', 10, 2);
 //添加钩子 保存格式过滤 Tips：此钩子也在 post_update() 和 post_delete() 上触发，应当注意检查其他插件的兼容性
 //add_filter('wp_insert_post_data', 'ayf_filter_insert_post_data', 10, 3);
 //添加钩子 排除评论表单字段
-//add_filter('comment_form_default_fields', 'ayf_filter_insert_comment_form_unset_field');
+add_filter('comment_form_default_fields', 'ayf_filter_insert_comment_form_unset_field');
 //添加钩子 过滤评论和body输出html的css
 //add_filter('body_class', 'ayf_filter_insert_body_class');
 //add_filter('comment_class', 'ayf_filter_insert_body_class');
@@ -25,7 +25,7 @@ add_filter('user_trailingslashit', 'ayf_filter_auto_trailingslashit', 10, 2);
 //add_filter('nav_menu_item_id', 'ayf_filter_insert_menu_class');
 //add_filter('page_css_class', 'ayf_filter_insert_menu_class');
 
-//ajax参数
+//AJAX参数
 function ayf_ajax_enqueue_scripts()
 {
     wp_localize_script('ajax-script', 'ajax_url', array(
@@ -34,6 +34,7 @@ function ayf_ajax_enqueue_scripts()
         'ajax_nonce' => wp_create_nonce('ajax_nonce'),
     ));
 }
+
 //URL自动附加反斜杠
 function ayf_filter_auto_trailingslashit($string, $type)
 {
@@ -49,6 +50,7 @@ function ayf_filter_auto_trailingslashit($string, $type)
 
     return $string;
 }
+
 //注册两个文章保存格式的过滤器
 function ayf_filter_insert_post_data($data, $postarr, $unsanitized_postarr)
 {
@@ -57,6 +59,7 @@ function ayf_filter_insert_post_data($data, $postarr, $unsanitized_postarr)
 
     return $data;
 }
+
 //排除评论表单站点字段
 function ayf_filter_insert_comment_form_unset_field($fields)
 {
@@ -65,12 +68,14 @@ function ayf_filter_insert_comment_form_unset_field($fields)
 
     return $fields;
 }
+
 //过滤body的css
 function ayf_filter_insert_body_class($classes)
 {
     $content = preg_replace("/(.*?)([^>]*)author-([^>]*)(.*?)/i", '$1$4', $classes);
     return $content;
 }
+
 //过滤菜单的css
 function ayf_filter_insert_menu_class($classes)
 {

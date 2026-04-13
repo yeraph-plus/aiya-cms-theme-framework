@@ -23,14 +23,13 @@ class AYA_Plugin_UA_Firewall
     public function __construct($args)
     {
         $this->firewall_options = $args;
-    }
 
-    public function __destruct()
-    {
         add_action('init', array($this, 'aya_block_reject_url_rewind'));
         add_action('init', array($this, 'aya_block_reject_user_agent'));
         add_action('init', array($this, 'aya_block_reject_ips'));
     }
+
+    public function __destruct() {}
 
     //验证访问URL参数
     public function aya_block_reject_url_rewind()
@@ -178,9 +177,6 @@ class AYA_Plugin_UA_Firewall
         }
     }
 
-    //
-
-
     //返回参数非法报错
     public function aya_theme_error_rewind_url_reject()
     {
@@ -197,6 +193,7 @@ class AYA_Plugin_UA_Firewall
 
         exit;
     }
+
     //返回UA非法报错
     public function aya_theme_error_rewind_ua_reject()
     {

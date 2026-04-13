@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
  * @version 1.2
  **/
 
-class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
+class AYA_Plugin_Mail_Sender
 {
     public $phpmailer_options;
 
@@ -27,15 +27,14 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
         $options = $this->phpmailer_options;
         //关闭新用户注册通知站长的邮件
         if ($options['disable_new_user_email_admin'] !== false) {
-            parent::add_filter('wp_new_user_notification_email_admin', '__return_false');
+            add_filter('wp_new_user_notification_email_admin', '__return_false');
         }
         //关闭新用户注册用户邮件通知
         if ($options['disable_new_user_email_user'] !== false) {
-            parent::add_filter('wp_new_user_notification_email', '__return_false');
+            add_filter('wp_new_user_notification_email', '__return_false');
         }
 
-
-        parent::add_action('phpmailer_init', 'aya_theme_mail_smtp_option');
+        add_action('phpmailer_init', array($this, 'aya_theme_mail_smtp_option'));
     }
 
     public function __destruct() {}
@@ -65,9 +64,10 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
         }
 
         //发件人
-        $from_email =  (empty($options['smtp_from'])) ? $options['smtp_from'] : '';
-        $from_name  = (empty($options['smtp_from_name'])) ? $options['smtp_from_name'] : '';
-        $content_type = (empty($options['smtp_content_type'])) ? $options['smtp_content_type'] : '';
+        $from_email =  (!empty($options['smtp_from'])) ? $options['smtp_from'] : '';
+        $from_name  = (!empty($options['smtp_from_name'])) ? $options['smtp_from_name'] : '';
+        $content_type = (!empty($options['smtp_content_type'])) ? $options['smtp_content_type'] : '';
+
 
         //配置SMTP设置
         $phpmailer->isSMTP();
@@ -119,6 +119,7 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
         //强制设置邮件字符集
         if (! isset($charset)) {
             $charset = get_bloginfo('charset');
+            $charset = apply_filters('wp_mail_charset', $charset);
         }
 
         $phpmailer->CharSet = apply_filters('wp_mail_charset', $charset);
@@ -158,13 +159,13 @@ class AYA_Plugin_Mail_Sender extends AYA_Plugin_Setup
     //使用 wp_mail() 函数发件方法
     public function send_callback($data)
     {
-        $data = array(
+        $defaults = array(
             'to' => '',
             'subject' => '',
             'message' => '',
         );
 
-        $data = wp_parse_args($data, $data);
+        $data = wp_parse_args($data, $defaults);
 
         //确保数据不为空
         if (empty($data['to']) || empty($data['subject'])) {

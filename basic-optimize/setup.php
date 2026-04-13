@@ -3,9 +3,10 @@ if (!defined('ABSPATH'))
     exit;
 
 if (!class_exists('AYP')) {
+    //加载库
+    include_once (__DIR__) . '/vendor/autoload.php';
     //引入插件框架
     require_once (__DIR__) . '/plugin-setup.php';
-    require_once (__DIR__) . '/plugin-filter-hub.php';
     //实例化
     class AYP extends AYA_Plugin_Setup
     {
@@ -26,6 +27,7 @@ if (!class_exists('AYP')) {
     //include
     AYP::include_plugins();
     //加载插件设置
+    require_once (__DIR__) . '/plugin-filter-hub.php';
     include_once (__DIR__) . '/plugin-config-parent.php';
     include_once (__DIR__) . '/plugin-config.php';
 }

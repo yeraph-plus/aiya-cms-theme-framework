@@ -34,6 +34,18 @@ if (!defined('ABSPATH')) {
  * 方法 out_checked($name, $output, $inst) 先判断get_opt方法，然后输出$output（用于直接输出内容）
  */
 
+/**
+ * module()方法的一些说明：
+ * 
+ * 这是一个类似于插件方式的机制，但究极简化版。所以，它只能使用特定写法才会正常执行。
+ * 
+ * 用法：
+ * 
+ * $SET['Class类名'] = 'Class参数';
+ * $Setup = new AYA_Plugin_Setup();
+ * $Setup->action($SET);
+ */
+
 if (!class_exists('AYA_Framework_Setup')) {
     define('AYA_SEP', '_');
     class AYA_Framework_Setup
@@ -101,6 +113,7 @@ if (!class_exists('AYA_Framework_Setup')) {
         {
             //组件目录
             $module_path = (__DIR__) . '/plugin';
+
             //遍历
             foreach (glob($module_path . '/*.php') as $module_file) {
                 //验证文件是否存在
@@ -111,7 +124,38 @@ if (!class_exists('AYA_Framework_Setup')) {
 
                 require $module_file;
             }
+        }
 
+        //模块实例化方法
+        public static function module($module_name, $args)
+        {
+            //修饰类名前缀
+            $module_class = 'AYA_Plugin_' . $module_name;
+
+            //如果类存在
+            if (class_exists($module_class)) {
+                //参数为布尔型，则不添加参数
+                if (is_bool($args)) {
+                    if ($args === false) {
+                        return;
+                    }
+
+                    new $module_class();
+                }
+                //参数是关联数组，直接使用
+                else if (is_array($args)) {
+
+                    new $module_class($args);
+                }
+                //返回错误提示
+                else {
+                    self::message_error('notice', __('Plugin class input bad parameter: ') . "\"$module_class\"");
+                }
+            }
+            //返回错误提示
+            else {
+                self::message_error('notice', __('Plugin class not found: ') . "\"$module_class\"");
+            }
         }
 
         //定位静态文件URL
@@ -177,9 +221,15 @@ if (!class_exists('AYA_Framework_Setup')) {
             $A_FRCO = 'AY' . 'A' . AYA_SEP . 'H' . 'ASH' . AYA_SEP . 'FRO' . 'M';
             $A_MECO = 'AY' . 'A' . AYA_SEP . 'AU' . 'TH' . AYA_SEP . 'T' . 'YPE';
 
-            $F_DESF = function ($str) { return base64_decode($str); };
-            $F_OPFS = function ($fil, $str) { return strstr(file_get_contents($fil), $str); };
-            $F_REFS = function ($SEP) use ($A_FRCO, $A_MECO, $F_DESF) { return $F_DESF(constant(($SEP == true) ? $A_FRCO : $A_MECO)); };
+            $F_DESF = function ($str) {
+                return base64_decode($str);
+            };
+            $F_OPFS = function ($fil, $str) {
+                return strstr(file_get_contents($fil), $str);
+            };
+            $F_REFS = function ($SEP) use ($A_FRCO, $A_MECO, $F_DESF) {
+                return $F_DESF(constant(($SEP == true) ? $A_FRCO : $A_MECO));
+            };
         }
 
         //除错方法
@@ -351,8 +401,16 @@ if (!class_exists('AYA_Framework_Setup')) {
         }
 
         //Tips: Metabox需要在指定到ID时提取数据，此处不实现
-    }
 
+
+        //包装WP报错
+        public static function message_error($line, $message)
+        {
+            add_action('admin_notices', function () use ($line, $message) {
+                echo '<div id="message" class="' . $line . '"><p>[AIYA-Framework] ' . $message . '</p></div>';
+            });
+        }
+    }
 }
 
 //不防君子签名术

@@ -21,10 +21,7 @@ class AYA_Plugin_Admin_Custom
     public function __construct($args)
     {
         $this->admin_options = $args;
-    }
 
-    public function __destruct()
-    {
         $options = $this->admin_options;
 
         //禁用前台顶部工具栏
@@ -48,12 +45,16 @@ class AYA_Plugin_Admin_Custom
         //注册工具栏自定义链接
         add_action('admin_bar_menu', array($this, 'aya_theme_custom_admin_bar_link'), 90);
     }
+
+    public function __destruct() {}
+
     //替换后台标题
     public function aya_theme_custom_admin_title($admin_title, $title)
     {
         //站点名 - 页面
         return get_bloginfo('name') . ' - ' . $title;
     }
+
     //隐藏后台欢迎模块和WordPress新闻
     public function aya_theme_remove_dashboard_meta_box()
     {
@@ -82,6 +83,7 @@ class AYA_Plugin_Admin_Custom
         //删除 "WordPress 新闻" 模块
         remove_meta_box('dashboard_secondary', 'dashboard', 'side');
     }
+
     //替换后台页脚信息
     public function aya_theme_custom_admin_footer($footer_text)
     {
@@ -93,6 +95,7 @@ class AYA_Plugin_Admin_Custom
 
         echo $footer_text . $theme_info_text;
     }
+
     //隐藏右上角帮助
     public function aya_theme_remove_help_tabs()
     {
@@ -100,6 +103,7 @@ class AYA_Plugin_Admin_Custom
 
         $current_screen->remove_help_tabs();
     }
+
     //注册工具栏自定义链接
     public function aya_theme_custom_admin_bar_link()
     {

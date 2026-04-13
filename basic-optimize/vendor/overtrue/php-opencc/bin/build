@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+require_once file_exists(__DIR__ . '/vendor/autoload.php') ?  __DIR__ . '/vendor/autoload.php' : __DIR__ . '/../../../autoload.php';
+
+use Overtrue\PHPOpenCC\Console\BuildCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application("PHP OpenCC by @overtrue");
+
+$application->add(new BuildCommand());
+$application->setDefaultCommand(BuildCommand::getDefaultName(), true);
+$application->run();

@@ -1,5 +1,7 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /*
  * ------------------------------------------------------------------------------
@@ -7,59 +9,18 @@ if (!defined('ABSPATH')) exit;
  * ------------------------------------------------------------------------------
  */
 
-//插件功能转换参数
-function ayf_plugin_action($field_array, $plugin_sulg)
-{
-    if (!is_array($field_array)) return;
-
-    $action_array = array();
-
-    //遍历
-    foreach ($field_array as $field) {
-        //跳过
-        if (empty($field['id'])) continue;
-
-        //验证选项布尔型
-        if ($field['type'] === 'switch') {
-            $action_array[$field['id']] = AYF::get_checked($field['id'], $plugin_sulg);
-        } else {
-            $action_array[$field['id']] = AYF::get_opt($field['id'], $plugin_sulg);
-        }
-    }
-
-    //print_r($action_array);
-    //ayf_plugin_action_print($field_array);
-    //返回
-    return $action_array;
-}
-//打印当前设置表单
-function ayf_plugin_action_print($field_array)
-{
-    if (!is_array($field_array)) return;
-
-    $setting_array = array();
-    $i = 0;
-    foreach ($field_array as $field) {
-        $i++;
-        if (empty($field['id'])) {
-            continue;
-        }
-        $setting_array[$i] = $field['id'] . '/' . $field['title'] . '/' . $field['desc'];
-    }
-
-    print_r($setting_array);
-}
 //验证MD5的方法
 function ayf_md5_file_source($filenamesource, $filenamedest)
 {
     $sourcefile = md5_file($filenamesource);
-    $destfile   = md5_file($filenamedest);
+    $destfile = md5_file($filenamedest);
     if ($sourcefile == $destfile) {
-        return  true;
+        return true;
     } else {
-        return  false;
+        return false;
     }
 }
+
 //查询所有短代码
 function query_shortcode_items()
 {
@@ -69,14 +30,14 @@ function query_shortcode_items()
     foreach ($GLOBALS['shortcode_tags'] as $tag => $callback) {
         if (is_array($callback)) {
             if (is_object($callback[0])) {
-                $callback = '<p>' . get_class($callback[0]) . '->' . (string)$callback[1] . '</p>';
+                $callback = '<p>' . get_class($callback[0]) . '->' . (string) $callback[1] . '</p>';
             } else {
-                $callback = '<p>' . $callback[0] . '->' . (string)$callback[1] . '</p>';
+                $callback = '<p>' . $callback[0] . '->' . (string) $callback[1] . '</p>';
             }
-        } elseif (is_object($callback)) {
+        } else if (is_object($callback)) {
             $callback = '<pre>' . print_r($callback, true) . '</pre>';
         } else {
-            $callback    = wpautop($callback);
+            $callback = wpautop($callback);
         }
         //简码+回调函数
         $items[] = ['tag' => wpautop($tag), 'callback' => $callback];
@@ -95,6 +56,7 @@ function query_shortcode_items()
     echo '</tbody>';
     echo '</table>';
 }
+
 //查询所有路由
 function query_rewrite_rules_items($args)
 {
@@ -121,6 +83,7 @@ function query_rewrite_rules_items($args)
     echo '</tbody>';
     echo '</table>';
 }
+
 //生成robots.txt内容
 function ayf_get_default_robots_text()
 {
@@ -155,149 +118,143 @@ function ayf_get_default_robots_text()
  * ------------------------------------------------------------------------------
  */
 
-//设置页面和内容
-$AYF_PARENT_FIELDS = array(
-    array(
-        'desc' => '禁用拓展',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '全局禁用',
-        'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
-        'id' => 'all_plugin_off',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'desc' => '次要组件',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '外部功能加速',
-        'desc' => '将 Gravatar 头像服务、谷歌字体服务替换为国内 CDN 加速',
-        'id' => 'plugin_add_avatar_speed',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '简单 SEO 组件',
-        'desc' => '替代页面标题配置器并支持一些基础的 SEO 功能',
-        'id' => 'plugin_add_seo_stk',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '简单 WAF 防护',
-        'desc' => '基于用户UA、IP、特定参数检测的防火墙功能',
-        'id' => 'plugin_add_ua_firewall',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '垃圾评论过滤',
-        'desc' => '基于语法规则的垃圾评论过滤，无需 Akismet 接口',
-        'id' => 'plugin_add_comment_filter',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '额外代码',
-        'desc' => '为站点增加额外 JS/CSS 代码，支持最小化添加百度统计和谷歌统计',
-        'id' => 'plugin_add_site_statistics',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => ' STMP 送信',
-        'desc' => '通过 STMP 发送站点通知',
-        'id' => 'plugin_add_stmp_mail',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '本地化头像',
-        'desc' => '本地化头像功能，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
-        'id' => 'plugin_local_avatar_upload',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'desc' => '此功能完全重建了分类的页面的路由方法，请自行测试你的主题 / 插件是否兼容',
-        'type' => 'message',
-    ),
-    array(
-        'title' => '分类 URL 重建',
-        'desc' => '移除分类URL中 [code]/category/[/code] 层级，启用此项功能后，需要在 [url=options-permalink.php]固定链接[/url] 设置中重新保存一次',
-        'id' => 'plugin_no_category_url',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'desc' => '开发者功能',
-        'type' => 'title_2',
-    ),
-    array(
-        'title' => '服务器状态信息',
-        'desc' => '在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）',
-        'id' => 'dashboard_server_monitor',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => 'DEBUG模式',
-        'desc' => '在 wp_footer() 中输出 SQL 和 include 等调试信息',
-        'id' => 'debug_mode',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '简码列表',
-        'desc' => '列出 WP 当前的全部固定链接（ Rewrite 规则）和查询方法',
-        'id' => 'debug_shortcode_items',
-        'type' => 'switch',
-        'default' => false,
-    ),
-    array(
-        'title' => '路由列表',
-        'desc' => '列出 WP 当前的全部简码功能（ Shortcode 字段）并列出回调函数',
-        'id' => 'debug_rules_items',
-        'type' => 'switch',
-        'default' => false,
-    ),
-);
 //创建父级设置页面和内容
 if (AYF::get_checked('all_plugin_off', 'plugin') === false) {
-    AYF::new_opt(
-        array(
-            'title' => 'AIYA-Optimize',
-            'page_tittle' => '首选项',
-            'slug' => 'plugin',
-            'desc' => 'AIYA-CMS 主题，全局功能组件',
-            'fields' => $AYF_PARENT_FIELDS,
-        )
-    );
+    AYF::new_opt([
+        'title' => 'AIYA-Optimize',
+        'page_tittle' => '首选项',
+        'slug' => 'plugin',
+        'desc' => 'AIYA-CMS 主题，全局功能组件',
+        'fields' => [
+            [
+                'desc' => '禁用拓展',
+                'type' => 'title_2',
+            ],
+            [
+                'title' => '全局禁用',
+                'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
+                'id' => 'all_plugin_off',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'desc' => '次要组件',
+                'type' => 'title_2',
+            ],
+            [
+                'title' => '外部功能加速',
+                'desc' => '将 Gravatar 头像服务、谷歌字体服务替换为国内 CDN 加速',
+                'id' => 'plugin_add_avatar_speed',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '简单 SEO 组件',
+                'desc' => '替代页面标题配置器并支持一些基础的 SEO 功能',
+                'id' => 'plugin_add_seo_stk',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '简单 WAF 防护',
+                'desc' => '基于用户UA、IP、特定参数检测的防火墙功能',
+                'id' => 'plugin_add_ua_firewall',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '垃圾评论过滤',
+                'desc' => '基于语法规则的垃圾评论过滤，无需 Akismet 接口',
+                'id' => 'plugin_add_comment_filter',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '额外代码',
+                'desc' => '为站点增加额外 JS/CSS 代码，支持最小化添加百度统计和谷歌统计',
+                'id' => 'plugin_add_site_statistics',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => ' STMP 送信',
+                'desc' => '通过 STMP 发送站点通知',
+                'id' => 'plugin_add_stmp_mail',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '本地化头像',
+                'desc' => '本地化头像功能，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
+                'id' => 'plugin_local_avatar_upload',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'desc' => '此功能完全重建了分类的页面的路由方法，请自行测试你的主题 / 插件是否兼容',
+                'type' => 'message',
+            ],
+            [
+                'title' => '分类 URL 重建',
+                'desc' => '移除分类URL中 [code]/category/[/code] 层级，启用此项功能后，需要在 [url=options-permalink.php]固定链接[/url] 设置中重新保存一次',
+                'id' => 'plugin_no_category_url',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'desc' => '开发者功能',
+                'type' => 'title_2',
+            ],
+            [
+                'title' => '服务器状态信息',
+                'desc' => '在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）',
+                'id' => 'dashboard_server_monitor',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => 'DEBUG模式',
+                'desc' => '在 wp_footer() 中输出 SQL 和 include 等调试信息',
+                'id' => 'debug_mode',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '简码列表',
+                'desc' => '列出 WP 当前的全部固定链接（ Rewrite 规则）和查询方法',
+                'id' => 'debug_shortcode_items',
+                'type' => 'switch',
+                'default' => false,
+            ],
+            [
+                'title' => '路由列表',
+                'desc' => '列出 WP 当前的全部简码功能（ Shortcode 字段）并列出回调函数',
+                'id' => 'debug_rules_items',
+                'type' => 'switch',
+                'default' => false,
+            ],
+        ],
+    ]);
 } else {
-    AYF::new_opt(
-        array(
-            'title' => 'AIYA-Optimize',
-            'slug' => 'plugin',
-            'page_tittle' => '首选项',
-            'desc' => 'AIYA-CMS 主题，全局功能组件',
-            'fields' => array(
-                array(
-                    'desc' => '禁用拓展',
-                    'type' => 'title_2',
-                ),
-                array(
-                    'title' => '全局禁用',
-                    'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
-                    'id' => 'all_plugin_off',
-                    'type' => 'switch',
-                    'default' => true,
-                ),
-            ),
-        )
-    );
+    AYF::new_opt([
+        'title' => 'AIYA-Optimize',
+        'slug' => 'plugin',
+        'page_tittle' => '首选项',
+        'desc' => 'AIYA-CMS 主题，全局功能组件',
+        'fields' => [
+            [
+                'desc' => '禁用拓展',
+                'type' => 'title_2',
+            ],
+            [
+                'title' => '全局禁用',
+                'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
+                'id' => 'all_plugin_off',
+                'type' => 'switch',
+                'default' => true,
+            ],
+        ],
+    ]);
 
     //退出当前脚本
     return;

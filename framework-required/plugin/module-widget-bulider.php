@@ -76,7 +76,6 @@ if (!class_exists('AYA_Widget')) {
     {
         public $widget_instance;
         public $widget_field;
-        public $widget_title;
         public $widget_mobile;
 
         //定义此类的必须方法
@@ -116,7 +115,6 @@ if (!class_exists('AYA_Widget')) {
 
             extract($args);
 
-            $title = isset($instance['title']) ? $instance['title'] : '';
             //$mobile_hide = isset($instance['mobile_hide']) && $instance['mobile_hide'] == 1 ? 'mobile-hide' : '';
 
             //判断是否为移动端
@@ -125,10 +123,6 @@ if (!class_exists('AYA_Widget')) {
 
             echo $before_widget;
 
-            if (!empty($title)) {
-                echo $before_title . $title . $after_title;
-            }
-
             $this->widget_func();
 
             echo $after_widget;
@@ -136,16 +130,6 @@ if (!class_exists('AYA_Widget')) {
         //选项表单
         public function form($instance)
         {
-            //添加标题设置
-            if ($this->widget_title == true) {
-
-                $title_type = isset($instance['title']) ? $instance['title'] : '';
-
-                echo '<p>';
-                echo '<label for="' . $this->get_field_id('title') . '">' . __('标题：', 'AIYA_FRAMEWORK') . '</label>';
-                echo '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title_type) . '" />';
-                echo '</p>';
-            }
             //输入
             foreach ($this->widget_field as $field) {
                 $field_id = $field['id'];
@@ -205,10 +189,6 @@ if (!class_exists('AYA_Widget')) {
 
             $instance = $old_instance;
 
-            //标题设置
-            if ($this->widget_title == true) {
-                $instance['title'] = strip_tags($new_instance['title']);
-            }
             //自定义设置
             foreach ($this->widget_field as $field) {
                 $field_id = $field['id'];
