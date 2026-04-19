@@ -24,8 +24,15 @@ if (!class_exists('AYA_Plugin_Setup')) {
         private static $plugin_array = array();
 
         //实例化方法
-        public static function action($plugin_name, $args, $slug)
+        public static function action($plugin_name, $args = false, $slug = null)
         {
+            // 如果没有传入别名，按照原本的模块方法启动
+            if (empty($slug)) {
+                AYF::module($plugin_name, $args);
+
+                return;
+            }
+
             $fetch_args = self::_action_plugin_opt($args, $slug);
 
             AYF::module($plugin_name, $fetch_args);

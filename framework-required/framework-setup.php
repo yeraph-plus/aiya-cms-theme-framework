@@ -97,6 +97,7 @@ if (!class_exists('AYA_Framework_Setup')) {
                 'switch',
                 'tinymce',
                 'group',
+                'number',
                 'group-mult',
                 'code-editor',
             );
@@ -236,14 +237,15 @@ if (!class_exists('AYA_Framework_Setup')) {
         protected static function inspect($array)
         {
             //检查数组是否为空
-            if (!is_array($array))
+            if (!is_array($array)) {
                 return false;
-
-            if (!empty($array) && count($array) != 0 && $array != array(''))
+            }
+            if (!empty($array) && count($array) != 0 && $array != array('')) {
                 return false;
-
+            }
             return true;
         }
+
         //替代方法
         protected function add_action($hook, $callback, $priority = 10, $args = 1)
         {

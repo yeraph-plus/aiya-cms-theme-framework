@@ -1,0 +1,20 @@
+{
+    "name": "aiya-cms/lib",
+    "description": "AIYA-CMS WordPress Theme Plugin",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "stable",
+    "require": {
+        "jxlwqq/chinese-typesetting": "^1.2",
+        "overtrue/php-opencc": "^1.3",
+        "overtrue/pinyin": "^6.0",
+        "imagine/imagine": "^1.5"
+    },
+    "require-dev": {},
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.cloud.tencent.com/composer/"
+        }
+    }
+}

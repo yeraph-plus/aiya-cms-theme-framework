@@ -1400,13 +1400,13 @@ if (AYF::get_checked('plugin_add_stmp_mail', 'plugin')) {
 //本地化头像
 if (AYF::get_checked('plugin_local_avatar_upload', 'plugin')) {
     //无需设置
-    AYP::module('Local_Avatars', true);
+    AYP::action('Local_Avatars', true);
 }
 
 //分类URL重建组件，移除分类URL中Category
 if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
     //无需设置
-    AYP::module('No_Category_URL', true);
+    AYP::action('No_Category_URL', true);
 }
 
 /*
@@ -1418,13 +1418,13 @@ if (AYF::get_checked('plugin_no_category_url', 'plugin')) {
 //服务器状态仪表盘小组件
 if (AYF::get_checked('dashboard_server_monitor', 'plugin')) {
     //无需设置
-    AYP::module('Dashboard_Server_Status', true);
+    AYP::action('Dashboard_Server_Status', true);
 }
 
 //运行DEBUG查询
 if (AYF::get_checked('debug_mode', 'plugin')) {
     //无需设置
-    AYP::module('Debug_Mode', true);
+    AYP::action('Debug_Mode', true);
 }
 
 //简码列表

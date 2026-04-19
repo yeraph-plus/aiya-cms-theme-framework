@@ -3,8 +3,6 @@ if (!defined('ABSPATH'))
     exit;
 
 if (!class_exists('AYP')) {
-    //加载库
-    include_once (__DIR__) . '/vendor/autoload.php';
     //引入插件框架
     require_once (__DIR__) . '/plugin-setup.php';
     //实例化
