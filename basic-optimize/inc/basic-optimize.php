@@ -49,9 +49,8 @@ class AYA_Plugin_Optimize
             });
             add_filter('xmlrpc_enabled', '__return_false');
 
-            remove_action('xmlrpc_rsd_apis', 'rest_output_link_wp_head', 10);
-            remove_action('xmlrpc_pingback.ping', 'rest_output_link_wp_head', 10);
-            remove_action('xmlrpc_weblog_ping', 'rest_output_link_wp_head', 10);
+            // 移除 RSD 中的 REST API 信息输出
+            remove_action('xmlrpc_rsd_apis', 'rest_output_rsd');
         } else {
             //禁用 PingBack
             if ($options['disable_pingback'] == true) {
@@ -76,7 +75,6 @@ class AYA_Plugin_Optimize
         }
         //禁用 REST API
         if ($options['disable_rest_api'] == true) {
-            remove_action('init', 'rest_api_init');
             remove_action('rest_api_init', 'rest_api_default_filters', 10);
             remove_action('parse_request', 'rest_api_loaded');
 
@@ -133,6 +131,11 @@ class AYA_Plugin_Optimize
             //不加载语言包
             add_filter('language_attributes', function ($language_attributes) {
                 $locale = get_locale();
+                $attributes = [];
+
+                if (!empty($language_attributes)) {
+                    $attributes[] = trim((string) $language_attributes);
+                }
 
                 if (function_exists('is_rtl') && is_rtl()) {
                     $attributes[] = 'dir="rtl"';
@@ -362,7 +365,9 @@ class AYA_Plugin_Optimize
         }
 
         add_action('wp_head', array($this, 'aya_theme_site_favicon'));
-        add_action('wp_enqueue_scripts', array($this, 'aya_theme_dequeue_script'));
+        // 使用高优先级并在 wp_print_styles 再执行一次，尽可能覆盖后续插件注入的样式
+        add_action('wp_enqueue_scripts', array($this, 'aya_theme_dequeue_script'), 999);
+        add_action('wp_print_styles', array($this, 'aya_theme_dequeue_script'), 999);
         add_action('admin_enqueue_scripts', array($this, 'aya_theme_dequeue_admin_script'));
     }
 
@@ -378,14 +383,25 @@ class AYA_Plugin_Optimize
         }
         //移除古腾堡编辑器样式
         if ($options['remove_gutenberg_styles'] == true) {
-            wp_dequeue_style('classic-theme-styles');
-            wp_dequeue_style('global-styles');
-            wp_dequeue_style('wp-block-library');
-            wp_dequeue_style('wp-block-library-theme');
-            wp_dequeue_style('wc-blocks-style');
-            wp_dequeue_style('wc-blocks-vendors-style');
-            wp_dequeue_style('bp-member-block');
-            wp_dequeue_style('bp-members-block');
+            remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+            remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
+            remove_action('wp_enqueue_scripts', 'wp_enqueue_classic_theme_styles');
+
+            $block_style_handles = [
+                'classic-theme-styles',
+                'global-styles',
+                'wp-block-library',
+                'wp-block-library-theme',
+                'wc-blocks-style',
+                'wc-blocks-vendors-style',
+                'bp-member-block',
+                'bp-members-block',
+            ];
+
+            foreach ($block_style_handles as $handle) {
+                wp_dequeue_style($handle);
+                wp_deregister_style($handle);
+            }
         }
         //移除wp_footer带入embed.min.js
         if ($options['disable_head_oembed'] == true) {
@@ -430,7 +446,7 @@ class AYA_Plugin_Optimize
             $head .= '<meta name="apple-mobile-web-app-capable" content="yes">' . "\n";
             $head .= '<meta name="apple-mobile-web-app-status-bar-style" content="default">' . "\n";
 
-            return $head;
+            echo $head;
         }
     }
 

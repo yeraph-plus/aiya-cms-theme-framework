@@ -706,6 +706,7 @@ AYF::new_box([
             'desc' => '刷新文章发布日期到当前时间',
             'id' => 'reset_post_datetime',
             'type' => 'switch',
+            'always_empty' => true,
             'default' => false,
         ],
     ],

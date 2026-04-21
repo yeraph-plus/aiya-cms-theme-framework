@@ -27,8 +27,8 @@ class AYA_Plugin_Request
         add_action('template_redirect', array($this, 'aya_theme_serach_template_redirect'));
         add_action('template_redirect', array($this, 'aya_theme_serach_clause_redirect'));
 
-        add_filter('request', array($this, 'aya_theme_serach_pre_request'));
         add_filter('pre_get_posts', array($this, 'aya_theme_pre_get_posts'));
+        add_action('pre_get_posts', array($this, 'aya_theme_serach_pre_request'));
 
         //SQL优化拓展
         add_filter('posts_clauses', array($this, 'aya_theme_sql_set_filter'), 10, 2);
@@ -39,16 +39,18 @@ class AYA_Plugin_Request
     //增加一些验证阻止非法访问
     public function aya_theme_serach_on_init()
     {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+
         //登录用户跳过
         if (is_user_logged_in()) {
             return;
         }
 
         if (
-            strlen($_SERVER['REQUEST_URI']) > 255 ||
-            strpos($_SERVER['REQUEST_URI'], "eval(") ||
-            strpos($_SERVER['REQUEST_URI'], "base64") ||
-            strpos($_SERVER['REQUEST_URI'], "/**/")
+            strlen($request_uri) > 255 ||
+            strpos($request_uri, "eval(") !== false ||
+            strpos($request_uri, "base64") !== false ||
+            strpos($request_uri, "/**/") !== false
         ) {
             @header("HTTP/1.1 414 Request-URI Too Long");
             @header("Status: 414 Request-URI Too Long");
@@ -242,15 +244,28 @@ class AYA_Plugin_Request
     }
 
     //操作request钩子
-    public function aya_theme_serach_pre_request($query)
+    public function aya_theme_serach_pre_request(\WP_Query $query)
     {
         $options = $this->query_options;
+
+        // 仅处理前台主搜索查询
+        if (is_admin() || !$query->is_main_query() || !$query->is_search()) {
+            return;
+        }
 
         //匹配分类
         if ($options['search_request_term_exists'] == true) {
             //检查是否与分类或标签匹配
-            $term_id = term_exists(get_query_var('s'));
-            $term = $term_id ? get_term($term_id) : null;
+            $term_check = term_exists((string) $query->get('s'));
+            $term_id = 0;
+
+            if (is_array($term_check) && !empty($term_check['term_id'])) {
+                $term_id = absint($term_check['term_id']);
+            } elseif (is_numeric($term_check)) {
+                $term_id = absint($term_check);
+            }
+
+            $term = $term_id > 0 ? get_term($term_id) : null;
 
             if (!is_wp_error($term) && $term && taxonomy_exists($term->taxonomy)) {
                 //附加查询参数
@@ -268,8 +283,6 @@ class AYA_Plugin_Request
                 $query->set('tax_query', $tax_query);
             }
         }
-        //返回查询
-        return $query;
     }
 
     //验证搜索权限
@@ -345,7 +358,7 @@ class AYA_Plugin_Request
     {
         $options = $this->query_options;
 
-        global $wpdb, $wp_query;
+        global $wpdb;
 
         //跳过文内页
         if ($wp_query->is_singular()) {
@@ -366,7 +379,7 @@ class AYA_Plugin_Request
 
                 if (is_numeric($search_term)) {
                     $id_where = '(' . $posts_table . '.ID = ' . $search_term . ')';
-                } elseif (preg_match("/^(\d+)(,\s*\d+)*\$/", $search_term)) {
+                } elseif (preg_match("/^(\d+)(,\s*\d+)*$/", $search_term)) {
                     $id_where = '(' . $posts_table . '.ID in (' . $search_term . '))';
                 } else {
                     $id_where = '';

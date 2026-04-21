@@ -195,84 +195,91 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             if (!current_user_can('manage_options'))
                 return;
 
+            //仅在提交保存/重置时执行 nonce 校验与后续逻辑
+            $is_submit_action = (!empty($_POST['aya_option_submit']) || !empty($_POST['aya_option_reset']));
+            if (!$is_submit_action) {
+                return;
+            }
+
+            if (!isset($_POST['aya_option_field']) || !wp_verify_nonce($_POST['aya_option_field'], 'aya_option_action')) {
+                return;
+            }
+
             //获取设置数据
             $new_value = $this->saved_value;
 
-            //检查From表单
-            if (isset($_REQUEST['aya_option_field']) && check_admin_referer('aya_option_action', 'aya_option_field')) {
-                //清除旧数据
-                if (!empty($_POST['aya_option_reset'])) {
+            //清除旧数据
+            if (!empty($_POST['aya_option_reset'])) {
+                //多站点兼容
+                if ($this->in_multisite) {
+                    delete_site_option($saved_key);
+                } else {
+                    delete_option($saved_key);
+                }
+                //提示
+                $this->saved_message = __('已重置所有设置。', 'AIYA_FRAMEWORK');
+            }
+            //存入新数据
+            if (!empty($_POST['aya_option_submit'])) {
+                //array('option_name' => 'option_value');
+                $new_value = array();
+                //处理数据
+                foreach ($this->option_conf as $option) {
+                    //没有ID则跳过循环
+                    if (in_array($option['type'], $this->unfined_saved) || !isset($option['id'])) {
+                        continue;
+                    }
+
+                    $value = (empty($_POST[$option['id']])) ? '' : $_POST[$option['id']];
+
+                    //如果是输入框
+                    if ($option['type'] == 'text' || $option['type'] == 'textarea') {
+                        $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
+                        $value = stripslashes($value);
+                    }
+                    //如果是复选框
+                    elseif ($option['type'] == 'checkbox') {
+                        $value = ($value == '') ? [] : $value;
+                    }
+                    //如果是数组
+                    elseif ($option['type'] == 'array') {
+                        $value = explode(',', $value);
+                        $value = array_filter($value);
+                    }
+                    //如果是编辑器
+                    elseif ($option['type'] == 'tinymce') {
+                        $value = wp_unslash($value);
+                    }
+                    //如果是代码框
+                    elseif ($option['type'] == 'code_editor') {
+                        //$value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
+                        $value = stripslashes($value);
+                    }
+                    //如果是设置组
+                    elseif ($option['type'] == 'group' || $option['type'] == 'group_mult') {
+                        $value = ($value == '') ? [] : $value;
+                        $value = array_filter($value);
+                    }
+                    //其他
+                    else {
+                        $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
+                    }
+
+                    $new_value[$option['id']] = $value;
+                }
+                //防止重复提交
+                if ($this->saved_value != $new_value) {
                     //多站点兼容
                     if ($this->in_multisite) {
-                        delete_site_option($saved_key);
+                        update_site_option($saved_key, $new_value);
                     } else {
-                        delete_option($saved_key);
+                        update_option($saved_key, $new_value);
                     }
                     //提示
-                    $this->saved_message = __('已重置所有设置。', 'AIYA_FRAMEWORK');
-                }
-                //存入新数据
-                if (!empty($_POST['aya_option_submit'])) {
-                    //array('option_name' => 'option_value');
-                    $new_value = array();
-                    //处理数据
-                    foreach ($this->option_conf as $option) {
-                        //没有ID则跳过循环
-                        if (in_array($option['type'], $this->unfined_saved) || !isset($option['id'])) {
-                            continue;
-                        }
-
-                        $value = (empty($_POST[$option['id']])) ? '' : $_POST[$option['id']];
-
-                        //如果是输入框
-                        if ($option['type'] == 'text' || $option['type'] == 'textarea') {
-                            $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
-                            $value = stripslashes($value);
-                        }
-                        //如果是复选框
-                        elseif ($option['type'] == 'checkbox') {
-                            $value = ($value == '') ? [] : $value;
-                        }
-                        //如果是数组
-                        elseif ($option['type'] == 'array') {
-                            $value = explode(',', $value);
-                            $value = array_filter($value);
-                        }
-                        //如果是编辑器
-                        elseif ($option['type'] == 'tinymce') {
-                            $value = wp_unslash($value);
-                        }
-                        //如果是代码框
-                        elseif ($option['type'] == 'code_editor') {
-                            //$value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
-                            $value = stripslashes($value);
-                        }
-                        //如果是设置组
-                        elseif ($option['type'] == 'group' || $option['type'] == 'group_mult') {
-                            $value = ($value == '') ? [] : $value;
-                            $value = array_filter($value);
-                        }
-                        //其他
-                        else {
-                            $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
-                        }
-
-                        $new_value[$option['id']] = $value;
-                    }
-                    //防止重复提交
-                    if ($this->saved_value != $new_value) {
-                        //多站点兼容
-                        if ($this->in_multisite) {
-                            update_site_option($saved_key, $new_value);
-                        } else {
-                            update_option($saved_key, $new_value);
-                        }
-                        //提示
-                        $this->saved_message = __('设置已保存。', 'AIYA_FRAMEWORK');
-                    } else {
-                        //提示
-                        $this->saved_message = __('没有设置被修改。', 'AIYA_FRAMEWORK');
-                    }
+                    $this->saved_message = __('设置已保存。', 'AIYA_FRAMEWORK');
+                } else {
+                    //提示
+                    $this->saved_message = __('没有设置被修改。', 'AIYA_FRAMEWORK');
                 }
             }
         }
@@ -303,6 +310,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $before_html .= '<form method="post" id="from-wrap" action="#saved">';
 
             echo $before_html;
+            wp_nonce_field('aya_option_action', 'aya_option_field');
 
             //保存按钮
             $saved_button = false;
@@ -327,8 +335,6 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             //保存按钮
             if ($saved_button) {
                 $button_html = '<div class="field-saved-button">';
-                //Fix：检索表单的nonce隐藏字段
-                wp_nonce_field('aya_option_action', 'aya_option_field');
 
                 $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary auto-width" value="' . esc_html__('保存更改', 'AIYA_FRAMEWORK') . '" />';
                 $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary auto-width" value="' . esc_html__('重置', 'AIYA_FRAMEWORK') . '" />';

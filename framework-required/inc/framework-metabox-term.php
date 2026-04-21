@@ -39,9 +39,9 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
                     add_action($taxonomy . '_add_form_fields', array(&$this, 'add_taxonomy_field'), 10, 2);
                     add_action($taxonomy . '_edit_form_fields', array(&$this, 'edit_taxonomy_field'), 10, 2);
 
-                    add_action('created_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 10, 1);
-                    add_action('edited_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 10, 1);
-                    add_action('delete_' . $taxonomy, array(&$this, 'delete_taxonomy_field_data'), 10, 1);
+                    add_action('created_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 999, 1);
+                    add_action('edited_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 999, 1);
+                    add_action('delete_' . $taxonomy, array(&$this, 'delete_taxonomy_field'), 10, 1);
                 }
             } else {
                 //检查是否为空
@@ -51,15 +51,17 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
                     add_action($taxonomy . '_add_form_fields', array(&$this, 'add_taxonomy_field'), 10, 2);
                     add_action($taxonomy . '_edit_form_fields', array(&$this, 'edit_taxonomy_field'), 10, 2);
 
-                    add_action('created_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 10, 1);
-                    add_action('edited_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 10, 1);
-                    add_action('delete_' . $taxonomy, array(&$this, 'delete_taxonomy_field_data'), 10, 1);
+                    add_action('created_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 999, 1);
+                    add_action('edited_' . $taxonomy, array(&$this, 'save_taxonomy_field'), 999, 1);
+                    add_action('delete_' . $taxonomy, array(&$this, 'delete_taxonomy_field'), 10, 1);
                 }
             }
         }
         //创建字段
         function add_taxonomy_field()
         {
+            wp_nonce_field('aya_framework_term_meta_action', 'aya_framework_term_meta_nonce');
+
             foreach ($this->options as $option) {
                 //跳过空的数组定义
                 if (empty($option)) {
@@ -76,6 +78,10 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
         //编辑字段
         function edit_taxonomy_field($tag)
         {
+            echo '<tr class="form-field"><th scope="row"></th><td>';
+            wp_nonce_field('aya_framework_term_meta_action', 'aya_framework_term_meta_nonce');
+            echo '</td></tr>';
+
             foreach ($this->options as $option) {
                 //跳过空的数组定义
                 if (empty($option)) {
@@ -114,6 +120,10 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
         //保存数据
         function save_taxonomy_field($term_id)
         {
+            if (!isset($_POST['aya_framework_term_meta_nonce']) || !wp_verify_nonce($_POST['aya_framework_term_meta_nonce'], 'aya_framework_term_meta_action')) {
+                return;
+            }
+
             //用户权限检查
             if (!current_user_can('manage_categories'))
                 return;

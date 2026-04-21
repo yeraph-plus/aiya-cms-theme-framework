@@ -134,7 +134,13 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
     }
 
     echo '<div id="aya-generate-cover-box">';
-    echo '<p class="description">' . esc_html__('为文章生成封面', 'AIYA') . '</p>';
+    echo '<div id="aya-cover-preview">';
+
+    if (is_string($cover_url) && $cover_url !== '') {
+        echo '<img src="' . esc_url($cover_url) . '" style="width:100%;height:auto;" />';
+        echo '<p class="description">' . esc_html__('为文章生成封面', 'AIYA') . '</p>';
+    }
+    echo '</div>';
     echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('封面模式', 'AIYA') . '</label>';
     echo '<select id="aya-cover-model" style="width:100%;">';
     echo '<option value="photo">' . esc_html__('使用封面', 'AIYA') . '</option>';
@@ -148,12 +154,6 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
     echo '<input type="text" id="aya-cover-title-color" value="" style="width:100%;" /></p>';
     echo '<p><button type="button" class="button button-primary" id="aya-cover-generate-btn">' . esc_html__('生成封面', 'AIYA') . '</button></p>';
     echo '<div id="aya-cover-status" style="margin-bottom:8px;"></div>';
-    echo '<div id="aya-cover-preview">';
-
-    if (is_string($cover_url) && $cover_url !== '') {
-        echo '<img src="' . esc_url($cover_url) . '" style="width:100%;height:auto;" />';
-    }
-    echo '</div>';
     echo '</div>';
 ?>
     <script>

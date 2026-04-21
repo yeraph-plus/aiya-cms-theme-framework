@@ -34,8 +34,8 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
 
             add_action('admin_menu', array(&$this, 'init_metaboxes'));
 
-            add_action('post_updated', array(&$this, 'save_podefaultata'), 9);
-            add_action('save_post', array(&$this, 'save_podefaultata'));
+            //只在 save_post 执行，并放到队列最后，避免被其他组件二次写入覆盖
+            add_action('save_post', array(&$this, 'save_podefaultata'), 999);
         }
         public function init_metaboxes()
         {
@@ -85,6 +85,7 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                 $post_id = 0;
 
             echo '<div class="tab-content framework-section">';
+            wp_nonce_field($this->meta_inst['id'] . '_meta_box_action', $this->meta_inst['id'] . '_meta_box_nonce');
 
             foreach ($this->options as $option) {
                 //跳过空的数组定义
@@ -114,6 +115,13 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                 return;
             }
 
+            //仅处理来自本框架 metabox 的提交，避免其他 save_post 触发误删
+            $nonce_field = $this->meta_inst['id'] . '_meta_box_nonce';
+            $nonce_action = $this->meta_inst['id'] . '_meta_box_action';
+            if (!isset($_POST[$nonce_field]) || !wp_verify_nonce($_POST[$nonce_field], $nonce_action)) {
+                return;
+            }
+
             if (isset($_POST['post_type']) && in_array($_POST['post_type'], $this->meta_inst['add_box_in'])) {
 
                 //用户权限检查
@@ -137,6 +145,7 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                     if (!isset($option['id'])) {
                         continue;
                     }
+
                     $data = empty($_POST[$option['id']]) ? '' : $_POST[$option['id']];
                     //如果是数组
                     if ($option['type'] == 'array') {
@@ -149,8 +158,9 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                         $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
                     }
 
-                    if ($data == '') {
-                        delete_post_meta($post_id, $option['id'], $data);
+                    //配置 always_empty=true 时或空值时，删除该 meta 记录
+                    if ($data == '' || (isset($option['always_empty']) && $option['always_empty'] == true)) {
+                        delete_post_meta($post_id, $option['id'], '');
                     } else {
                         update_post_meta($post_id, $option['id'], $data);
                     }

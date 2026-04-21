@@ -196,11 +196,6 @@ class AYA_Plugin_Automatic
         //更新文章
         wp_update_post($post_array);
 
-        // 重置开关（在 wp_update_post 之后执行，避免影响当次更新）
-        if (get_post_meta($post_id, 'reset_post_datetime', true)) {
-            update_post_meta($post_id, 'reset_post_datetime', '0');
-        }
-
         //恢复钩子
         add_action('save_post', array($this, 'aya_theme_save_post_auto_formatting'));
     }

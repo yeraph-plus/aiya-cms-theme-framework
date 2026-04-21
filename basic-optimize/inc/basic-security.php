@@ -59,6 +59,8 @@ class AYA_Plugin_Security
         if ($options['remove_sitemaps_users_provider']) {
             return ($name == 'users') ? false : $provider;
         }
+
+        return $provider;
     }
 
     //清理 REST-API 默认端点
@@ -92,7 +94,7 @@ class AYA_Plugin_Security
         }
 
         //DEBUG：跳过AJAX请求防止影响第三方登录方式
-        if ($_SERVER['PHP_SELF'] == '/wp-admin/admin-ajax.php') {
+        if (wp_doing_ajax()) {
             return;
         }
 
@@ -121,21 +123,34 @@ class AYA_Plugin_Security
         }
         //重定向
         if ($verify === false) {
-            wp_redirect('/');
+            wp_safe_redirect(home_url('/'));
+            exit;
         }
     }
 
     //强制使用邮箱登录
     public function aya_theme_allow_email_login($user, $username, $password)
     {
-        if (is_email($username)) {
-            $user = get_user_by('email', $username);
-
-            if ($user)
-                $username = $user->user_login;
+        // 强制仅邮箱登录
+        if (!empty($username) && !is_email($username)) {
+            return new WP_Error('invalid_email_login', __('Please use your email address to log in.'));
         }
 
-        return wp_authenticate_username_password(null, $username, $password);
+        // 保留前序认证结果（例如验证码、2FA 等扩展）
+        if ($user instanceof WP_User || is_wp_error($user)) {
+            return $user;
+        }
+
+        if (empty($username) || empty($password)) {
+            return $user;
+        }
+
+        $email_user = get_user_by('email', $username);
+        if (!$email_user instanceof WP_User) {
+            return new WP_Error('invalid_email_login', __('Invalid email address or password.'));
+        }
+
+        return wp_authenticate_username_password(null, $email_user->user_login, $password);
     }
 
     //限制特定权限用户修改密码
@@ -148,11 +163,14 @@ class AYA_Plugin_Security
         $options = $this->security_options;
 
         if ($options['admin_disallow_password_reset'] == true) {
-
             //验证用户角色
-            $user = get_userdata($user);
+            if ($user instanceof WP_User) {
+                $user_object = $user;
+            } else {
+                $user_object = get_userdata((int) $user);
+            }
 
-            if (in_array('administrator', $user->roles)) {
+            if ($user_object instanceof WP_User && in_array('administrator', (array) $user_object->roles, true)) {
                 return false;
             }
         }
@@ -308,7 +326,8 @@ class AYA_Plugin_Security
         //等待时间设置
         $wait_time = 5;
         //验证访问
-        if (!isset($_GET['auth']) || $_GET['auth'] != $auth_param) {
+        $auth = isset($_GET['auth']) ? sanitize_text_field(wp_unslash((string) $_GET['auth'])) : '';
+        if ($auth !== (string) $auth_param) {
             //发送404回执
             http_response_code(404);
             //输出消息
@@ -359,7 +378,7 @@ class AYA_Plugin_Security
                         const href = window.location.href;
                         const hashParts = href.split("#");
                         const connector = hashParts[0].indexOf("?") > 0 ? "&" : "?";
-                        window.location.href = hashParts[0] + connector + "auth=<?= $auth_param; ?>" + (hashParts.length > 1 ? "#" + hashParts[1] : "");
+                        window.location.href = hashParts[0] + connector + "auth=<?= esc_js((string) $auth_param); ?>" + (hashParts.length > 1 ? "#" + hashParts[1] : "");
                     }, waitForSeconds * 1000);
                 </script>
                 </form>
@@ -388,8 +407,11 @@ class AYA_Plugin_Security
     //验证登录页面的表单
     public function aya_theme_page_modify_login_action()
     {
+        $request_method = isset($_SERVER['REQUEST_METHOD']) ? (string) $_SERVER['REQUEST_METHOD'] : 'GET';
+        $nonce = isset($_POST['secure-login-nonce']) ? sanitize_text_field(wp_unslash((string) $_POST['secure-login-nonce'])) : '';
+
         //不是POST且未验证表单隐藏段
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['secure-login-nonce']) || !wp_verify_nonce($_POST['secure-login-nonce'], 'secure-login-nonce-action'))) {
+        if ($request_method === 'POST' && !wp_verify_nonce($nonce, 'secure-login-nonce-action')) {
             return self::aya_theme_error_login_action();
         }
     }

@@ -24,11 +24,11 @@ aya_add_plugin_opt(
         'type' => 'title_2',
     ],
     [
-        'title' => '经典编辑器增强',
+        'title' => '经典编辑器按钮重排',
         'desc' => '拓展插件，重排经典编辑器（TinyMCE）按钮、增加表格、标签清理等功能',
         'id' => 'site_plugin_editor_modify',
         'type' => 'switch',
-        'default' => false,
+        'default' => true,
     ],
     [
         'title' => '经典编辑器自动上传',

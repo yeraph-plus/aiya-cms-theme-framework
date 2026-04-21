@@ -360,6 +360,7 @@ $info_meta = array(
         'desc' => 'Set type as select.',
         'id' => 'sample_switch',
         'type' => 'switch',
+        'always_empty' => true, // always delete meta data
         'default' => true,
     ),
     array(

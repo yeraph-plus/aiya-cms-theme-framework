@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
         </div>
     </form>
     <div class="pic-bed-heaper">
-        <p>支持 jpg、png、gif、webp 格式，最大 <?php echo AYA_SimplePicBed::$upload_max_size; ?>MB</p>
+        <p>支持 JPEG、PNG、BMP、GIF、WebP、AVIF 格式，最大 <?php echo AYA_SimplePicBed::$upload_max_size; ?>MB</p>
     </div>
     <div id="upload-response" class="pic-bed-upload-result">
         <div class="upload-status"></div>
@@ -114,8 +114,6 @@ if (!defined('ABSPATH')) {
             previewImg.src = data.url;
             previewImg.width = data.image.width;
             previewImg.height = data.image.height;
-            previewImg.title = data.image.title;
-            previewImg.alt = data.image.mime;
 
             // 设置图片信息
             imageDimensions.textContent = `${data.image.width} × ${data.image.height}`;

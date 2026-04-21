@@ -49,8 +49,12 @@ class AYA_Plugin_UA_Firewall
             if (count($key_list) > 0) {
                 //循环
                 foreach ($key_list as $key) {
+                    $key = trim((string) $key);
+                    if ($key === '') {
+                        continue;
+                    }
                     //获取请求参数
-                    if (isset($_GET[$key])) {
+                    if (array_key_exists($key, $_GET)) {
                         //返回报错
                         return self::aya_theme_error_rewind_url_reject();
                     }
@@ -67,11 +71,11 @@ class AYA_Plugin_UA_Firewall
         //获取设置
         if ($options['waf_reject_useragent_switch'] == true) {
             //获取UA信息
-            $user_agent = $_SERVER['HTTP_USER_AGENT'];
+            $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? (string) $_SERVER['HTTP_USER_AGENT'] : '';
             //禁止空UA
             if ($options['waf_reject_useragent_empty'] == true) {
                 //不存在则返回报错
-                if (!$user_agent)
+                if ($user_agent === '')
                     return self::aya_theme_error_rewind_ua_reject();
             }
             //UA信息转为小写
@@ -88,6 +92,10 @@ class AYA_Plugin_UA_Firewall
             if (count($ua_black_list) > 0) {
                 //循环
                 foreach ($ua_black_list as $black_ua) {
+                    $black_ua = trim((string) $black_ua);
+                    if ($black_ua === '') {
+                        continue;
+                    }
                     //判断是否是数组中存在的UA
                     if (strpos($user_agent, strtolower($black_ua)) !== false) {
                         //返回报错
@@ -105,9 +113,21 @@ class AYA_Plugin_UA_Firewall
 
         //获取设置
         if ($options['waf_reject_ips_switch'] == true) {
-            //获取IP
-            $ip = $_SERVER['REMOTE_ADDR'];
-            $ip = trim($ip);
+            //不支持代理/CDN透传头，命中时直接拦截
+            if (
+                !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ||
+                !empty($_SERVER['HTTP_CF_CONNECTING_IP']) ||
+                !empty($_SERVER['HTTP_X_REAL_IP'])
+            ) {
+                return self::aya_theme_error_rewind_ip_reject();
+            }
+
+            //仅支持 REMOTE_ADDR 的 IPv4 格式
+            $ip = isset($_SERVER['REMOTE_ADDR']) ? trim((string) $_SERVER['REMOTE_ADDR']) : '';
+            if ($ip === '' || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false) {
+                return self::aya_theme_error_rewind_ip_reject();
+            }
+
             //获取UA黑名单
             if ($options['waf_reject_ip_list'] != '') {
                 $ip_black_list = explode("\n", $options['waf_reject_ip_list']);
@@ -122,21 +142,77 @@ class AYA_Plugin_UA_Firewall
 
                 //匹配CIDR
                 $ip_in_cidr = function ($ip, $cidr) {
-                    list($subnet, $mask) = explode('/', $cidr);
-                    return (ip2long($ip) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet);
+                    $parts = explode('/', $cidr);
+                    if (count($parts) !== 2) {
+                        return false;
+                    }
+
+                    $subnet = trim($parts[0]);
+                    $mask = trim($parts[1]);
+
+                    if (!ctype_digit($mask)) {
+                        return false;
+                    }
+
+                    $mask = (int) $mask;
+                    if ($mask < 0 || $mask > 32) {
+                        return false;
+                    }
+
+                    $ip_long = ip2long($ip);
+                    $subnet_long = ip2long($subnet);
+                    if ($ip_long === false || $subnet_long === false) {
+                        return false;
+                    }
+
+                    $mask_long = ($mask === 0) ? 0 : (-1 << (32 - $mask));
+
+                    return (($ip_long & $mask_long) === ($subnet_long & $mask_long));
                 };
 
                 //匹配通配符
                 $ip_in_wildcard = function ($ip, $wildcard) {
-                    $pattern = str_replace(['.', '*'], ['\.', '\d+'], $wildcard);
-                    return preg_match('/^' . $pattern . '$/', $ip);
+                    if (!preg_match('/^\d{1,3}(\.\d{1,3}|\.\*){3}$/', $wildcard)) {
+                        return false;
+                    }
+
+                    $pattern = str_replace(['.', '*'], ['\.', '\d{1,3}'], $wildcard);
+                    if (!preg_match('/^' . $pattern . '$/', $ip)) {
+                        return false;
+                    }
+
+                    foreach (explode('.', $ip) as $seg) {
+                        if ((int) $seg < 0 || (int) $seg > 255) {
+                            return false;
+                        }
+                    }
+
+                    return true;
                 };
 
                 //匹配范围
                 $ip_in_range = function ($ip, $range) {
-                    list($start, $end) = explode('-', $range);
+                    $parts = explode('-', $range);
+                    if (count($parts) !== 2) {
+                        return false;
+                    }
+
+                    $start = trim($parts[0]);
+                    $end = trim($parts[1]);
+
                     $ip_long = ip2long($ip);
-                    return $ip_long >= ip2long($start) && $ip_long <= ip2long($end);
+                    $start_long = ip2long($start);
+                    $end_long = ip2long($end);
+
+                    if ($ip_long === false || $start_long === false || $end_long === false) {
+                        return false;
+                    }
+
+                    if ($start_long > $end_long) {
+                        return false;
+                    }
+
+                    return $ip_long >= $start_long && $ip_long <= $end_long;
                 };
 
                 //循环
@@ -170,7 +246,7 @@ class AYA_Plugin_UA_Firewall
 
                     //返回报错
                     if ($is_black) {
-                        return self::aya_theme_error_rewind_ua_reject();
+                        return self::aya_theme_error_rewind_ip_reject();
                     }
                 }
             }
@@ -198,6 +274,21 @@ class AYA_Plugin_UA_Firewall
     public function aya_theme_error_rewind_ua_reject()
     {
         $message = __('The current userAgent or IP is disabled by the site administrator.');
+        $title = __('Access was denied.');
+        $args = array(
+            'response' => 403,
+            'back_link' => false,
+        );
+
+        wp_die($message, $title, $args);
+
+        exit;
+    }
+
+    //返回IP非法报错（仅支持直连IPv4）
+    public function aya_theme_error_rewind_ip_reject()
+    {
+        $message = __('The current IP is invalid or blocked. Only direct IPv4 access is allowed.');
         $title = __('Access was denied.');
         $args = array(
             'response' => 403,

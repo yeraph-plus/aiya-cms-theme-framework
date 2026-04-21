@@ -77,11 +77,10 @@ if (!class_exists('AYA_Framework_Setup')) {
         public function include_inc()
         {
             //框架主程序
-            require (__DIR__) . '/inc/framework-build-fields.php';
-            require (__DIR__) . '/inc/framework-option-page.php';
-            require (__DIR__) . '/inc/framework-metabox-post.php';
-            require (__DIR__) . '/inc/framework-metabox-term.php';
-            require (__DIR__) . '/inc/framework-quick-editor.php';
+            require_once (__DIR__) . '/inc/framework-build-fields.php';
+            require_once (__DIR__) . '/inc/framework-option-page.php';
+            require_once (__DIR__) . '/inc/framework-metabox-post.php';
+            require_once (__DIR__) . '/inc/framework-metabox-term.php';
             //注册框架组件
             $fields = array(
                 'text',

@@ -24,83 +24,86 @@ aya_add_plugin_opt(
         'type' => 'title_2',
     ],
     [
-        'title' => '图片上传控件',
-        'desc' => '拓展插件，允许不通过 WP 媒体库直接上传图片',
+        'title' => '简码图床插件',
+        'desc' => '拓展插件，在后台加载一个独立的图床组件，用于不通过 WP 媒体库直接上传图片到服务器',
         'id' => 'site_plugin_sc_picbed',
         'type' => 'switch',
         'default' => false,
     ]
 );
 
-if (!aya_plugin_opt('site_plugin_sc_picbed')) {
-    return;
-}
+if (aya_plugin_opt('site_plugin_sc_picbed')) {
 
-//插件后台页面
-add_action('admin_init', 'aya_internal_pic_bed_setup');
-add_action('admin_menu', 'aya_internal_pic_bed_admin_menu');
+    //插件后台页面
+    add_action('admin_init', 'aya_internal_pic_bed_setup');
+    add_action('admin_menu', 'aya_internal_pic_bed_admin_menu');
 
-function aya_internal_pic_bed_setup()
-{
-    //样式表
-    wp_enqueue_style('shortcode-pic-bed', get_template_directory_uri() . '/plugins/internal-pic-bed/assets/bed-style.css');
-    //AJAX
-    add_action('wp_ajax_handle_image_upload', array('AYA_SimplePicBed', 'handle_image_upload'));
-    add_action('wp_ajax_nopriv_handle_image_upload', array('AYA_SimplePicBed', 'handle_image_upload'));
-}
-
-//菜单链接
-function aya_internal_pic_bed_admin_menu()
-{
-    add_menu_page('上传图片', '简码图床', 'manage_options', 'shortcode-pic-bed', 'aya_internal_pic_bed_upload_page', 'dashicons-format-image', 99);
-    add_submenu_page('shortcode-pic-bed', '查看上传', '图片列表', 'manage_options', 'shortcode-pic-view', 'aya_internal_pic_bed_list_view', 99);
-}
-
-function aya_internal_pic_bed_upload_page()
-{
-    include (__DIR__) . '/upload/pic-upload.php';
-}
-
-function aya_internal_pic_bed_list_view()
-{
-    include (__DIR__) . '/upload/pic-viewer.php';
-}
-
-//AIYA-CMS 短代码组件：简码图床
-add_shortcode('pic_bed', 'aya_shortcode_pic_bed_image');
-
-//短代码参数
-function aya_shortcode_pic_bed_image($atts = array())
-{
-    $atts = shortcode_atts(
-        array(
-            'src' => '',
-            'class' => '', //size-full alignnone aligncenter alignright alignleft
-            'nsfw' => 'false', //true false
-            'width' => 0,
-            'height' => 0,
-            'title' => '',
-            'alt' => 'image/jpeg',
-        ),
-        $atts,
-    );
-
-    //[pic_bed src="upload-pics/2025/04/upload.png" width="2381" height="1544" title="upload.png" alt="image/png" /]
-
-    //拼接URL
-    if (strpos($atts['src'], 'http://') === 0 || strpos($atts['src'], 'https://') === 0) {
-        $image_url = esc_url($atts['src']);
-    } else {
-        $image_url = content_url() . '/' . ltrim($atts['src'], '/');
+    function aya_internal_pic_bed_setup()
+    {
+        //样式表
+        wp_enqueue_style('shortcode-pic-bed', get_template_directory_uri() . '/plugins/internal-pic-bed/assets/bed-style.css');
+        //AJAX
+        add_action('wp_ajax_handle_image_upload', array('AYA_SimplePicBed', 'handle_image_upload'));
     }
 
-    $class = esc_attr($atts['class']);
-    $width = esc_attr($atts['width']);
-    $height = esc_attr($atts['height']);
-    $title = esc_attr($atts['title']);
-    $alt = esc_attr($atts['alt']);
+    //菜单链接
+    function aya_internal_pic_bed_admin_menu()
+    {
+        add_menu_page('上传图片', '简码图床', 'manage_options', 'shortcode-pic-bed', 'aya_internal_pic_bed_upload_page', 'dashicons-format-image', 99);
+        add_submenu_page('shortcode-pic-bed', '查看上传', '图片列表', 'manage_options', 'shortcode-pic-view', 'aya_internal_pic_bed_list_view', 99);
+    }
 
-    return '<img src="' . $image_url . '" class="' . $class . '" width="' . $width . '" height="' . $height . '" title="' . $title . '" alt="' . $alt . '" />';
+    function aya_internal_pic_bed_upload_page()
+    {
+        include (__DIR__) . '/upload/pic-upload.php';
+    }
+
+    function aya_internal_pic_bed_list_view()
+    {
+        include (__DIR__) . '/upload/pic-viewer.php';
+    }
+
+    //AIYA-CMS 短代码组件：简码图床
+    add_shortcode('pic_bed', 'aya_shortcode_pic_bed_image');
+
+    //短代码参数
+    function aya_shortcode_pic_bed_image($atts = array())
+    {
+        $atts = shortcode_atts(
+            array(
+                'src' => '',
+                'class' => '', //size-full alignnone aligncenter alignright alignleft
+                'nsfw' => 'false', //true false
+                'width' => 0,
+                'height' => 0,
+                'title' => '',
+                'alt' => '',
+            ),
+            $atts,
+        );
+
+        //[pic_bed src="upload-pics/2025/04/upload.png" width="2381" height="1544" title="IMG: upload.png" alt="upload.png" /]
+
+        $src = trim((string) $atts['src']);
+
+        //拼接URL
+        if (strpos($src, 'http://') === 0 || strpos($src, 'https://') === 0) {
+            $image_url = esc_url($src);
+        } else {
+            //兼容 "./upload-pics/..." 格式短代码
+            $src = preg_replace('#^(\./)+#', '', $src);
+            $src = ltrim($src, '/\\');
+            $image_url = content_url('/' . $src);
+        }
+
+        $class = htmlspecialchars($atts['class']);
+        $width = intval($atts['width']);
+        $height = intval($atts['height']);
+        $title = htmlspecialchars($atts['title']);
+        $alt = htmlspecialchars($atts['alt']);
+
+        return '<img src="' . $image_url . '" class="' . $class . '" width="' . $width . '" height="' . $height . '" title="' . $title . '" alt="' . $alt . '" />';
+    }
 }
 
 //简单图床
@@ -111,9 +114,12 @@ class AYA_SimplePicBed
     public static $upload_mime = [
         'image/jpeg' => '.jpg',
         'image/png' => '.png',
+        'image/bmp' => '.bmp',
         'image/gif' => '.gif',
         'image/webp' => '.webp',
+        'image/avif' => '.avif',
     ];
+
     //创建本地文件夹
     private static function local_mkdir()
     {
@@ -129,6 +135,7 @@ class AYA_SimplePicBed
         //返回拼接的路径
         return $local_dir;
     }
+
     //文件处理
     private static function handle_image_manager($image_file)
     {
@@ -136,12 +143,13 @@ class AYA_SimplePicBed
             $image_file = aya_image_manager_process_uploaded_image($image_file, false);
 
             if ($image_file === false) {
-                return self::upload_error(__('图片上传失败', 'AIYA'));
+                return false;
             }
         }
 
         return $image_file;
     }
+
     //检查上传权限
     public static function current_nonce()
     {
@@ -151,44 +159,74 @@ class AYA_SimplePicBed
             wp_nonce_field('handle_image_upload_action', 'handle_image_upload_nonce');
         }
     }
+
     //上传控件
     public static function handle_image_upload()
     {
-        //防止意外上传
-        if (!isset($_POST['handle_image_upload_nonce']) && !isset($_FILES['image_upload'])) {
-            return self::upload_error(__('选择图片文件，支持jpg/png/gif/webp。', 'AIYA'));
-        }
-
-        //设置允许上传的类型
-        $default_mime = self::$upload_mime;
-        //获取文件信息
-        $file = $_FILES['image_upload'];
         //异常处理
         try {
+            if (!wp_doing_ajax() || strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
+                throw new Exception(__('无效请求', 'AIYA'));
+            }
+
+            if (!is_user_logged_in() || !current_user_can('upload_files')) {
+                throw new Exception(__('权限不足', 'AIYA'));
+            }
+
+            //防止意外上传
+            if (!isset($_POST['handle_image_upload_nonce']) || !isset($_FILES['image_upload'])) {
+                throw new Exception(__('仅支持上传图片文件。', 'AIYA'));
+            }
+
+            $nonce = sanitize_text_field(wp_unslash($_POST['handle_image_upload_nonce']));
             //验证nonce
-            if (!wp_verify_nonce($_POST['handle_image_upload_nonce'], 'handle_image_upload_action')) {
+            if (!wp_verify_nonce($nonce, 'handle_image_upload_action')) {
                 throw new Exception(__('非法操作', 'AIYA'));
+            }
+
+            //设置允许上传的类型
+            $default_mime = self::$upload_mime;
+            //获取文件信息
+            $file = $_FILES['image_upload'];
+
+            if (!is_array($file) || empty($file['tmp_name']) || empty($file['name'])) {
+                throw new Exception(__('上传文件无效', 'AIYA'));
+            }
+
+            if (!is_uploaded_file($file['tmp_name'])) {
+                throw new Exception(__('上传文件无效', 'AIYA'));
+            }
+
+            if ((int) $file['error'] !== UPLOAD_ERR_OK) {
+                throw new Exception(__('上传错误 ', 'AIYA') . (int) $file['error']);
+            }
+
+            if ((int) $file['size'] <= 0) {
+                throw new Exception(__('上传文件无效', 'AIYA'));
+            }
+
+            if ((int) $file['size'] > (int) self::$upload_max_size * 1024 * 1024) {
+                throw new Exception(__('文件过大', 'AIYA'));
             }
 
             //验证文件格式
             $file_tmp_name = $file['tmp_name'];
 
             //finfo检查真实的文件类型
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $finfo = function_exists('finfo_open') ? finfo_open(FILEINFO_MIME_TYPE) : false;
 
-            $real_mime = finfo_file($finfo, $file_tmp_name);
+            $real_mime = $finfo ? finfo_file($finfo, $file_tmp_name) : false;
 
-            finfo_close($finfo);
+            if ($finfo) {
+                finfo_close($finfo);
+            }
+
+            if (!$real_mime && function_exists('mime_content_type')) {
+                $real_mime = mime_content_type($file_tmp_name);
+            }
 
             if (!isset($default_mime[$real_mime])) {
                 throw new Exception(__('不支持的文件类型', 'AIYA'));
-            }
-
-            if ($file['size'] > self::$upload_max_size * 1024 * 1024) {
-                throw new Exception(__('文件过大', 'AIYA'));
-            }
-            if ($file['error'] > 0) {
-                throw new Exception(__('上传错误 ', 'AIYA') . $file['error'] . '');
             }
 
             //保存文件
@@ -198,18 +236,19 @@ class AYA_SimplePicBed
             //生成文件名
             $random_string = wp_generate_password(8, false);
             $file_name = date('d') . '-' . time() . '-' . $random_string . $default_mime[$real_mime];
+            $target_file = trailingslashit($local_dir) . $file_name;
 
             //尝试保存文件到目录
-            $file_move = move_uploaded_file($file_tmp_name, $local_dir . $file_name);
+            $file_move = move_uploaded_file($file_tmp_name, $target_file);
 
             if ($file_move === false) {
                 throw new Exception(__('无文件权限', 'AIYA'));
             }
 
             //进行图片处理
-            $trans_file = self::handle_image_manager($local_dir . $file_name);
-            if ($trans_file === false) {
-                throw new Exception(__('图片处理器错误 ', 'AIYA') . print_r($trans_file));
+            $trans_file = self::handle_image_manager($target_file);
+            if ($trans_file === false || !is_string($trans_file) || !file_exists($trans_file)) {
+                throw new Exception(__('图片处理器错误', 'AIYA'));
             }
 
             //输出插件的图片信息格式
@@ -220,6 +259,7 @@ class AYA_SimplePicBed
             return self::upload_error($e->getMessage());
         }
     }
+
     //读取控件
     public static function handle_image_viewer()
     {
@@ -263,6 +303,7 @@ class AYA_SimplePicBed
         //print_r($handle);
         return;
     }
+
     //生成上传错误
     public static function upload_error($error_msg)
     {
@@ -276,12 +317,12 @@ class AYA_SimplePicBed
         wp_send_json($callback_array);
     }
     //生成图片信息
-    public static function upload_done($this_image, $image_title)
+    public static function upload_done($this_image, $image_filename)
     {
         header('Content-Type: application/json');
 
         if (!file_exists($this_image)) {
-            return self::upload_error(__('图片文件不存在', 'AIYA') . '"' . $image_title . '"');
+            return self::upload_error(__('图片文件不存在', 'AIYA') . '"' . $image_filename . '"');
         }
         //提取图片宽高
         $image_size = getimagesize($this_image);
@@ -289,10 +330,28 @@ class AYA_SimplePicBed
         $height = $image_size[1];
         $mime = $image_size['mime'];
 
-        //根据WP上传目录截取本地路径
-        $path_file = str_replace(trailingslashit(WP_CONTENT_DIR), '', $this_image);
-        //拼接为URL
-        $image_url = set_url_scheme(WP_CONTENT_URL) . '/' . $path_file;
+        $image_url = aya_local_path_with_url($this_image, false);
+        if ($image_url === false) {
+            return self::upload_error(__('图片地址生成失败', 'AIYA'));
+        }
+
+        $content_url_path = wp_parse_url(content_url(), PHP_URL_PATH);
+        $image_url_path = wp_parse_url($image_url, PHP_URL_PATH);
+        $path_file = '';
+
+        //优先通过URL路径生成相对路径，避免物理路径分隔符导致截取失败
+        if (!empty($content_url_path) && !empty($image_url_path) && strpos($image_url_path, $content_url_path) === 0) {
+            $path_file = ltrim(substr($image_url_path, strlen($content_url_path)), '/');
+        }
+
+        //兜底：从本地物理路径转换
+        if (empty($path_file)) {
+            $normalized_image = str_replace('\\', '/', $this_image);
+            $normalized_content_dir = str_replace('\\', '/', untrailingslashit(WP_CONTENT_DIR));
+            $path_file = ltrim(str_replace($normalized_content_dir, '', $normalized_image), '/');
+        }
+
+        $shortcode_src = './' . ltrim($path_file, './');
 
         //批量输出为JSON格式
         $done_array = array(
@@ -302,12 +361,12 @@ class AYA_SimplePicBed
                     'width' => $width,
                     'height' => $height,
                     'mime' => $mime,
-                    'title' => $image_title
+                    'title' => $image_filename
                 ),
                 'url' => $image_url,
-                'relative_path' => './wp-content' . $path_file,
-                'shortcode' => '[pic_bed src="' . $path_file . '" width="' . $width . '" height="' . $height . '" title="' . $mime . '" alt="' . $image_title . '" /]',
-                'html' => '<img src="' . $image_url . '" width="' . $width . '" height="' . $height . '" title="' . $mime . '" alt="' . $image_title . '" />',
+                'relative_path' => './wp-content/' . $path_file,
+                'shortcode' => '[pic_bed src="' . $shortcode_src . '" width="' . $width . '" height="' . $height . '" title="' . $mime . '" alt="' . $image_filename . '" /]',
+                'html' => '<img src="' . $image_url . '" width="' . $width . '" height="' . $height . '" title="' . $mime . '" alt="' . $image_filename . '" />',
             )
         );
 
