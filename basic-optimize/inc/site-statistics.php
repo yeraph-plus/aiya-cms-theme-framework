@@ -57,8 +57,8 @@ class AYA_Plugin_Head_Extra
         if ($id == '') return;
 
         $script = '<!-- Google tag (gtag.js) -->';
-        $script .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . $id . '"></script>';
-        $script .= '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","' . $id . '");</script>';
+        $script .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($id) . '"></script>';
+        $script .= '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","' . esc_attr($id) . '");</script>';
 
         return $script;
     }
@@ -68,7 +68,7 @@ class AYA_Plugin_Head_Extra
     {
         if ($id == '') return;
 
-        $script = '<script type="text/javascript">var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?' . $id . '";hm.setAttribute("async","true");document.getElementsByTagName("head")[0].appendChild(hm)})();</script>';
+        $script = '<script type="text/javascript">var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?' . esc_attr($id) . '";hm.setAttribute("async","true");document.getElementsByTagName("head")[0].appendChild(hm)})();</script>';
 
         return $script;
     }

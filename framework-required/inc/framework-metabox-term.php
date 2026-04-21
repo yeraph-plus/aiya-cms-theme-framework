@@ -30,7 +30,7 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
             $this->option_tax_meta = $option_tax_meta;
 
             //定义禁用项
-            $this->unfined_field = array('switch', 'group', 'group_mult', 'code_editor', 'tinymce');
+            $this->unfined_field = array('switch', 'group', 'group_mult', 'action_checkbox', 'code_editor', 'tinymce', 'content', 'message', 'success', 'dismiss', 'warning');
 
             //如果传入是数组
             if (is_array($option_tax_meta)) {
@@ -85,6 +85,10 @@ if (!class_exists('AYA_Framework_Term_Meta')) {
             foreach ($this->options as $option) {
                 //跳过空的数组定义
                 if (empty($option)) {
+                    continue;
+                }
+                //排除无ID的组件
+                if (empty($option['id'])) {
                     continue;
                 }
                 //排除不支持的组件

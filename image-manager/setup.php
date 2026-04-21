@@ -296,6 +296,9 @@ function aya_image_relpath_thumb_from_local($thumb_local)
 //文章缩略图处理
 function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $size_h = 300)
 {
+    // 直接删除记录方便刷新缓存
+    //delete_post_meta($post_id, '_aya_thumb');
+
     if ($post_id != 0) {
         // 优先读取 MetaBox 的缩略图缓存
         $thumb_post_meta = get_post_meta($post_id, '_aya_thumb', true);
@@ -305,14 +308,12 @@ function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $si
             // 拼接完整 URL
             return trailingslashit(WP_CONTENT_URL) . ltrim($thumb_post_meta, '/');
         }
-        // 直接删除记录方便刷新缓存
-        //delete_post_meta($post_id, '_aya_thumb');
     }
 
     //没有传入图片URL时开始搜寻缩略图
     if ($image_url == false && $post_id != 0) {
-        // 无传入图片则从正文提取首图
-        $post_content = get_the_content($post_id);
+        // 按文章 ID 读取正文，避免 get_the_content() 回退到全局 $post
+        $post_content = get_post_field('post_content', (int) $post_id);
         $image_url = aya_match_post_first_image($post_content, false);
 
         //是否为本站图片

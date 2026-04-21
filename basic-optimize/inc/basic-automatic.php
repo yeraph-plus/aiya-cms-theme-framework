@@ -139,7 +139,7 @@ class AYA_Plugin_Automatic
         $post_content = get_post_field('post_content', $post_id);
 
         //文章保存时自动触发动作添加标签
-        if ($options['the_post_auto_strpos_tags'] == true) {
+        if (AYF::get_post_action('auto_strpos_tags', 'post_automatic')) {
             $tags = get_tags(array('hide_empty' => false));
 
             if ($tags && !is_wp_error($tags)) {
@@ -150,8 +150,8 @@ class AYA_Plugin_Automatic
                 }
             }
         }
-        //格式清理
-        if ($options['the_post_auto_insert_html_filter'] == true) {
+        //格式清理预处理
+        if (AYF::get_post_action('auto_insert_html_filter', 'post_automatic')) {
             //合并方法
             $insert_content = self::light_insert_data_re_fullwidth_space($post_content);
             $insert_content = self::light_insert_data_re_div_tags($insert_content);
@@ -160,24 +160,20 @@ class AYA_Plugin_Automatic
             $formatted_content = trim($insert_content);
         }
         //中文排版
-        else if ($options['the_post_auto_chs_compose_bool'] == true) {
-
+        else if (AYF::get_post_action('auto_chs_compose_filter', 'post_automatic')) {
             //过滤一些禁止的参数
             $correct_array = $options['the_post_auto_chs_compose_type'];
-
             //对文章内容进行格式化
             $formatted_content = self::aya_autoload_chs_type_setting($post_content, $correct_array);
             //对文章标题进行格式化
             $formatted_title = self::aya_autoload_chs_type_setting($post_title, $correct_array);
         }
-
         //是否刷新文章日期
-        if (get_post_meta($post_id, 'reset_post_datetime', true)) {
+        if (AYF::get_post_action('reset_post_datetime', 'post_automatic')) {
             // 重置发布日期为当前时间
             $reset_date_time = current_time('mysql');
         }
-
-        //更新文章内容
+        //开始更新文章内容
         $post_array = array();
 
         $post_array['ID'] = $post_id;

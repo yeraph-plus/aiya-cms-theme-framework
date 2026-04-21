@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package AIYA-CMS Theme Options Framework
- * @version 1.0
+ * @version 2.0
  **/
 
 if (!class_exists('AYA_Framework_Post_Meta')) {
@@ -22,7 +22,8 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
         private $options;
         private $meta_inst;
 
-        private $unfined_field;
+        private $render_unfined_field;
+        private $save_unfined_field;
 
         function __construct($options, $meta_inst)
         {
@@ -30,13 +31,26 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
             $this->meta_inst = $meta_inst;
 
             //定义禁用项
-            $this->unfined_field = array('group', 'group_mult', 'code_editor', 'tinymce');
+            $this->render_unfined_field = array('group', 'group_mult', 'code_editor', 'tinymce', 'content', 'message', 'success', 'dismiss', 'warning');
+            $this->save_unfined_field = array_merge($this->render_unfined_field, array('action_checkbox'));
 
             add_action('admin_menu', array(&$this, 'init_metaboxes'));
 
             //只在 save_post 执行，并放到队列最后，避免被其他组件二次写入覆盖
             add_action('save_post', array(&$this, 'save_podefaultata'), 999);
         }
+
+        private function get_metabox_meta_key()
+        {
+            return 'aya_box_' . $this->meta_inst['id'];
+        }
+
+        private function get_metabox_values($post_id)
+        {
+            $meta_value = get_post_meta($post_id, $this->get_metabox_meta_key(), true);
+            return is_array($meta_value) ? $meta_value : array();
+        }
+
         public function init_metaboxes()
         {
             $meta_box_areas = $this->meta_inst['add_box_in'];
@@ -84,7 +98,14 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
             else
                 $post_id = 0;
 
+            $metabox_values = $this->get_metabox_values($post_id);
+
             echo '<div class="tab-content framework-section">';
+
+            if (!empty($this->meta_inst['desc'])) {
+                echo '<p class="form-field field-message">' . $this->meta_inst['desc'] . '</p>';
+            }
+
             wp_nonce_field($this->meta_inst['id'] . '_meta_box_action', $this->meta_inst['id'] . '_meta_box_nonce');
 
             foreach ($this->options as $option) {
@@ -92,15 +113,17 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                 if (empty($option)) {
                     continue;
                 }
-                //排除不支持的组件
-                if (in_array($option['type'], $this->unfined_field)) {
+                //排除无ID的组件
+                if (empty($option['id'])) {
                     continue;
                 }
-                //获取字段数据
-                $meta_value = get_post_meta($post_id, $option['id'], true);
-
-                if ($meta_value != '') {
-                    $option['default'] = $meta_value;
+                //排除不支持的组件
+                if (in_array($option['type'], $this->render_unfined_field)) {
+                    continue;
+                }
+                //从单条 metabox 记录中获取字段数据
+                if (isset($metabox_values[$option['id']]) && $metabox_values[$option['id']] !== '') {
+                    $option['default'] = $metabox_values[$option['id']];
                 }
                 AYA_Field_Action::field($option);
             }
@@ -133,9 +156,9 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                         return false;
                 }
 
-                foreach ($this->options as $option) {
+                $metabox_data = array();
 
-                    //$old_data = get_post_meta($post_id, $option['id']);
+                foreach ($this->options as $option) {
 
                     //跳过空的数组定义
                     if (empty($option)) {
@@ -145,8 +168,13 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                     if (!isset($option['id'])) {
                         continue;
                     }
+                    //排除不支持的组件
+                    if (in_array($option['type'], $this->save_unfined_field)) {
+                        continue;
+                    }
 
-                    $data = empty($_POST[$option['id']]) ? '' : $_POST[$option['id']];
+                    $data = empty($_POST[$option['id']]) ? '' : wp_unslash($_POST[$option['id']]);
+
                     //如果是数组
                     if ($option['type'] == 'array') {
                         $data = explode(',', $data);
@@ -154,16 +182,21 @@ if (!class_exists('AYA_Framework_Post_Meta')) {
                     }
                     //其他
                     else {
-                        //$data = wp_unslash($data);
                         $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
                     }
 
-                    //配置 always_empty=true 时或空值时，删除该 meta 记录
-                    if ($data == '' || (isset($option['always_empty']) && $option['always_empty'] == true)) {
-                        delete_post_meta($post_id, $option['id'], '');
-                    } else {
-                        update_post_meta($post_id, $option['id'], $data);
+                    //空值时不写入当前字段
+                    if ($data === '' || $data === array()) {
+                        continue;
                     }
+
+                    $metabox_data[$option['id']] = $data;
+                }
+
+                if (empty($metabox_data)) {
+                    delete_post_meta($post_id, $this->get_metabox_meta_key());
+                } else {
+                    update_post_meta($post_id, $this->get_metabox_meta_key(), $metabox_data);
                 }
             }
         }

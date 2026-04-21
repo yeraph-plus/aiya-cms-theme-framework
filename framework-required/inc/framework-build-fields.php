@@ -67,7 +67,7 @@ if (!class_exists('AYA_Field_Action')) {
                     echo $class->action($field);
                 } else {
                     //报错
-                    self::out_error(__('字段参数 "type" 不存在：', 'AIYA_FRAMEWORK') . print ($field));
+                    self::out_error(__('字段参数 "type" 不存在：', 'AIYA_FRAMEWORK') . print($field));
                 }
             } else {
                 //报错
@@ -140,6 +140,7 @@ if (!class_exists('AYA_Field_Action')) {
             $html = '<div class="form-field field-message"><p class="' . $field['type'] . '">' . $icon . "  " . self::preg_desc($field['desc']) . '</p></div>';
             echo $html;
         }
+
         //Before结构
         public static function before_tags($field)
         {

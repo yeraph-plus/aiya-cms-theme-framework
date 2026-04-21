@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
  * 
  * 读取表单方法：
  * 方法 get_opt($name, $inst) 获取设置页面下的设置内容
- * 方法 get_meta($name) 内部判断是文章页面还是object然后读取Metabox
+ * 方法 get_meta($name, $post_id, $box_id) 获取文章 Metabox 下的字段内容
  * 
  * 读取表单的验证方法：
  * 方法 get_checked($name, $inst) 先判断get_opt方法，然后返回的值是否为选中状态
@@ -51,10 +51,15 @@ if (!class_exists('AYA_Framework_Setup')) {
     class AYA_Framework_Setup
     {
         private static $include_once = null;
+
         private static $def_option_cache = [];
         private static $sql_option_cache = [];
+
+        private static $post_metabox_cache = [];
+
         public static $class_name = 'AYA_Option_Fired_';
         public static $option_key_prefix = 'aya_opt_';
+        public static $metabox_key_prefix = 'aya_box_';
 
         public function __construct()
         {
@@ -97,8 +102,9 @@ if (!class_exists('AYA_Framework_Setup')) {
                 'tinymce',
                 'group',
                 'number',
-                'group-mult',
-                'code-editor',
+                'group_mult',
+                'code_editor',
+                'action_checkbox',
             );
             //遍历
             foreach ($fields as $field) {
@@ -360,6 +366,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             echo (empty($value)) ? 'null' : $value;
         }
+
         //检查是否选择
         public static function get_checked($name, $opt_sulg = '')
         {
@@ -367,6 +374,7 @@ if (!class_exists('AYA_Framework_Setup')) {
 
             return filter_var($value, FILTER_VALIDATE_BOOLEAN);
         }
+
         //判断输出
         public static function out_checked($name, $opt_sulg = '', $output = '')
         {
@@ -401,8 +409,60 @@ if (!class_exists('AYA_Framework_Setup')) {
             return new AYA_Framework_Post_Meta($fields, $conf);
         }
 
-        //Tips: Metabox需要在指定到ID时提取数据，此处不实现
+        //获取文章 Metabox 字段
+        public static function get_post_meta($name, $box_id = '', $post_id = 0)
+        {
+            if (empty($post_id) || $box_id === '') {
+                return false;
+            }
 
+            if (!isset(self::$post_metabox_cache[$post_id])) {
+                self::$post_metabox_cache[$post_id] = [];
+            }
+
+            // 首次请求该字段组时，整组数据写入静态缓存，后续字段读取直接命中缓存
+            if (!array_key_exists($box_id, self::$post_metabox_cache[$post_id])) {
+                $meta_key = self::$metabox_key_prefix . $box_id;
+                $metabox_data = get_post_meta($post_id, $meta_key, true);
+
+                self::$post_metabox_cache[$post_id][$box_id] = is_array($metabox_data) ? $metabox_data : [];
+            }
+
+            $metabox_data = self::$post_metabox_cache[$post_id][$box_id];
+
+            return isset($metabox_data[$name]) ? $metabox_data[$name] : false;
+        }
+
+        //获取文章 Metabox 的本次提交动作
+        public static function get_post_action($name, $box_id = '')
+        {
+            if ($name === '' || $box_id === '') {
+                return false;
+            }
+
+            $nonce_field = $box_id . '_meta_box_nonce';
+            $nonce_action = $box_id . '_meta_box_action';
+
+            if (!isset($_POST[$nonce_field]) || !wp_verify_nonce($_POST[$nonce_field], $nonce_action)) {
+                return false;
+            }
+
+            if (!isset($_POST[$name])) {
+                return false;
+            }
+
+            return wp_unslash($_POST[$name]) === '1';
+        }
+
+        //获取分类 Metabox 字段
+        public static function get_term_meta($name, $term_id = 0)
+        {
+            if (empty($term_id)) {
+                return false;
+            }
+
+            return get_term_meta($term_id, $name, true);
+        }
 
         //包装WP报错
         public static function message_error($line, $message)

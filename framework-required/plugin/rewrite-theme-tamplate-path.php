@@ -22,6 +22,9 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
 
     public function __construct()
     {
+        // Tips：旧组件，注释方法防止被意外启用
+        return;
+
         //定义模板位置
         $this->template_path = 'templates';
         //添加自定义的路径过滤器
@@ -43,8 +46,8 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
         parent::add_filter('singular_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('tag_template_hierarchy', 'aya_theme_rc_template_hierarchy');
         parent::add_filter('taxonomy_template_hierarchy', 'aya_theme_rc_template_hierarchy');
-        //添加重写的过滤器
-        //parent::add_action('template_include', 'aya_template_reload');
+        // 添加重写的过滤器
+        parent::add_action('template_include', 'aya_template_reload');
     }
 
     public function __destruct() {}
@@ -125,7 +128,6 @@ class AYA_Plugin_Theme_Redefine_Template extends AYA_Framework_Setup
     //首页
     public function aya_index_template()
     {
-        //TODO: if(get_option('index_page') == 'xxx') -> index-xxx.php
         return $this->aya_query_template('index');
     }
     //404

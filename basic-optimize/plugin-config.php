@@ -559,37 +559,20 @@ $AYF_AUTOMATIC_FIELDS = [
         'type' => 'title_2',
     ],
     [
-        'desc' => '警告：以下功能在文章保存/更新时触发，会直接操作文章数据，投入使用前请先备份站点数据并仔细测试。',
+        'desc' => '此模块会在文章编辑器页面创建“数据更新”组件，如果没有此组件，请在顶部显示选项中勾选此组件。',
+        'type' => 'content',
+    ],
+    [
+        'desc' => '警告：相关预处理功能在文章保存/更新时触发，会直接操作文章数据，投入使用前请先备份站点数据并仔细测试。',
         'type' => 'warning',
-    ],
-    [
-        'title' => '自动检索标签',
-        'desc' => '检索全部正文，添加已存在的标签到文章（*该动作仅在文章保存时触发）[br/]*说明：内部使用 [code]strpos()[/code] 方法，匹配不一定准确',
-        'id' => 'the_post_auto_strpos_tags',
-        'type' => 'switch',
-        'default' => false,
-    ],
-    [
-        'title' => 'HTML格式预处理',
-        'desc' => '简单过滤器，自动去除 [code]div[/code] 、 [code]span[/code] 等标签和重叠的标签、去除全角空格等[br/]*说明：采集站/笔记站的实用功能，在文章保存前对文章内容进行预处理，用于清理复制粘贴时带来的多余 HTML 标签',
-        'id' => 'the_post_auto_insert_html_filter',
-        'type' => 'switch',
-        'default' => false,
     ],
     [
         'desc' => '*此功能使用 [code]jxlwqq/chinese-typesetting[/code] 项目：[url=https://github.com/jxlwqq/chinese-typesetting]查看文档[/url]',
         'type' => 'message',
     ],
     [
-        'title' => '中文排版纠正',
-        'desc' => '使用依赖库，执行复杂排版纠正',
-        'id' => 'the_post_auto_chs_compose_bool',
-        'type' => 'switch',
-        'default' => false,
-    ],
-    [
-        'title' => '启用的排版纠正方法',
-        'desc' => '接续上一项设置，选择需要启用的格式过滤器，详细说明请查阅相关项目文档',
+        'title' => '启用的中文排版纠正方法',
+        'desc' => '选择需要启用的格式过滤器，详细说明请查阅相关项目文档',
         'id' => 'the_post_auto_chs_compose_type',
         'type' => 'checkbox',
         'sub' => [
@@ -695,18 +678,42 @@ AYF::new_opt([
 ]);
 
 AYF::new_box([
-    'title' => '重新发布',
-    'id' => 'reset_post_datetime_box',
+    'title' => '数据更新',
+    'id' => 'post_automatic',
+    'desc' => '本组件全部功能仅在勾选时生效',
     'context' => 'normal',
     'priority' => 'low',
     'add_box_in' => ['post'],
     'fields' => [
         [
-            'title' => '',
-            'desc' => '刷新文章发布日期到当前时间',
+            'title' => '重置发布日期',
+            'label' => '刷新文章发布日期到当前时间',
             'id' => 'reset_post_datetime',
-            'type' => 'switch',
-            'always_empty' => true,
+            'type' => 'action_checkbox',
+            'default' => false,
+        ],
+        [
+            'title' => '自动检索标签',
+            'label' => '添加已存在的标签到文章',
+            'desc' => '*说明：内部使用 [code]strpos()[/code] 方法检索全部正文，匹配不一定准确',
+            'id' => 'auto_strpos_tags',
+            'type' => 'action_checkbox',
+            'default' => false,
+        ],
+        [
+            'title' => '格式清理',
+            'label' => '清理多余 HTML 标签',
+            'desc' => '*说明：清理复制粘贴时带来的 [code]div[/code] 、 [code]span[/code] 等标签和重叠的标签、去除全角空格等',
+            'id' => 'auto_insert_html_filter',
+            'type' => 'action_checkbox',
+            'default' => false,
+        ],
+        [
+            'title' => '中文排版纠正',
+            'label' => '执行复杂排版纠正',
+            'desc' => '*说明：此处理器行为在[url=/wp-admin/admin.php?page=aya-options-automatic]设置页面[/url]中控制，此项与格式清理选项互斥',
+            'id' => 'auto_chs_compose_filter',
+            'type' => 'action_checkbox',
             'default' => false,
         ],
     ],
@@ -1007,10 +1014,11 @@ if (AYF::get_checked('plugin_add_seo_stk', 'plugin')) {
 
     AYF::new_box([
         'title' => '自定义SEO',
-        'id' => 'seo_box',
+        'id' => 'post_seo',
         'context' => 'normal',
         'priority' => 'low',
         'add_box_in' => ['post'],
+        'desc' => '为文章添加自定义的SEO描述',
         'fields' => [
             [
                 'title' => 'SEO关键词',

@@ -15,6 +15,7 @@ if (!defined('ABSPATH'))
  * @version 1.4
  **/
 
+//TODO 优化SEO功能
 class AYA_Plugin_Head_SEO
 {
     public $seo_action;
@@ -28,10 +29,7 @@ class AYA_Plugin_Head_SEO
         add_action('pre_get_document_title', array($this, 'aya_theme_site_title'));
 
         if ($action['site_seo_action'] == true) {
-            //移除本页链接
-            remove_action('wp_head', 'rel_canonical');
             add_action('wp_head', array($this, 'aya_theme_site_seo_action'));
-            add_action('wp_head', array($this, 'aya_theme_site_seo_canonical'));
         }
         if ($action['site_seo_auto_replace'] == true) {
             add_filter('the_content', array($this, 'aya_theme_site_replace_text_wps'));
@@ -163,9 +161,9 @@ class AYA_Plugin_Head_SEO
         if (is_single()) {
             $post = get_post();
             //提取Metabox中的设置
-            $single_keywords = get_post_meta($post->ID, 'seo_keywords', true);
+            $single_keywords = AYF::get_post_meta('seo_keywords', 'post_seo', $post->ID);
             //检查设置
-            if ($single_keywords == null && empty(trim($single_keywords))) {
+            if ($single_keywords != null && !empty(trim($single_keywords))) {
                 $seo_keywords = trim($single_keywords);
             } else {
                 //提取文章标签
@@ -183,7 +181,7 @@ class AYA_Plugin_Head_SEO
                 }
             }
             //提取Metabox中的设置
-            $single_desc = get_post_meta($post->ID, 'seo_desc', true);
+            $single_desc = AYF::get_post_meta('seo_desc', 'post_seo', $post->ID);
             //检查设置
             if ($single_desc != null && !empty(trim($single_desc))) {
                 $seo_desc = trim($single_desc);
@@ -196,7 +194,7 @@ class AYA_Plugin_Head_SEO
         if (is_category()) {
             $category = get_category(get_query_var('cat'), false);
             //提取设置
-            $category_keywords = get_post_meta($category->term_id, 'seo_cat_keywords', true);
+            $category_keywords = AYF::get_term_meta('seo_cat_keywords', $category->term_id);
             //检查设置
             if (!empty(trim($category_keywords))) {
                 $seo_keywords = $category_keywords;
@@ -204,15 +202,25 @@ class AYA_Plugin_Head_SEO
                 $seo_keywords = $category->name;
             }
             //提取设置
-            $category_desc = get_post_meta($category->term_id, 'seo_cat_desc', true);
+            $category_desc = AYF::get_term_meta('seo_cat_desc', $category->term_id);
             //检查设置
             if (!empty(trim($category_desc))) {
                 $seo_desc = $category_desc;
+            } else if (!empty($category->description)) {
+                $seo_desc = $category->description;
             }
         }
 
-        $head_seo = '<meta name="keywords" content="' . $seo_keywords . '" />' . "\n";
-        $head_seo .= '<meta name="description" content="' . $seo_desc . '" />' . "\n";
+        $seo_keywords = wp_strip_all_tags((string) $seo_keywords);
+        $seo_desc = wp_strip_all_tags((string) $seo_desc);
+
+        $head_seo = '';
+        if ($seo_keywords !== '') {
+            $head_seo .= '<meta name="keywords" content="' . esc_attr($seo_keywords) . '" />' . "\n";
+        }
+        if ($seo_desc !== '') {
+            $head_seo .= '<meta name="description" content="' . esc_attr($seo_desc) . '" />' . "\n";
+        }
 
         //输出
         echo $head_seo;
@@ -221,13 +229,18 @@ class AYA_Plugin_Head_SEO
     //配置canonical标签
     public function aya_theme_site_seo_canonical()
     {
-        if (is_home()) {
-            $url = home_url();
-        } else {
-            $url = get_permalink();
+        $url = wp_get_canonical_url();
+        if (empty($url)) {
+            if (is_home()) {
+                $url = home_url();
+            } else {
+                $url = get_permalink();
+            }
         }
         //输出
-        echo '<link rel="canonical" href="' . $url . '" />' . "\n";
+        if (!empty($url)) {
+            echo '<link rel="canonical" href="' . esc_url($url) . '" />' . "\n";
+        }
     }
 
     //robots.txt
@@ -236,7 +249,7 @@ class AYA_Plugin_Head_SEO
         $action = $this->seo_action;
 
         //替换为自定义输出
-        $output = esc_attr(wp_strip_all_tags($action['site_seo_robots_txt']));
+        $output = sanitize_textarea_field($action['site_seo_robots_txt']);
         return $output;
     }
 
@@ -282,54 +295,196 @@ class AYA_Plugin_Head_SEO
     //文章载入时自动检索匹配的标签添加链接
     public function aya_theme_content_auto_tags_re_link($content)
     {
-        //内置方法：标签按长度排序
-        function tag_sort($a, $b)
-        {
-            if ($a->name == $b->name)
-                return 0;
-            return (strlen($a->name) > strlen($b->name)) ? -1 : 1;
+        if (!is_singular()) {
+            return $content;
         }
 
-        //正则方法设置
-        $match_num_from = 2;  //一个标签在文章中出现少于多少次不添加链接
-        $match_num_to = 1; //一篇文章中同一个标签添加几次链接
-        $exp_word = ''; //正则过滤参数
-        $more_case = '';
+        $post_id = get_the_ID();
+        if (empty($post_id)) {
+            return $content;
+        }
 
-        //获取全部标签
-        $the_tags = get_the_tags();
+        $the_tags = wp_get_post_terms($post_id, 'post_tag');
+        if (empty($the_tags) || is_wp_error($the_tags)) {
+            return $content;
+        }
 
-        if ($the_tags) {
-            //排序方法
-            usort($the_tags, 'tag_sort');
-            //循环
-            foreach ($the_tags as $tag) {
+        usort($the_tags, function ($a, $b) {
+            if ($a->name === $b->name) {
+                return 0;
+            }
+            $len_a = function_exists('mb_strlen') ? mb_strlen($a->name) : strlen($a->name);
+            $len_b = function_exists('mb_strlen') ? mb_strlen($b->name) : strlen($b->name);
+            if ($len_a === $len_b) {
+                return strcmp($a->name, $b->name);
+            }
+            return ($len_a > $len_b) ? -1 : 1;
+        });
 
-                $link = get_tag_link($tag->term_id);
+        if (!class_exists('DOMDocument')) {
+            return $content;
+        }
 
-                $key_word = $tag->name;
+        $min_occurrences = 2;
+        $max_links_per_tag = 1;
 
-                //生成链接
-                $clean_key_word = stripslashes($key_word);
+        $charset = get_bloginfo('charset');
+        if (empty($charset)) {
+            $charset = 'UTF-8';
+        }
 
-                $url = '<a href="' . $link . '" title="' . str_replace('%s', addcslashes($clean_key_word, '$'), __('更多%s相关文章')) . '" target="_blank">' . addcslashes($clean_key_word, '$') . '</a>';
+        $wrapped = '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=' . esc_attr($charset) . '"></head><body><div id="aya-seo-wrap">' . $content . '</div></body></html>';
 
-                $limit = rand($match_num_from, $match_num_to);
+        $previous_libxml = libxml_use_internal_errors(true);
+        $doc = new DOMDocument();
+        $loaded = $doc->loadHTML($wrapped, LIBXML_NOWARNING | LIBXML_NOERROR);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous_libxml);
 
-                //过滤标签
-                $content = preg_replace('|(<a[^>]+>)(.*)(' . $exp_word . ')(.*)(</a[^>]*>)|U' . $more_case, '$1$2%&&&&&%$4$5', $content);
-                $content = preg_replace('|(<pre[^>]+>)(.*)(' . $exp_word . ')(.*)(</pre[^>]*>)|U' . $more_case, '$1$2%&&&&&%$4$5', $content);
-                $content = preg_replace('|(<img)(.*?)(' . $exp_word . ')(.*?)(>)|U' . $more_case, '$1$2%&&&&&%$4$5', $content);
+        if (!$loaded) {
+            return $content;
+        }
 
-                $clean_key_word = preg_quote($clean_key_word, '\'');
+        $xpath = new DOMXPath($doc);
 
-                $reg_exp = '\'(?!((<.*?)|(<a.*?)|(<pre.*?)))(' . $clean_key_word . ')(?!(([^<>]*?)>)|([^>]*?</a>)|([^>]*?</pre>))\'s' . $more_case;
+        foreach ($the_tags as $tag) {
+            if ($max_links_per_tag < 1) {
+                break;
+            }
 
-                $content = preg_replace($reg_exp, $url, $content, $limit);
-                $content = str_replace('%&&&&&%', stripslashes($exp_word), $content);
+            $keyword = (string) $tag->name;
+            $keyword = trim($keyword);
+            if ($keyword === '') {
+                continue;
+            }
+
+            $text_nodes = $xpath->query('//div[@id="aya-seo-wrap"]//text()[not(ancestor::a) and not(ancestor::pre) and not(ancestor::code) and not(ancestor::script) and not(ancestor::style) and not(ancestor::textarea)]');
+            if (!$text_nodes || $text_nodes->length === 0) {
+                continue;
+            }
+
+            $total_occurrences = 0;
+            foreach ($text_nodes as $node) {
+                $total_occurrences += $this->aya_theme_mb_substr_count($node->nodeValue, $keyword);
+                if ($total_occurrences >= $min_occurrences) {
+                    break;
+                }
+            }
+
+            if ($total_occurrences < $min_occurrences) {
+                continue;
+            }
+
+            $link = get_tag_link($tag->term_id);
+            if (empty($link) || is_wp_error($link)) {
+                continue;
+            }
+
+            $title_attr = sprintf(__('更多%s相关文章'), $keyword);
+            $links_added = 0;
+
+            $text_nodes = $xpath->query('//div[@id="aya-seo-wrap"]//text()[not(ancestor::a) and not(ancestor::pre) and not(ancestor::code) and not(ancestor::script) and not(ancestor::style) and not(ancestor::textarea)]');
+            if (!$text_nodes || $text_nodes->length === 0) {
+                continue;
+            }
+
+            foreach ($text_nodes as $node) {
+                if ($links_added >= $max_links_per_tag) {
+                    break;
+                }
+
+                $text = (string) $node->nodeValue;
+                $pos = $this->aya_theme_mb_strpos($text, $keyword);
+                if ($pos === false) {
+                    continue;
+                }
+
+                $before = $this->aya_theme_mb_substr($text, 0, $pos);
+                $after = $this->aya_theme_mb_substr($text, $pos + $this->aya_theme_mb_strlen($keyword));
+
+                $parent = $node->parentNode;
+                if (!$parent) {
+                    continue;
+                }
+
+                if ($before !== '') {
+                    $parent->insertBefore($doc->createTextNode($before), $node);
+                }
+
+                $a = $doc->createElement('a');
+                $a->setAttribute('href', esc_url($link));
+                $a->setAttribute('title', esc_attr($title_attr));
+                $a->appendChild($doc->createTextNode($keyword));
+                $parent->insertBefore($a, $node);
+
+                if ($after !== '') {
+                    $parent->insertBefore($doc->createTextNode($after), $node);
+                }
+
+                $parent->removeChild($node);
+                $links_added++;
             }
         }
 
-        return $content;
+        $wrap_query = $xpath->query('//div[@id="aya-seo-wrap"]');
+        $wrap = ($wrap_query && $wrap_query->length > 0) ? $wrap_query->item(0) : null;
+        if (!$wrap) {
+            return $content;
+        }
+
+        $out = '';
+        foreach ($wrap->childNodes as $child) {
+            $out .= $doc->saveHTML($child);
+        }
+
+        return $out;
+    }
+
+    private function aya_theme_mb_strlen($str)
+    {
+        return function_exists('mb_strlen') ? mb_strlen($str) : strlen($str);
+    }
+
+    private function aya_theme_mb_strpos($haystack, $needle)
+    {
+        return function_exists('mb_strpos') ? mb_strpos($haystack, $needle) : strpos($haystack, $needle);
+    }
+
+    private function aya_theme_mb_substr($str, $start, $length = null)
+    {
+        if (function_exists('mb_substr')) {
+            if ($length === null) {
+                return mb_substr($str, $start);
+            }
+            return mb_substr($str, $start, $length);
+        }
+
+        if ($length === null) {
+            return substr($str, $start);
+        }
+        return substr($str, $start, $length);
+    }
+
+    private function aya_theme_mb_substr_count($haystack, $needle)
+    {
+        if ($needle === '') {
+            return 0;
+        }
+        if (function_exists('mb_substr_count')) {
+            return mb_substr_count($haystack, $needle);
+        }
+
+        $count = 0;
+        $offset = 0;
+        $needle_len = strlen($needle);
+        while (true) {
+            $pos = strpos($haystack, $needle, $offset);
+            if ($pos === false) {
+                break;
+            }
+            $count++;
+            $offset = $pos + $needle_len;
+        }
+        return $count;
     }
 }

@@ -296,7 +296,8 @@ new AYA_Framework_Options_Page($child_options, $child_info);
 
 //GET Options:
 //$get_options = get_option('aya_opt_sample');
-//print_r($get_options);
+// IF start with "./framework-setup.php"
+//$get_options =AYF::get_opt('sample_input','sample-field);
 
 //----- taxonomy feild -----
 
@@ -331,6 +332,9 @@ new AYA_Framework_Term_Meta($term_feild, $in_term);
 //$get_value = get_term_meta($tag->term_id, 'sample_input', true);
 //$get_value = get_term_meta($tag->term_id, 'sample_textarea', true);
 
+// IF start with "./framework-setup.php"
+//$meta_value = AYF::get_term_meta('text_example', $term_id, 'example_box');
+
 //----- meta box -----
 
 $meta_info = array(
@@ -339,6 +343,7 @@ $meta_info = array(
     'context' => 'normal',
     'priority' => 'low',
     'add_box_in' => array('page', 'post'),
+    'desc' => 'Meta box example',
 );
 $info_meta = array(
     array(
@@ -360,7 +365,6 @@ $info_meta = array(
         'desc' => 'Set type as select.',
         'id' => 'sample_switch',
         'type' => 'switch',
-        'always_empty' => true, // always delete meta data
         'default' => true,
     ),
     array(
@@ -371,9 +375,21 @@ $info_meta = array(
         'button_text' => 'Upload',
         'default'  => '',
     ),
+    array(
+        'title' => 'Execute Once Action',
+        'desc' => 'Do this action when save the post.',
+        'id' => 'reset_post_action',
+        'type' => 'action_checkbox',
+    ),
 );
 
 new AYA_Framework_Post_Meta($info_meta, $meta_info);
 //GET Options
 //$meta_value = get_post_meta($post->ID,'text_example',true);
 //$meta_value = get_post_meta($post->ID,'textarea_example',true);
+// IF start with "./framework-setup.php"
+//$meta_value = AYF::get_meta('text_example', $post_id, 'example_box');
+// Trigger action
+//if(AYF::get_post_action('reset_post_action', 'reset_post_action_box')){
+//    //Do something
+//}
