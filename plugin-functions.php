@@ -65,6 +65,12 @@ require_once $aya_plugin_dir . 'framework-required/setup.php';
 //引入插件组
 require_once $aya_plugin_dir . 'basic-optimize/setup.php';
 
+//引入插件语言包
+if (!defined('AYA_FRAMEWORK_TEXTDOMAIN')) {
+    define('AYA_FRAMEWORK_TEXTDOMAIN', 'aiya-framework');
+    load_plugin_textdomain(AYA_FRAMEWORK_TEXTDOMAIN, $aya_plugin_dir . 'languages/');
+}
+
 //运行环境检查
 AYP::action('EnvCheck', array(
     //PHP最低版本
