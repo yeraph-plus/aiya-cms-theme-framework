@@ -53,7 +53,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
             //加载方法
             $html .= parent::field_mult($sub_field, true);
         }
-        $html .= '<a href="#" class="del-item">' . __('删除', 'AIYA_FRAMEWORK') . '</a>';
+        $html .= '<a href="#" class="del-item">' . __('删除', 'aiya-framework') . '</a>';
         $html .= '</div>';
         $html .= '</template>';
 
@@ -69,7 +69,7 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
                 //跳过重复创建
                 if ($sub_field['type'] == 'group' || $sub_field['type'] == 'group_mult' || $sub_field['type'] == 'tinymce') {
                     //报错
-                    parent::out_error(__('此字段无法生成重复创建。', 'AIYA_FRAMEWORK'));
+                    parent::out_error(__('此字段无法生成重复创建。', 'aiya-framework'));
 
                     continue;
                 }
@@ -85,11 +85,11 @@ class AYA_Option_Fired_group_mult extends AYA_Field_Action
                 $html .= parent::field_mult($sub_field, true);
             }
 
-            $html .= '<a href="#" class="del-item">' . __('删除', 'AIYA_FRAMEWORK') . '</a>';
+            $html .= '<a href="#" class="del-item">' . __('删除', 'aiya-framework') . '</a>';
             $html .= '</div>';
         }
 
-        $html .= '<a href="#" class="add-item button-secondary" data-group-name="' . $field['id'] . '">' . __('新增', 'AIYA_FRAMEWORK') . '</a>';
+        $html .= '<a href="#" class="add-item button-secondary" data-group-name="' . $field['id'] . '">' . __('新增', 'aiya-framework') . '</a>';
 
         $html .= '</div>';
 

@@ -48,7 +48,7 @@ function query_shortcode_items()
 
     //将获得的数组转换为html表格
     echo '<table class="section-table-list">';
-    echo '<thead><tr><th>简码</th><th>回调函数</th></tr></thead>';
+    echo '<thead><tr><th>' . __('短代码', 'aiya-framework') . '</th><th>' . __('回调函数', 'aiya-framework') . '</th></tr></thead>';
     echo '<tbody>';
     foreach ($items as $item) {
         echo '<tr><td>' . $item['tag'] . '</td><td>' . $item['callback'] . '</td></tr>';
@@ -75,7 +75,7 @@ function query_rewrite_rules_items($args)
 
     //将获得的数组转换为html表格
     echo '<table class="section-table-list">';
-    echo '<thead><tr><th>ID</th><th>正则</th><th>查询方法</th></tr></thead>';
+    echo '<thead><tr><th>' . __('ID', 'aiya-framework') . '</th><th>' . __('正则', 'aiya-framework') . '</th><th>' . __('查询方法', 'aiya-framework') . '</th></tr></thead>';
     echo '<tbody>';
     foreach ($items as $item) {
         echo '<tr><td>' . $item['rewrite_id'] . '</td><td>' . $item['regex'] . '</td><td>' . $item['query'] . '</td></tr>';
@@ -121,114 +121,114 @@ function ayf_get_default_robots_text()
 //创建父级设置页面和内容
 if (AYF::get_checked('all_plugin_off', 'plugin') === false) {
     AYF::new_opt([
-        'title' => 'AIYA-Optimize',
-        'page_tittle' => '首选项',
+        'title' => __('AIYA-Optimize', 'aiya-framework'),
+        'page_tittle' => __('首选项', 'aiya-framework'),
         'slug' => 'plugin',
-        'desc' => 'AIYA-CMS 主题，全局功能组件',
+        'desc' => __('AIYA-CMS 主题，全局功能组件', 'aiya-framework'),
         'fields' => [
             [
-                'desc' => '禁用拓展',
+                'desc' => __('禁用拓展', 'aiya-framework'),
                 'type' => 'title_2',
             ],
             [
-                'title' => '全局禁用',
-                'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
+                'title' => __('全局禁用', 'aiya-framework'),
+                'desc' => __('全局禁用所有后台功能和插件，以使用其他插件代替', 'aiya-framework'),
                 'id' => 'all_plugin_off',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'desc' => '次要组件',
+                'desc' => __('次要组件', 'aiya-framework'),
                 'type' => 'title_2',
             ],
             [
-                'title' => '外部功能加速',
-                'desc' => '将 Gravatar 头像服务、谷歌字体服务替换为国内 CDN 加速',
+                'title' => __('外部功能加速', 'aiya-framework'),
+                'desc' => __('将 Gravatar 头像服务、谷歌字体服务替换为国内 CDN 加速', 'aiya-framework'),
                 'id' => 'plugin_add_avatar_speed',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '简单 SEO 组件',
-                'desc' => '替代页面标题配置器并支持一些基础的 SEO 功能',
+                'title' => __('简单 SEO 组件', 'aiya-framework'),
+                'desc' => __('替代页面标题配置器并支持一些基础的 SEO 功能', 'aiya-framework'),
                 'id' => 'plugin_add_seo_stk',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '简单 WAF 防护',
-                'desc' => '基于用户UA、IP、特定参数检测的防火墙功能',
+                'title' => __('简单 WAF 防护', 'aiya-framework', 'aiya-framework'),
+                'desc' => __('基于用户UA、IP、特定参数检测的防火墙功能', 'aiya-framework'),
                 'id' => 'plugin_add_ua_firewall',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '垃圾评论过滤',
-                'desc' => '基于语法规则的垃圾评论过滤，无需 Akismet 接口',
+                'title' => __('垃圾评论过滤', 'aiya-framework'),
+                'desc' => __('基于语法规则的垃圾评论过滤，无需 Akismet 接口', 'aiya-framework'),
                 'id' => 'plugin_add_comment_filter',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '额外代码',
-                'desc' => '为站点增加额外 JS/CSS 代码，支持最小化添加百度统计和谷歌统计',
+                'title' => __('额外代码', 'aiya-framework'),
+                'desc' => __('为站点增加额外 JS/CSS 代码，支持最小化添加百度统计和谷歌统计', 'aiya-framework'),
                 'id' => 'plugin_add_site_statistics',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => ' STMP 送信',
-                'desc' => '通过 STMP 发送站点通知',
+                'title' => __('STMP 通知', 'aiya-framework'),
+                'desc' => __('通过 STMP 发送站点通知', 'aiya-framework'),
                 'id' => 'plugin_add_stmp_mail',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '本地化头像',
-                'desc' => '本地化头像功能，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）',
+                'title' => __('本地化头像', 'aiya-framework'),
+                'desc' => __('本地化头像功能，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）', 'aiya-framework'),
                 'id' => 'plugin_local_avatar_upload',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'desc' => '此功能完全重建了分类的页面的路由方法，请自行测试你的主题 / 插件是否兼容',
+                'desc' => __('此功能完全重建了分类页面的页面的路由方法，请自行测试你的主题 / 插件是否兼容', 'aiya-framework'),
                 'type' => 'message',
             ],
             [
-                'title' => '分类 URL 重建',
-                'desc' => '移除分类URL中 [code]/category/[/code] 层级，启用此项功能后，需要在 [url=options-permalink.php]固定链接[/url] 设置中重新保存一次',
+                'title' => __('分类 URL 重建', 'aiya-framework'),
+                'desc' => __('移除分类URL中 [code]/category/[/code] 层级，启用此项功能后，需要在 [url=options-permalink.php]固定链接[/url] 设置中重新保存一次', 'aiya-framework'),
                 'id' => 'plugin_no_category_url',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'desc' => '开发者功能',
+                'desc' => __('开发者功能', 'aiya-framework'),
                 'type' => 'title_2',
             ],
             [
-                'title' => '服务器状态信息',
-                'desc' => '在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）',
+                'title' => __('服务器状态信息', 'aiya-framework'),
+                'desc' => __('在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）', 'aiya-framework'),
                 'id' => 'dashboard_server_monitor',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => 'DEBUG模式',
-                'desc' => '在 wp_footer() 中输出 SQL 和 include 等调试信息',
+                'title' => __('DEBUG模式', 'aiya-framework'),
+                'desc' => __('在 wp_footer() 中输出 SQL 和 include 等调试信息', 'aiya-framework'),
                 'id' => 'debug_mode',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '简码列表',
-                'desc' => '列出 WP 当前的全部固定链接（ Rewrite 规则）和查询方法',
+                'title' => __('简码列表', 'aiya-framework'),
+                'desc' => __('列出 WP 当前的全部固定链接（ Rewrite 规则）和查询方法', 'aiya-framework'),
                 'id' => 'debug_shortcode_items',
                 'type' => 'switch',
                 'default' => false,
             ],
             [
-                'title' => '路由列表',
-                'desc' => '列出 WP 当前的全部简码功能（ Shortcode 字段）并列出回调函数',
+                'title' => __('路由列表', 'aiya-framework'),
+                'desc' => __('列出 WP 当前的全部简码功能（ Shortcode 字段）并列出回调函数', 'aiya-framework'),
                 'id' => 'debug_rules_items',
                 'type' => 'switch',
                 'default' => false,
@@ -237,18 +237,18 @@ if (AYF::get_checked('all_plugin_off', 'plugin') === false) {
     ]);
 } else {
     AYF::new_opt([
-        'title' => 'AIYA-Optimize',
+        'title' => __('AIYA-Optimize', 'aiya-framework'),
         'slug' => 'plugin',
-        'page_tittle' => '首选项',
-        'desc' => 'AIYA-CMS 主题，全局功能组件',
+        'page_tittle' => __('首选项', 'aiya-framework'),
+        'desc' => __('AIYA-CMS 主题，全局功能组件', 'aiya-framework'),
         'fields' => [
             [
-                'desc' => '禁用拓展',
+                'desc' => __('禁用拓展', 'aiya-framework'),
                 'type' => 'title_2',
             ],
             [
-                'title' => '全局禁用',
-                'desc' => '全局禁用所有后台功能和插件，以使用其他插件代替',
+                'title' => __('全局禁用', 'aiya-framework'),
+                'desc' => __('全局禁用所有后台功能和插件，以使用其他插件代替', 'aiya-framework'),
                 'id' => 'all_plugin_off',
                 'type' => 'switch',
                 'default' => true,

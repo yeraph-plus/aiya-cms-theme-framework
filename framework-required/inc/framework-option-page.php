@@ -52,8 +52,8 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             $default = [
                 'slug' => 'settings',
                 'icon' => 'dashicons-admin-generic',
-                'title' => __('设置', 'AIYA_FRAMEWORK'),
-                'page_title' => __('设置', 'AIYA_FRAMEWORK'),
+                'title' => __('设置', 'aiya-framework'),
+                'page_title' => __('设置', 'aiya-framework'),
                 'parent' => '',
             ];
 
@@ -217,7 +217,7 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                     delete_option($saved_key);
                 }
                 //提示
-                $this->saved_message = __('已重置所有设置。', 'AIYA_FRAMEWORK');
+                $this->saved_message = __('已重置所有设置。', 'aiya-framework');
             }
             //存入新数据
             if (!empty($_POST['aya_option_submit'])) {
@@ -276,10 +276,10 @@ if (!class_exists('AYA_Framework_Options_Page')) {
                         update_option($saved_key, $new_value);
                     }
                     //提示
-                    $this->saved_message = __('设置已保存。', 'AIYA_FRAMEWORK');
+                    $this->saved_message = __('设置已保存。', 'aiya-framework');
                 } else {
                     //提示
-                    $this->saved_message = __('没有设置被修改。', 'AIYA_FRAMEWORK');
+                    $this->saved_message = __('没有设置被修改。', 'aiya-framework');
                 }
             }
         }
@@ -336,8 +336,8 @@ if (!class_exists('AYA_Framework_Options_Page')) {
             if ($saved_button) {
                 $button_html = '<div class="field-saved-button">';
 
-                $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary auto-width" value="' . esc_html__('保存更改', 'AIYA_FRAMEWORK') . '" />';
-                $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary auto-width" value="' . esc_html__('重置', 'AIYA_FRAMEWORK') . '" />';
+                $button_html .= '<input type="submit" name="aya_option_submit" class="button-primary auto-width" value="' . esc_html__('保存更改', 'aiya-framework') . '" />';
+                $button_html .= '<input type="submit" name="aya_option_reset" class="button-secondary auto-width" value="' . esc_html__('重置', 'aiya-framework') . '" />';
 
                 $button_html .= '</div>';
 

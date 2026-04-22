@@ -55,7 +55,7 @@ class AYA_Plugin_CDN_Speed
         //图文url路径
         $myavatar = $options['site_default_avatar'];
         //图片的描述名称
-        $avatar_defaults[$myavatar] = __('默认头像');
+        $avatar_defaults[$myavatar] = __('Default Avatar');
 
         return $avatar_defaults;
     }

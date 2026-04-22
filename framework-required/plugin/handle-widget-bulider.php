@@ -177,7 +177,7 @@ if (!class_exists('AYA_Widget')) {
                 echo '<p>';
                 echo '<label>';
                 echo '<input class="widefat" id="' . $this->get_field_id('mobile_hide') . '" name="' . $this->get_field_name('mobile_hide') . '" type="checkbox" value="true" ' . checked($mobile_checked, 'true', false) . ' />';
-                echo "\n" . __('移动端不显示这个小工具', 'AIYA_FRAMEWORK');
+                echo "\n" . __('移动端不显示这个小工具', 'aiya-framework');
                 echo '</label>';
                 echo '</p>';
             }

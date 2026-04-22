@@ -39,11 +39,8 @@ class AYA_Plugin_Head_Extra
         if ($action['site_google_analytics'] != '') {
             $head .= self::add_google_analytics($action['site_google_analytics']) . "\n";
         }
-        if ($action['site_baidu_tongji'] != '') {
-            $head .= self::add_baidu_tongji($action['site_baidu_tongji']) . "\n";
-        }
         if ($action['site_extra_script'] != '') {
-            $head .= '<script>' . $action['site_extra_script'] . '</script>' . "\n";
+            $head .= '<script type="text/javascript">' . $action['site_extra_script'] . '</script>' . "\n";
         }
         if ($action['site_extra_css'] != '') {
             $head .= '<style type="text/css">' . $action['site_extra_css'] . '</style>' . "\n";
@@ -59,16 +56,6 @@ class AYA_Plugin_Head_Extra
         $script = '<!-- Google tag (gtag.js) -->';
         $script .= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_attr($id) . '"></script>';
         $script .= '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","' . esc_attr($id) . '");</script>';
-
-        return $script;
-    }
-
-    //插入百度统计代码
-    public function add_baidu_tongji($id)
-    {
-        if ($id == '') return;
-
-        $script = '<script type="text/javascript">var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?' . esc_attr($id) . '";hm.setAttribute("async","true");document.getElementsByTagName("head")[0].appendChild(hm)})();</script>';
 
         return $script;
     }

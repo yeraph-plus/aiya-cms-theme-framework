@@ -13,12 +13,12 @@ if (!defined('ABSPATH')) {
             <?php AYA_SimplePicBed::current_nonce(); ?>
             <input type="hidden" name="action" value="handle_image_upload">
             <button id="upload-button" class="form-button button" type="submit">
-                上传图片
+                <?php echo __('上传图片', 'aiya-framework'); ?>
             </button>
         </div>
     </form>
     <div class="pic-bed-heaper">
-        <p>支持 JPEG、PNG、BMP、GIF、WebP、AVIF 格式，最大 <?php echo AYA_SimplePicBed::$upload_max_size; ?>MB</p>
+        <p><?php echo __('支持 JPEG、PNG、BMP、GIF、WebP、AVIF 格式，最大 <?php echo AYA_SimplePicBed::$upload_max_size; ?>MB', 'aiya-framework'); ?></p>
     </div>
     <div id="upload-response" class="pic-bed-upload-result">
         <div class="upload-status"></div>
@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
                 <!-- 左侧预览 -->
                 <div class="result-preview">
                     <div class="panel">
-                        <h3 class="panel-title">图片预览</h3>
+                        <h3 class="panel-title"><?php echo __('上传图片预览', 'aiya-framework'); ?></h3>
                         <div class="image-preview">
                             <img id="preview-img" src="" alt="">
                         </div>
@@ -38,37 +38,37 @@ if (!defined('ABSPATH')) {
                 <!-- 右侧信息 -->
                 <div class="result-info">
                     <div class="panel">
-                        <h3 class="panel-title">图片信息</h3>
+                        <h3 class="panel-title"><?php echo __('上传图片信息', 'aiya-framework'); ?></h3>
                         <div class="info-grid">
                             <div class="data-item">
-                                <strong>尺寸:</strong>
+                                <strong><?php echo __('图片尺寸', 'aiya-framework'); ?>:</strong>
                                 <span id="image-dimensions"></span>
                             </div>
                             <div class="data-item">
-                                <strong>类型:</strong>
+                                <strong><?php echo __('图片类型', 'aiya-framework'); ?>:</strong>
                                 <span id="image-mime"></span>
                             </div>
                         </div>
                         <div class="data-item">
-                            <strong>保存路径:</strong>
+                            <strong><?php echo __('图片保存路径', 'aiya-framework'); ?>:</strong>
                             <div class="copy-wrapper">
                                 <code id="image-path"></code>
                             </div>
                         </div>
                         <div class="data-item">
-                            <strong>URL:</strong>
+                            <strong><?php echo __('图片保存URL', 'aiya-framework'); ?>:</strong>
                             <div class="copy-wrapper">
                                 <a id="image-url" href="" target="_blank"></a>
                             </div>
                         </div>
                         <div class="data-item">
-                            <strong>短代码:</strong>
+                            <strong><?php echo __('图片短代码', 'aiya-framework'); ?>:</strong>
                             <div class="textarea-wrapper">
                                 <textarea id="image-shortcode"></textarea>
                             </div>
                         </div>
                         <div class="data-item">
-                            <strong>HTML:</strong>
+                            <strong><?php echo __('图片HTML代码', 'aiya-framework'); ?>:</strong>
                             <div class="textarea-wrapper">
                                 <textarea id="image-html"></textarea>
                             </div>
@@ -132,7 +132,7 @@ if (!defined('ABSPATH')) {
         uploadForm.addEventListener('submit', function (event) {
             event.preventDefault();
             resetForm();
-            showStatus('info', '图片上传中...');
+            showStatus('info', __('图片上传中...', 'aiya-framework'));
 
             const formData = new FormData(uploadForm);
 
@@ -148,7 +148,7 @@ if (!defined('ABSPATH')) {
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('网络请求失败: ' + response.status);
+                        throw new Error(__('网络请求失败:', 'aiya-framework') + response.status);
                     }
                     return response.text();
                 })
@@ -158,25 +158,25 @@ if (!defined('ABSPATH')) {
 
                         if (data.status === 'success') {
                             // 上传成功，显示数据
-                            showStatus('success', '上传成功! ');
+                            showStatus('success', __('图片上传成功!', 'aiya-framework'));
                             displayImageData(data.data);
                         } else {
                             // 显示错误信息
-                            showStatus('error', data.data || '上传失败');
+                            showStatus('error', data.data || __('图片上传失败', 'aiya-framework'));
                         }
                     } catch (e) {
-                        console.error('服务器返回非JSON响应:', text);
-                        showStatus('error', '处理响应数据失败: ' + e.message);
+                        console.error(__('服务器返回非JSON响应:', 'aiya-framework') + text);
+                        showStatus('error', __('处理响应数据失败:', 'aiya-framework') + e.message);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showStatus('error', '上传失败: ' + error.message);
+                    showStatus('error', __('图片上传失败:', 'aiya-framework') + error.message);
                 })
                 .finally(() => {
                     // 恢复按钮状态
                     uploadButton.disabled = false;
-                    uploadButton.innerHTML = '上传图片';
+                    uploadButton.innerHTML = __('上传图片', 'aiya-framework');
                 });
         });
     });

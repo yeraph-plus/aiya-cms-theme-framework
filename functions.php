@@ -53,10 +53,10 @@ function aya_plugin_setup_option_filter()
     $plugin_fields = apply_filters('aya_plugin_extra_opt', $plugin_fields);
 
     AYF::new_opt([
-        'title' => '拓展功能',
+        'title' => __('拓展功能', 'aiya-framework'),
         'parent' => 'basic',
         'slug' => 'extra-plugin',
-        'desc' => 'AIYA-CMS 主题，订阅版额外组件设置',
+        'desc' => __('AIYA-CMS 主题，额外组件设置', 'aiya-framework'),
         'fields' => $plugin_fields
     ]);
 }

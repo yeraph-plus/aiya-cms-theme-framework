@@ -30,10 +30,10 @@ class AYA_Plugin_PHP_Env_Check
 
         if (version_compare($php_version, $php_last_version, '<')) {
             //提示信息
-            $message = '您正在使用过时的PHP版本<code>' . $php_version . '</code>， AIYA-CMS 主题需要PHP版本大于<code>' . $php_last_version . '</code>才能完整使用全部功能，请升级PHP版本。';
+            $message = sprintf(__('您正在使用过时的PHP版本<code>%s</code>， AIYA-Framework 拓展 主题需要PHP版本大于<code>%s</code>才能完整使用全部功能，请升级PHP版本。', 'aiya-framework'), $php_version, $php_last_version);
 
             add_action('admin_notices', function () use ($message) {
-                echo '<div class="notice notice-error is-dismissible"><p>' . ($message) . '</p></div>';
+                echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($message) . '</p></div>';
             });
 
             return false;
@@ -54,10 +54,10 @@ class AYA_Plugin_PHP_Env_Check
         }
 
         if (count($not_ext) > 0) {
-            $message = '您的PHP缺少扩展' . implode(', ', $not_ext) . '，缺少这些扩展可能导致部分功能无法使用，请及时安装这些扩展。';
+            $message = sprintf(__('您的PHP缺少扩展%s，缺少这些扩展可能导致部分功能无法使用，请及时安装这些扩展。', 'aiya-framework'), implode(', ', $not_ext));
 
             add_action('admin_notices', function () use ($message) {
-                echo '<div class="notice notice-error is-dismissible"><p>' . ($message) . '</p></div>';
+                echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($message) . '</p></div>';
             });
 
             return false;
@@ -73,7 +73,7 @@ class AYA_Plugin_PHP_Env_Check
         global $wp_version;
 
         if (version_compare($wp_version, $wp_last_version, '<')) {
-            $message = '请升级 WordPress 到' . $wp_last_version . '以上版本。';
+            $message = sprintf(__('请升级 WordPress 到%s以上版本。', 'aiya-framework'), $wp_last_version);
 
             add_action('admin_notices', function () use ($message) {
                 echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($message) . '</p></div>';

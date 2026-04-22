@@ -70,7 +70,7 @@ class AYA_WidgetOutputCache
 			</p>',
             esc_attr($object->id),
             checked($is_excluded, true, false),
-            esc_html(__('不缓存这个小工具'))
+            esc_html(__('不缓存这个小工具', 'aiya-framework'))
         );
     }
     function save_widget_controls()

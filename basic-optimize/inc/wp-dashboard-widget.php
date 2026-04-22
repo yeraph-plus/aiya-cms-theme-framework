@@ -32,24 +32,24 @@ class AYA_Plugin_Dashboard_Server_Status
     {
         $add_widget = array();
 
-        $add_widget[] = ['server_version_widget', '应用程序版本'];
+        $add_widget[] = ['server_version_widget', __('应用版本', 'aiya-framework')];
         //PHP信息
-        $add_widget[] = ['php_config_widget', 'PHP 运行信息 '];
-        $add_widget[] = ['php_extens_widget', 'PHP 扩展 '];
+        $add_widget[] = ['php_config_widget', __('PHP 运行信息', 'aiya-framework')];
+        $add_widget[] = ['php_extens_widget', __('PHP 扩展', 'aiya-framework')];
         //Apache信息
         if ($GLOBALS['is_apache'] && function_exists('apache_get_modules')) {
-            $add_widget[] = ['php_apache_widget', 'Apache 信息 '];
+            $add_widget[] = ['php_apache_widget', __('Apache 信息', 'aiya-framework')];
         }
         //服务器信息
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $add_widget[] = ['server_info_widget', '服务器信息'];
-            $add_widget[] = ['server_status_widget', '服务器状态'];
+            $add_widget[] = ['server_info_widget', __('服务器信息', 'aiya-framework')];
+            $add_widget[] = ['server_status_widget', __('服务器状态', 'aiya-framework')];
         }
         //OPCache信息
         if (function_exists('opcache_get_status')) {
-            $add_widget[] = ['opcache_usage_widget', 'OPCache 使用率 '];
-            $add_widget[] = ['opcache_status_widget', 'OPCache 状态 '];
-            $add_widget[] = ['opcache_config_widget', 'OPCache 配置信息 '];
+            $add_widget[] = ['opcache_usage_widget', __('OPCache 使用率', 'aiya-framework')];
+            $add_widget[] = ['opcache_status_widget', __('OPCache 状态', 'aiya-framework')];
+            $add_widget[] = ['opcache_config_widget', __('OPCache 配置信息', 'aiya-framework')];
         }
         //遍历注册
         foreach ($add_widget as $widget_args) {

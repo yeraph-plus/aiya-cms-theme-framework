@@ -85,7 +85,7 @@ class AYA_Plugin_Head_SEO
 
         //开始创建标题
         if (is_404()) {
-            $head_title = __('你访问的资源不存在');
+            $head_title = __('你访问的资源不存在', 'aiya-framework');
         }
         //首页
         else if (is_home() || is_front_page()) {
@@ -93,7 +93,7 @@ class AYA_Plugin_Head_SEO
         }
         //搜索
         else if (is_search()) {
-            $head_title = sprintf(__('搜索"%s"的结果'), get_search_query()) . $sep . $site_title;
+            $head_title = sprintf(__('搜索"%s"的结果', 'aiya-framework'), get_search_query()) . $sep . $site_title;
         }
         //文章和页面
         else if (is_single() || is_page()) {
@@ -101,7 +101,7 @@ class AYA_Plugin_Head_SEO
         }
         //附件
         else if (is_attachment()) {
-            $head_title = __('附件：') . single_post_title('', false) . '' . $sep . $site_title;
+            $head_title = __('附件：', 'aiya-framework') . single_post_title('', false) . '' . $sep . $site_title;
         }
         //自定义文章类型的归档页面
         else if (is_post_type_archive()) {
@@ -109,32 +109,32 @@ class AYA_Plugin_Head_SEO
         }
         //分类
         else if (is_category()) {
-            $head_title = __('分类：') . single_term_title('', false) . '' . $paged_title . $sep . $site_title;
+            $head_title = __('分类：', 'aiya-framework') . single_term_title('', false) . '' . $paged_title . $sep . $site_title;
         }
         //标签
         else if (is_tag()) {
-            $head_title = __('标签：') . single_term_title('#', false) . '' . $paged_title . $sep . $site_title;
+            $head_title = __('标签：', 'aiya-framework') . single_term_title('#', false) . '' . $paged_title . $sep . $site_title;
         }
         //自定义分类法
         else if (is_tax()) {
-            $head_title = __('归档：') . single_term_title('', false) . '' . $paged_title . $sep . $site_title;
+            $head_title = __('归档：', 'aiya-framework') . single_term_title('', false) . '' . $paged_title . $sep . $site_title;
         }
         //用户
         else if (is_author() && get_queried_object()) {
             $author = get_queried_object()->display_name;
-            $head_title = __('用户：「') . $author . __('」') . '' . $paged_title . $sep . $site_title;
+            $head_title = __('用户：「', 'aiya-framework') . $author . __('」', 'aiya-framework') . '' . $paged_title . $sep . $site_title;
         }
         //归档（年）
         else if (is_year()) {
-            $head_title = get_the_time('Y') . __('年的所有文章') . $paged_title . $sep . $site_title;
+            $head_title = get_the_time('Y') . __('年的所有文章', 'aiya-framework') . $paged_title . $sep . $site_title;
         }
         //归档（月）
         else if (is_month()) {
-            $head_title = get_the_time('m') . __('月的所有文章') . $paged_title . $sep . $site_title;
+            $head_title = get_the_time('m') . __('月的所有文章', 'aiya-framework') . $paged_title . $sep . $site_title;
         }
         //归档（日）
         else if (is_day()) {
-            $head_title = get_the_time('Y-m-d') . __('的所有文章') . $paged_title . $sep . $site_title;
+            $head_title = get_the_time('Y-m-d') . __('的所有文章', 'aiya-framework') . $paged_title . $sep . $site_title;
         }
         //默认首页标题
         else {
@@ -380,7 +380,7 @@ class AYA_Plugin_Head_SEO
                 continue;
             }
 
-            $title_attr = sprintf(__('更多%s相关文章'), $keyword);
+            $title_attr = sprintf(__('更多%s相关文章', 'aiya-framework'), $keyword);
             $links_added = 0;
 
             $text_nodes = $xpath->query('//div[@id="aya-seo-wrap"]//text()[not(ancestor::a) and not(ancestor::pre) and not(ancestor::code) and not(ancestor::script) and not(ancestor::style) and not(ancestor::textarea)]');

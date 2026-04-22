@@ -17,13 +17,13 @@ if (!defined('ABSPATH')) exit;
 //在插件中加载时，兼容WP的权限验证
 if (!function_exists('is_user_logged_in')) require_once(ABSPATH . WPINC . '/pluggable.php');
 
-define('AYF_RELEASE', '2.0');
+define('AYF_RELEASE', '3.0');
 
 $aya_plugin_dir = plugin_dir_path(__FILE__);
 $aya_required_files = [
-    'vendor/autoload.php' => 'Composer 依赖',
-    'framework-required/setup.php' => 'framework-required 组件',
-    'basic-optimize/setup.php' => 'basic-optimize 组件',
+    'vendor/autoload.php' => __('Composer 依赖', 'aiya-framework'),
+    'framework-required/setup.php' => __('framework-required 组件', 'aiya-framework'),
+    'basic-optimize/setup.php' => __('basic-optimize 组件', 'aiya-framework'),
 ];
 $aya_missing_deps = [];
 
@@ -46,9 +46,9 @@ if (!empty($aya_missing_deps)) {
         add_action('admin_notices', static function () use ($aya_missing_deps) {
             $deps_text = implode('、', array_map('esc_html', $aya_missing_deps));
             echo '<div class="notice notice-error"><p>';
-            echo esc_html('AIYA-Optimize 插件加载失败：缺少必要依赖文件，插件已自动停用。');
+            echo esc_html(__('AIYA-Optimize 插件加载失败：缺少必要依赖文件，插件已自动停用。', 'aiya-framework'));
             echo '<br />';
-            echo esc_html('缺少依赖：' . $deps_text);
+            echo esc_html(__('缺少依赖：', 'aiya-framework') . $deps_text);
             echo '</p></div>';
         });
     }
@@ -74,16 +74,3 @@ AYP::action('EnvCheck', array(
     //WP最低版本
     'wp_last' => '6.1',
 ));
-
-/*
-//注册翻译文件
-function aya_framework_load_textdomain()
-{
-    $domain = 'aiya-cms-framework';
-    $locale = apply_filters('plugin_locale', get_locale(), $domain);
-
-    load_textdomain($domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo');
-    load_plugin_textdomain($domain, false, (__DIR__) . '/languages/');
-}
-add_action('admin_init', 'aya_framework_load_textdomain');
-*/

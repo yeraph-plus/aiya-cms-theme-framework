@@ -49,14 +49,14 @@ class AYA_Plugin_Register_Tax_Type extends AYA_Framework_Setup
             $labels = array(
                 'name' => $tax_name,
                 'singular_name' => $tax_name,
-                'search_items' => __('搜索', 'AIYA_FRAMEWORK') . $tax_name,
-                'all_items' => __('所有', 'AIYA_FRAMEWORK') . $tax_name,
-                'parent_item' => __('父级', 'AIYA_FRAMEWORK') . $tax_name,
-                'parent_item_colon' => __('父级', 'AIYA_FRAMEWORK') . $tax_name,
-                'edit_item' => __('编辑', 'AIYA_FRAMEWORK') . $tax_name,
-                'update_item' => __('更新', 'AIYA_FRAMEWORK') . $tax_name,
-                'add_new_item' => __('添加新', 'AIYA_FRAMEWORK') . $tax_name,
-                'new_item_name' => __('新', 'AIYA_FRAMEWORK') . $tax_name . __('名称', 'AIYA_FRAMEWORK'),
+                'search_items' => __('搜索', 'aiya-framework') . $tax_name,
+                'all_items' => __('所有', 'aiya-framework') . $tax_name,
+                'parent_item' => __('父级', 'aiya-framework') . $tax_name,
+                'parent_item_colon' => __('父级', 'aiya-framework') . $tax_name,
+                'edit_item' => __('编辑', 'aiya-framework') . $tax_name,
+                'update_item' => __('更新', 'aiya-framework') . $tax_name,
+                'add_new_item' => __('添加新', 'aiya-framework') . $tax_name,
+                'new_item_name' => __('新', 'aiya-framework') . $tax_name . __('名称', 'aiya-framework'),
                 'menu_name' => $tax_name,
             );
             $args_tax = array(

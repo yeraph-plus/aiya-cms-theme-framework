@@ -45,7 +45,7 @@ class AYA_Plugin_Register_Sidebar extends AYA_Framework_Setup
             register_sidebar(array(
                 'name' => $name,
                 'id' => $id,
-                'description' => $name . __('小工具', 'AIYA_FRAMEWORK'),
+                'description' => $name . __('小工具', 'aiya-framework'),
                 'before_widget' => '<aside id="%1$s" class="widget %2$s">',
                 'after_widget' => '</aside>',
                 'before_title' => '<h3 class="widget-title">',

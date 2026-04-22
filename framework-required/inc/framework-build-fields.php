@@ -67,11 +67,11 @@ if (!class_exists('AYA_Field_Action')) {
                     echo $class->action($field);
                 } else {
                     //报错
-                    self::out_error(__('字段参数 "type" 不存在：', 'AIYA_FRAMEWORK') . print($field));
+                    self::out_error(__('字段参数 "type" 不存在：', 'aiya-framework') . print($field));
                 }
             } else {
                 //报错
-                self::out_error(__('字段参数 "id" 不存在：', 'AIYA_FRAMEWORK') . $field['type']);
+                self::out_error(__('字段参数 "id" 不存在：', 'aiya-framework') . $field['type']);
             }
         }
         //内部调用
@@ -216,23 +216,23 @@ if (!class_exists('AYA_Field_Action')) {
             switch ($type) {
                 case 'name':
                     //只包含字母跟空格
-                    $err = (!preg_match("/^[a-zA-Z ]*$/", $value)) ? __('只允许使用字母和空格', 'AIYA_FRAMEWORK') : '';
+                    $err = (!preg_match("/^[a-zA-Z ]*$/", $value)) ? __('只允许使用字母和空格', 'aiya-framework') : '';
                     break;
                 case 'email':
                     //检查邮箱合法性
-                    $err = (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $value)) ? __('只允许邮箱地址', 'AIYA_FRAMEWORK') : '';
+                    $err = (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $value)) ? __('只允许邮箱地址', 'aiya-framework') : '';
                     break;
                 case 'url':
                     //检查URL合法性
-                    $err = (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value)) ? __('只允许URL地址', 'AIYA_FRAMEWORK') : '';
+                    $err = (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value)) ? __('只允许URL地址', 'aiya-framework') : '';
                     break;
                 case 'number':
                     //检查是否为数字
-                    $err = (is_numeric($value)) ? '' : __('只允许数字', 'AIYA_FRAMEWORK');
+                    $err = (is_numeric($value)) ? '' : __('只允许数字', 'aiya-framework');
                     break;
                 case 'required':
                     //检查是否为空
-                    $err = empty($value == '') ? __('不能为空', 'AIYA_FRAMEWORK') : '';
+                    $err = empty($value == '') ? __('不能为空', 'aiya-framework') : '';
                 default:
                     $err = '';
                     break;

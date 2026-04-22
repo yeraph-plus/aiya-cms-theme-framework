@@ -20,33 +20,33 @@ if (!defined('ABSPATH')) {
 //插件设置
 aya_add_plugin_opt(
     [
-        'desc' => '编辑器拓展',
+        'desc' => __('编辑器拓展', 'aiya-framework'),
         'type' => 'title_2',
     ],
     [
-        'title' => '经典编辑器按钮重排',
-        'desc' => '拓展插件，重排经典编辑器（TinyMCE）按钮、增加表格、标签清理等功能',
+        'title' => __('经典编辑器按钮重排', 'aiya-framework'),
+        'desc' => __('拓展插件，重排经典编辑器（TinyMCE）按钮、增加表格、标签清理等功能', 'aiya-framework'),
         'id' => 'site_plugin_editor_modify',
         'type' => 'switch',
         'default' => true,
     ],
     [
-        'title' => '经典编辑器自动上传',
-        'desc' => '拓展插件，将粘贴在编辑器的本地图片自动上传到媒体库',
+        'title' => __('经典编辑器自动上传', 'aiya-framework'),
+        'desc' => __('拓展插件，将粘贴在编辑器的本地图片自动上传到媒体库', 'aiya-framework'),
         'id' => 'site_plugin_editor_auto_upload',
         'type' => 'switch',
         'default' => false,
     ],
     [
-        'title' => '作者选择器角色过滤',
-        'desc' => '拓展插件，作者选择器只显示作者及以上角色的用户',
+        'title' => __('作者选择器角色过滤', 'aiya-framework'),
+        'desc' => __('拓展插件，作者选择器只显示作者及以上角色的用户', 'aiya-framework'),
         'id' => 'site_plugin_editor_filter_author',
         'type' => 'switch',
         'default' => true,
     ],
     [
-        'title' => '显示所有标签',
-        'desc' => '拓展插件，标签选择器显示所有标签（WP默认为显示前45个）',
+        'title' => __('显示所有标签', 'aiya-framework'),
+        'desc' => __('拓展插件，标签选择器显示所有标签（WP默认为显示前45个）', 'aiya-framework'),
         'id' => 'site_plugin_editor_show_all_tags',
         'type' => 'switch',
         'default' => true,

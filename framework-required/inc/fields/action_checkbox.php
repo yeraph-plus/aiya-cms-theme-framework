@@ -26,7 +26,7 @@ class AYA_Option_Fired_action_checkbox extends AYA_Field_Action
     {
         $label = !empty($field['label'])
             ? parent::preg_desc($field['label'])
-            : __('执行本次操作', 'AIYA_FRAMEWORK');
+            : __('执行本次操作', 'aiya-framework');
         $checked = !empty($field['default']);
 
         $html = '<label class="quick-checkbox autowidth" for="' . esc_attr($field['id']) . '">';

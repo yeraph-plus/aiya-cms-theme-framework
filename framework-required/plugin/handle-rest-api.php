@@ -65,17 +65,17 @@ if (!class_exists('AYA_WP_REST_API')) {
             $default_errors_group = array(
                 'invalid_param' => [
                     'code' => 'invalid_parameter',
-                    'message' => __('参数验证失败', 'AIYA_FRAMEWORK'),
+                    'message' => __('参数验证失败', 'aiya-framework'),
                     'status' => 400
                 ],
                 'permission_denied' => [
                     'code' => 'forbidden',
-                    'message' => __('没有访问权限', 'AIYA_FRAMEWORK'),
+                    'message' => __('没有访问权限', 'aiya-framework'),
                     'status' => 403
                 ],
                 'not_found' => [
                     'code' => 'not_found',
-                    'message' => __('资源不存在', 'AIYA_FRAMEWORK'),
+                    'message' => __('资源不存在', 'aiya-framework'),
                     'status' => 404
                 ]
             );

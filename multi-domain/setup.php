@@ -20,12 +20,12 @@ if (!defined('ABSPATH')) {
 //插件设置
 aya_add_plugin_opt(
     [
-        'desc' => '多域名绑定',
+        'desc' => __('多域名插件', 'aiya-framework'),
         'type' => 'title_2',
     ],
     [
-        'title' => '前台多域名',
-        'desc' => '拓展插件，操作 WP 过滤器使站点前台可以使用多个域名，请填[b]不包含[/b] http:// 头的完整域名（不支持通配符），以 [code],[/code] 分隔',
+        'title' => __('前台多域名', 'aiya-framework'),
+        'desc' => __('拓展插件，操作 WP 过滤器使站点前台可以使用多个域名，请填[b]不包含[/b] http:// 头的完整域名（不支持通配符），以 [code],[/code] 分隔', 'aiya-framework'),
         'id' => 'site_plugin_multi_domain',
         'type' => 'array',
         'default' => '',

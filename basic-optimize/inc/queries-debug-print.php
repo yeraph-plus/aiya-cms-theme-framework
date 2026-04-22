@@ -45,7 +45,7 @@ class AYA_Plugin_Debug_Mode
         echo '<br>';
         echo '<br>';
 
-        echo '执行顺序：';
+        echo __('Execution Order:');
         echo '<br>';
         echo '--------------------';
         echo '<br>';
@@ -54,7 +54,7 @@ class AYA_Plugin_Debug_Mode
         var_dump($wpdb->queries);
         echo '</pre>';
 
-        echo '耗时：';
+        echo __('Execution Time:');
         echo '<br>';
         echo '--------------------';
         echo '<br>';
