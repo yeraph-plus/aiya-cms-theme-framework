@@ -166,22 +166,22 @@ class AYA_SimplePicBed
         //异常处理
         try {
             if (!wp_doing_ajax() || strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
-                throw new Exception(__('无效请求', 'AIYA'));
+                throw new Exception(__('无效请求', 'aiya-cms'));
             }
 
             if (!is_user_logged_in() || !current_user_can('upload_files')) {
-                throw new Exception(__('权限不足', 'AIYA'));
+                throw new Exception(__('权限不足', 'aiya-cms'));
             }
 
             //防止意外上传
             if (!isset($_POST['handle_image_upload_nonce']) || !isset($_FILES['image_upload'])) {
-                throw new Exception(__('仅支持上传图片文件。', 'AIYA'));
+                throw new Exception(__('仅支持上传图片文件。', 'aiya-cms'));
             }
 
             $nonce = sanitize_text_field(wp_unslash($_POST['handle_image_upload_nonce']));
             //验证nonce
             if (!wp_verify_nonce($nonce, 'handle_image_upload_action')) {
-                throw new Exception(__('非法操作', 'AIYA'));
+                throw new Exception(__('非法操作', 'aiya-cms'));
             }
 
             //设置允许上传的类型
@@ -190,23 +190,23 @@ class AYA_SimplePicBed
             $file = $_FILES['image_upload'];
 
             if (!is_array($file) || empty($file['tmp_name']) || empty($file['name'])) {
-                throw new Exception(__('上传文件无效', 'AIYA'));
+                throw new Exception(__('上传文件无效', 'aiya-cms'));
             }
 
             if (!is_uploaded_file($file['tmp_name'])) {
-                throw new Exception(__('上传文件无效', 'AIYA'));
+                throw new Exception(__('上传文件无效', 'aiya-cms'));
             }
 
             if ((int) $file['error'] !== UPLOAD_ERR_OK) {
-                throw new Exception(__('上传错误 ', 'AIYA') . (int) $file['error']);
+                throw new Exception(__('上传错误 ', 'aiya-cms') . (int) $file['error']);
             }
 
             if ((int) $file['size'] <= 0) {
-                throw new Exception(__('上传文件无效', 'AIYA'));
+                throw new Exception(__('上传文件无效', 'aiya-cms'));
             }
 
             if ((int) $file['size'] > (int) self::$upload_max_size * 1024 * 1024) {
-                throw new Exception(__('文件过大', 'AIYA'));
+                throw new Exception(__('文件过大', 'aiya-cms'));
             }
 
             //验证文件格式
@@ -226,7 +226,7 @@ class AYA_SimplePicBed
             }
 
             if (!isset($default_mime[$real_mime])) {
-                throw new Exception(__('不支持的文件类型', 'AIYA'));
+                throw new Exception(__('不支持的文件类型', 'aiya-cms'));
             }
 
             //保存文件
@@ -242,13 +242,13 @@ class AYA_SimplePicBed
             $file_move = move_uploaded_file($file_tmp_name, $target_file);
 
             if ($file_move === false) {
-                throw new Exception(__('无文件权限', 'AIYA'));
+                throw new Exception(__('无文件权限', 'aiya-cms'));
             }
 
             //进行图片处理
             $trans_file = self::handle_image_manager($target_file);
             if ($trans_file === false || !is_string($trans_file) || !file_exists($trans_file)) {
-                throw new Exception(__('图片处理器错误', 'AIYA'));
+                throw new Exception(__('图片处理器错误', 'aiya-cms'));
             }
 
             //输出插件的图片信息格式
@@ -322,7 +322,7 @@ class AYA_SimplePicBed
         header('Content-Type: application/json');
 
         if (!file_exists($this_image)) {
-            return self::upload_error(__('图片文件不存在', 'AIYA') . '"' . $image_filename . '"');
+            return self::upload_error(__('图片文件不存在', 'aiya-cms') . '"' . $image_filename . '"');
         }
         //提取图片宽高
         $image_size = getimagesize($this_image);
@@ -332,7 +332,7 @@ class AYA_SimplePicBed
 
         $image_url = aya_local_path_with_url($this_image, false);
         if ($image_url === false) {
-            return self::upload_error(__('图片地址生成失败', 'AIYA'));
+            return self::upload_error(__('图片地址生成失败', 'aiya-cms'));
         }
 
         $content_url_path = wp_parse_url(content_url(), PHP_URL_PATH);

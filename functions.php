@@ -89,6 +89,8 @@ aya_plugin_require('image-manager');
 aya_plugin_require('internal-pic-bed');
 //编辑器拓展插件
 aya_plugin_require('classic-editor-modify');
+//繁体转换插件
+aya_plugin_require('opencc-convert');
 //易支付接口订阅拓展插件
 aya_plugin_require('sponsor-order-compat');
 //信息流拓展插件

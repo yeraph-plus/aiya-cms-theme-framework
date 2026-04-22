@@ -56,7 +56,7 @@ class AYA_Plugin_Plugin_Check
             $plugin_data = get_plugin_data($plugin_path);
             $plugin_name = !empty($plugin_data['Name']) ? $plugin_data['Name'] : $plugin_name;
 
-            $message = sprintf(__('请启用 %s 插件以确保功能正常。', 'AIYA'), $plugin_name);
+            $message = sprintf(__('请启用 %s 插件以确保功能正常。', 'aiya-cms'), $plugin_name);
 
             add_action('admin_notices', function () use ($message) {
                 echo '<div class="notice notice-warning is-dismissible"><p>'

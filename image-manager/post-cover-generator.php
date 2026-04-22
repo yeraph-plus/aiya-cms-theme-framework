@@ -113,7 +113,7 @@ function aya_image_manager_register_cover_metabox(): void
 {
     add_meta_box(
         'aya-generate-cover-metabox',
-        __('文章封面', 'AIYA'),
+        __('文章封面', 'aiya-cms'),
         'aya_image_manager_render_cover_metabox',
         'post',
         'side',
@@ -138,21 +138,21 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
 
     if (is_string($cover_url) && $cover_url !== '') {
         echo '<img src="' . esc_url($cover_url) . '" style="width:100%;height:auto;" />';
-        echo '<p class="description">' . esc_html__('为文章生成封面', 'AIYA') . '</p>';
+        echo '<p class="description">' . esc_html__('为文章生成封面', 'aiya-cms') . '</p>';
     }
     echo '</div>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('封面模式', 'AIYA') . '</label>';
+    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('封面模式', 'aiya-cms') . '</label>';
     echo '<select id="aya-cover-model" style="width:100%;">';
-    echo '<option value="photo">' . esc_html__('使用封面', 'AIYA') . '</option>';
-    echo '<option value="pattern">' . esc_html__('图案生成', 'AIYA') . '</option>';
+    echo '<option value="photo">' . esc_html__('使用封面', 'aiya-cms') . '</option>';
+    echo '<option value="pattern">' . esc_html__('图案生成', 'aiya-cms') . '</option>';
     echo '</select></p>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('标题', 'AIYA') . '</label>';
+    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('标题', 'aiya-cms') . '</label>';
     echo '<input type="text" id="aya-cover-title" value="' . esc_attr(get_the_title($post->ID)) . '" style="width:100%;" /></p>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('背景色', 'AIYA') . '</label>';
+    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('背景色', 'aiya-cms') . '</label>';
     echo '<input type="text" id="aya-cover-bg-color" value="" style="width:100%;" /></p>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('标题颜色', 'AIYA') . '</label>';
+    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('标题颜色', 'aiya-cms') . '</label>';
     echo '<input type="text" id="aya-cover-title-color" value="" style="width:100%;" /></p>';
-    echo '<p><button type="button" class="button button-primary" id="aya-cover-generate-btn">' . esc_html__('生成封面', 'AIYA') . '</button></p>';
+    echo '<p><button type="button" class="button button-primary" id="aya-cover-generate-btn">' . esc_html__('生成封面', 'aiya-cms') . '</button></p>';
     echo '<div id="aya-cover-status" style="margin-bottom:8px;"></div>';
     echo '</div>';
 ?>
@@ -193,17 +193,17 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
 function aya_image_manager_ajax_generate_cover(): void
 {
     if (!check_ajax_referer('aya_generate_cover_metabox_nonce', 'nonce', false)) {
-        wp_send_json_error(['message' => __('安全校验失败', 'AIYA')]);
+        wp_send_json_error(['message' => __('安全校验失败', 'aiya-cms')]);
     }
 
     $post_id = isset($_POST['post_id']) ? (int) $_POST['post_id'] : 0;
     if ($post_id <= 0 || !current_user_can('edit_post', $post_id)) {
-        wp_send_json_error(['message' => __('无权限操作', 'AIYA')]);
+        wp_send_json_error(['message' => __('无权限操作', 'aiya-cms')]);
     }
 
     $post = get_post($post_id);
     if (!$post instanceof WP_Post) {
-        wp_send_json_error(['message' => __('文章不存在', 'AIYA')]);
+        wp_send_json_error(['message' => __('文章不存在', 'aiya-cms')]);
     }
 
     $model = isset($_POST['model']) ? sanitize_key((string) $_POST['model']) : 'photo';
@@ -246,11 +246,11 @@ function aya_image_manager_ajax_generate_cover(): void
 
     $cover_local = aya_image_manager_generate_cover_local($args);
     if (!$cover_local || !is_file($cover_local)) {
-        wp_send_json_error(['message' => __('封面生成失败', 'AIYA')]);
+        wp_send_json_error(['message' => __('封面生成失败', 'aiya-cms')]);
     }
     $cover_url = aya_local_path_with_url($cover_local, false);
     if (!$cover_url) {
-        wp_send_json_error(['message' => __('封面 URL 解析失败', 'AIYA')]);
+        wp_send_json_error(['message' => __('封面 URL 解析失败', 'aiya-cms')]);
     }
 
     $rel = aya_image_relpath_thumb_from_local($cover_local);
@@ -262,6 +262,6 @@ function aya_image_manager_ajax_generate_cover(): void
 
     wp_send_json_success([
         'cover_url' => $cover_url,
-        'message' => __('封面已生成', 'AIYA'),
+        'message' => __('封面已生成', 'aiya-cms'),
     ]);
 }

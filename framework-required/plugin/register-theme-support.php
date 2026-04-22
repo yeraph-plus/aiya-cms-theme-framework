@@ -37,9 +37,6 @@ class AYA_Plugin_After_Setup_Theme extends AYA_Framework_Setup
     {
         $supports = $this->register_theme_support;
 
-        //加载多语言文本文件
-        load_theme_textdomain('__', '/languages');
-
         //循环
         foreach ($supports as $feature => $args) {
             //注册支持
