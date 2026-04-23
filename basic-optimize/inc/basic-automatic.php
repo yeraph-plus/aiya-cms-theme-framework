@@ -315,7 +315,7 @@ class AYA_Plugin_Automatic
         $options = $this->automatic_options;
 
         //只针对文章类型
-        if ($post_type === 'post') {
+        if (in_array($post_type, array('post', 'tweet'))) {
             //添加文章时防止循环
             $num_id = absint($post_id);
 

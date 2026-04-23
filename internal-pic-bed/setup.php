@@ -49,8 +49,8 @@ if (aya_plugin_opt('site_plugin_sc_picbed')) {
     //菜单链接
     function aya_internal_pic_bed_admin_menu()
     {
-        add_menu_page('上传图片', '简码图床', 'manage_options', 'shortcode-pic-bed', 'aya_internal_pic_bed_upload_page', 'dashicons-format-image', 99);
-        add_submenu_page('shortcode-pic-bed', '查看上传', '图片列表', 'manage_options', 'shortcode-pic-view', 'aya_internal_pic_bed_list_view', 99);
+        add_menu_page(__('上传图片', 'aiya-framework'), __('简码图床', 'aiya-framework'), 'manage_options', 'shortcode-pic-bed', 'aya_internal_pic_bed_upload_page', 'dashicons-format-image', 99);
+        add_submenu_page('shortcode-pic-bed', __('查看上传', 'aiya-framework'), __('图片列表', 'aiya-framework'), 'manage_options', 'shortcode-pic-view', 'aya_internal_pic_bed_list_view', 99);
     }
 
     function aya_internal_pic_bed_upload_page()

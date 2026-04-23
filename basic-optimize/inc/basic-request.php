@@ -152,77 +152,77 @@ class AYA_Plugin_Request
             $query->set('no_found_rows', true);
         }
 
-        //默认包含帖子类型
-        $post_type = array('post');
-        //默认文章状态
-        $post_status = array('publish');
-
         //定义转换方法
         function ignore_map($vaule)
         {
             return -$vaule;
         }
 
-        //添加自定义类型
-        if ($options['query_post_type_var'] == true) {
-            //合并数组
-            if (isset($GLOBALS['aya_post_type']) && is_array($GLOBALS['aya_post_type'])) {
-                $post_type = array_merge($post_type, $GLOBALS['aya_post_type']);
-            }
-        }
         //首页循环
         if (is_home()) {
-            //排除内容
+            //添加自定义类型显示
+            if ($options['query_post_type_var'] == true) {
+                // 替换数组到全部类类型
+                $post_types = get_post_types(array('public' => true), 'names');
+                //取消不需要的类型
+                unset($post_types['attachment']);
+                unset($post_types['page']);
+            }
+            // 排除方法
             $rule_home_post = array();
             $rule_home_cat = array();
-            //排除内容
+            // 排除分类
             if ($options['query_ignore_category'] != '') {
                 //重建数组
                 $self_home_cat = explode(',', $options['query_ignore_category']);
                 $self_home_cat = array_map('ignore_map', $self_home_cat);
                 $rule_home_cat = is_array($self_home_cat) ? $self_home_cat : array();
             }
+            // 排除文章
             if ($options['query_ignore_post'] != '') {
                 //重建数组
                 $self_home_post = explode(',', $options['query_ignore_post']);
                 $rule_home_post = is_array($self_home_post) ? $self_home_post : array();
             }
             //创建Query参数
-            $query->set('post_type', $post_type);
-
-            //默认置顶
+            $query->set('post_type', $post_types);
             $query->set('ignore_sticky_posts', ($options['query_ignore_sticky'] === true) ? true : false);
             $query->set('cat', $rule_home_cat);
             $query->set('post__not_in', $rule_home_post);
         }
         //搜索结果
         if (is_search()) {
+            //默认包含帖子类型
+            $post_types = array('post');
             //添加页面
             if ($options['search_ignore_page_type'] == true) {
-                $post_type[] = 'page';
+                $post_types[] = 'page';
             }
-            //排除内容
+            // 排除方法
             $rule_serach_cat = array();
             $rule_serach_post = array();
-            //排除内容
+            // 排除分类
             if ($options['serach_ignore_category'] != '') {
                 //重建数组
                 $self_serach_cat = explode(',', $options['serach_ignore_category']);
                 $rule_serach_cat = is_array($self_serach_cat) ? $self_serach_cat : array();
                 $rule_serach_cat = array_map('ignore_map', $rule_serach_cat);
             }
+            // 排除文章
             if ($options['serach_ignore_post'] != '') {
                 //重建数组
                 $self_serach_post = explode(',', $options['serach_ignore_post']);
                 $rule_serach_post = is_array($self_serach_post) ? $self_serach_post : array();
             }
             //创建Query参数
-            $query->set('post_type', $post_type);
+            $query->set('post_type', $post_types);
             $query->set('cat', $rule_serach_cat);
             $query->set('post__not_in', $rule_serach_post);
         }
         //用户页面
         if (is_author()) {
+            //默认文章状态
+            $post_status = array('publish');
             //验证登录
             if ($options['query_author_current'] == true && is_user_logged_in()) {
                 //获取作者和登录者身份
@@ -236,7 +236,6 @@ class AYA_Plugin_Request
                 }
             }
             //创建Query参数
-            $query->set('post_type', $post_type);
             $query->set('post_status', $post_status);
         }
         //返回

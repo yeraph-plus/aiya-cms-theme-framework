@@ -19,43 +19,16 @@ if (!defined('ABSPATH')) {
 class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
 {
     public $register_post_type;
-    public $rewrite_html;
 
-    public function __construct($args, $rewrite_static = true)
+    public function __construct($args)
     {
         if (!is_array($args))
             return;
 
         $this->register_post_type = $args;
 
-        //添加伪静态
-        if (is_bool($rewrite_static) && $rewrite_static) {
-            //定义伪静态
-            $this->rewrite_html = '.html';
-        } else {
-            $this->rewrite_html = '';
-        }
-    }
-
-    public function __destruct()
-    {
-        parent::add_action('init', 'aya_theme_register_post_type');
-
-        parent::add_filter('post_type_link', 'aya_theme_custom_post_link', 1, 3);
-    }
-
-    public function aya_theme_post_show_in_homepage($type_args)
-    {
-        //声明一个全局变量
-        if (!isset($GLOBALS['aya_post_type']) || empty($GLOBALS['aya_post_type'])) {
-            $GLOBALS['aya_post_type'] = array();
-        }
-        //注册到全局变量
-        if (isset($type_args['in_homepage']) && is_bool($type_args['in_homepage']) && $type_args['in_homepage']) {
-            $GLOBALS['aya_post_type'][] = $type_args['slug'];
-        }
-
-        return $type_args;
+        add_action('init', [$this, 'aya_theme_register_post_type']);
+        add_filter('the_posts', [$this, 'aya_theme_make_sticky_work_in_archives'], 10, 2);
     }
 
     public function aya_theme_register_post_type()
@@ -63,17 +36,40 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
         if (parent::inspect($this->register_post_type))
             return;
 
-        //循环
         foreach ($this->register_post_type as $type => $type_args) {
-
-            //是否加载到首页
-            $in_homepage = self::aya_theme_post_show_in_homepage($type_args);
 
             $name = $type_args['name'];
             $slug = $type_args['slug'];
             $icon = $type_args['icon'];
+            $public = isset($type_args['public']) ? (bool) $type_args['public'] : true;
+            $has_archive = isset($type_args['has_archive']) ? $type_args['has_archive'] : true;
+            $query_var = array_key_exists('query_var', $type_args) ? $type_args['query_var'] : true;
+            $supports = isset($type_args['supports']) && is_array($type_args['supports']) ? $type_args['supports'] : array('editor', 'author', 'title', 'custom-fields', 'comments');
+            $rewrite = false;
 
-            //组装文章类型参数
+            if ($public) {
+                if (array_key_exists('rewrite', $type_args)) {
+                    if ($type_args['rewrite'] === false) {
+                        $rewrite = false;
+                    } elseif (is_array($type_args['rewrite'])) {
+                        $rewrite = wp_parse_args($type_args['rewrite'], array(
+                            'slug' => $slug,
+                            'with_front' => true,
+                        ));
+                    } else {
+                        $rewrite = array(
+                            'slug' => $slug,
+                            'with_front' => true,
+                        );
+                    }
+                } else {
+                    $rewrite = array(
+                        'slug' => $slug,
+                        'with_front' => true,
+                    );
+                }
+            }
+
             $labels = array(
                 'name' => $name,
                 'singular_name' => $name,
@@ -88,43 +84,65 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
                 'parent_item_colon' => '',
                 'menu_name' => $name,
             );
+
             $args = array(
                 'labels' => $labels,
-                'public' => true,
-                'publicly_queryable' => true,
+                'public' => $public,
+                'publicly_queryable' => $public,
                 'show_ui' => true,
                 'show_in_menu' => true,
-                'query_var' => true,
-                'rewrite' => array(
-                    'slug' => $slug,
-                    'with_front' => false
-                ),
+                'query_var' => $query_var,
+                'rewrite' => $rewrite,
                 'capability_type' => 'post',
-                'has_archive' => true,
+                'has_archive' => $has_archive,
                 'hierarchical' => false,
                 'menu_position' => null,
                 'menu_icon' => $icon,
-                'supports' => array('editor', 'author', 'title', 'custom-fields', 'comments'),
+                'supports' => $supports,
             );
 
             register_post_type($type, $args);
-            //添加路由规则
-            add_rewrite_rule('' . $slug . '/([0-9]+)?' . $this->rewrite_html . '$', 'index.php?post_type=' . $slug . '&p=$matches[1]', 'top');
-            //评论规则
-            add_rewrite_rule('' . $slug . '/([0-9]+)?' . $this->rewrite_html . '/comment-page-([0-9]{1,})$', 'index.php?post_type=' . $slug . '&p=$matches[1]&cpage=$matches[2]', 'top');
         }
     }
 
-    //定义自定义文章的内页链接
-    function aya_theme_custom_post_link($link, $post = 0)
+    public function aya_theme_make_sticky_work_in_archives($posts, $query)
     {
-        $post = get_post($post);
-
-        //比对
-        if (is_object($post) && in_array($post->post_type, $GLOBALS['aya_post_type'])) {
-            return home_url('' . $post->post_type . '/' . $post->ID . $this->rewrite_html);
-        } else {
-            return $link;
+        if (is_admin() || ! $query->is_main_query() || $query->is_feed()) {
+            return $posts;
         }
+
+        if ($query->get('paged') > 1) {
+            return $posts;
+        }
+
+        foreach ($this->register_post_type as $type => $type_args) {
+            if (!$query->is_post_type_archive($type)) {
+                continue;
+            }
+
+            // 检查置顶设置
+            $sticky_posts = get_option('sticky_posts');
+            $sticky_posts = array_map('absint', $sticky_posts);
+
+            if (empty($sticky_posts) || ! is_array($sticky_posts)) {
+                return $posts;
+            }
+
+            $stickies = array();
+            $non_stickies = array();
+
+            foreach ($posts as $post) {
+                if (in_array($post->ID, $sticky_posts, true)) {
+                    $stickies[] = $post;
+                } else {
+                    $non_stickies[] = $post;
+                }
+            }
+            if (! empty($stickies)) {
+                $posts = array_merge($stickies, $non_stickies);
+            }
+        }
+
+        return $posts;
     }
 }

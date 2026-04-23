@@ -2,989 +2,988 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: AIYA-Optimize 优化插件 3.0.1\n"
+"Project-Id-Version: AIYA-Optimize 優化插件 3.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugins\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-04-23T04:14:49+08:00\n"
+"PO-Revision-Date: 2026-04-23 15:09+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-23T18:24:50+08:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"X-Generator: Poedit 3.9\n"
 "X-Domain: aiya-framework\n"
 
 #. Plugin Name of the plugin
 #: plugin-functions.php:9
 msgid "AIYA-Optimize 优化插件"
-msgstr ""
+msgstr "AIYA-Optimize 優化插件"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
-#: plugin-functions.php:11
-#: plugin-functions.php:19
+#: plugin-functions.php:11 plugin-functions.php:19
 msgid "https://www.yeraph.com/"
-msgstr ""
+msgstr "https://www.yeraph.com/"
 
 #. Description of the plugin
 #: plugin-functions.php:13
 msgid "又一款WordPress优化插件"
-msgstr ""
+msgstr "又一款WordPress優化插件"
 
 #. Author of the plugin
 #: plugin-functions.php:17
 msgid "Yeraph Studio"
-msgstr ""
+msgstr "Yeraph Studio"
 
 #: basic-optimize/inc/seo-stk.php:88
 msgid "你访问的资源不存在"
-msgstr ""
+msgstr "你訪問的資源不存在"
 
 #: basic-optimize/inc/seo-stk.php:96
 #, php-format
 msgid "搜索\"%s\"的结果"
-msgstr ""
+msgstr "搜索\"%s\"的結果"
 
 #: basic-optimize/inc/seo-stk.php:104
 msgid "附件："
-msgstr ""
+msgstr "附件："
 
 #: basic-optimize/inc/seo-stk.php:112
 msgid "分类："
-msgstr ""
+msgstr "分類："
 
 #: basic-optimize/inc/seo-stk.php:116
 msgid "标签："
-msgstr ""
+msgstr "標籤："
 
 #: basic-optimize/inc/seo-stk.php:120
 msgid "归档："
-msgstr ""
+msgstr "歸檔："
 
 #: basic-optimize/inc/seo-stk.php:125
 msgid "用户：「"
-msgstr ""
+msgstr "用戶：「"
 
 #: basic-optimize/inc/seo-stk.php:125
 msgid "」"
-msgstr ""
+msgstr "」"
 
 #: basic-optimize/inc/seo-stk.php:129
 msgid "年的所有文章"
-msgstr ""
+msgstr "年的所有文章"
 
 #: basic-optimize/inc/seo-stk.php:133
 msgid "月的所有文章"
-msgstr ""
+msgstr "月的所有文章"
 
 #: basic-optimize/inc/seo-stk.php:137
 msgid "的所有文章"
-msgstr ""
+msgstr "的所有文章"
 
 #: basic-optimize/inc/seo-stk.php:383
 #, php-format
 msgid "更多%s相关文章"
-msgstr ""
+msgstr "更多%s相關文章"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:35
 msgid "应用版本"
-msgstr ""
+msgstr "應用版本"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:37
 msgid "PHP 运行信息"
-msgstr ""
+msgstr "PHP 運行信息"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:38
 msgid "PHP 扩展"
-msgstr ""
+msgstr "PHP 擴展"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:41
 msgid "Apache 信息"
-msgstr ""
+msgstr "Apache 信息"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:45
 msgid "服务器信息"
-msgstr ""
+msgstr "服務器信息"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:46
 msgid "服务器状态"
-msgstr ""
+msgstr "服務器狀態"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:50
 msgid "OPCache 使用率"
-msgstr ""
+msgstr "OPCache 使用率"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:51
 msgid "OPCache 状态"
-msgstr ""
+msgstr "OPCache 狀態"
 
 #: basic-optimize/inc/wp-dashboard-widget.php:52
 msgid "OPCache 配置信息"
-msgstr ""
+msgstr "OPCache 配置信息"
 
 #: basic-optimize/inc/wp-widget-cache.php:73
 msgid "不缓存这个小工具"
-msgstr ""
+msgstr "不緩存這個小工具"
 
 #: basic-optimize/plugin-config-parent.php:51
 msgid "短代码"
-msgstr ""
+msgstr "短代碼"
 
 #: basic-optimize/plugin-config-parent.php:51
 msgid "回调函数"
-msgstr ""
+msgstr "回調函數"
 
 #: basic-optimize/plugin-config-parent.php:78
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: basic-optimize/plugin-config-parent.php:78
 msgid "正则"
-msgstr ""
+msgstr "正則"
 
 #: basic-optimize/plugin-config-parent.php:78
 msgid "查询方法"
-msgstr ""
+msgstr "查詢方法"
 
 #: basic-optimize/plugin-config-parent.php:124
 #: basic-optimize/plugin-config-parent.php:240
 msgid "AIYA-Optimize"
-msgstr ""
+msgstr "AIYA-Optimize"
 
 #: basic-optimize/plugin-config-parent.php:125
 #: basic-optimize/plugin-config-parent.php:242
 msgid "首选项"
-msgstr ""
+msgstr "首選項"
 
 #: basic-optimize/plugin-config-parent.php:127
 #: basic-optimize/plugin-config-parent.php:243
 msgid "AIYA-CMS 主题，全局功能组件"
-msgstr ""
+msgstr "AIYA-CMS 主題，全局功能組件"
 
 #: basic-optimize/plugin-config-parent.php:130
 #: basic-optimize/plugin-config-parent.php:246
 msgid "禁用拓展"
-msgstr ""
+msgstr "禁用拓展"
 
 #: basic-optimize/plugin-config-parent.php:134
 #: basic-optimize/plugin-config-parent.php:250
 msgid "全局禁用"
-msgstr ""
+msgstr "全局禁用"
 
 #: basic-optimize/plugin-config-parent.php:135
 #: basic-optimize/plugin-config-parent.php:251
 msgid "全局禁用所有后台功能和插件，以使用其他插件代替"
-msgstr ""
+msgstr "全局禁用所有後臺功能和插件，以使用其他插件代替"
 
 #: basic-optimize/plugin-config-parent.php:141
 msgid "次要组件"
-msgstr ""
+msgstr "次要組件"
 
 #: basic-optimize/plugin-config-parent.php:145
 msgid "外部功能加速"
-msgstr ""
+msgstr "外部功能加速"
 
 #: basic-optimize/plugin-config-parent.php:146
 msgid "将 Gravatar 头像服务、谷歌字体服务替换为国内 CDN 加速"
-msgstr ""
+msgstr "將 Gravatar 頭像服務、谷歌字體服務替換為國內 CDN 加速"
 
 #: basic-optimize/plugin-config-parent.php:152
 msgid "简单 SEO 组件"
-msgstr ""
+msgstr "簡單 SEO 組件"
 
 #: basic-optimize/plugin-config-parent.php:153
 msgid "替代页面标题配置器并支持一些基础的 SEO 功能"
-msgstr ""
+msgstr "替代頁面標題配置器並支持一些基礎的 SEO 功能"
 
 #: basic-optimize/plugin-config-parent.php:159
 #: basic-optimize/plugin-config.php:1049
 msgid "简单 WAF 防护"
-msgstr ""
+msgstr "簡單 WAF 防護"
 
 #: basic-optimize/plugin-config-parent.php:160
 msgid "基于用户UA、IP、特定参数检测的防火墙功能"
-msgstr ""
+msgstr "基於用戶UA、IP、特定參數檢測的防火牆功能"
 
 #: basic-optimize/plugin-config-parent.php:166
 msgid "垃圾评论过滤"
-msgstr ""
+msgstr "垃圾評論過濾"
 
 #: basic-optimize/plugin-config-parent.php:167
 msgid "基于语法规则的垃圾评论过滤，无需 Akismet 接口"
-msgstr ""
+msgstr "基於語法規則的垃圾評論過濾，無需 Akismet 接口"
 
 #: basic-optimize/plugin-config-parent.php:173
 #: basic-optimize/plugin-config.php:1286
 msgid "额外代码"
-msgstr ""
+msgstr "額外代碼"
 
 #: basic-optimize/plugin-config-parent.php:174
 msgid "为站点增加额外 JS/CSS 代码，支持最小化添加百度统计和谷歌统计"
-msgstr ""
+msgstr "為站點增加額外 JS/CSS 代碼，支持最小化添加百度統計和谷歌統計"
 
 #: basic-optimize/plugin-config-parent.php:180
 msgid "STMP 通知"
-msgstr ""
+msgstr "STMP 通知"
 
 #: basic-optimize/plugin-config-parent.php:181
 msgid "通过 STMP 发送站点通知"
-msgstr ""
+msgstr "通過 STMP 發送站點通知"
 
 #: basic-optimize/plugin-config-parent.php:187
 msgid "本地化头像"
-msgstr ""
+msgstr "本地化頭像"
 
 #: basic-optimize/plugin-config-parent.php:188
 msgid "本地化头像功能，允许作者及以上权限的用户上传头像到站点（在后台个人资料页面上传）"
-msgstr ""
+msgstr "本地化頭像功能，允許作者及以上權限的用戶上傳頭像到站點（在後臺個人資料頁面上傳）"
 
 #: basic-optimize/plugin-config-parent.php:194
 msgid "此功能完全重建了分类页面的页面的路由方法，请自行测试你的主题 / 插件是否兼容"
-msgstr ""
+msgstr "此功能完全重建了分類頁面的頁面的路由方法，請自行測試你的主題 / 插件是否兼容"
 
 #: basic-optimize/plugin-config-parent.php:198
 msgid "分类 URL 重建"
-msgstr ""
+msgstr "分類 URL 重建"
 
 #: basic-optimize/plugin-config-parent.php:199
 msgid "移除分类URL中 [code]/category/[/code] 层级，启用此项功能后，需要在 [url=options-permalink.php]固定链接[/url] 设置中重新保存一次"
-msgstr ""
+msgstr "移除分類URL中 [code]/category/[/code] 層級，啟用此項功能後，需要在 [url=options-permalink.php]固定鏈接[/url] 設置中重新保存一次"
 
 #: basic-optimize/plugin-config-parent.php:205
 msgid "开发者功能"
-msgstr ""
+msgstr "開發者功能"
 
 #: basic-optimize/plugin-config-parent.php:209
 msgid "服务器状态信息"
-msgstr ""
+msgstr "服務器狀態信息"
 
 #: basic-optimize/plugin-config-parent.php:210
 msgid "在仪表盘中显示服务器状态信息组件（仅在打开仪表盘时读取一次，无监控功能）"
-msgstr ""
+msgstr "在儀表盤中顯示服務器狀態信息組件（僅在打開儀表盤時讀取一次，無監控功能）"
 
 #: basic-optimize/plugin-config-parent.php:216
 msgid "DEBUG模式"
-msgstr ""
+msgstr "DEBUG模式"
 
 #: basic-optimize/plugin-config-parent.php:217
 msgid "在 wp_footer() 中输出 SQL 和 include 等调试信息"
-msgstr ""
+msgstr "在 wp_footer() 中輸出 SQL 和 include 等調試信息"
 
 #: basic-optimize/plugin-config-parent.php:223
 msgid "简码列表"
-msgstr ""
+msgstr "簡碼列表"
 
 #: basic-optimize/plugin-config-parent.php:224
 msgid "列出 WP 当前的全部固定链接（ Rewrite 规则）和查询方法"
-msgstr ""
+msgstr "列出 WP 當前的全部固定鏈接（ Rewrite 規則）和查詢方法"
 
 #: basic-optimize/plugin-config-parent.php:230
 msgid "路由列表"
-msgstr ""
+msgstr "路由列表"
 
 #: basic-optimize/plugin-config-parent.php:231
 msgid "列出 WP 当前的全部简码功能（ Shortcode 字段）并列出回调函数"
-msgstr ""
+msgstr "列出 WP 當前的全部簡碼功能（ Shortcode 字段）並列出回調函數"
 
 #: basic-optimize/plugin-config.php:21
 msgid "站点图标"
-msgstr ""
+msgstr "站點圖標"
 
 #: basic-optimize/plugin-config.php:25
 msgid "推荐使用 WP 设置生成站点图标，兼容性更好，如果你的主题不支持，可以使用此设置"
-msgstr ""
+msgstr "推薦使用 WP 設置生成站點圖標，兼容性更好，如果你的主題不支持，可以使用此設置"
 
 #: basic-optimize/plugin-config.php:29
 msgid "配置 favicon.ico "
-msgstr ""
+msgstr "配置 favicon.ico "
 
 #: basic-optimize/plugin-config.php:30
 msgid "上传站点 favicon 图标，可以为任意图片格式，不需要时留空"
-msgstr ""
+msgstr "上傳站點 favicon 圖標，可以為任意圖片格式，不需要時留空"
 
 #: basic-optimize/plugin-config.php:36
 msgid "禁用功能"
-msgstr ""
+msgstr "禁用功能"
 
 #: basic-optimize/plugin-config.php:40
 msgid "禁用自动更新（不建议）"
-msgstr ""
+msgstr "禁用自動更新（不建議）"
 
 #: basic-optimize/plugin-config.php:41
 msgid "禁用 WP 自动更新，以解决WP无法连接到wordpress.org时产生报错"
-msgstr ""
+msgstr "禁用 WP 自動更新，以解決WP無法連接到wordpress.org時產生報錯"
 
 #: basic-optimize/plugin-config.php:47
 msgid "禁用管理员邮箱确认"
-msgstr ""
+msgstr "禁用管理員郵箱確認"
 
 #: basic-optimize/plugin-config.php:48
 msgid "禁用 WP 内置的管理员用户定期提示邮箱确认功能"
-msgstr ""
+msgstr "禁用 WP 內置的管理員用戶定期提示郵箱確認功能"
 
 #: basic-optimize/plugin-config.php:54
 msgid "Jetpack插件和一些客户端依赖 XML-RPC 接口与站点通信，需要使用相关功能时，请使用“Disable XML-RPC”等插件替代此项"
-msgstr ""
+msgstr "Jetpack插件和一些客戶端依賴 XML-RPC 接口與站點通信，需要使用相關功能時，請使用“Disable XML-RPC”等插件替代此項"
 
 #: basic-optimize/plugin-config.php:58
 msgid "禁用 XML-RPC "
-msgstr ""
+msgstr "禁用 XML-RPC "
 
 #: basic-optimize/plugin-config.php:59
 msgid "此选项通过替换动作函数使 XML-RPC 无法工作，并不能彻底禁用此功能[br/]*如需彻底禁用XML-RPC，应当在服务器中通过WAF策略等方式阻止外部对[code]/xmlrpc.php[/code]文件的访问"
-msgstr ""
+msgstr "此選項通過替換動作函數使 XML-RPC 無法工作，並不能徹底禁用此功能[br/]*如需徹底禁用XML-RPC，應當在服務器中通過WAF策略等方式阻止外部對[code]/xmlrpc.php[/code]文件的訪問"
 
 #: basic-optimize/plugin-config.php:65
 msgid "阻止 PingBack "
-msgstr ""
+msgstr "阻止 PingBack "
 
 #: basic-optimize/plugin-config.php:66
 msgid "启用后阻止所有 PingBack 动作，关闭后仅阻止 PingBack 自己[br/]*PingBack、Enclosures和Trackbacks是XML-RPC的功能，禁用XML-RPC后此选项不会生效"
-msgstr ""
+msgstr "啟用後阻止所有 PingBack 動作，關閉後僅阻止 PingBack 自己[br/]*PingBack、Enclosures和Trackbacks是XML-RPC的功能，禁用XML-RPC後此選項不會生效"
 
 #: basic-optimize/plugin-config.php:72
 msgid "禁用 REST-API "
-msgstr ""
+msgstr "禁用 REST-API "
 
 #: basic-optimize/plugin-config.php:73
 msgid "禁用 REST-API 接口，启用后访问此接口会返回报错"
-msgstr ""
+msgstr "禁用 REST-API 接口，啟用後訪問此接口會返回報錯"
 
 #: basic-optimize/plugin-config.php:79
 msgid "禁用 Feed "
-msgstr ""
+msgstr "禁用 Feed "
 
 #: basic-optimize/plugin-config.php:80
 msgid "禁用 Feed 功能 （RSS），启用后访问此接口会返回报错"
-msgstr ""
+msgstr "禁用 Feed 功能 （RSS），啟用後訪問此接口會返回報錯"
 
 #: basic-optimize/plugin-config.php:86
 msgid "禁用字体和语言包组件"
-msgstr ""
+msgstr "禁用字體和語言包組件"
 
 #: basic-optimize/plugin-config.php:87
 msgid "禁用 WP 内置的翻译组件，并禁用语言包文件加载"
-msgstr ""
+msgstr "禁用 WP 內置的翻譯組件，並禁用語言包文件加載"
 
 #: basic-optimize/plugin-config.php:93
 msgid "禁用嵌入功能"
-msgstr ""
+msgstr "禁用嵌入功能"
 
 #: basic-optimize/plugin-config.php:94
 msgid "禁用 WP 内置的嵌入功能（oEmbed），移除 [code]<head>[/code] 标签中嵌入的功能组件"
-msgstr ""
+msgstr "禁用 WP 內置的嵌入功能（oEmbed），移除 [code]<head>[/code] 標籤中嵌入的功能組件"
 
 #: basic-optimize/plugin-config.php:100
 msgid "禁用自动链接解析"
-msgstr ""
+msgstr "禁用自動鏈接解析"
 
 #: basic-optimize/plugin-config.php:101
 msgid "禁用 WP 内置的自动链接解析（Auto-Embed），阻止Youtube等外部网站输入时自动加载为 [code]<iframe>[/code] "
-msgstr ""
+msgstr "禁用 WP 內置的自動鏈接解析（Auto-Embed），阻止Youtube等外部網站輸入時自動加載為 [code]<iframe>[/code] "
 
 #: basic-optimize/plugin-config.php:107
 msgid "禁用自动字符转换"
-msgstr ""
+msgstr "禁用自動字符轉換"
 
 #: basic-optimize/plugin-config.php:108
 msgid "禁用 WP 内置的自动标点符号转换功能，阻止英文引号转义为中文引号和标签自动校正"
-msgstr ""
+msgstr "禁用 WP 內置的自動標點符號轉換功能，阻止英文引號轉義為中文引號和標籤自動校正"
 
 #: basic-optimize/plugin-config.php:114
 msgid "禁用 s.w.org 标记"
-msgstr ""
+msgstr "禁用 s.w.org 標記"
 
 #: basic-optimize/plugin-config.php:115
 msgid "禁用 WP 内置的DNS预解析功能（dns-prefetch）"
-msgstr ""
+msgstr "禁用 WP 內置的DNS預解析功能（dns-prefetch）"
 
 #: basic-optimize/plugin-config.php:121
 msgid "页面优化"
-msgstr ""
+msgstr "頁面優化"
 
 #: basic-optimize/plugin-config.php:125
 msgid "精简页面 head 结构"
-msgstr ""
+msgstr "精簡頁面 head 結構"
 
 #: basic-optimize/plugin-config.php:126
 msgid "精简 [code]head[/code] 中的日志链接、短链接、RSD接口等无用标签"
-msgstr ""
+msgstr "精簡 [code]head[/code] 中的日誌鏈接、短鏈接、RSD接口等無用標籤"
 
 #: basic-optimize/plugin-config.php:132
 msgid "移除 emoji 样式"
-msgstr ""
+msgstr "移除 emoji 樣式"
 
 #: basic-optimize/plugin-config.php:133
 msgid "禁止 WP 加载并移除 emoji`s 组件和相关样式"
-msgstr ""
+msgstr "禁止 WP 加載並移除 emoji`s 組件和相關樣式"
 
 #: basic-optimize/plugin-config.php:139
 msgid "移除古腾堡样式"
-msgstr ""
+msgstr "移除古騰堡樣式"
 
 #: basic-optimize/plugin-config.php:140
 msgid "禁用 Gutenberg 引入的样式[br/]*会导致前台通过Gutenberg自定义的外观失效，注意检查"
-msgstr ""
+msgstr "禁用 Gutenberg 引入的樣式[br/]*會導致前臺通過Gutenberg自定義的外觀失效，注意檢查"
 
 #: basic-optimize/plugin-config.php:146
 msgid "禁用谷歌字体"
-msgstr ""
+msgstr "禁用谷歌字體"
 
 #: basic-optimize/plugin-config.php:147
 msgid "禁止 WP 加载谷歌字体并移除样式"
-msgstr ""
+msgstr "禁止 WP 加載谷歌字體並移除樣式"
 
 #: basic-optimize/plugin-config.php:153
 msgid "禁用静态文件版本号"
-msgstr ""
+msgstr "禁用靜態文件版本號"
 
 #: basic-optimize/plugin-config.php:154
 msgid "移除前台静态文件加载时引入的版本号[br/]*可能会导致用户浏览器缓存的静态文件和服务器不一致，谨慎使用"
-msgstr ""
+msgstr "移除前臺靜態文件加載時引入的版本號[br/]*可能會導致用戶瀏覽器緩存的靜態文件和服務器不一致，謹慎使用"
 
 #: basic-optimize/plugin-config.php:160
 msgid "易用性调整"
-msgstr ""
+msgstr "易用性調整"
 
 #: basic-optimize/plugin-config.php:164
 msgid "启用链接管理器"
-msgstr ""
+msgstr "啟用鏈接管理器"
 
 #: basic-optimize/plugin-config.php:165
 msgid "启用 WP 内置的链接管理器功能"
-msgstr ""
+msgstr "啟用 WP 內置的鏈接管理器功能"
 
 #: basic-optimize/plugin-config.php:171
 msgid "禁用修订版本记录"
-msgstr ""
+msgstr "禁用修訂版本記錄"
 
 #: basic-optimize/plugin-config.php:172
 msgid "禁用 WP 编辑器的修订版本记录功能"
-msgstr ""
+msgstr "禁用 WP 編輯器的修訂版本記錄功能"
 
 #: basic-optimize/plugin-config.php:178
 msgid "禁用自动保存"
-msgstr ""
+msgstr "禁用自動保存"
 
 #: basic-optimize/plugin-config.php:179
 msgid "禁用 WP 编辑器的自动保存功能"
-msgstr ""
+msgstr "禁用 WP 編輯器的自動保存功能"
 
 #: basic-optimize/plugin-config.php:185
 msgid "后台页面设置为中文"
-msgstr ""
+msgstr "後臺頁面設置為中文"
 
 #: basic-optimize/plugin-config.php:186
 msgid "适配一些外贸站点和国内站点，将后台页面语言强制替换为 [code]zh_CN[/code][br/]*此选项不是翻译功能，只是为了去除浏览器的翻译页面提示"
-msgstr ""
+msgstr "適配一些外貿站點和國內站點，將後臺頁面語言強制替換為 [code]zh_CN[/code][br/]*此選項不是翻譯功能，只是為了去除瀏覽器的翻譯頁面提示"
 
 #: basic-optimize/plugin-config.php:192
 msgid "允许WEBP图片上传"
-msgstr ""
+msgstr "允許WEBP圖片上傳"
 
 #: basic-optimize/plugin-config.php:193
 msgid "去除 WP 上传WEBP图片时产生的报错"
-msgstr ""
+msgstr "去除 WP 上傳WEBP圖片時產生的報錯"
 
 #: basic-optimize/plugin-config.php:199
 msgid "禁用图片自动缩放"
-msgstr ""
+msgstr "禁用圖片自動縮放"
 
 #: basic-optimize/plugin-config.php:200
 msgid "禁止 WP 自动生成略缩图和图片缩放[br/]*此选项通过将 WP 图片大小默认值设置为 [code]0[/code] 来生效，可被 [url="
-msgstr ""
+msgstr "禁止 WP 自動生成略縮圖和圖片縮放[br/]*此選項通過將 WP 圖片大小默認值設置為 [code]0[/code] 來生效，可被 [url="
 
 #: basic-optimize/plugin-config.php:206
 msgid "禁用超大图片自动缩放"
-msgstr ""
+msgstr "禁用超大圖片自動縮放"
 
 #: basic-optimize/plugin-config.php:207
 msgid "禁止 WP 对大于 5000px*7000px 的图像自动缩放"
-msgstr ""
+msgstr "禁止 WP 對大於 5000px*7000px 的圖像自動縮放"
 
 #: basic-optimize/plugin-config.php:213
 msgid "禁用 PDF 文件自动生成预览"
-msgstr ""
+msgstr "禁用 PDF 文件自動生成預覽"
 
 #: basic-optimize/plugin-config.php:214
 msgid "禁止 WP 自动生成 PDF 文件的缩略图，可以解决一些文件管理类插件的冲突"
-msgstr ""
+msgstr "禁止 WP 自動生成 PDF 文件的縮略圖，可以解決一些文件管理類插件的衝突"
 
 #: basic-optimize/plugin-config.php:220
 msgid "地区相关调整"
-msgstr ""
+msgstr "地區相關調整"
 
 #: basic-optimize/plugin-config.php:224
 msgid "移除隐私政策页面"
-msgstr ""
+msgstr "移除隱私政策頁面"
 
 #: basic-optimize/plugin-config.php:225
 msgid "移除 WP 为欧洲通用数据保护条例（GDPR）生成的页面"
-msgstr ""
+msgstr "移除 WP 為歐洲通用數據保護條例（GDPR）生成的頁面"
 
 #: basic-optimize/plugin-config.php:231
 msgid "中文安装包优化"
-msgstr ""
+msgstr "中文安裝包優化"
 
 #: basic-optimize/plugin-config.php:232
 msgid "移除 [code]cn.wordpress.org[/code] 下载的 WP 安装包中的一些无用代码"
-msgstr ""
+msgstr "移除 [code]cn.wordpress.org[/code] 下載的 WP 安裝包中的一些無用代碼"
 
 #: basic-optimize/plugin-config.php:242
 msgid "SQL查询优化"
-msgstr ""
+msgstr "SQL查詢優化"
 
 #: basic-optimize/plugin-config.php:246
 msgid "主循环中跳过计算 SQL 匹配总数以提高查询速度，这对文章数量比较多的站点非常有用"
-msgstr ""
+msgstr "主循環中跳過計算 SQL 匹配總數以提高查詢速度，這對文章數量比較多的站點非常有用"
 
 #: basic-optimize/plugin-config.php:250
 msgid "跳过 SQL 计数"
-msgstr ""
+msgstr "跳過 SQL 計數"
 
 #: basic-optimize/plugin-config.php:251
 msgid "替代 WP 主查询中的 [code]$wp_query->found_posts[/code] 方法为 [code]EXPLAIN SELECT[/code] 语句，大幅降低SQL开销[br/]*该项会同时禁用 [code]SQL_CALC_FOUND_ROWS[/code] 属性，会导致一些文章列表插件无法正常工作，请自行测试"
-msgstr ""
+msgstr "替代 WP 主查詢中的 [code]$wp_query->found_posts[/code] 方法為 [code]EXPLAIN SELECT[/code] 語句，大幅降低SQL開銷[br/]*該項會同時禁用 [code]SQL_CALC_FOUND_ROWS[/code] 屬性，會導致一些文章列表插件無法正常工作，請自行測試"
 
 #: basic-optimize/plugin-config.php:257
 msgid "预加载元数据"
-msgstr ""
+msgstr "預加載元數據"
 
 #: basic-optimize/plugin-config.php:258
 msgid "使 WP 全局预加载文章的元数据（post meta）和分类数据（post term）以提高查询速度"
-msgstr ""
+msgstr "使 WP 全局預加載文章的元數據（post meta）和分類數據（post term）以提高查詢速度"
 
 #: basic-optimize/plugin-config.php:264
 msgid "查询过滤器"
-msgstr ""
+msgstr "查詢過濾器"
 
 #: basic-optimize/plugin-config.php:268
 msgid "取消文章置顶"
-msgstr ""
+msgstr "取消文章置頂"
 
 #: basic-optimize/plugin-config.php:269
 msgid "禁用文章置顶，按默认的文章排序输出"
-msgstr ""
+msgstr "禁用文章置頂，按默認的文章排序輸出"
 
 #: basic-optimize/plugin-config.php:275
 msgid "显示自定义文章类型"
-msgstr ""
+msgstr "顯示自定義文章類型"
 
 #: basic-optimize/plugin-config.php:276
 msgid "将自定义的文章类型加入到主查询[br/]*此项仅对本插件创建的文章类型有效"
-msgstr ""
+msgstr "將自定義的文章類型加入到主查詢[br/]*此項僅對本插件創建的文章類型有效"
 
 #: basic-optimize/plugin-config.php:282
 msgid "首页中排除分类"
-msgstr ""
+msgstr "首頁中排除分類"
 
 #: basic-optimize/plugin-config.php:283
 msgid "填写首页排除分类的ID，通过 [code],[/code] 分隔"
-msgstr ""
+msgstr "填寫首頁排除分類的ID，通過 [code],[/code] 分隔"
 
 #: basic-optimize/plugin-config.php:289
 msgid "首页中排除文章"
-msgstr ""
+msgstr "首頁中排除文章"
 
 #: basic-optimize/plugin-config.php:290
 msgid "填写首页排除文章的ID，通过 [code],[/code] 分隔"
-msgstr ""
+msgstr "填寫首頁排除文章的ID，通過 [code],[/code] 分隔"
 
 #: basic-optimize/plugin-config.php:296
 msgid "搜索结果包含页面"
-msgstr ""
+msgstr "搜索結果包含頁面"
 
 #: basic-optimize/plugin-config.php:297
 msgid "搜索时同时搜索页面和文章添加到搜索结果"
-msgstr ""
+msgstr "搜索時同時搜索頁面和文章添加到搜索結果"
 
 #: basic-optimize/plugin-config.php:303
 msgid "搜索结果匹配分类"
-msgstr ""
+msgstr "搜索結果匹配分類"
 
 #: basic-optimize/plugin-config.php:304
 msgid "当搜索关键词与分类/标签/自定义分类相同时，返回分类中的文章"
-msgstr ""
+msgstr "當搜索關鍵詞與分類/標籤/自定義分類相同時，返回分類中的文章"
 
 #: basic-optimize/plugin-config.php:310
 msgid "搜索中排除分类"
-msgstr ""
+msgstr "搜索中排除分類"
 
 #: basic-optimize/plugin-config.php:311
 msgid "填写搜索时排除分类的ID，通过 [code],[/code] 分隔"
-msgstr ""
+msgstr "填寫搜索時排除分類的ID，通過 [code],[/code] 分隔"
 
 #: basic-optimize/plugin-config.php:317
 msgid "搜索中排除文章"
-msgstr ""
+msgstr "搜索中排除文章"
 
 #: basic-optimize/plugin-config.php:318
 msgid "填写搜索时排除文章的ID，通过 [code],[/code] 分隔"
-msgstr ""
+msgstr "填寫搜索時排除文章的ID，通過 [code],[/code] 分隔"
 
 #: basic-optimize/plugin-config.php:324
 msgid "登录用户显示全部文章"
-msgstr ""
+msgstr "登錄用戶顯示全部文章"
 
 #: basic-optimize/plugin-config.php:325
 msgid "对管理员或登录用户自己，显示全部状态的文章（包含草稿、待发布、已删除等）"
-msgstr ""
+msgstr "對管理員或登錄用戶自己，顯示全部狀態的文章（包含草稿、待發布、已刪除等）"
 
 #: basic-optimize/plugin-config.php:331
 msgid "搜索结果设置"
-msgstr ""
+msgstr "搜索結果設置"
 
 #: basic-optimize/plugin-config.php:335
 msgid "搜索页重定向"
-msgstr ""
+msgstr "搜索頁重定向"
 
 #: basic-optimize/plugin-config.php:336
 msgid "强制 [code]?s=[/code] 参数跳转到 [code]search/[/code] 页面，使搜索页面静态化"
-msgstr ""
+msgstr "強制 [code]?s=[/code] 參數跳轉到 [code]search/[/code] 頁面，使搜索頁面靜態化"
 
 #: basic-optimize/plugin-config.php:342
 msgid "搜索结果是否为空"
-msgstr ""
+msgstr "搜索結果是否為空"
 
 #: basic-optimize/plugin-config.php:343
 msgid "当搜索关键词输入为空时，重定向到首页"
-msgstr ""
+msgstr "當搜索關鍵詞輸入為空時，重定向到首頁"
 
 #: basic-optimize/plugin-config.php:349
 msgid "搜索结果跳过"
-msgstr ""
+msgstr "搜索結果跳過"
 
 #: basic-optimize/plugin-config.php:350
 msgid "当搜索结果有且只有一篇文章时，直接转到文章页"
-msgstr ""
+msgstr "當搜索結果有且只有一篇文章時，直接轉到文章頁"
 
 #: basic-optimize/plugin-config.php:356
 msgid "搜索功能限制"
-msgstr ""
+msgstr "搜索功能限制"
 
 #: basic-optimize/plugin-config.php:360
 msgid "启用搜索限制"
-msgstr ""
+msgstr "啟用搜索限制"
 
 #: basic-optimize/plugin-config.php:361
 msgid "根据IP或用户角色限制搜索功能，防止滥用"
-msgstr ""
+msgstr "根據IP或用戶角色限制搜索功能，防止濫用"
 
 #: basic-optimize/plugin-config.php:367
 msgid "搜索用户验证"
-msgstr ""
+msgstr "搜索用戶驗證"
 
 #: basic-optimize/plugin-config.php:368
 msgid "仅允许已登录的用户使用搜索功能，或关闭搜索"
-msgstr ""
+msgstr "僅允許已登錄的用戶使用搜索功能，或關閉搜索"
 
-#: basic-optimize/plugin-config.php:372
-#: basic-optimize/plugin-config.php:463
+#: basic-optimize/plugin-config.php:372 basic-optimize/plugin-config.php:463
 msgid "无限制"
-msgstr ""
+msgstr "無限制"
 
 #: basic-optimize/plugin-config.php:373
 msgid "仅限登录用户"
-msgstr ""
+msgstr "僅限登錄用戶"
 
 #: basic-optimize/plugin-config.php:374
 msgid "关闭站点搜索"
-msgstr ""
+msgstr "關閉站點搜索"
 
 #: basic-optimize/plugin-config.php:379
 msgid "最大搜索关键词长度"
-msgstr ""
+msgstr "最大搜索關鍵詞長度"
 
 #: basic-optimize/plugin-config.php:380
 msgid "计算单位为字节，限制最大长度 255 字节（一个汉字为 3 字节，一个英文字母为 1 字节）"
-msgstr ""
+msgstr "計算單位為字節，限制最大長度 255 字節（一個漢字為 3 字節，一個英文字母為 1 字節）"
 
 #: basic-optimize/plugin-config.php:386
 msgid "每分钟搜索限制"
-msgstr ""
+msgstr "每分鐘搜索限制"
 
 #: basic-optimize/plugin-config.php:387
 msgid "每分钟最大搜索次数，达到上限之后屏蔽10分钟"
-msgstr ""
+msgstr "每分鐘最大搜索次數，達到上限之後屏蔽10分鐘"
 
 #: basic-optimize/plugin-config.php:393
 msgid "自定义搜索（高级）"
-msgstr ""
+msgstr "自定義搜索（高級）"
 
 #: basic-optimize/plugin-config.php:397
 msgid "只搜索文章标题"
-msgstr ""
+msgstr "只搜索文章標題"
 
 #: basic-optimize/plugin-config.php:398
 msgid "不搜索文章内容和摘要，提高搜索响应速度"
-msgstr ""
+msgstr "不搜索文章內容和摘要，提高搜索響應速度"
 
 #: basic-optimize/plugin-config.php:404
 msgid "允许搜索文章ID"
-msgstr ""
+msgstr "允許搜索文章ID"
 
 #: basic-optimize/plugin-config.php:405
 msgid "允许搜索ID查找文章，多个ID时支持 [code],[/code] 分隔"
-msgstr ""
+msgstr "允許搜索ID查找文章，多個ID時支持 [code],[/code] 分隔"
 
 #: basic-optimize/plugin-config.php:411
 msgid "允许搜索自定义字段"
-msgstr ""
+msgstr "允許搜索自定義字段"
 
 #: basic-optimize/plugin-config.php:412
 msgid "允许搜索自定义字段（postmeta），会大幅影响查询速度，请谨慎使用"
-msgstr ""
+msgstr "允許搜索自定義字段（postmeta），會大幅影響查詢速度，請謹慎使用"
 
 #: basic-optimize/plugin-config.php:418
 msgid "指定搜索自定义字段"
-msgstr ""
+msgstr "指定搜索自定義字段"
 
 #: basic-optimize/plugin-config.php:419
 msgid "接续上一项设置，设置接受搜索的自定义字段，请输入支持的 meta_key"
-msgstr ""
+msgstr "接續上一項設置，設置接受搜索的自定義字段，請輸入支持的 meta_key"
 
 #: basic-optimize/plugin-config.php:429
 msgid "阻止外部查询用户信息"
-msgstr ""
+msgstr "阻止外部查詢用戶信息"
 
 #: basic-optimize/plugin-config.php:433
 msgid "去除 Sitemap 用户列表"
-msgstr ""
+msgstr "去除 Sitemap 用戶列表"
 
 #: basic-optimize/plugin-config.php:434
 msgid "禁止站点的 [code]/wp-sitemap.xml[/code] 中生成Users列表"
-msgstr ""
+msgstr "禁止站點的 [code]/wp-sitemap.xml[/code] 中生成Users列表"
 
 #: basic-optimize/plugin-config.php:440
 msgid "去除 REST-API 用户端点"
-msgstr ""
+msgstr "去除 REST-API 用戶端點"
 
 #: basic-optimize/plugin-config.php:441
 msgid "禁止站点的 [code]/wp-json/wp/v2/users[/code] 接口端点"
-msgstr ""
+msgstr "禁止站點的 [code]/wp-json/wp/v2/users[/code] 接口端點"
 
 #: basic-optimize/plugin-config.php:447
 msgid "去除 REST-API 文章端点"
-msgstr ""
+msgstr "去除 REST-API 文章端點"
 
 #: basic-optimize/plugin-config.php:448
 msgid "禁止站点的 [code]/wp-json/wp/v2/posts[/code] 接口端点"
-msgstr ""
+msgstr "禁止站點的 [code]/wp-json/wp/v2/posts[/code] 接口端點"
 
 #: basic-optimize/plugin-config.php:454
 msgid "后台入口权限调整"
-msgstr ""
+msgstr "後臺入口權限調整"
 
 #: basic-optimize/plugin-config.php:458
 msgid "调整访问后台用户级别"
-msgstr ""
+msgstr "調整訪問後臺用戶級別"
 
 #: basic-optimize/plugin-config.php:459
 msgid "根据用户角色判断，禁止权限不足的用户访问后台并重定向回首页"
-msgstr ""
+msgstr "根據用戶角色判斷，禁止權限不足的用戶訪問後臺並重定向回首頁"
 
 #: basic-optimize/plugin-config.php:464
 #: framework-required/plugin/register-theme-post-type.php:82
 #: framework-required/plugin/register-theme-taxonomy.php:56
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:128
 msgid "编辑"
-msgstr ""
+msgstr "編輯"
 
 #: basic-optimize/plugin-config.php:465
 msgid "作者"
-msgstr ""
+msgstr "作者"
 
 #: basic-optimize/plugin-config.php:466
 msgid "贡献者"
-msgstr ""
+msgstr "貢獻者"
 
 #: basic-optimize/plugin-config.php:467
 msgid "订阅者"
-msgstr ""
+msgstr "訂閱者"
 
 #: basic-optimize/plugin-config.php:472
 msgid "登录页防护"
-msgstr ""
+msgstr "登錄頁防護"
 
 #: basic-optimize/plugin-config.php:476
 msgid "简单登录页防护"
-msgstr ""
+msgstr "簡單登錄頁防護"
 
 #: basic-optimize/plugin-config.php:477
 msgid "为登录页面附加访问参数，隐藏登录表单防止脚本暴力破解"
-msgstr ""
+msgstr "為登錄頁面附加訪問參數，隱藏登錄表單防止腳本暴力破解"
 
 #: basic-optimize/plugin-config.php:483
 msgid "登录页自动跳转"
-msgstr ""
+msgstr "登錄頁自動跳轉"
 
 #: basic-optimize/plugin-config.php:484
 msgid "通过 JavaScript 方式，等待5秒后自动跳转到带有访问参数的地址[br/]*如果禁用自动跳转，请牢记设置的认证参数"
-msgstr ""
+msgstr "通過 JavaScript 方式，等待5秒後自動跳轉到帶有訪問參數的地址[br/]*如果禁用自動跳轉，請牢記設置的認證參數"
 
 #: basic-optimize/plugin-config.php:490
 msgid "登录页认证参数"
-msgstr ""
+msgstr "登錄頁認證參數"
 
 #: basic-optimize/plugin-config.php:491
 msgid "接续上一项设置，登录页面的URL格式为 [code]/wp-login.php?auth=path_login[/code]"
-msgstr ""
+msgstr "接續上一項設置，登錄頁面的URL格式為 [code]/wp-login.php?auth=path_login[/code]"
 
 #: basic-optimize/plugin-config.php:497
 msgid "登录验证逻辑调整"
-msgstr ""
+msgstr "登錄驗證邏輯調整"
 
 #: basic-optimize/plugin-config.php:501
 msgid "强制使用邮箱登录"
-msgstr ""
+msgstr "強制使用郵箱登錄"
 
 #: basic-optimize/plugin-config.php:502
 msgid "修改登录方式仅允许邮箱登录"
-msgstr ""
+msgstr "修改登錄方式僅允許郵箱登錄"
 
 #: basic-optimize/plugin-config.php:508
 msgid "禁止管理员找回密码"
-msgstr ""
+msgstr "禁止管理員找回密碼"
 
 #: basic-optimize/plugin-config.php:509
 msgid "禁止权限为管理员的用户发起密码找回[br/]*注意！开启此选项后如果忘记密码将只能通过 SSH 等其他方式删除或禁用此插件来解除限制"
-msgstr ""
+msgstr "禁止權限為管理員的用戶發起密碼找回[br/]*注意！開啟此選項後如果忘記密碼將只能通過 SSH 等其他方式刪除或禁用此插件來解除限制"
 
 #: basic-optimize/plugin-config.php:515
 msgid "用户名验证"
-msgstr ""
+msgstr "用戶名驗證"
 
 #: basic-optimize/plugin-config.php:516
 msgid "登录/注册时对用户信息进行验证，避免不安全的用户名"
-msgstr ""
+msgstr "登錄/註冊時對用戶信息進行驗證，避免不安全的用戶名"
 
 #: basic-optimize/plugin-config.php:522
 msgid "登录时禁止用户名"
-msgstr ""
+msgstr "登錄時禁止用戶名"
 
 #: basic-optimize/plugin-config.php:523
 msgid "接续上一项设置，指定禁止使用的用户名，通过 [code],[/code] 分隔[br/]*执行全词匹配，区分大小写"
-msgstr ""
+msgstr "接續上一項設置，指定禁止使用的用戶名，通過 [code],[/code] 分隔[br/]*執行全詞匹配，區分大小寫"
 
 #: basic-optimize/plugin-config.php:529
 msgid "注册时清理用户名"
-msgstr ""
+msgstr "註冊時清理用戶名"
 
 #: basic-optimize/plugin-config.php:530
 msgid "接续上一项设置，用户注册时去除不安全用户名和不安全的字符，通过 [code],[/code] 分隔[br/]*执行半匹配，不区分大小写"
-msgstr ""
+msgstr "接續上一項設置，用戶註冊時去除不安全用戶名和不安全的字符，通過 [code],[/code] 分隔[br/]*執行半匹配，不區分大小寫"
 
 #: basic-optimize/plugin-config.php:540
 msgid "文章默认模板"
-msgstr ""
+msgstr "文章默認模板"
 
 #: basic-optimize/plugin-config.php:544
 msgid "进入编辑器时插入默认文本"
-msgstr ""
+msgstr "進入編輯器時插入默認文本"
 
 #: basic-optimize/plugin-config.php:545
 msgid "将一些标准的格式化的文章内容直接插入到编辑器中"
-msgstr ""
+msgstr "將一些標準的格式化的文章內容直接插入到編輯器中"
 
 #: basic-optimize/plugin-config.php:551
 msgid "添加编辑器默认内容"
-msgstr ""
+msgstr "添加編輯器默認內容"
 
 #: basic-optimize/plugin-config.php:552
 msgid "添加默认内容之后，会在每次创建文章时提前插入编辑器"
-msgstr ""
+msgstr "添加默認內容之後，會在每次創建文章時提前插入編輯器"
 
 #: basic-optimize/plugin-config.php:558
 msgid "文章内容预处理"
-msgstr ""
+msgstr "文章內容預處理"
 
 #: basic-optimize/plugin-config.php:562
 msgid "此模块会在文章编辑器页面创建“数据更新”组件，如果没有此组件，请在顶部显示选项中勾选此组件。"
-msgstr ""
+msgstr "此模塊會在文章編輯器頁面創建“數據更新”組件，如果沒有此組件，請在頂部顯示選項中勾選此組件。"
 
 #: basic-optimize/plugin-config.php:566
 msgid "警告：相关预处理功能在文章保存/更新时触发，会直接操作文章数据，投入使用前请先备份站点数据并仔细测试。"
-msgstr ""
+msgstr "警告：相關預處理功能在文章保存/更新時觸發，會直接操作文章數據，投入使用前請先備份站點數據並仔細測試。"
 
 #: basic-optimize/plugin-config.php:570
 msgid "*此功能使用 [code]jxlwqq/chinese-typesetting[/code] 项目：[url=https://github.com/jxlwqq/chinese-typesetting]查看文档[/url]"
-msgstr ""
+msgstr "*此功能使用 [code]jxlwqq/chinese-typesetting[/code] 項目：[url=https://github.com/jxlwqq/chinese-typesetting]查看文檔[/url]"
 
 #: basic-optimize/plugin-config.php:574
 msgid "启用的中文排版纠正方法"
-msgstr ""
+msgstr "啟用的中文排版糾正方法"
 
 #: basic-optimize/plugin-config.php:575
 msgid "选择需要启用的格式过滤器，详细说明请查阅相关项目文档"
-msgstr ""
+msgstr "選擇需要啟用的格式過濾器，詳細說明請查閱相關項目文檔"
 
 #: basic-optimize/plugin-config.php:579
 msgid "中英文空格补正"
-msgstr ""
+msgstr "中英文空格補正"
 
 #: basic-optimize/plugin-config.php:580
 msgid "清除全角标点空格"
-msgstr ""
+msgstr "清除全角標點空格"
 
 #: basic-optimize/plugin-config.php:581
 msgid "全角转半角"
-msgstr ""
+msgstr "全角轉半角"
 
 #: basic-optimize/plugin-config.php:582
 msgid "修复错误的标点符号"
-msgstr ""
+msgstr "修復錯誤的標點符號"
 
 #: basic-optimize/plugin-config.php:583
 msgid "专有名词大小写"
-msgstr ""
+msgstr "專有名詞大小寫"
 
 #: basic-optimize/plugin-config.php:584
 msgid "清除标签 Class 属性"
-msgstr ""
+msgstr "清除標籤 Class 屬性"
 
 #: basic-optimize/plugin-config.php:585
 msgid "清除标签 ID 属性"
-msgstr ""
+msgstr "清除標籤 ID 屬性"
 
 #: basic-optimize/plugin-config.php:586
 msgid "清除标签 Style 属性"
-msgstr ""
+msgstr "清除標籤 Style 屬性"
 
 #: basic-optimize/plugin-config.php:587
 msgid "清除空的段落标签"
-msgstr ""
+msgstr "清除空的段落標籤"
 
 #: basic-optimize/plugin-config.php:588
 msgid "清除所有空的标签"
-msgstr ""
+msgstr "清除所有空的標籤"
 
 #: basic-optimize/plugin-config.php:589
 msgid "清除段首缩进"
-msgstr ""
+msgstr "清除段首縮進"
 
 #: basic-optimize/plugin-config.php:594
 msgid "自动别名"
-msgstr ""
+msgstr "自動別名"
 
 #: basic-optimize/plugin-config.php:598
 msgid "*注意：如需文章别名在 URL 结构中生效，请先设置 [url=options-permalink.php]固定链接[/url]"
-msgstr ""
+msgstr "*注意：如需文章別名在 URL 結構中生效，請先設置 [url=options-permalink.php]固定鏈接[/url]"
 
 #: basic-optimize/plugin-config.php:602
 msgid "*此功能使用 [code]overtrue/pinyin[/code] 项目"
-msgstr ""
+msgstr "*此功能使用 [code]overtrue/pinyin[/code] 項目"
 
 #: basic-optimize/plugin-config.php:606
 msgid "使用拼音生成分类、标签别名"
-msgstr ""
+msgstr "使用拼音生成分類、標籤別名"
 
 #: basic-optimize/plugin-config.php:613
 msgid "使用拼音生成文章别名"
-msgstr ""
+msgstr "使用拼音生成文章別名"
 
 #: basic-optimize/plugin-config.php:620
 msgid "根据文章 ID 生成别名"
-msgstr ""
+msgstr "根據文章 ID 生成別名"
 
 #: basic-optimize/plugin-config.php:621
 msgid ""
@@ -992,571 +991,569 @@ msgid ""
 "            [br/]仿写格式1 [code]av00000001[/code] 使用文章 ID 数据进行字符补全\r\n"
 "            [br/]仿写格式2 [code]bvxxxxxxxx[/code] 使用文章 ID 数据进行Base58编码"
 msgstr ""
+"會覆蓋上一項設置，強制使用 ID 生成文章的別名，不會檢查是否已設置別名\r\n"
+"            [br/]仿寫格式1 [code]av00000001[/code] 使用文章 ID 數據進行字符補全\r\n"
+"            [br/]仿寫格式2 [code]bvxxxxxxxx[/code] 使用文章 ID 數據進行Base58編碼"
 
 #: basic-optimize/plugin-config.php:627
 msgid "关闭"
-msgstr ""
+msgstr "關閉"
 
 #: basic-optimize/plugin-config.php:628
 msgid "低仿AV号"
-msgstr ""
+msgstr "低仿AV號"
 
 #: basic-optimize/plugin-config.php:629
 msgid "低仿BV号"
-msgstr ""
+msgstr "低仿BV號"
 
 #: basic-optimize/plugin-config.php:634
 msgid "文章别名附加前缀"
-msgstr ""
+msgstr "文章別名附加前綴"
 
 #: basic-optimize/plugin-config.php:635
 msgid "在使用 ID 生成别名时设置的别名前缀，请勿包含 [code]<>{}|^[][?#:[/code] 等控制字符以及空格"
-msgstr ""
+msgstr "在使用 ID 生成別名時設置的別名前綴，請勿包含 [code]<>{}|^[][?#:[/code] 等控制字符以及空格"
 
 #: basic-optimize/plugin-config.php:643
 msgid "优化设置"
-msgstr ""
+msgstr "優化設置"
 
 #: basic-optimize/plugin-config.php:644
 msgid "禁用或调整一些 WordPress 内置功能，以优化网站性能"
-msgstr ""
+msgstr "禁用或調整一些 WordPress 內置功能，以優化網站性能"
 
 #: basic-optimize/plugin-config.php:653
 msgid "查询和搜索"
-msgstr ""
+msgstr "查詢和搜索"
 
 #: basic-optimize/plugin-config.php:654
 msgid "自定义和调整 WordPress 首页和搜索的查询参数"
-msgstr ""
+msgstr "自定義和調整 WordPress 首頁和搜索的查詢參數"
 
 #: basic-optimize/plugin-config.php:663
 msgid "登录保护"
-msgstr ""
+msgstr "登錄保護"
 
 #: basic-optimize/plugin-config.php:664
 msgid "调整 WordPress 登录页面，增加登录和后台访问验证"
-msgstr ""
+msgstr "調整 WordPress 登錄頁面，增加登錄和後臺訪問驗證"
 
 #: basic-optimize/plugin-config.php:673
 msgid "自动功能"
-msgstr ""
+msgstr "自動功能"
 
 #: basic-optimize/plugin-config.php:674
 msgid "调整 WordPress 文章内容过滤器组件设置"
-msgstr ""
+msgstr "調整 WordPress 文章內容過濾器組件設置"
 
 #: basic-optimize/plugin-config.php:681
 msgid "数据更新"
-msgstr ""
+msgstr "數據更新"
 
 #: basic-optimize/plugin-config.php:682
 msgid "本组件全部功能仅在勾选时生效"
-msgstr ""
+msgstr "本組件全部功能僅在勾選時生效"
 
 #: basic-optimize/plugin-config.php:689
 msgid "重置发布日期"
-msgstr ""
+msgstr "重置發佈日期"
 
 #: basic-optimize/plugin-config.php:690
 msgid "刷新文章发布日期到当前时间"
-msgstr ""
+msgstr "刷新文章發佈日期到當前時間"
 
 #: basic-optimize/plugin-config.php:696
 msgid "自动检索标签"
-msgstr ""
+msgstr "自動檢索標籤"
 
 #: basic-optimize/plugin-config.php:697
 msgid "添加已存在的标签到文章"
-msgstr ""
+msgstr "添加已存在的標籤到文章"
 
 #: basic-optimize/plugin-config.php:698
 msgid "*说明：内部使用 [code]strpos()[/code] 方法检索全部正文，匹配不一定准确"
-msgstr ""
+msgstr "*說明：內部使用 [code]strpos()[/code] 方法檢索全部正文，匹配不一定準確"
 
 #: basic-optimize/plugin-config.php:704
 msgid "格式清理"
-msgstr ""
+msgstr "格式清理"
 
 #: basic-optimize/plugin-config.php:705
 msgid "清理多余 HTML 标签"
-msgstr ""
+msgstr "清理多餘 HTML 標籤"
 
 #: basic-optimize/plugin-config.php:706
 msgid "*说明：清理复制粘贴时带来的 [code]div[/code] 、 [code]span[/code] 等标签和重叠的标签、去除全角空格等"
-msgstr ""
+msgstr "*說明：清理複製粘貼時帶來的 [code]div[/code] 、 [code]span[/code] 等標籤和重疊的標籤、去除全角空格等"
 
 #: basic-optimize/plugin-config.php:712
 msgid "中文排版纠正"
-msgstr ""
+msgstr "中文排版糾正"
 
 #: basic-optimize/plugin-config.php:713
 msgid "执行复杂排版纠正"
-msgstr ""
+msgstr "執行復雜排版糾正"
 
 #: basic-optimize/plugin-config.php:714
 msgid "*说明：此处理器行为在[url=/wp-admin/admin.php?page=aya-options-automatic]设置页面[/url]中控制，此项与格式清理选项互斥"
-msgstr ""
+msgstr "*說明：此處理器行為在[url=/wp-admin/admin.php?page=aya-options-automatic]設置頁面[/url]中控制，此項與格式清理選項互斥"
 
 #: basic-optimize/plugin-config.php:735
 msgid "自定义默认头像"
-msgstr ""
+msgstr "自定義默認頭像"
 
 #: basic-optimize/plugin-config.php:739
 msgid "上传默认头像"
-msgstr ""
+msgstr "上傳默認頭像"
 
 #: basic-optimize/plugin-config.php:740
 msgid "此功能创建了一个新的头像标志，需要在 WP 的 [url="
-msgstr ""
+msgstr "此功能創建了一個新的頭像標誌，需要在 WP 的 [url="
 
 #: basic-optimize/plugin-config.php:746
 msgid "WeAvatar 头像服务"
-msgstr ""
+msgstr "WeAvatar 頭像服務"
 
 #: basic-optimize/plugin-config.php:750
 msgid "使用 WeAvatar 头像"
-msgstr ""
+msgstr "使用 WeAvatar 頭像"
 
 #: basic-optimize/plugin-config.php:751
 msgid "使用 weavatar.com 提供的头像服务替代 Gravatar"
-msgstr ""
+msgstr "使用 weavatar.com 提供的頭像服務替代 Gravatar"
 
 #: basic-optimize/plugin-config.php:757
 msgid "Gravatar 头像加速"
-msgstr ""
+msgstr "Gravatar 頭像加速"
 
 #: basic-optimize/plugin-config.php:761
 msgid "Gravatar 加速"
-msgstr ""
+msgstr "Gravatar 加速"
 
 #: basic-optimize/plugin-config.php:762
 msgid "替换 gravatar.com 头像服务的地址到镜像源，和上一项互斥"
-msgstr ""
+msgstr "替換 gravatar.com 頭像服務的地址到鏡像源，和上一項互斥"
 
 #: basic-optimize/plugin-config.php:768
 msgid "Gravatar 镜像源"
-msgstr ""
+msgstr "Gravatar 鏡像源"
 
 #: basic-optimize/plugin-config.php:769
 msgid "使用 Gravatar 头像服务的镜像源"
-msgstr ""
+msgstr "使用 Gravatar 頭像服務的鏡像源"
 
 #: basic-optimize/plugin-config.php:773
 msgid "Gravatar （官方CN源）"
-msgstr ""
+msgstr "Gravatar （官方CN源）"
 
 #: basic-optimize/plugin-config.php:774
 msgid "七牛 CDN"
-msgstr ""
+msgstr "七牛 CDN"
 
 #: basic-optimize/plugin-config.php:775
 msgid "V2EX CDN"
-msgstr ""
+msgstr "V2EX CDN"
 
-#: basic-optimize/plugin-config.php:776
-#: basic-optimize/plugin-config.php:813
+#: basic-optimize/plugin-config.php:776 basic-optimize/plugin-config.php:813
 msgid "极客族 CDN"
-msgstr ""
+msgstr "極客族 CDN"
 
-#: basic-optimize/plugin-config.php:777
-#: basic-optimize/plugin-config.php:814
+#: basic-optimize/plugin-config.php:777 basic-optimize/plugin-config.php:814
 msgid "LOLI 图床"
-msgstr ""
+msgstr "LOLI 圖床"
 
 #: basic-optimize/plugin-config.php:782
 msgid "自定义镜像"
-msgstr ""
+msgstr "自定義鏡像"
 
 #: basic-optimize/plugin-config.php:783
 msgid "使用自定义 Gravatar 头像服务的镜像源"
-msgstr ""
+msgstr "使用自定義 Gravatar 頭像服務的鏡像源"
 
 #: basic-optimize/plugin-config.php:789
 msgid "强制 HTTPS"
-msgstr ""
+msgstr "強制 HTTPS"
 
 #: basic-optimize/plugin-config.php:790
 msgid "强制头像服务通过 HTTPS 加载"
-msgstr ""
+msgstr "強制頭像服務通過 HTTPS 加載"
 
 #: basic-optimize/plugin-config.php:797
 msgid "字体加速"
-msgstr ""
+msgstr "字體加速"
 
 #: basic-optimize/plugin-config.php:801
 msgid "Google Fonts 字体加速"
-msgstr ""
+msgstr "Google Fonts 字體加速"
 
 #: basic-optimize/plugin-config.php:802
 msgid "使用 Google 字体镜像源"
-msgstr ""
+msgstr "使用 Google 字體鏡像源"
 
 #: basic-optimize/plugin-config.php:808
 msgid "Google Fonts 字体镜像源"
-msgstr ""
+msgstr "Google Fonts 字體鏡像源"
 
 #: basic-optimize/plugin-config.php:809
 msgid "使用 Google 字体的镜像源，加速主题加载"
-msgstr ""
+msgstr "使用 Google 字體的鏡像源，加速主題加載"
 
 #: basic-optimize/plugin-config.php:815
 msgid "中科大 CDN"
-msgstr ""
+msgstr "中科大 CDN"
 
 #: basic-optimize/plugin-config.php:816
 msgid "自定义"
-msgstr ""
+msgstr "自定義"
 
 #: basic-optimize/plugin-config.php:821
 msgid "自定义镜像地址"
-msgstr ""
+msgstr "自定義鏡像地址"
 
 #: basic-optimize/plugin-config.php:822
 msgid "使用自定义 Google 字体的镜像加速服务地址"
-msgstr ""
+msgstr "使用自定義 Google 字體的鏡像加速服務地址"
 
 #: basic-optimize/plugin-config.php:855
 msgid "头像&字体加速"
-msgstr ""
+msgstr "頭像&字體加速"
 
 #: basic-optimize/plugin-config.php:856
 msgid "配置头像、字体通过第三方CDN加速"
-msgstr ""
+msgstr "配置頭像、字體通過第三方CDN加速"
 
 #: basic-optimize/plugin-config.php:869
 msgid "标题选择器"
-msgstr ""
+msgstr "標題選擇器"
 
 #: basic-optimize/plugin-config.php:873
 msgid "*标题选择器只影响head标签内部，即浏览器窗口显示的标题"
-msgstr ""
+msgstr "*標題選擇器隻影響head標籤內部，即瀏覽器窗口顯示的標題"
 
 #: basic-optimize/plugin-config.php:877
 msgid "SEO标题"
-msgstr ""
+msgstr "SEO標題"
 
 #: basic-optimize/plugin-config.php:878
 msgid "留空则默认引用站点设置"
-msgstr ""
+msgstr "留空則默認引用站點設置"
 
 #: basic-optimize/plugin-config.php:884
 msgid "SEO副标题"
-msgstr ""
+msgstr "SEO副標題"
 
 #: basic-optimize/plugin-config.php:885
 msgid "留空则默认引用站点描述设置"
-msgstr ""
+msgstr "留空則默認引用站點描述設置"
 
 #: basic-optimize/plugin-config.php:891
 msgid "显示站点副标题"
-msgstr ""
+msgstr "顯示站點副標題"
 
 #: basic-optimize/plugin-config.php:892
 msgid "是否显示副标题（站点描述）"
-msgstr ""
+msgstr "是否顯示副標題（站點描述）"
 
 #: basic-optimize/plugin-config.php:898
 msgid "标题分隔符"
-msgstr ""
+msgstr "標題分隔符"
 
 #: basic-optimize/plugin-config.php:899
 msgid "设置标题文本的分隔符，默认添加空格补正"
-msgstr ""
+msgstr "設置標題文本的分隔符，默認添加空格補正"
 
 #: basic-optimize/plugin-config.php:903
 msgid "空格\" &nbsp; \""
-msgstr ""
+msgstr "空格\" &nbsp; \""
 
 #: basic-optimize/plugin-config.php:904
 msgid "连字符\" - \""
-msgstr ""
+msgstr "連字符\" - \""
 
 #: basic-optimize/plugin-config.php:905
 msgid "分隔符\" | \""
-msgstr ""
+msgstr "分隔符\" | \""
 
 #: basic-optimize/plugin-config.php:906
 msgid "下划线\"  _ \""
-msgstr ""
+msgstr "下劃線\"  _ \""
 
 #: basic-optimize/plugin-config.php:911
 msgid "SEO设置"
-msgstr ""
+msgstr "SEO設置"
 
 #: basic-optimize/plugin-config.php:915
 msgid "启用SEO组件"
-msgstr ""
+msgstr "啟用SEO組件"
 
 #: basic-optimize/plugin-config.php:916
 msgid "同时启用文章和分类SEO组件，如果使用其他SEO插件则需要禁用此项"
-msgstr ""
+msgstr "同時啟用文章和分類SEO組件，如果使用其他SEO插件則需要禁用此項"
 
 #: basic-optimize/plugin-config.php:922
 msgid "首页SEO关键词"
-msgstr ""
+msgstr "首頁SEO關鍵詞"
 
 #: basic-optimize/plugin-config.php:923
 msgid "添加到首页关键词，仅影响首页"
-msgstr ""
+msgstr "添加到首頁關鍵詞，僅影響首頁"
 
 #: basic-optimize/plugin-config.php:929
 msgid "首页SEO描述"
-msgstr ""
+msgstr "首頁SEO描述"
 
 #: basic-optimize/plugin-config.php:930
 msgid "添加到首页描述，仅影响首页"
-msgstr ""
+msgstr "添加到首頁描述，僅影響首頁"
 
 #: basic-optimize/plugin-config.php:936
 msgid "robots.txt 规则设置"
-msgstr ""
+msgstr "robots.txt 規則設置"
 
 #: basic-optimize/plugin-config.php:940
 msgid "启用 Robots 规则"
-msgstr ""
+msgstr "啟用 Robots 規則"
 
 #: basic-optimize/plugin-config.php:941
 msgid "自定义站点 [code]/robots.txt[/code] 的内容，禁用则引用站点默认设置"
-msgstr ""
+msgstr "自定義站點 [code]/robots.txt[/code] 的內容，禁用則引用站點默認設置"
 
 #: basic-optimize/plugin-config.php:947
 msgid "自定义 robots.txt"
-msgstr ""
+msgstr "自定義 robots.txt"
 
 #: basic-optimize/plugin-config.php:948
 msgid "自定义robots.txt的内容，语法参考：[url=https://www.robotstxt.org/robotstxt.html]robotstxt.org[/url]"
-msgstr ""
+msgstr "自定義robots.txt的內容，語法參考：[url=https://www.robotstxt.org/robotstxt.html]robotstxt.org[/url]"
 
 #: basic-optimize/plugin-config.php:954
 msgid "文本关键词自动替换"
-msgstr ""
+msgstr "文本關鍵詞自動替換"
 
 #: basic-optimize/plugin-config.php:958
 msgid "启用自动替换"
-msgstr ""
+msgstr "啟用自動替換"
 
 #: basic-optimize/plugin-config.php:959
 msgid "用于在文内替换关键词或添加链接，请见下方格式说明[br/]*说明：内部使用 [code]str_replace()[/code] 方法，匹配不一定准确"
-msgstr ""
+msgstr "用於在文內替換關鍵詞或添加鏈接，請見下方格式說明[br/]*說明：內部使用 [code]str_replace()[/code] 方法，匹配不一定準確"
 
 #: basic-optimize/plugin-config.php:965
 msgid "关键词列表"
-msgstr ""
+msgstr "關鍵詞列表"
 
 #: basic-optimize/plugin-config.php:966
 msgid "添加文本替换列表，一行一个，关键词使用 [code]|[/code] 分隔[br/]*格式举例： [code] 站点首页|<a href=\""
-msgstr ""
+msgstr "添加文本替換列表，一行一個，關鍵詞使用 [code]|[/code] 分隔[br/]*格式舉例： [code] 站點首頁|<a href=\""
 
 #: basic-optimize/plugin-config.php:972
 msgid "文本关键词自动内链"
-msgstr ""
+msgstr "文本關鍵詞自動內鏈"
 
 #: basic-optimize/plugin-config.php:976
 msgid "*这是一项SEO站点的常用功能，如果你的站点内容类型非常单一，可以使用此功能"
-msgstr ""
+msgstr "*這是一項SEO站點的常用功能，如果你的站點內容類型非常單一，可以使用此功能"
 
 #: basic-optimize/plugin-config.php:980
 msgid "文内标签自动链接"
-msgstr ""
+msgstr "文內標籤自動鏈接"
 
 #: basic-optimize/plugin-config.php:981
 msgid "自动为正文内匹配到的标签添加超链接[br/]*说明：规则为匹配到标签在文中出现 2 次自动添加链接，只添加 1 次"
-msgstr ""
+msgstr "自動為正文內匹配到的標籤添加超鏈接[br/]*說明：規則為匹配到標籤在文中出現 2 次自動添加鏈接，只添加 1 次"
 
 #: basic-optimize/plugin-config.php:992
 msgid "简单SEO组件，用于自定义页面标题、关键词和描述，以及简单内链功能"
-msgstr ""
+msgstr "簡單SEO組件，用於自定義頁面標題、關鍵詞和描述，以及簡單內鏈功能"
 
-#: basic-optimize/plugin-config.php:1000
-#: basic-optimize/plugin-config.php:1025
+#: basic-optimize/plugin-config.php:1000 basic-optimize/plugin-config.php:1025
 msgid "SEO关键词"
-msgstr ""
+msgstr "SEO關鍵詞"
 
 #: basic-optimize/plugin-config.php:1001
 msgid "多个关键词之间使用 [code], [/code] 分隔，默认显示该分类名称"
-msgstr ""
+msgstr "多個關鍵詞之間使用 [code], [/code] 分隔，默認顯示該分類名稱"
 
-#: basic-optimize/plugin-config.php:1007
-#: basic-optimize/plugin-config.php:1032
+#: basic-optimize/plugin-config.php:1007 basic-optimize/plugin-config.php:1032
 msgid "SEO描述"
-msgstr ""
+msgstr "SEO描述"
 
 #: basic-optimize/plugin-config.php:1008
 msgid "默认显示该分类说明文本"
-msgstr ""
+msgstr "默認顯示該分類說明文本"
 
 #: basic-optimize/plugin-config.php:1017
 msgid "自定义SEO"
-msgstr ""
+msgstr "自定義SEO"
 
 #: basic-optimize/plugin-config.php:1022
 msgid "为文章添加自定义的SEO描述"
-msgstr ""
+msgstr "為文章添加自定義的SEO描述"
 
 #: basic-optimize/plugin-config.php:1026
 msgid "多个关键词之间使用 [code], [/code] 分隔，留空则默认设置为文章的标签"
-msgstr ""
+msgstr "多個關鍵詞之間使用 [code], [/code] 分隔，留空則默認設置為文章的標籤"
 
 #: basic-optimize/plugin-config.php:1033
 msgid "文章页面默认提取全文为前150个字符（描述文本推荐不超过150个字符）"
-msgstr ""
+msgstr "文章頁面默認提取全文為前150個字符（描述文本推薦不超過150個字符）"
 
 #: basic-optimize/plugin-config.php:1053
 msgid "启用 URL 参数验证"
-msgstr ""
+msgstr "啟用 URL 參數驗證"
 
 #: basic-optimize/plugin-config.php:1054
 msgid "屏蔽一些和站点无关的参数访问，也可以用于防止百度统计刷数据"
-msgstr ""
+msgstr "屏蔽一些和站點無關的參數訪問，也可以用於防止百度統計刷數據"
 
 #: basic-optimize/plugin-config.php:1060
 msgid "屏蔽参数关键字"
-msgstr ""
+msgstr "屏蔽參數關鍵字"
 
 #: basic-optimize/plugin-config.php:1061
 msgid "接续上一项设置，填写需要屏蔽的 Url 参数关键字，通过 [code],[/code] 分隔"
-msgstr ""
+msgstr "接續上一項設置，填寫需要屏蔽的 Url 參數關鍵字，通過 [code],[/code] 分隔"
 
 #: basic-optimize/plugin-config.php:1067
 msgid "启用 UA 验证"
-msgstr ""
+msgstr "啟用 UA 驗證"
 
 #: basic-optimize/plugin-config.php:1068
 msgid "屏蔽一些无用的搜索引擎蜘蛛对网站的页面爬取和防御采集器，节约服务器CPU、内存、带宽的开销"
-msgstr ""
+msgstr "屏蔽一些無用的搜索引擎蜘蛛對網站的頁面爬取和防禦採集器，節約服務器CPU、內存、帶寬的開銷"
 
 #: basic-optimize/plugin-config.php:1074
 msgid "屏蔽空 UA"
-msgstr ""
+msgstr "屏蔽空 UA"
 
 #: basic-optimize/plugin-config.php:1075
 msgid "禁止空 USER AGENT 访问，[br/]*大部分采集程序都是空 UA ，部分 SQL 注入工具也是空 UA "
-msgstr ""
+msgstr "禁止空 USER AGENT 訪問，[br/]*大部分採集程序都是空 UA ，部分 SQL 注入工具也是空 UA "
 
 #: basic-optimize/plugin-config.php:1081
 msgid "屏蔽 UA 列表"
-msgstr ""
+msgstr "屏蔽 UA 列表"
 
 #: basic-optimize/plugin-config.php:1082
 msgid "接续上一项设置，填写需要屏蔽的 UA 列表，通过 [code],[/code] 分隔，不区分大小写"
-msgstr ""
+msgstr "接續上一項設置，填寫需要屏蔽的 UA 列表，通過 [code],[/code] 分隔，不區分大小寫"
 
 #: basic-optimize/plugin-config.php:1088
 msgid "启用 IP 验证"
-msgstr ""
+msgstr "啟用 IP 驗證"
 
 #: basic-optimize/plugin-config.php:1089
 msgid "禁止某些 IP 访问，使用黑名单模式"
-msgstr ""
+msgstr "禁止某些 IP 訪問，使用黑名單模式"
 
 #: basic-optimize/plugin-config.php:1095
 msgid "屏蔽 IP 列表"
-msgstr ""
+msgstr "屏蔽 IP 列表"
 
 #: basic-optimize/plugin-config.php:1096
 msgid "接续上一项设置，填写需要屏蔽的 IP 列表，每行一条（支持 IP 段）"
-msgstr ""
+msgstr "接續上一項設置，填寫需要屏蔽的 IP 列表，每行一條（支持 IP 段）"
 
 #: basic-optimize/plugin-config.php:1104
 msgid "WAF模块"
-msgstr ""
+msgstr "WAF模塊"
 
-#: basic-optimize/plugin-config.php:1107
-#: basic-optimize/plugin-config.php:1225
+#: basic-optimize/plugin-config.php:1107 basic-optimize/plugin-config.php:1225
 msgid "基于正则匹配方式的评论过滤组件，阻止垃圾评论"
-msgstr ""
+msgstr "基於正則匹配方式的評論過濾組件，阻止垃圾評論"
 
 #: basic-optimize/plugin-config.php:1119
 msgid "过滤器设置"
-msgstr ""
+msgstr "過濾器設置"
 
 #: basic-optimize/plugin-config.php:1123
 msgid "与 WP 自身的评论过滤器不同，此过滤器工作在站点的评论表单提交时，垃圾评论不会被保存到数据库"
-msgstr ""
+msgstr "與 WP 自身的評論過濾器不同，此過濾器工作在站點的評論表單提交時，垃圾評論不會被保存到數據庫"
 
 #: basic-optimize/plugin-config.php:1136
 msgid "忽略已登录用户的评论"
-msgstr ""
+msgstr "忽略已登錄用戶的評論"
 
 #: basic-optimize/plugin-config.php:1137
 msgid "如果评论用户已登录，则忽略此过滤器"
-msgstr ""
+msgstr "如果評論用戶已登錄，則忽略此過濾器"
 
 #: basic-optimize/plugin-config.php:1143
 msgid "禁止垃圾评论提交到数据库"
-msgstr ""
+msgstr "禁止垃圾評論提交到數據庫"
 
 #: basic-optimize/plugin-config.php:1144
 msgid "使 [url="
-msgstr ""
+msgstr "使 [url="
 
 #: basic-optimize/plugin-config.php:1150
 msgid "排除评论表单网址字段"
-msgstr ""
+msgstr "排除評論表單網址字段"
 
 #: basic-optimize/plugin-config.php:1151
 msgid "使站点评论表单的 url （网址）字段失效，即使模板网址字段可被填写，但不会被提交到数据库"
-msgstr ""
+msgstr "使站點評論表單的 url （網址）字段失效，即使模板網址字段可被填寫，但不會被提交到數據庫"
 
 #: basic-optimize/plugin-config.php:1157
 msgid "评论内容过滤"
-msgstr ""
+msgstr "評論內容過濾"
 
 #: basic-optimize/plugin-config.php:1161
 msgid "排除所有非中文评论"
-msgstr ""
+msgstr "排除所有非中文評論"
 
 #: basic-optimize/plugin-config.php:1162
 msgid "基于 UTF-8 编码检测，排除所有非中文评论"
-msgstr ""
+msgstr "基於 UTF-8 編碼檢測，排除所有非中文評論"
 
 #: basic-optimize/plugin-config.php:1168
 msgid "评论内容字数限制"
-msgstr ""
+msgstr "評論內容字數限制"
 
 #: basic-optimize/plugin-config.php:1169
 msgid "评论内容检测，限制评论内容最少字数"
-msgstr ""
+msgstr "評論內容檢測，限制評論內容最少字數"
 
 #: basic-optimize/plugin-config.php:1175
 msgid "最少字数限制参数"
-msgstr ""
+msgstr "最少字數限制參數"
 
 #: basic-optimize/plugin-config.php:1176
 msgid "计算评论内容字数，默认最少需要 [code]10[/code] 字"
-msgstr ""
+msgstr "計算評論內容字數，默認最少需要 [code]10[/code] 字"
 
 #: basic-optimize/plugin-config.php:1182
 msgid "评论链接限制"
-msgstr ""
+msgstr "評論鏈接限制"
 
 #: basic-optimize/plugin-config.php:1183
 msgid "评论内容检测，限制评论内容最多出现几个链接"
-msgstr ""
+msgstr "評論內容檢測，限制評論內容最多出現幾個鏈接"
 
 #: basic-optimize/plugin-config.php:1189
 msgid "链接限制计数参数"
-msgstr ""
+msgstr "鏈接限制計數參數"
 
 #: basic-optimize/plugin-config.php:1190
 msgid "计算评论内容链接数量，默认最多允许出现 [code]2[/code] 个链接"
-msgstr ""
+msgstr "計算評論內容鏈接數量，默認最多允許出現 [code]2[/code] 個鏈接"
 
 #: basic-optimize/plugin-config.php:1196
 msgid "自定义过滤器"
-msgstr ""
+msgstr "自定義過濾器"
 
 #: basic-optimize/plugin-config.php:1200
 msgid "启用自定义正则"
-msgstr ""
+msgstr "啟用自定義正則"
 
 #: basic-optimize/plugin-config.php:1201
 msgid "使用正则表达式过滤评论列表，匹配成功时自动过滤，[b]如果不了解正则语法，请勿使用[/b]"
-msgstr ""
+msgstr "使用正則表達式過濾評論列表，匹配成功時自動過濾，[b]如果不瞭解正則語法，請勿使用[/b]"
 
 #: basic-optimize/plugin-config.php:1207
 msgid "表达式列表"
-msgstr ""
+msgstr "表達式列表"
 
 #: basic-optimize/plugin-config.php:1208
 msgid ""
@@ -1569,723 +1566,714 @@ msgid ""
 "            [br/][code]/\\b(viagra|casino|loan|sex)\\b/i[/code] 匹配英文关键词\r\n"
 "            [br/][code]/\\p{Han}{3}\\d{3}/u[/code] 匹配类似 \"关键词123\" 的引流类关键词"
 msgstr ""
+"一行一個，順序執行。常用語法：\r\n"
+"            [br/][code]/\\d{10,}/[/code] 匹配 10 位以上數字（常見電話號碼）\r\n"
+"            [br/][code]/[A-Z]{10,}/[/code] 匹配 10 位以上大寫字母\r\n"
+"            [br/][code]/[!@#$%^&*]{5,}/[/code] 匹配 5 個以上連續特殊符號\r\n"
+"            [br/][code]/\\p{So}{5,}/u[/code] 匹配特殊符號（如 emoji）\r\n"
+"            [br/][code]/代刷|文憑|菠菜|辦理|代理|棋牌|包過/iu[/code] 匹配中文關鍵詞\r\n"
+"            [br/][code]/\\b(viagra|casino|loan|sex)\\b/i[/code] 匹配英文關鍵詞\r\n"
+"            [br/][code]/\\p{Han}{3}\\d{3}/u[/code] 匹配類似 \"關鍵詞123\" 的引流類關鍵詞"
 
 #: basic-optimize/plugin-config.php:1224
 msgid "评论过滤"
-msgstr ""
+msgstr "評論過濾"
 
 #: basic-optimize/plugin-config.php:1239
 msgid "统计代码"
-msgstr ""
+msgstr "統計代碼"
 
 #: basic-optimize/plugin-config.php:1243
 msgid "Google Analytics（分析）"
-msgstr ""
+msgstr "Google Analytics（分析）"
 
 #: basic-optimize/plugin-config.php:1250
 msgid "插入代码"
-msgstr ""
+msgstr "插入代碼"
 
 #: basic-optimize/plugin-config.php:1254
 msgid "额外JS"
-msgstr ""
+msgstr "額外JS"
 
 #: basic-optimize/plugin-config.php:1267
 msgid "插入样式"
-msgstr ""
+msgstr "插入樣式"
 
 #: basic-optimize/plugin-config.php:1271
 msgid "额外CSS"
-msgstr ""
+msgstr "額外CSS"
 
 #: basic-optimize/plugin-config.php:1289
 msgid "为网站前台添加图标，额外样式和统计代码"
-msgstr ""
+msgstr "為網站前臺添加圖標，額外樣式和統計代碼"
 
 #: basic-optimize/plugin-config.php:1301
 msgid "新用户注册通知"
-msgstr ""
+msgstr "新用戶註冊通知"
 
 #: basic-optimize/plugin-config.php:1305
 msgid "禁止通知站长"
-msgstr ""
+msgstr "禁止通知站長"
 
 #: basic-optimize/plugin-config.php:1312
 msgid "禁止通知用户"
-msgstr ""
+msgstr "禁止通知用戶"
 
-#: basic-optimize/plugin-config.php:1319
-#: basic-optimize/plugin-config.php:1337
+#: basic-optimize/plugin-config.php:1319 basic-optimize/plugin-config.php:1337
 msgid "SMTP 服务器"
-msgstr ""
+msgstr "SMTP 服務器"
 
 #: basic-optimize/plugin-config.php:1323
 msgid "发件邮箱"
-msgstr ""
+msgstr "發件郵箱"
 
 #: basic-optimize/plugin-config.php:1330
 msgid "发件人"
-msgstr ""
+msgstr "發件人"
 
 #: basic-optimize/plugin-config.php:1344
 msgid "SMTP 端口"
-msgstr ""
+msgstr "SMTP 端口"
 
 #: basic-optimize/plugin-config.php:1351
 msgid "加密方式"
-msgstr ""
+msgstr "加密方式"
 
 #: basic-optimize/plugin-config.php:1356
 msgid "SSL认证"
-msgstr ""
+msgstr "SSL認證"
 
 #: basic-optimize/plugin-config.php:1357
 msgid "TLS认证"
-msgstr ""
+msgstr "TLS認證"
 
-#: basic-optimize/plugin-config.php:1358
-#: image-manager/setup.php:69
+#: basic-optimize/plugin-config.php:1358 image-manager/setup.php:69
 msgid "禁用"
-msgstr ""
+msgstr "禁用"
 
 #: basic-optimize/plugin-config.php:1363
 msgid "用户认证"
-msgstr ""
+msgstr "用戶認證"
 
 #: basic-optimize/plugin-config.php:1370
 msgid "用户名"
-msgstr ""
+msgstr "用戶名"
 
 #: basic-optimize/plugin-config.php:1377
 msgid "密码"
-msgstr ""
+msgstr "密碼"
 
 #: basic-optimize/plugin-config.php:1384
 msgid "禁用SSL证书验证"
-msgstr ""
+msgstr "禁用SSL證書驗證"
 
 #: basic-optimize/plugin-config.php:1385
 msgid "使用此选项以禁用PHP默认的 SSL 证书配置验证，如果可选，你应该让你的主机修复 SSL 配置而不是绕过它"
-msgstr ""
+msgstr "使用此選項以禁用PHP默認的 SSL 證書配置驗證，如果可選，你應該讓你的主機修復 SSL 配置而不是繞過它"
 
 #: basic-optimize/plugin-config.php:1393
 msgid "SMTP 邮件发信"
-msgstr ""
+msgstr "SMTP 郵件發信"
 
 #: basic-optimize/plugin-config.php:1396
 msgid "使用SMTP发送邮件"
-msgstr ""
+msgstr "使用SMTP發送郵件"
 
 #: basic-optimize/plugin-config.php:1436
 msgid "短代码列表"
-msgstr ""
+msgstr "短代碼列表"
 
 #: basic-optimize/plugin-config.php:1439
 msgid "列出当前主题支持的全部短代码功能（ Shortcode 字段），并列出回调函数"
-msgstr ""
+msgstr "列出當前主題支持的全部短代碼功能（ Shortcode 字段），並列出回調函數"
 
 #: basic-optimize/plugin-config.php:1452
 msgid "固定链接列表"
-msgstr ""
+msgstr "固定鏈接列表"
 
 #: basic-optimize/plugin-config.php:1455
 msgid "列出当前主题支持的全部固定链接（ Rewrite 规则）和查询方法"
-msgstr ""
+msgstr "列出當前主題支持的全部固定鏈接（ Rewrite 規則）和查詢方法"
 
 #: classic-editor-modify/setup.php:23
 msgid "编辑器拓展"
-msgstr ""
+msgstr "編輯器拓展"
 
 #: classic-editor-modify/setup.php:27
 msgid "经典编辑器按钮重排"
-msgstr ""
+msgstr "經典編輯器按鈕重排"
 
 #: classic-editor-modify/setup.php:28
 msgid "拓展插件，重排经典编辑器（TinyMCE）按钮、增加表格、标签清理等功能"
-msgstr ""
+msgstr "拓展插件，重排經典編輯器（TinyMCE）按鈕、增加表格、標籤清理等功能"
 
 #: classic-editor-modify/setup.php:34
 msgid "经典编辑器自动上传"
-msgstr ""
+msgstr "經典編輯器自動上傳"
 
 #: classic-editor-modify/setup.php:35
 msgid "拓展插件，将粘贴在编辑器的本地图片自动上传到媒体库"
-msgstr ""
+msgstr "拓展插件，將粘貼在編輯器的本地圖片自動上傳到媒體庫"
 
 #: classic-editor-modify/setup.php:41
 msgid "作者选择器角色过滤"
-msgstr ""
+msgstr "作者選擇器角色過濾"
 
 #: classic-editor-modify/setup.php:42
 msgid "拓展插件，作者选择器只显示作者及以上角色的用户"
-msgstr ""
+msgstr "拓展插件，作者選擇器只顯示作者及以上角色的用戶"
 
 #: classic-editor-modify/setup.php:48
 msgid "显示所有标签"
-msgstr ""
+msgstr "顯示所有標籤"
 
 #: classic-editor-modify/setup.php:49
 msgid "拓展插件，标签选择器显示所有标签（WP默认为显示前45个）"
-msgstr ""
+msgstr "拓展插件，標籤選擇器顯示所有標籤（WP默認為顯示前45個）"
 
 #: framework-required/inc/fields/action_checkbox.php:29
 msgid "执行本次操作"
-msgstr ""
+msgstr "執行本次操作"
 
 #: framework-required/inc/fields/group.php:24
 msgid "设置组字段参数 \"sub_type\" 不存在。"
-msgstr ""
+msgstr "設置組字段參數 \"sub_type\" 不存在。"
 
 #: framework-required/inc/fields/group.php:45
 msgid "无法在一次循环中多次创建设置组。"
-msgstr ""
+msgstr "無法在一次循環中多次創建設置組。"
 
 #: framework-required/inc/fields/group_mult.php:56
 #: framework-required/inc/fields/group_mult.php:88
 msgid "删除"
-msgstr ""
+msgstr "刪除"
 
 #: framework-required/inc/fields/group_mult.php:72
 msgid "此字段无法生成重复创建。"
-msgstr ""
+msgstr "此字段無法生成重複創建。"
 
 #: framework-required/inc/fields/group_mult.php:92
 msgid "新增"
-msgstr ""
+msgstr "新增"
 
 #: framework-required/inc/fields/upload.php:35
 msgid "上传"
-msgstr ""
+msgstr "上傳"
 
 #: framework-required/inc/framework-build-fields.php:70
 msgid "字段参数 \"type\" 不存在："
-msgstr ""
+msgstr "字段參數 \"type\" 不存在："
 
 #: framework-required/inc/framework-build-fields.php:74
 msgid "字段参数 \"id\" 不存在："
-msgstr ""
+msgstr "字段參數 \"id\" 不存在："
 
 #: framework-required/inc/framework-build-fields.php:219
 msgid "只允许使用字母和空格"
-msgstr ""
+msgstr "只允許使用字母和空格"
 
 #: framework-required/inc/framework-build-fields.php:223
 msgid "只允许邮箱地址"
-msgstr ""
+msgstr "只允許郵箱地址"
 
 #: framework-required/inc/framework-build-fields.php:227
 msgid "只允许URL地址"
-msgstr ""
+msgstr "只允許URL地址"
 
 #: framework-required/inc/framework-build-fields.php:231
 msgid "只允许数字"
-msgstr ""
+msgstr "只允許數字"
 
 #: framework-required/inc/framework-build-fields.php:235
 msgid "不能为空"
-msgstr ""
+msgstr "不能為空"
 
 #: framework-required/inc/framework-option-page.php:55
 #: framework-required/inc/framework-option-page.php:56
 msgid "设置"
-msgstr ""
+msgstr "設置"
 
 #: framework-required/inc/framework-option-page.php:220
 msgid "已重置所有设置。"
-msgstr ""
+msgstr "已重置所有設置。"
 
 #: framework-required/inc/framework-option-page.php:279
 msgid "设置已保存。"
-msgstr ""
+msgstr "設置已保存。"
 
 #: framework-required/inc/framework-option-page.php:282
 msgid "没有设置被修改。"
-msgstr ""
+msgstr "沒有設置被修改。"
 
 #: framework-required/inc/framework-option-page.php:339
 msgid "保存更改"
-msgstr ""
+msgstr "保存更改"
 
 #: framework-required/inc/framework-option-page.php:340
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:93
 msgid "重置"
-msgstr ""
+msgstr "重置"
 
 #: framework-required/plugin/check-php-env.php:33
 #, php-format
 msgid "您正在使用过时的PHP版本<code>%s</code>， AIYA-Framework 拓展 主题需要PHP版本大于<code>%s</code>才能完整使用全部功能，请升级PHP版本。"
-msgstr ""
+msgstr "您正在使用過時的PHP版本<code>%s</code>， AIYA-Framework 拓展 主題需要PHP版本大於<code>%s</code>才能完整使用全部功能，請升級PHP版本。"
 
 #: framework-required/plugin/check-php-env.php:57
 #, php-format
 msgid "您的PHP缺少扩展%s，缺少这些扩展可能导致部分功能无法使用，请及时安装这些扩展。"
-msgstr ""
+msgstr "您的PHP缺少擴展%s，缺少這些擴展可能導致部分功能無法使用，請及時安裝這些擴展。"
 
 #: framework-required/plugin/check-php-env.php:76
 #, php-format
 msgid "请升级 WordPress 到%s以上版本。"
-msgstr ""
+msgstr "請升級 WordPress 到%s以上版本。"
 
 #: framework-required/plugin/check-plugin-active.php:59
 #, php-format
 msgid "请启用 %s 插件以确保主题功能正常。"
-msgstr ""
+msgstr "請啟用 %s 插件以確保主題功能正常。"
 
 #: framework-required/plugin/handle-rest-api.php:68
 msgid "参数验证失败"
-msgstr ""
+msgstr "參數驗證失敗"
 
 #: framework-required/plugin/handle-rest-api.php:73
 msgid "没有访问权限"
-msgstr ""
+msgstr "沒有訪問權限"
 
 #: framework-required/plugin/handle-rest-api.php:78
 msgid "资源不存在"
-msgstr ""
+msgstr "資源不存在"
 
 #: framework-required/plugin/handle-widget-bulider.php:180
 msgid "移动端不显示这个小工具"
-msgstr ""
+msgstr "移動端不顯示這個小工具"
 
 #: framework-required/plugin/module-shortcode-manager.php:118
 msgid "简码编辑器"
-msgstr ""
+msgstr "簡碼編輯器"
 
 #: framework-required/plugin/module-shortcode-manager.php:141
 msgid "选择…"
-msgstr ""
+msgstr "選擇…"
 
 #: framework-required/plugin/module-shortcode-manager.php:143
 msgid "NULL"
-msgstr ""
+msgstr "NULL"
 
 #: framework-required/plugin/module-shortcode-manager.php:177
 msgid "添加"
-msgstr ""
+msgstr "添加"
 
 #: framework-required/plugin/module-shortcode-manager.php:178
 msgid "取消"
-msgstr ""
+msgstr "取消"
 
 #: framework-required/plugin/register-theme-post-type.php:80
 #: framework-required/plugin/register-theme-post-type.php:81
 msgid "发表"
-msgstr ""
+msgstr "發表"
 
 #: framework-required/plugin/register-theme-post-type.php:83
 #: framework-required/plugin/register-theme-taxonomy.php:59
 msgid "新"
-msgstr ""
+msgstr "新"
 
 #: framework-required/plugin/register-theme-post-type.php:84
 msgid "查看"
-msgstr ""
+msgstr "查看"
 
 #: framework-required/plugin/register-theme-post-type.php:85
 #: framework-required/plugin/register-theme-taxonomy.php:52
 msgid "搜索"
-msgstr ""
+msgstr "搜索"
 
 #: framework-required/plugin/register-theme-post-type.php:86
 msgid "暂无"
-msgstr ""
+msgstr "暫無"
 
 #: framework-required/plugin/register-theme-post-type.php:87
 msgid "没有已删除的"
-msgstr ""
+msgstr "沒有已刪除的"
 
 #: framework-required/plugin/register-theme-sidebar.php:48
 msgid "小工具"
-msgstr ""
+msgstr "小工具"
 
 #: framework-required/plugin/register-theme-taxonomy.php:53
 msgid "所有"
-msgstr ""
+msgstr "所有"
 
 #: framework-required/plugin/register-theme-taxonomy.php:54
 #: framework-required/plugin/register-theme-taxonomy.php:55
 msgid "父级"
-msgstr ""
+msgstr "父級"
 
 #: framework-required/plugin/register-theme-taxonomy.php:57
 msgid "更新"
-msgstr ""
+msgstr "更新"
 
 #: framework-required/plugin/register-theme-taxonomy.php:58
 msgid "添加新"
-msgstr ""
+msgstr "添加新"
 
 #: framework-required/plugin/register-theme-taxonomy.php:59
 msgid "名称"
-msgstr ""
+msgstr "名稱"
 
 #: functions.php:56
 msgid "拓展功能"
-msgstr ""
+msgstr "拓展功能"
 
 #: functions.php:59
 msgid "AIYA-CMS 主题，额外组件设置"
-msgstr ""
+msgstr "AIYA-CMS 主題，額外組件設置"
 
 #: image-manager/post-cover-generator.php:116
 msgid "文章封面"
-msgstr ""
+msgstr "文章封面"
 
 #: image-manager/post-cover-generator.php:141
 msgid "为文章生成封面"
-msgstr ""
+msgstr "為文章生成封面"
 
 #: image-manager/post-cover-generator.php:144
 msgid "封面模式"
-msgstr ""
+msgstr "封面模式"
 
 #: image-manager/post-cover-generator.php:146
 msgid "使用封面"
-msgstr ""
+msgstr "使用封面"
 
 #: image-manager/post-cover-generator.php:147
 msgid "图案生成"
-msgstr ""
+msgstr "圖案生成"
 
 #: image-manager/post-cover-generator.php:149
 msgid "标题"
-msgstr ""
+msgstr "標題"
 
 #: image-manager/post-cover-generator.php:151
 msgid "背景色"
-msgstr ""
+msgstr "背景色"
 
 #: image-manager/post-cover-generator.php:153
 msgid "标题颜色"
-msgstr ""
+msgstr "標題顏色"
 
 #: image-manager/post-cover-generator.php:155
 msgid "生成封面"
-msgstr ""
+msgstr "生成封面"
 
 #: image-manager/post-cover-generator.php:196
 msgid "安全校验失败"
-msgstr ""
+msgstr "安全校驗失敗"
 
 #: image-manager/post-cover-generator.php:201
 msgid "无权限操作"
-msgstr ""
+msgstr "無權限操作"
 
 #: image-manager/post-cover-generator.php:206
 msgid "文章不存在"
-msgstr ""
+msgstr "文章不存在"
 
 #: image-manager/post-cover-generator.php:249
 msgid "封面生成失败"
-msgstr ""
+msgstr "封面生成失敗"
 
 #: image-manager/post-cover-generator.php:253
 msgid "封面 URL 解析失败"
-msgstr ""
+msgstr "封面 URL 解析失敗"
 
 #: image-manager/post-cover-generator.php:265
 msgid "封面已生成"
-msgstr ""
+msgstr "封面已生成"
 
 #: image-manager/setup.php:23
 msgid "图片处理器配置"
-msgstr ""
+msgstr "圖片處理器配置"
 
 #: image-manager/setup.php:27
 msgid "接管媒体库"
-msgstr ""
+msgstr "接管媒體庫"
 
 #: image-manager/setup.php:28
 msgid "使用主题提供的图片处理器接管 WordPress 默认的图片处理功能"
-msgstr ""
+msgstr "使用主題提供的圖片處理器接管 WordPress 默認的圖片處理功能"
 
 #: image-manager/setup.php:34
 msgid "注意：如果你的 PHP 环境没有安装 libwebp 库或 libavif 库，无法使用对应格式保存图片"
-msgstr ""
+msgstr "注意：如果你的 PHP 環境沒有安裝 libwebp 庫或 libavif 庫，無法使用對應格式保存圖片"
 
 #: image-manager/setup.php:38
 msgid "使用格式转换"
-msgstr ""
+msgstr "使用格式轉換"
 
 #: image-manager/setup.php:39
 msgid "使用 WebP 或 AVIF 格式保存图片，提高加载速度"
-msgstr ""
+msgstr "使用 WebP 或 AVIF 格式保存圖片，提高加載速度"
 
 #: image-manager/setup.php:43
 msgid "保持原格式"
-msgstr ""
+msgstr "保持原格式"
 
 #: image-manager/setup.php:44
 msgid "WebP 格式"
-msgstr ""
+msgstr "WebP 格式"
 
 #: image-manager/setup.php:45
 msgid "AVIF 格式"
-msgstr ""
+msgstr "AVIF 格式"
 
 #: image-manager/setup.php:50
 msgid "图片最大宽度限制"
-msgstr ""
+msgstr "圖片最大寬度限制"
 
 #: image-manager/setup.php:51
 msgid "图片上传的最大宽度，超过宽度会被缩放，设置为 0 则不限制"
-msgstr ""
+msgstr "圖片上傳的最大寬度，超過寬度會被縮放，設置為 0 則不限制"
 
 #: image-manager/setup.php:57
 msgid "图片保存质量"
-msgstr ""
+msgstr "圖片保存質量"
 
 #: image-manager/setup.php:58
 msgid "图片保存时的质量，范围 0-100"
-msgstr ""
+msgstr "圖片保存時的質量，範圍 0-100"
 
 #: image-manager/setup.php:64
 msgid "水印开关"
-msgstr ""
+msgstr "水印開關"
 
 #: image-manager/setup.php:65
 msgid "使用图片或文本为图片叠加水印"
-msgstr ""
+msgstr "使用圖片或文本為圖片疊加水印"
 
 #: image-manager/setup.php:70
 msgid "图片"
-msgstr ""
+msgstr "圖片"
 
 #: image-manager/setup.php:71
 msgid "文本"
-msgstr ""
+msgstr "文本"
 
 #: image-manager/setup.php:76
 msgid "水印位置"
-msgstr ""
+msgstr "水印位置"
 
 #: image-manager/setup.php:77
 msgid "水印在图片上的位置"
-msgstr ""
+msgstr "水印在圖片上的位置"
 
 #: image-manager/setup.php:81
 msgid "居中"
-msgstr ""
+msgstr "居中"
 
 #: image-manager/setup.php:82
 msgid "居中左侧"
-msgstr ""
+msgstr "居中左側"
 
 #: image-manager/setup.php:83
 msgid "居中右侧"
-msgstr ""
+msgstr "居中右側"
 
 #: image-manager/setup.php:84
 msgid "居中顶部"
-msgstr ""
+msgstr "居中頂部"
 
 #: image-manager/setup.php:85
 msgid "居中底部"
-msgstr ""
+msgstr "居中底部"
 
 #: image-manager/setup.php:86
 msgid "顶部右侧"
-msgstr ""
+msgstr "頂部右側"
 
 #: image-manager/setup.php:87
 msgid "顶部左侧"
-msgstr ""
+msgstr "頂部左側"
 
 #: image-manager/setup.php:88
 msgid "顶部居中"
-msgstr ""
+msgstr "頂部居中"
 
 #: image-manager/setup.php:89
 msgid "底部右侧"
-msgstr ""
+msgstr "底部右側"
 
 #: image-manager/setup.php:90
 msgid "底部左侧"
-msgstr ""
+msgstr "底部左側"
 
 #: image-manager/setup.php:91
 msgid "底部居中"
-msgstr ""
+msgstr "底部居中"
 
 #: image-manager/setup.php:96
 msgid "水印图片文件"
-msgstr ""
+msgstr "水印圖片文件"
 
 #: image-manager/setup.php:97
 msgid "如果使用图片创建水印，需要上传图片文件（使用绝对路径）"
-msgstr ""
+msgstr "如果使用圖片創建水印，需要上傳圖片文件（使用絕對路徑）"
 
 #: image-manager/setup.php:103
 msgid "水印字体文件"
-msgstr ""
+msgstr "水印字體文件"
 
 #: image-manager/setup.php:104
 msgid "如果使用文本创建水印，需要上传字体文件（使用绝对路径）"
-msgstr ""
+msgstr "如果使用文本創建水印，需要上傳字體文件（使用絕對路徑）"
 
 #: image-manager/setup.php:116
 msgid "水印文本"
-msgstr ""
+msgstr "水印文本"
 
 #: image-manager/setup.php:117
 msgid "水印显示的文本"
-msgstr ""
+msgstr "水印顯示的文本"
 
 #: image-manager/setup.php:123
 msgid "水印字体大小"
-msgstr ""
+msgstr "水印字體大小"
 
 #: image-manager/setup.php:124
 msgid "水印字体的大小"
-msgstr ""
+msgstr "水印字體的大小"
 
 #: image-manager/setup.php:130
 msgid "水印透明度"
-msgstr ""
+msgstr "水印透明度"
 
 #: image-manager/setup.php:131
 msgid "水印的透明度，范围 0-100，100 表示完全透明，0 表示完全不透明"
-msgstr ""
+msgstr "水印的透明度，範圍 0-100，100 表示完全透明，0 表示完全不透明"
 
 #: image-manager/setup.php:398
 msgid "图片处理失败，已取消上传"
-msgstr ""
+msgstr "圖片處理失敗，已取消上傳"
 
-#: internal-pic-bed/setup.php:23
-#: internal-pic-bed/setup.php:27
+#: internal-pic-bed/setup.php:23 internal-pic-bed/setup.php:27
 msgid "简图片床插件"
-msgstr ""
+msgstr "簡圖片床插件"
 
 #: internal-pic-bed/setup.php:28
 msgid "拓展插件，在后台加载一个独立的图床组件，用于不通过 WP 媒体库直接上传图片到服务器"
-msgstr ""
-
-#: internal-pic-bed/setup.php:52
-#: internal-pic-bed/upload/pic-upload.php:16
-msgid "上传图片"
-msgstr ""
-
-#: internal-pic-bed/setup.php:52
-msgid "简码图床"
-msgstr ""
-
-#: internal-pic-bed/setup.php:53
-msgid "查看上传"
-msgstr ""
-
-#: internal-pic-bed/setup.php:53
-msgid "图片列表"
-msgstr ""
+msgstr "拓展插件，在後臺加載一個獨立的圖床組件，用於不通過 WP 媒體庫直接上傳圖片到服務器"
 
 #: internal-pic-bed/setup.php:169
 msgid "无效请求"
-msgstr ""
+msgstr "無效請求"
 
 #: internal-pic-bed/setup.php:173
 msgid "权限不足"
-msgstr ""
+msgstr "權限不足"
 
 #: internal-pic-bed/setup.php:178
 msgid "仅支持上传图片文件。"
-msgstr ""
+msgstr "僅支持上傳圖片文件。"
 
 #: internal-pic-bed/setup.php:184
 msgid "非法操作"
-msgstr ""
+msgstr "非法操作"
 
-#: internal-pic-bed/setup.php:193
-#: internal-pic-bed/setup.php:197
+#: internal-pic-bed/setup.php:193 internal-pic-bed/setup.php:197
 #: internal-pic-bed/setup.php:205
 msgid "上传文件无效"
-msgstr ""
+msgstr "上傳文件無效"
 
 #: internal-pic-bed/setup.php:201
 msgid "上传错误 "
-msgstr ""
+msgstr "上傳錯誤 "
 
 #: internal-pic-bed/setup.php:209
 msgid "文件过大"
-msgstr ""
+msgstr "文件過大"
 
 #: internal-pic-bed/setup.php:229
 msgid "不支持的文件类型"
-msgstr ""
+msgstr "不支持的文件類型"
 
 #: internal-pic-bed/setup.php:245
 msgid "无文件权限"
-msgstr ""
+msgstr "無文件權限"
 
 #: internal-pic-bed/setup.php:251
 msgid "图片处理器错误"
-msgstr ""
+msgstr "圖片處理器錯誤"
 
 #: internal-pic-bed/setup.php:297
 msgid "位置"
-msgstr ""
+msgstr "位置"
 
 #: internal-pic-bed/setup.php:302
 msgid "根目录"
-msgstr ""
+msgstr "根目錄"
 
 #: internal-pic-bed/setup.php:325
 msgid "图片文件不存在"
-msgstr ""
+msgstr "圖片文件不存在"
 
 #: internal-pic-bed/setup.php:335
 msgid "图片地址生成失败"
-msgstr ""
+msgstr "圖片地址生成失敗"
+
+#: internal-pic-bed/upload/pic-upload.php:16
+msgid "上传图片"
+msgstr "上傳圖片"
 
 #: internal-pic-bed/upload/pic-upload.php:21
 msgid "支持 JPEG、PNG、BMP、GIF、WebP、AVIF 格式，最大 <?php echo AYA_SimplePicBed::$upload_max_size; ?>MB"
-msgstr ""
+msgstr "支持 JPEG、PNG、BMP、GIF、WebP、AVIF 格式，最大 <?php echo AYA_SimplePicBed::$upload_max_size; ?>MB"
 
 #: internal-pic-bed/upload/pic-upload.php:31
 msgid "上传图片预览"
-msgstr ""
+msgstr "上傳圖片預覽"
 
 #: internal-pic-bed/upload/pic-upload.php:41
 msgid "上传图片信息"
-msgstr ""
+msgstr "上傳圖片信息"
 
 #: internal-pic-bed/upload/pic-upload.php:44
 msgid "图片尺寸"
-msgstr ""
+msgstr "圖片尺寸"
 
 #: internal-pic-bed/upload/pic-upload.php:48
 msgid "图片类型"
-msgstr ""
+msgstr "圖片類型"
 
 #: internal-pic-bed/upload/pic-upload.php:53
 msgid "图片保存路径"
-msgstr ""
+msgstr "圖片保存路徑"
 
 #: internal-pic-bed/upload/pic-upload.php:59
 msgid "图片保存URL"
-msgstr ""
+msgstr "圖片保存URL"
 
 #: internal-pic-bed/upload/pic-upload.php:65
 msgid "图片短代码"
-msgstr ""
+msgstr "圖片短代碼"
 
 #: internal-pic-bed/upload/pic-upload.php:71
 msgid "图片HTML代码"
-msgstr ""
+msgstr "圖片HTML代碼"
 
 #: internal-pic-bed/upload/pic-viewer.php:9
 msgid "已上传的图片"
-msgstr ""
+msgstr "已上傳的圖片"
 
 #: multi-domain/setup.php:23
 msgid "多域名插件"
-msgstr ""
+msgstr "多域名插件"
 
 #: multi-domain/setup.php:27
 msgid "前台多域名"
-msgstr ""
+msgstr "前臺多域名"
 
 #: multi-domain/setup.php:28
 msgid "拓展插件，操作 WP 过滤器使站点前台可以使用多个域名，请填[b]不包含[/b] http:// 头的完整域名（不支持通配符），以 [code],[/code] 分隔"
-msgstr ""
+msgstr "拓展插件，操作 WP 過濾器使站點前臺可以使用多個域名，請填[b]不包含[/b] http:// 頭的完整域名（不支持通配符），以 [code],[/code] 分隔"
 
 #: patch-flow-hub-post/hub-rest-api.php:18
 #: patch-flow-hub-post/hub-rest-api.php:82
@@ -2293,330 +2281,330 @@ msgstr ""
 #: patch-flow-hub-post/hub-rest-api.php:152
 #: patch-flow-hub-post/hub-rest-api.php:213
 msgid "安全验证失败，请刷新页面后重试"
-msgstr ""
+msgstr "安全驗證失敗，請刷新頁面後重試"
 
 #: patch-flow-hub-post/templates/admin-management-page.php:18
 msgid "AIYA-Flow-Hub 留言板管理"
-msgstr ""
+msgstr "AIYA-Flow-Hub 留言板管理"
 
 #: patch-flow-hub-post/templates/admin-management-page.php:22
 msgid "帖子列表"
-msgstr ""
+msgstr "帖子列表"
 
 #: patch-flow-hub-post/templates/admin-management-page.php:26
 msgid "编辑帖子"
-msgstr ""
+msgstr "編輯帖子"
 
 #: patch-flow-hub-post/templates/admin-management-page.php:30
 msgid "发帖"
-msgstr ""
+msgstr "發帖"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:13
 msgid "帖子内容"
-msgstr ""
+msgstr "帖子內容"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:15
 msgid "帖子内容可以使用 #标签名# 格式添加标签，例如: #新闻# #活动#"
-msgstr ""
+msgstr "帖子內容可以使用 #標籤名# 格式添加標籤，例如: #新聞# #活動#"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:18
 msgid "发布状态"
-msgstr ""
+msgstr "發佈狀態"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:20
 msgid "发布状态-立即发布"
-msgstr ""
+msgstr "發佈狀態-立即發佈"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:21
 msgid "发布状态-待审核"
-msgstr ""
+msgstr "發佈狀態-待審核"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:22
 msgid "发布状态-草稿"
-msgstr ""
+msgstr "發佈狀態-草稿"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:23
 msgid "发布状态-放入回收站"
-msgstr ""
+msgstr "發佈狀態-放入回收站"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:29
 msgid "关闭评论功能"
-msgstr ""
+msgstr "關閉評論功能"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:31
 msgid "关闭评论功能后，选中此项后，用户将无法对此帖子发表评论"
-msgstr ""
+msgstr "關閉評論功能後，選中此項後，用戶將無法對此帖子發表評論"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:34
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:91
 msgid "发布帖子"
-msgstr ""
+msgstr "發佈帖子"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:50
 msgid "帖子内容不能为空"
-msgstr ""
+msgstr "帖子內容不能為空"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:55
 msgid "正在发布..."
-msgstr ""
+msgstr "正在發佈..."
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:76
 #, php-format
 msgid "帖子发布成功！帖子ID: %s"
-msgstr ""
+msgstr "帖子發佈成功！帖子ID: %s"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:78
 msgid "发布成功，但返回数据异常"
-msgstr ""
+msgstr "發佈成功，但返回數據異常"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:82
 msgid "发布失败:"
-msgstr ""
+msgstr "發佈失敗:"
 
 #: patch-flow-hub-post/templates/subpage-hub-new-post.php:83
 msgid "发布失败，请重试"
-msgstr ""
+msgstr "發佈失敗，請重試"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:17
 msgid "已发布"
-msgstr ""
+msgstr "已發佈"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:18
 msgid "待审核"
-msgstr ""
+msgstr "待審核"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:19
 msgid "草稿"
-msgstr ""
+msgstr "草稿"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:20
 msgid "回收站"
-msgstr ""
+msgstr "回收站"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:25
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:105
 msgid "发布时间"
-msgstr ""
+msgstr "發佈時間"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:26
 msgid "更新时间"
-msgstr ""
+msgstr "更新時間"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:27
 msgid "点赞数"
-msgstr ""
+msgstr "點贊數"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:28
 msgid "点踩数"
-msgstr ""
+msgstr "點踩數"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:29
 msgid "评论数"
-msgstr ""
+msgstr "評論數"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:46
 msgid "搜索帖子内容..."
-msgstr ""
+msgstr "搜索帖子內容..."
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:50
 msgid "状态:"
-msgstr ""
+msgstr "狀態:"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:61
 msgid "排序字段:"
-msgstr ""
+msgstr "排序字段:"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:72
 msgid "顺序:"
-msgstr ""
+msgstr "順序:"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:74
 msgid "降序"
-msgstr ""
+msgstr "降序"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:75
 msgid "升序"
-msgstr ""
+msgstr "升序"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:80
 msgid "每页数量:"
-msgstr ""
+msgstr "每頁數量:"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:92
 msgid "应用筛选"
-msgstr ""
+msgstr "應用篩選"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:106
 msgid "内容"
-msgstr ""
+msgstr "內容"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:107
 msgid "标签"
-msgstr ""
+msgstr "標籤"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:108
 msgid "数据"
-msgstr ""
+msgstr "數據"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:109
 msgid "操作"
-msgstr ""
+msgstr "操作"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:114
 msgid "LOADING..."
-msgstr ""
+msgstr "LOADING..."
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:125
 msgid "无数据或请求失败"
-msgstr ""
+msgstr "無數據或請求失敗"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:126
 msgid "没有找到符合条件的帖子"
-msgstr ""
+msgstr "沒有找到符合條件的帖子"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:127
 msgid "无标签"
-msgstr ""
+msgstr "無標籤"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:129
 msgid "移入回收站"
-msgstr ""
+msgstr "移入回收站"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:130
 msgid "恢复"
-msgstr ""
+msgstr "恢復"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:131
 msgid "发布"
-msgstr ""
+msgstr "發佈"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:132
 msgid "永久删除"
-msgstr ""
+msgstr "永久刪除"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:133
 msgid "确定要将该帖子移入回收站吗？"
-msgstr ""
+msgstr "確定要將該帖子移入回收站嗎？"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:134
 msgid "确定要恢复该帖子吗？"
-msgstr ""
+msgstr "確定要恢復該帖子嗎？"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:135
 msgid "确定要发布该帖子吗？"
-msgstr ""
+msgstr "確定要發佈該帖子嗎？"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:136
 msgid "警告：此操作将永久删除该帖子且无法恢复，确定要继续吗？"
-msgstr ""
+msgstr "警告：此操作將永久刪除該帖子且無法恢復，確定要繼續嗎？"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:137
 msgid "操作成功！"
-msgstr ""
+msgstr "操作成功！"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:138
 msgid "操作失败："
-msgstr ""
+msgstr "操作失敗："
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:139
 msgid "未知错误"
-msgstr ""
+msgstr "未知錯誤"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:140
 msgid "操作请求失败"
-msgstr ""
+msgstr "操作請求失敗"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:141
 msgid "帖子已永久删除！"
-msgstr ""
+msgstr "帖子已永久刪除！"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:142
 msgid "删除请求失败"
-msgstr ""
+msgstr "刪除請求失敗"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:143
 msgid "错误: "
-msgstr ""
+msgstr "錯誤: "
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:144
 #, php-format
 msgid "共 %s 个帖子"
-msgstr ""
+msgstr "共 %s 個帖子"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:145
 #, php-format
 msgid "当前显示: %s - %s"
-msgstr ""
+msgstr "當前顯示: %s - %s"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:146
 #, php-format
 msgid "(共 %s 页)"
-msgstr ""
+msgstr "(共 %s 頁)"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:147
 msgid "« 上一页"
-msgstr ""
+msgstr "« 上一頁"
 
 #: patch-flow-hub-post/templates/subpage-hub-posts.php:148
 msgid "下一页 »"
-msgstr ""
+msgstr "下一頁 »"
 
 #: plugin-functions.php:24
 msgid "Composer 依赖"
-msgstr ""
+msgstr "Composer 依賴"
 
 #: plugin-functions.php:25
 msgid "framework-required 组件"
-msgstr ""
+msgstr "framework-required 組件"
 
 #: plugin-functions.php:26
 msgid "basic-optimize 组件"
-msgstr ""
+msgstr "basic-optimize 組件"
 
 #: plugin-functions.php:49
 msgid "AIYA-Optimize 插件加载失败：缺少必要依赖文件，插件已自动停用。"
-msgstr ""
+msgstr "AIYA-Optimize 插件加載失敗：缺少必要依賴文件，插件已自動停用。"
 
 #: plugin-functions.php:51
 msgid "缺少依赖："
-msgstr ""
+msgstr "缺少依賴："
 
 #: sponsor-order-compat/setup.php:133
 msgid "支付宝 扫码支付"
-msgstr ""
+msgstr "支付寶 掃碼支付"
 
 #: sponsor-order-compat/setup.php:133
 msgid "微信 扫码支付"
-msgstr ""
+msgstr "微信 掃碼支付"
 
 #: sponsor-order-compat/setup.php:133
 msgid "USDT(TRC20) 钱包"
-msgstr ""
+msgstr "USDT(TRC20) 錢包"
 
 #: sponsor-order-compat/setup.php:137
 msgid "去购买"
-msgstr ""
+msgstr "去購買"
 
 #: sponsor-order-compat/setup.php:138
 msgid "等待三方支付接口回调，稍后并刷新页面即可查看订阅状态"
-msgstr ""
+msgstr "等待三方支付接口回調，稍後並刷新頁面即可查看訂閱狀態"
 
 #: sponsor-order-compat/templates/done-acknow.php:40
 msgid "请勿关闭此页面"
-msgstr ""
+msgstr "請勿關閉此頁面"
 
 #: sponsor-order-compat/templates/done-acknow.php:44
 msgid "订阅确认"
-msgstr ""
+msgstr "訂閱確認"
 
 #: sponsor-order-compat/templates/done-acknow.php:45
 msgid "系统至多需要 3-5 分钟确认并为您激活账号订阅，稍后并返回刚才的页面即可查看订单记录。"
-msgstr ""
+msgstr "系統至多需要 3-5 分鐘確認併為您激活賬號訂閱，稍後並返回剛才的頁面即可查看訂單記錄。"
 
 #: sponsor-order-compat/templates/done-acknow.php:46
 msgid "如果超出此时间账号订阅未被激活（掉单），请将以下单据信息发送给管理员进行手动激活。"
-msgstr ""
+msgstr "如果超出此時間賬號訂閱未被激活（掉單），請將以下單據信息發送給管理員進行手動激活。"
 
 #: sponsor-order-compat/templates/send-submit.php:26
 msgid "正在跳转到第三方支付..."
-msgstr ""
+msgstr "正在跳轉到第三方支付..."

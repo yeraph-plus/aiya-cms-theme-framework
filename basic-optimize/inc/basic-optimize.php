@@ -101,9 +101,11 @@ class AYA_Plugin_Optimize
             add_filter('request', function ($query) {
 
                 if (isset($query['feed']) && !isset($query['post_type'])) {
-
-                    $query['post_type'] = array($GLOBALS['aya_post_type']);
+                    $post_types = get_post_types(array('public' => true), 'names');
+                    unset($post_types['attachment']);
+                    $query['post_type'] = $post_types;
                 }
+
                 return $query;
             });
             //在feed中加入查看全文链接
