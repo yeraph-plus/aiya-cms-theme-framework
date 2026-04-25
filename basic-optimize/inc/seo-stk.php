@@ -15,7 +15,6 @@ if (!defined('ABSPATH'))
  * @version 1.4
  **/
 
-//TODO 优化SEO功能
 class AYA_Plugin_Head_SEO
 {
     public $seo_action;

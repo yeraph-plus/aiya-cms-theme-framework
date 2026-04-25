@@ -5,7 +5,17 @@ if (!function_exists('add_action')) {
 }
 
 //加载 Composer 依赖
-include_once (__DIR__) . '/vendor/autoload.php';
+if (!is_file(AYA_PATH . '/plugins/vendor/autoload.php')) {
+    if (!is_admin()) {
+        $error_title = __('AIYA-CMS 依赖检查', 'aiya-cms');
+        $error_msg = __('未找到 Composer 的自动加载文件，请在主题 <code>./plugins</code> 目录下运行 <code>composer install</code> 安装依赖。', 'aiya-cms');
+
+        wp_die($error_msg, $error_title, ['response' => 500]);
+    }
+}
+
+//加载
+require_once AYA_PATH . '/plugins/vendor/autoload.php';
 
 /*
  * ------------------------------------------------------------------------------

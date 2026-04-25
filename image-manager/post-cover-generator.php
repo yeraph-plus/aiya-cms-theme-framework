@@ -59,12 +59,12 @@ function aya_image_manager_generate_cover_local(array $args = [])
     $comp_args = [
         'width' => 800,
         'height' => 450,
-        'font_file' => aya_image_manager_font_file_path('bold'),
+        'font_file' => aya_image_manager_font_file_path(),
         'font_size' => 54,
         'max_chars' => 15,
         'line_spacing' => 12,
         'overlay_opacity' => 30,
-        'pattern_material_path' => get_template_directory() . '/assets/material',
+        'pattern_material_path' => aya_image_manager_pattern_material_path(),
     ];
 
     $defaults = [
@@ -133,34 +133,38 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
             : trailingslashit(WP_CONTENT_URL) . ltrim($thumb_meta, '/');
     }
 
-    echo '<div id="aya-generate-cover-box">';
-    echo '<div id="aya-cover-preview">';
-
-    if (is_string($cover_url) && $cover_url !== '') {
-        echo '<img src="' . esc_url($cover_url) . '" style="width:100%;height:auto;" />';
-        echo '<p class="description">' . esc_html__('为文章生成封面', 'aiya-framework') . '</p>';
-    }
-    echo '</div>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('封面模式', 'aiya-framework') . '</label>';
-    echo '<select id="aya-cover-model" style="width:100%;">';
-    echo '<option value="photo">' . esc_html__('使用封面', 'aiya-framework') . '</option>';
-    echo '<option value="pattern">' . esc_html__('图案生成', 'aiya-framework') . '</option>';
-    echo '</select></p>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('标题', 'aiya-framework') . '</label>';
-    echo '<input type="text" id="aya-cover-title" value="' . esc_attr(get_the_title($post->ID)) . '" style="width:100%;" /></p>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('背景色', 'aiya-framework') . '</label>';
-    echo '<input type="text" id="aya-cover-bg-color" value="" style="width:100%;" /></p>';
-    echo '<p><label style="display:block;margin-bottom:4px;">' . esc_html__('标题颜色', 'aiya-framework') . '</label>';
-    echo '<input type="text" id="aya-cover-title-color" value="" style="width:100%;" /></p>';
-    echo '<p><button type="button" class="button button-primary" id="aya-cover-generate-btn">' . esc_html__('生成封面', 'aiya-framework') . '</button></p>';
-    echo '<div id="aya-cover-status" style="margin-bottom:8px;"></div>';
-    echo '</div>';
 ?>
+    <div id="aya-generate-cover-box">
+        <div id="aya-cover-preview">
+
+            <?php if (is_string($cover_url) && $cover_url !== '') : ?>
+                <img src="' . esc_url($cover_url) . '" style="width:100%;height:auto;" />
+                <p class="description"><?php _e('为文章生成封面', 'aiya-framework'); ?></p>
+            <?php endif; ?>
+        </div>
+        <p><label style="display:block;margin-bottom:4px;"><?php _e('封面模式', 'aiya-framework'); ?></label>
+            <select id="aya-cover-model" style="width:100%;">
+                <option value="photo"><?php _e('使用封面', 'aiya-framework'); ?></option>
+                <option value="pattern"><?php _e('图案生成', 'aiya-framework'); ?></option>
+            </select>
+        </p>
+        <p><label style="display:block;margin-bottom:4px;"><?php _e('标题', 'aiya-framework'); ?></label>
+            <input type="text" id="aya-cover-title" value="' . esc_attr(get_the_title($post->ID)) . '" style="width:100%;" />
+        </p>
+        <p><label style="display:block;margin-bottom:4px;"><?php _e('背景色', 'aiya-framework'); ?></label>
+            <input type="text" id="aya-cover-bg-color" value="" style="width:100%;" />
+        </p>
+        <p><label style="display:block;margin-bottom:4px;"><?php _e('标题颜色', 'aiya-framework'); ?></label>
+            <input type="text" id="aya-cover-title-color" value="" style="width:100%;" />
+        </p>
+        <p><button type="button" class="button button-primary" id="aya-cover-generate-btn"><?php _e('生成封面', 'aiya-framework'); ?></button></p>
+        <div id="aya-cover-status" style="margin-bottom:8px;"></div>
+    </div>
     <script>
         jQuery(function($) {
             $('#aya-cover-generate-btn').on('click', function(e) {
                 e.preventDefault();
-                $('#aya-cover-status').text(__('正在生成...', 'aiya-framework'));
+                $('#aya-cover-status').text(_e('正在生成...', 'aiya-framework'));
 
                 $.post(ajaxurl, {
                     action: 'aya_image_manager_generate_cover',
@@ -172,7 +176,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
                     title_color: $('#aya-cover-title-color').val()
                 }).done(function(res) {
                     if (!res || !res.success) {
-                        const msg = (res && res.data && res.data.message) ? res.data.message : __('生成失败', 'aiya-framework');
+                        const msg = (res && res.data && res.data.message) ? res.data.message : _e('生成失败', 'aiya-framework');
                         $('#aya-cover-status').text(msg);
                         return;
                     }
@@ -182,7 +186,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
                         $('#aya-cover-preview').html('<img src="' + res.data.cover_url + '" style="width:100%;height:auto;" />');
                     }
                 }).fail(function() {
-                    $('#aya-cover-status').text(__('请求失败', 'aiya-framework'));
+                    $('#aya-cover-status').text(_e('请求失败', 'aiya-framework'));
                 });
             });
         });

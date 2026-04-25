@@ -61,6 +61,13 @@ aya_add_plugin_opt(
         'default' => '96',
     ],
     [
+        'title' => __('字体文件', 'aiya-framework'),
+        'desc' => __('封面生成或文本水印，需要用到的字体文件', 'aiya-framework'),
+        'id' => 'site_plugin_image_font_file',
+        'type' => 'upload',
+        'default' => '',
+    ],
+    [
         'title' => __('水印开关', 'aiya-framework'),
         'desc' => __('使用图片或文本为图片叠加水印', 'aiya-framework'),
         'id' => 'site_plugin_image_watermark_mode',
@@ -94,23 +101,10 @@ aya_add_plugin_opt(
     ],
     [
         'title' => __('水印图片文件', 'aiya-framework'),
-        'desc' => __('如果使用图片创建水印，需要上传图片文件（使用绝对路径）', 'aiya-framework'),
+        'desc' => __('如果使用图片创建水印，需要上传图片文件', 'aiya-framework'),
         'id' => 'site_plugin_image_watermark_image_file',
-        'type' => 'text',
+        'type' => 'upload',
         'default' => '',
-    ],
-    [
-        'title' => __('水印字体文件', 'aiya-framework'),
-        'desc' => __('如果使用文本创建水印，需要上传字体文件（使用绝对路径）', 'aiya-framework'),
-        'id' => 'site_plugin_image_watermark_font_file',
-        'type' => 'select',
-        'sub' => [
-            'light' => 'Light',
-            'regular' => 'Regular',
-            'medium' => 'Medium',
-            'bold' => 'Bold',
-        ],
-        'default' => 'regular',
     ],
     [
         'title' => __('水印文本', 'aiya-framework'),
@@ -184,30 +178,36 @@ function aya_image_manager_save_format(string $source_path = ''): string
     return $format;
 }
 
-// 转换水印字体文件的路径参数
-function aya_image_manager_font_file_path(string $font_file = ''): string
+// 字体文件的路径参数
+function aya_image_manager_font_file_path()
 {
-    if (empty($font_file)) {
-        $font_file = aya_plugin_opt('site_plugin_image_watermark_font_file');
+    $font_file_path = aya_plugin_opt('site_plugin_image_font_file');
+    $font_file_path = aya_local_path_with_url($font_file_path, true);
+
+    if (!empty($font_file_path) && !is_file($font_file_path)) {
+        return $font_file_path;
     }
 
-    $font_file = str_replace(
-        [
-            'light',
-            'regular',
-            'medium',
-            'bold'
-        ],
-        [
-            'AlibabaPuHuiTi-3-45-Light.otf',
-            'AlibabaPuHuiTi-3-55-Regular.otf',
-            'AlibabaPuHuiTi-3-65-Medium.otf',
-            'AlibabaPuHuiTi-3-85-Bold.otf'
-        ],
-        $font_file
-    );
+    return get_template_directory() . '/assets/font/AlibabaPuHuiTi-3-65-Medium.otf';
+}
 
-    return get_template_directory() . '/assets/font/' . $font_file;
+// 图片水印文件的路径参数
+function aya_image_manager_watermark_image_file_path()
+{
+    $watermark_png_path = aya_plugin_opt('site_plugin_image_watermark_image_file');
+    $watermark_png_path = aya_local_path_with_url($watermark_png_path, true);
+
+    if (!empty($watermark_png_path) && is_file($watermark_png_path)) {
+        return $watermark_png_path;
+    }
+
+    return get_template_directory() . '/assets/image/logo.png';
+}
+
+// 素材文件的路径参数
+function aya_image_manager_pattern_material_path()
+{
+    return get_template_directory() . '/assets/material';
 }
 
 /*
@@ -366,7 +366,7 @@ function aya_image_manager_build_watermark_spec(): AYA_Image_Watermark_Spec
         'position' => aya_plugin_opt('site_plugin_image_watermark_position'),
         'font_file' => aya_image_manager_font_file_path(),
         'text' => aya_plugin_opt('site_plugin_image_watermark_text'),
-        'image_file' => aya_plugin_opt('site_plugin_image_watermark_image_file'),
+        'image_file' => aya_image_manager_watermark_image_file_path(),
         'font_size' => aya_plugin_opt('site_plugin_image_watermark_font_size'),
         'opacity' => aya_plugin_opt('site_plugin_image_watermark_opacity'),
         //'offset_x' => 15,
