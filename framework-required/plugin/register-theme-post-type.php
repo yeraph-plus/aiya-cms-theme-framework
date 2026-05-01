@@ -44,7 +44,10 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
             $public = isset($type_args['public']) ? (bool) $type_args['public'] : true;
             $has_archive = isset($type_args['has_archive']) ? $type_args['has_archive'] : true;
             $query_var = array_key_exists('query_var', $type_args) ? $type_args['query_var'] : true;
-            $supports = isset($type_args['supports']) && is_array($type_args['supports']) ? $type_args['supports'] : array('editor', 'author', 'title', 'custom-fields', 'comments');
+
+            // 支持的功能
+            $supports = array('editor', 'author', 'title', 'custom-fields', 'comments');
+
             $rewrite = false;
 
             if ($public) {
@@ -128,8 +131,8 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
                 return $posts;
             }
 
-            $stickies = array();
-            $non_stickies = array();
+            $stickies = [];
+            $non_stickies = [];
 
             foreach ($posts as $post) {
                 if (in_array($post->ID, $sticky_posts, true)) {
@@ -138,6 +141,38 @@ class AYA_Plugin_Register_Post_Type extends AYA_Framework_Setup
                     $non_stickies[] = $post;
                 }
             }
+
+            if (is_user_logged_in()) {
+                $current_user_id = get_current_user_id();
+                $query_author_id = (int) $query->get('author');
+
+                if ($query_author_id === $current_user_id) {
+                    $non_published_posts = get_posts(array(
+                        'post_type' => $type,
+                        'post_status' => array('draft', 'pending', 'future', 'private', 'trash'),
+                        'author' => $current_user_id,
+                        'posts_per_page' => -1,
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                        'fields' => 'all',
+                    ));
+
+                    if (!empty($non_published_posts)) {
+                        $existing_post_ids = array_map(function ($item) {
+                            return (int) $item->ID;
+                        }, $posts);
+
+                        $non_published_posts = array_values(array_filter($non_published_posts, function ($item) use ($existing_post_ids) {
+                            return !in_array((int) $item->ID, $existing_post_ids, true);
+                        }));
+
+                        if (!empty($non_published_posts)) {
+                            $posts = array_merge($non_published_posts, $posts);
+                        }
+                    }
+                }
+            }
+
             if (! empty($stickies)) {
                 $posts = array_merge($stickies, $non_stickies);
             }

@@ -30,7 +30,7 @@ class AYA_Plugin_PHP_Env_Check
 
         if (version_compare($php_version, $php_last_version, '<')) {
             //提示信息
-            $message = sprintf(__('您正在使用过时的PHP版本<code>%s</code>， AIYA-Framework 拓展 主题需要PHP版本大于<code>%s</code>才能完整使用全部功能，请升级PHP版本。', 'aiya-framework'), $php_version, $php_last_version);
+            $message = sprintf(__('您正在使用过时的PHP版本 %s ， AIYA-Framework 拓展 主题需要PHP版本大于 %s 才才能完整使用全部功能，请升级PHP版本。', 'aiya-framework'), $php_version, $php_last_version);
 
             add_action('admin_notices', function () use ($message) {
                 echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($message) . '</p></div>';

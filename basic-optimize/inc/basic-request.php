@@ -160,6 +160,7 @@ class AYA_Plugin_Request
 
         //首页循环
         if (is_home()) {
+            $post_types = [];
             //添加自定义类型显示
             if ($options['query_post_type_var'] == true) {
                 // 替换数组到全部类类型
@@ -169,8 +170,8 @@ class AYA_Plugin_Request
                 unset($post_types['page']);
             }
             // 排除方法
-            $rule_home_post = array();
-            $rule_home_cat = array();
+            $rule_home_post = [];
+            $rule_home_cat = [];
             // 排除分类
             if ($options['query_ignore_category'] != '') {
                 //重建数组

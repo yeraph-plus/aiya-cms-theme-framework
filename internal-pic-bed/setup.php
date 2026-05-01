@@ -217,10 +217,6 @@ class AYA_SimplePicBed
 
             $real_mime = $finfo ? finfo_file($finfo, $file_tmp_name) : false;
 
-            if ($finfo) {
-                finfo_close($finfo);
-            }
-
             if (!$real_mime && function_exists('mime_content_type')) {
                 $real_mime = mime_content_type($file_tmp_name);
             }

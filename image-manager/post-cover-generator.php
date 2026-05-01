@@ -133,6 +133,14 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
             : trailingslashit(WP_CONTENT_URL) . ltrim($thumb_meta, '/');
     }
 
+    $the_title = get_the_title($post->ID);
+
+    // 清理标题，移除括号、特殊字符和空格
+    if (is_string($the_title) && $the_title !== '') {
+        $the_title = preg_replace('/（[^）]*）|\([^\)]*\)|\[[^\]]*\]|【[^】]*】|\{[^\}]*\}|<[^>]*>/u', '', $the_title);
+        $the_title = preg_replace('/[\p{P}\p{S}\s]+/u', '', (string) $the_title);
+        $the_title = is_string($the_title) ? $the_title : '';
+    }
 ?>
     <div id="aya-generate-cover-box">
         <div id="aya-cover-preview">
@@ -149,7 +157,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
             </select>
         </p>
         <p><label style="display:block;margin-bottom:4px;"><?php _e('标题', 'aiya-framework'); ?></label>
-            <input type="text" id="aya-cover-title" value="' . esc_attr(get_the_title($post->ID)) . '" style="width:100%;" />
+            <input type="text" id="aya-cover-title" value="<?php echo esc_attr($the_title) ?>'" style="width:100%;" />
         </p>
         <p><label style="display:block;margin-bottom:4px;"><?php _e('背景色', 'aiya-framework'); ?></label>
             <input type="text" id="aya-cover-bg-color" value="" style="width:100%;" />
@@ -164,7 +172,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
         jQuery(function($) {
             $('#aya-cover-generate-btn').on('click', function(e) {
                 e.preventDefault();
-                $('#aya-cover-status').text(_e('正在生成...', 'aiya-framework'));
+                $('#aya-cover-status').text('<?php _e('正在生成...', 'aiya-framework'); ?>');
 
                 $.post(ajaxurl, {
                     action: 'aya_image_manager_generate_cover',
@@ -176,7 +184,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
                     title_color: $('#aya-cover-title-color').val()
                 }).done(function(res) {
                     if (!res || !res.success) {
-                        const msg = (res && res.data && res.data.message) ? res.data.message : _e('生成失败', 'aiya-framework');
+                        const msg = (res && res.data && res.data.message) ? res.data.message : '<?php _e('生成失败', 'aiya-framework'); ?>';
                         $('#aya-cover-status').text(msg);
                         return;
                     }
@@ -186,7 +194,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
                         $('#aya-cover-preview').html('<img src="' + res.data.cover_url + '" style="width:100%;height:auto;" />');
                     }
                 }).fail(function() {
-                    $('#aya-cover-status').text(_e('请求失败', 'aiya-framework'));
+                    $('#aya-cover-status').text('<?php _e('请求失败', 'aiya-framework'); ?>');
                 });
             });
         });
