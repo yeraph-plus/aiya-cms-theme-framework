@@ -83,13 +83,6 @@ $AYF_OPTIMIZE_FIELDS = [
         'default' => false,
     ],
     [
-        'title' => __('禁用字体和语言包组件', 'aiya-framework'),
-        'desc' => __('禁用 WP 内置的翻译组件，并禁用语言包文件加载', 'aiya-framework'),
-        'id' => 'disable_locale_rtl',
-        'type' => 'switch',
-        'default' => false,
-    ],
-    [
         'title' => __('禁用嵌入功能', 'aiya-framework'),
         'desc' => __('禁用 WP 内置的嵌入功能（oEmbed），移除 [code]<head>[/code] 标签中嵌入的功能组件', 'aiya-framework'),
         'id' => 'disable_head_oembed',
@@ -178,13 +171,6 @@ $AYF_OPTIMIZE_FIELDS = [
         'title' => __('禁用自动保存', 'aiya-framework'),
         'desc' => __('禁用 WP 编辑器的自动保存功能', 'aiya-framework'),
         'id' => 'remove_editor_autosave',
-        'type' => 'switch',
-        'default' => false,
-    ],
-    [
-        'title' => __('后台页面设置为中文', 'aiya-framework'),
-        'desc' => __('适配一些外贸站点和国内站点，将后台页面语言强制替换为 [code]zh_CN[/code][br/]*此选项不是翻译功能，只是为了去除浏览器的翻译页面提示', 'aiya-framework'),
-        'id' => 'admin_page_locale_cn',
         'type' => 'switch',
         'default' => false,
     ],

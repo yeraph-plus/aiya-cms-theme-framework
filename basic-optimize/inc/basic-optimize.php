@@ -123,39 +123,6 @@ class AYA_Plugin_Optimize
             remove_action('opml_head', 'the_generator');
             remove_action('app_head', 'the_generator');
         }
-        //禁用字体和语言包加载
-        if ($options['disable_locale_rtl'] == true) {
-            //移除 front 
-            add_action('init', function () {
-                global $wp_rewrite;
-                $wp_rewrite->front = null;
-            });
-            //不加载语言包
-            add_filter('language_attributes', function ($language_attributes) {
-                $locale = get_locale();
-                $attributes = [];
-
-                if (!empty($language_attributes)) {
-                    $attributes[] = trim((string) $language_attributes);
-                }
-
-                if (function_exists('is_rtl') && is_rtl()) {
-                    $attributes[] = 'dir="rtl"';
-                }
-
-                if ($locale) {
-                    if (get_option('html_type') == 'text/html') {
-                        $attributes[] = "lang=\"$locale\"";
-                    }
-
-                    if (get_option('html_type') != 'text/html') {
-                        $attributes[] = "xml:lang=\"$locale\"";
-                    }
-                }
-
-                return implode(' ', $attributes);
-            });
-        }
         //禁用 oEmbed
         if ($options['disable_head_oembed'] == true) {
             //移除json+oembed
@@ -293,16 +260,7 @@ class AYA_Plugin_Optimize
             define('WP_POST_REVISIONS', false);
             */
             //设置修订版本保存个数0
-            add_filter('wp_revisions_to_keep', function ($num, $post) {
-                return 0;
-            }, 10, 2);
-        }
-        //强制locale加载为中文
-        if ($options['admin_page_locale_cn'] == true) {
-            add_filter('locale', function ($locale) {
-                if (is_admin()) $locale = 'zh_CN';
-                return $locale;
-            });
+            add_filter('wp_revisions_to_keep', '__return_zero', 10, 2);
         }
         //启用WP自带的WebP支持
         if ($options['add_upload_webp'] == true) {
@@ -442,10 +400,10 @@ class AYA_Plugin_Optimize
             //配置favicon.ico
             $head .= '<link rel="icon" type="image/png" href="' . $favicon_url . '" />' . "\n";
             $head .= '<meta name="msapplication-TileColor" content="#ffffff">' . "\n";
+            $head .= '<meta name="mobile-web-app-capable" content="yes">' . "\n";
             $head .= '<meta name="msapplication-TileImage" content="' . $favicon_url . '">' . "\n";
             $head .= '<link rel="apple-touch-icon" href="' . $favicon_url . '" />' . "\n";
             $head .= '<meta name="apple-mobile-web-app-title" content="' . get_bloginfo('name') . '">' . "\n";
-            $head .= '<meta name="apple-mobile-web-app-capable" content="yes">' . "\n";
             $head .= '<meta name="apple-mobile-web-app-status-bar-style" content="default">' . "\n";
 
             echo $head;

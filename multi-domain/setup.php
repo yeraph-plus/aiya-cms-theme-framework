@@ -34,6 +34,21 @@ aya_add_plugin_opt(
 
 add_action('template_redirect', 'aya_multi_domain_start_buffer', 0);
 
+function aya_multi_domain_normalize_domain($domain)
+{
+    if (!is_string($domain) || $domain === '') {
+        return '';
+    }
+
+    $domain = strtolower(trim($domain));
+    $domain = preg_replace('#^https?:\\/\\/#i', '', $domain);
+    $domain = preg_replace('#^https?://#i', '', $domain);
+    $domain = preg_replace('#/.*$#', '', $domain);
+    $domain = preg_replace('/:\\d+$/', '', $domain);
+
+    return is_string($domain) ? $domain : '';
+}
+
 function aya_multi_domain_split($key, $default = [])
 {
     $val = function_exists('aya_plugin_opt') ? aya_plugin_opt($key) : '';
@@ -49,8 +64,8 @@ function aya_multi_domain_get_current_host()
     if (empty($_SERVER['HTTP_HOST']) || !is_string($_SERVER['HTTP_HOST'])) {
         return '';
     }
-    $host = trim($_SERVER['HTTP_HOST']);
-    return preg_replace('/:\d+$/', '', $host);
+
+    return aya_multi_domain_normalize_domain($_SERVER['HTTP_HOST']);
 }
 
 function aya_multi_domain_get_allowed_domains()
@@ -62,13 +77,7 @@ function aya_multi_domain_get_allowed_domains()
 
     $normalized = [];
     foreach ($domains as $domain) {
-        if (!is_string($domain) || $domain === '') {
-            continue;
-        }
-        $domain = strtolower(trim($domain));
-        $domain = preg_replace('#^https?://#i', '', $domain);
-        $domain = preg_replace('#/.*$#', '', $domain);
-        $domain = preg_replace('/:\d+$/', '', $domain);
+        $domain = aya_multi_domain_normalize_domain($domain);
         if ($domain !== '') {
             $normalized[$domain] = true;
         }
@@ -83,7 +92,7 @@ function aya_multi_domain_start_buffer()
         return;
     }
 
-    $current_host = strtolower(aya_multi_domain_get_current_host());
+    $current_host = aya_multi_domain_get_current_host();
     if ($current_host === '') {
         return;
     }
@@ -98,8 +107,8 @@ function aya_multi_domain_start_buffer()
         return;
     }
 
-    $home_host = parse_url($home_url, PHP_URL_HOST);
-    if (!is_string($home_host) || $home_host === '' || strtolower($home_host) === $current_host) {
+    $home_host = aya_multi_domain_normalize_domain((string) parse_url($home_url, PHP_URL_HOST));
+    if ($home_host === '' || $home_host === $current_host) {
         return;
     }
 
@@ -113,6 +122,13 @@ function aya_multi_domain_start_buffer()
             return $buffer;
         }
 
-        return str_replace($home_url, $target_home_url, $buffer);
+        $replace_map = [
+            $home_url => $target_home_url,
+            untrailingslashit($home_url) => untrailingslashit($target_home_url),
+            str_replace('/', '\\/', $home_url) => str_replace('/', '\\/', $target_home_url),
+            str_replace('/', '\\/', untrailingslashit($home_url)) => str_replace('/', '\\/', untrailingslashit($target_home_url)),
+        ];
+
+        return strtr($buffer, $replace_map);
     });
 }

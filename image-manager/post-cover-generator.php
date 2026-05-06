@@ -146,7 +146,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
         <div id="aya-cover-preview">
 
             <?php if (is_string($cover_url) && $cover_url !== '') : ?>
-                <img src="' . esc_url($cover_url) . '" style="width:100%;height:auto;" />
+                <img src="<?php echo esc_url($cover_url); ?>" style="width:100%;height:auto;" />
                 <p class="description"><?php _e('为文章生成封面', 'aiya-framework'); ?></p>
             <?php endif; ?>
         </div>
