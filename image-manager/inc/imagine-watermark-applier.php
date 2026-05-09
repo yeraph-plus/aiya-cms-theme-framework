@@ -80,6 +80,10 @@ class AYA_Image_Upload_Applier
         $mark = null;
 
         if ($type === 'image') {
+            if ($spec->image_file === '' || !is_file($spec->image_file)) {
+                return $image;
+            }
+
             try {
                 $mark = $this->imagine->open($spec->image_file);
             } catch (Throwable $e) {

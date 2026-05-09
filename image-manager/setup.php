@@ -41,10 +41,11 @@ aya_add_plugin_opt(
         'type' => 'radio',
         'sub' => [
             'off' => __('保持原格式', 'aiya-framework'),
+            'jpg' => __('JPG 格式', 'aiya-framework'),
             'webp' => __('WebP 格式', 'aiya-framework'),
             'avif' => __('AVIF 格式', 'aiya-framework'),
         ],
-        'default' => 'off',
+        'default' => 'jpg',
     ],
     [
         'title' => __('图片最大宽度限制', 'aiya-framework'),
@@ -65,7 +66,7 @@ aya_add_plugin_opt(
         'desc' => __('封面生成或文本水印，需要用到的字体文件', 'aiya-framework'),
         'id' => 'site_plugin_image_font_file',
         'type' => 'upload',
-        'default' => '',
+        'default' => get_template_directory_uri() . '/assets/font/AlibabaPuHuiTi-3-65-Medium.otf',
     ],
     [
         'title' => __('水印开关', 'aiya-framework'),
@@ -104,14 +105,14 @@ aya_add_plugin_opt(
         'desc' => __('如果使用图片创建水印，需要上传图片文件', 'aiya-framework'),
         'id' => 'site_plugin_image_watermark_image_file',
         'type' => 'upload',
-        'default' => '',
+        'default' => get_template_directory_uri() . '/assets/image/default-watermark.png',
     ],
     [
         'title' => __('水印文本', 'aiya-framework'),
         'desc' => __('水印显示的文本', 'aiya-framework'),
         'id' => 'site_plugin_image_watermark_text',
         'type' => 'text',
-        'default' => '',
+        'default' => 'AIYA-CMS 3.0',
     ],
     [
         'title' => __('水印字体大小', 'aiya-framework'),
@@ -169,7 +170,7 @@ function aya_image_manager_save_format(string $source_path = ''): string
 {
     $format = aya_plugin_opt('site_plugin_image_save_format');
 
-    if (empty($format) || !in_array($format, ['webp', 'avif']) || $format === 'off') {
+    if (empty($format) || !in_array($format, ['webp', 'avif', 'jpg']) || $format === 'off') {
         $format =  strtolower(pathinfo($source_path, PATHINFO_EXTENSION));
     }
 
@@ -201,7 +202,7 @@ function aya_image_manager_watermark_image_file_path()
         return $watermark_png_path;
     }
 
-    return get_template_directory() . '/assets/image/logo.png';
+    return '';
 }
 
 // 素材文件的路径参数
@@ -249,9 +250,7 @@ function aya_image_manager_thumb_generate(string $source_path, int $thumb_w, int
         return false;
     }
 
-    $thumb_format = aya_plugin_opt('site_plugin_image_webp_bool') ? 'webp' : 'jpg';
-
-    $dest_path = aya_image_manager_thumb_dest_path($source_path, $thumb_w, $thumb_h, $thumb_format);
+    $dest_path = aya_image_manager_thumb_dest_path($source_path, $thumb_w, $thumb_h);
 
     // 缩略图已存在
     if (is_file($dest_path)) {
@@ -261,7 +260,8 @@ function aya_image_manager_thumb_generate(string $source_path, int $thumb_w, int
     // 生成缩略图
     $generator = new AYA_Image_Thumbnail_Generator();
     // 生成保存参数
-    $save_options = aya_image_manager_save_options($thumb_format);
+    $use_thumb_format = aya_image_manager_save_format($source_path);
+    $save_options = aya_image_manager_save_options($use_thumb_format);
 
     $thumb_local = $generator->generate($source_path, $dest_path, $thumb_w, $thumb_h, $save_options);
 
@@ -297,7 +297,7 @@ function aya_image_relpath_thumb_from_local($thumb_local)
 function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $size_h = 300)
 {
     // 直接删除记录方便刷新缓存
-    //delete_post_meta($post_id, '_aya_thumb');
+    delete_post_meta($post_id, '_aya_thumb');
 
     if ($post_id != 0) {
         // 优先读取 MetaBox 的缩略图缓存
@@ -343,9 +343,43 @@ function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $si
         $rel = aya_image_relpath_thumb_from_local($thumb_local);
 
         if ($rel) {
-            update_post_meta($post_id, '_aya_thumb', $rel);
+            //update_post_meta($post_id, '_aya_thumb', $rel);
         }
     }
+
+    return $thumb_url;
+}
+
+//文章缩略图处理
+function aya_get_thumb($image_url = false, $post_id = 0, $size_w = 400, $size_h = 300)
+{
+    //没有传入图片URL时开始搜寻缩略图
+    if ($image_url == false && $post_id != 0) {
+        // 按文章 ID 读取正文，避免 get_the_content() 回退到全局 $post
+        $post_content = get_post_field('post_content', (int) $post_id);
+        $image_url = aya_match_post_first_image($post_content, false);
+
+        //是否为本站图片
+        if (cur_is_external_url($image_url)) {
+            return $image_url;
+        }
+    }
+
+    // 仍无图则退回到主题默认
+    if ($image_url === false) {
+        // 仍无图则退回到主题默认图
+        $default_thumb = aya_opt('site_default_thumb_upload', 'basic');
+        $image_file = aya_local_path_with_url($default_thumb, true);
+
+        // 直接返回默认图防止被写入记录
+        return aya_local_path_with_url(aya_image_manager_thumb_generate($image_file, $size_w, $size_h), false);
+    }
+
+    // 生成缩略图流程
+    $image_file = aya_local_path_with_url($image_url, true);
+    // 生成缩略图
+    $thumb_local = aya_image_manager_thumb_generate($image_file, $size_w, $size_h);
+    $thumb_url = aya_local_path_with_url($thumb_local, false);
 
     return $thumb_url;
 }
