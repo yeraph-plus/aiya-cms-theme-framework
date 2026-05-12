@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-06T19:18:10+08:00\n"
+"POT-Creation-Date: 2026-05-12T14:05:15+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: aiya-framework\n"
@@ -1628,7 +1628,7 @@ msgid "TLS认证"
 msgstr ""
 
 #: basic-optimize/plugin-config.php:1344
-#: image-manager/setup.php:76
+#: image-manager/setup.php:77
 msgid "禁用"
 msgstr ""
 
@@ -1915,71 +1915,71 @@ msgstr ""
 msgid "文章封面"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:150
+#: image-manager/post-cover-generator.php:154
 msgid "为文章生成封面"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:153
+#: image-manager/post-cover-generator.php:157
 msgid "封面模式"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:155
+#: image-manager/post-cover-generator.php:159
 msgid "使用封面"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:156
+#: image-manager/post-cover-generator.php:160
 msgid "图案生成"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:159
+#: image-manager/post-cover-generator.php:163
 msgid "标题"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:162
+#: image-manager/post-cover-generator.php:166
 msgid "背景色"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:165
+#: image-manager/post-cover-generator.php:169
 msgid "标题颜色"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:168
+#: image-manager/post-cover-generator.php:172
 msgid "生成封面"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:175
+#: image-manager/post-cover-generator.php:179
 msgid "正在生成..."
 msgstr ""
 
-#: image-manager/post-cover-generator.php:187
+#: image-manager/post-cover-generator.php:191
 msgid "生成失败"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:197
+#: image-manager/post-cover-generator.php:201
 msgid "请求失败"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:208
+#: image-manager/post-cover-generator.php:212
 msgid "安全校验失败"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:213
+#: image-manager/post-cover-generator.php:217
 msgid "无权限操作"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:218
+#: image-manager/post-cover-generator.php:222
 msgid "文章不存在"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:261
+#: image-manager/post-cover-generator.php:265
 msgid "封面生成失败"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:265
+#: image-manager/post-cover-generator.php:269
 msgid "封面 URL 解析失败"
 msgstr ""
 
-#: image-manager/post-cover-generator.php:277
+#: image-manager/post-cover-generator.php:281
 msgid "封面已生成"
 msgstr ""
 
@@ -2012,138 +2012,142 @@ msgid "保持原格式"
 msgstr ""
 
 #: image-manager/setup.php:44
-msgid "WebP 格式"
+msgid "JPG 格式"
 msgstr ""
 
 #: image-manager/setup.php:45
+msgid "WebP 格式"
+msgstr ""
+
+#: image-manager/setup.php:46
 msgid "AVIF 格式"
 msgstr ""
 
-#: image-manager/setup.php:50
+#: image-manager/setup.php:51
 msgid "图片最大宽度限制"
 msgstr ""
 
-#: image-manager/setup.php:51
+#: image-manager/setup.php:52
 msgid "图片上传的最大宽度，超过宽度会被缩放，设置为 0 则不限制"
 msgstr ""
 
-#: image-manager/setup.php:57
+#: image-manager/setup.php:58
 msgid "图片保存质量"
 msgstr ""
 
-#: image-manager/setup.php:58
+#: image-manager/setup.php:59
 msgid "图片保存时的质量，范围 0-100"
 msgstr ""
 
-#: image-manager/setup.php:64
+#: image-manager/setup.php:65
 msgid "字体文件"
 msgstr ""
 
-#: image-manager/setup.php:65
+#: image-manager/setup.php:66
 msgid "封面生成或文本水印，需要用到的字体文件"
 msgstr ""
 
-#: image-manager/setup.php:71
+#: image-manager/setup.php:72
 msgid "水印开关"
 msgstr ""
 
-#: image-manager/setup.php:72
+#: image-manager/setup.php:73
 msgid "使用图片或文本为图片叠加水印"
 msgstr ""
 
-#: image-manager/setup.php:77
+#: image-manager/setup.php:78
 msgid "图片"
 msgstr ""
 
-#: image-manager/setup.php:78
+#: image-manager/setup.php:79
 msgid "文本"
 msgstr ""
 
-#: image-manager/setup.php:83
+#: image-manager/setup.php:84
 msgid "水印位置"
 msgstr ""
 
-#: image-manager/setup.php:84
+#: image-manager/setup.php:85
 msgid "水印在图片上的位置"
 msgstr ""
 
-#: image-manager/setup.php:88
+#: image-manager/setup.php:89
 msgid "居中"
 msgstr ""
 
-#: image-manager/setup.php:89
+#: image-manager/setup.php:90
 msgid "居中左侧"
 msgstr ""
 
-#: image-manager/setup.php:90
+#: image-manager/setup.php:91
 msgid "居中右侧"
 msgstr ""
 
-#: image-manager/setup.php:91
+#: image-manager/setup.php:92
 msgid "居中顶部"
 msgstr ""
 
-#: image-manager/setup.php:92
+#: image-manager/setup.php:93
 msgid "居中底部"
 msgstr ""
 
-#: image-manager/setup.php:93
+#: image-manager/setup.php:94
 msgid "顶部右侧"
 msgstr ""
 
-#: image-manager/setup.php:94
+#: image-manager/setup.php:95
 msgid "顶部左侧"
 msgstr ""
 
-#: image-manager/setup.php:95
+#: image-manager/setup.php:96
 msgid "顶部居中"
 msgstr ""
 
-#: image-manager/setup.php:96
+#: image-manager/setup.php:97
 msgid "底部右侧"
 msgstr ""
 
-#: image-manager/setup.php:97
+#: image-manager/setup.php:98
 msgid "底部左侧"
 msgstr ""
 
-#: image-manager/setup.php:98
+#: image-manager/setup.php:99
 msgid "底部居中"
 msgstr ""
 
-#: image-manager/setup.php:103
+#: image-manager/setup.php:104
 msgid "水印图片文件"
 msgstr ""
 
-#: image-manager/setup.php:104
+#: image-manager/setup.php:105
 msgid "如果使用图片创建水印，需要上传图片文件"
 msgstr ""
 
-#: image-manager/setup.php:110
+#: image-manager/setup.php:111
 msgid "水印文本"
 msgstr ""
 
-#: image-manager/setup.php:111
+#: image-manager/setup.php:112
 msgid "水印显示的文本"
 msgstr ""
 
-#: image-manager/setup.php:117
+#: image-manager/setup.php:118
 msgid "水印字体大小"
 msgstr ""
 
-#: image-manager/setup.php:118
+#: image-manager/setup.php:119
 msgid "水印字体的大小"
 msgstr ""
 
-#: image-manager/setup.php:124
+#: image-manager/setup.php:125
 msgid "水印透明度"
 msgstr ""
 
-#: image-manager/setup.php:125
+#: image-manager/setup.php:126
 msgid "水印的透明度，范围 0-100，100 表示完全透明，0 表示完全不透明"
 msgstr ""
 
-#: image-manager/setup.php:398
+#: image-manager/setup.php:432
 msgid "图片处理失败，已取消上传"
 msgstr ""
 
@@ -2608,44 +2612,4 @@ msgstr ""
 
 #: plugin-functions.php:51
 msgid "缺少依赖："
-msgstr ""
-
-#: sponsor-order-compat/setup.php:133
-msgid "支付宝 扫码支付"
-msgstr ""
-
-#: sponsor-order-compat/setup.php:133
-msgid "微信 扫码支付"
-msgstr ""
-
-#: sponsor-order-compat/setup.php:133
-msgid "USDT(TRC20) 钱包"
-msgstr ""
-
-#: sponsor-order-compat/setup.php:137
-msgid "去购买"
-msgstr ""
-
-#: sponsor-order-compat/setup.php:138
-msgid "等待三方支付接口回调，稍后并刷新页面即可查看订阅状态"
-msgstr ""
-
-#: sponsor-order-compat/templates/done-acknow.php:40
-msgid "请勿关闭此页面"
-msgstr ""
-
-#: sponsor-order-compat/templates/done-acknow.php:44
-msgid "订阅确认"
-msgstr ""
-
-#: sponsor-order-compat/templates/done-acknow.php:45
-msgid "系统至多需要 3-5 分钟确认并为您激活账号订阅，稍后并返回刚才的页面即可查看订单记录。"
-msgstr ""
-
-#: sponsor-order-compat/templates/done-acknow.php:46
-msgid "如果超出此时间账号订阅未被激活（掉单），请将以下单据信息发送给管理员进行手动激活。"
-msgstr ""
-
-#: sponsor-order-compat/templates/send-submit.php:26
-msgid "正在跳转到第三方支付..."
 msgstr ""
