@@ -133,7 +133,11 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
             : trailingslashit(WP_CONTENT_URL) . ltrim($thumb_meta, '/');
     }
 
-    $the_title = get_the_title($post->ID);
+    if ($post->post_status === 'auto-draft') {
+        $the_title = '';
+    } else {
+        $the_title = get_the_title($post->ID);
+    }
 
     // 清理标题，移除括号、特殊字符和空格
     if (is_string($the_title) && $the_title !== '') {
@@ -157,7 +161,7 @@ function aya_image_manager_render_cover_metabox(WP_Post $post): void
             </select>
         </p>
         <p><label style="display:block;margin-bottom:4px;"><?php _e('标题', 'aiya-framework'); ?></label>
-            <input type="text" id="aya-cover-title" value="<?php echo esc_attr($the_title) ?>'" style="width:100%;" />
+            <input type="text" id="aya-cover-title" value="<?php echo esc_attr($the_title); ?>" style="width:100%;" />
         </p>
         <p><label style="display:block;margin-bottom:4px;"><?php _e('背景色', 'aiya-framework'); ?></label>
             <input type="text" id="aya-cover-bg-color" value="" style="width:100%;" />

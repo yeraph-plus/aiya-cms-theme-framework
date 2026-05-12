@@ -294,10 +294,10 @@ function aya_image_relpath_thumb_from_local($thumb_local)
 }
 
 //文章缩略图处理
-function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $size_h = 300)
+function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 300, $size_h = 200)
 {
     // 直接删除记录方便刷新缓存
-    delete_post_meta($post_id, '_aya_thumb');
+    // delete_post_meta($post_id, '_aya_thumb');
 
     if ($post_id != 0) {
         // 优先读取 MetaBox 的缩略图缓存
@@ -343,7 +343,7 @@ function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $si
         $rel = aya_image_relpath_thumb_from_local($thumb_local);
 
         if ($rel) {
-            //update_post_meta($post_id, '_aya_thumb', $rel);
+            update_post_meta($post_id, '_aya_thumb', $rel);
         }
     }
 
@@ -351,7 +351,7 @@ function aya_get_post_thumb($image_url = false, $post_id = 0, $size_w = 400, $si
 }
 
 //文章缩略图处理
-function aya_get_thumb($image_url = false, $post_id = 0, $size_w = 400, $size_h = 300)
+function aya_get_thumb($image_url = false, $post_id = 0, $size_w = 1200, $size_h = 800)
 {
     //没有传入图片URL时开始搜寻缩略图
     if ($image_url == false && $post_id != 0) {
